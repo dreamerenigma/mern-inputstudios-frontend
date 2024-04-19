@@ -23,11 +23,12 @@ export default function UpdatePost() {
    const navigate = useNavigate();
    const { postId } = useParams();
    const { currentUser } = useSelector((state) => state.user);
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
 
    useEffect(() => {
       try {
          const fetchPost = async () => {
-            const res = await fetch(`/api/post/getposts?postId=${postId}`);
+            const res = await fetch(`${SERVER_URL}/api/post/getposts?postId=${postId}`);
             const data = await res.json();
             if (!res.ok) {
                console.log(data.message);
@@ -87,7 +88,7 @@ export default function UpdatePost() {
    const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-         const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`, {
+         const res = await fetch(`${SERVER_URL}/api/post/updatepost/${formData._id}/${currentUser._id}`, {
             method: "PUT",
             headers: {
                "Content-Type": "application/json",

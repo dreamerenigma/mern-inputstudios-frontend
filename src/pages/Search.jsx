@@ -15,6 +15,7 @@ export default function Search() {
    const [showMore, setShowMore] = useState(false);
    const location = useLocation();
    const navigate = useNavigate();
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
 
    useEffect(() => {
       const urlParams = new URLSearchParams(location.search);
@@ -33,7 +34,7 @@ export default function Search() {
       const fetchPosts = async () => {
          setLoading(true);
          const searchQuery = urlParams.toString();
-         const res = await fetch(`/api/post/getposts?${searchQuery}`);
+         const res = await fetch(`${SERVER_URL}/api/post/getposts?${searchQuery}`);
          if (!res.ok) {
             setLoading(false);
             return;
@@ -82,7 +83,7 @@ export default function Search() {
       const urlParams = new URLSearchParams(location.search);
       urlParams.set("startIndex", startIndex);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/post/getposts?${searchQuery}`);
+      const res = await fetch(`${SERVER_URL}/api/post/getposts?${searchQuery}`);
       if (!res.ok) {
          return;
       }

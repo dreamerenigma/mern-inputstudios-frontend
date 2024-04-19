@@ -8,13 +8,13 @@ import {
    signInFailure,
 } from "../redux/user/userSlice";
 import OAuth from "../components/OAuth";
-import { baseUrl } from "../Urls";
 
 export default function SignIn() {
    const [formData, setFormData] = useState({});
    const { loading, error: errorMessage } = useSelector(state => state.user);
    const dispatch = useDispatch();
    const navigate = useNavigate();
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const handleChange = (e) => {
       setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
    };
@@ -25,7 +25,7 @@ export default function SignIn() {
       }
       try {
          dispatch(signInStart());
-         const res = await fetch(`${baseUrl}/api/auth/signin`, {
+         const res = await fetch(`${SERVER_URL}/api/auth/signin`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),

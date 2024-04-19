@@ -10,6 +10,7 @@ export default function DashSidebar() {
    const dispatch = useDispatch();
    const { currentUser } = useSelector(state => state.user);
    const [tab, setTab] = useState('');
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    
    useEffect(() => {
       const urlParams = new URLSearchParams(location.search);
@@ -21,7 +22,7 @@ export default function DashSidebar() {
 
    const handleSignout = async () => {
       try {
-         const res = await fetch("/api/user/signout", {
+         const res = await fetch(`${SERVER_URL}/api/user/signout`, {
             method: "POST",
          });
          const data = await res.json();

@@ -20,6 +20,7 @@ export default function Header({ languages }) {
    const [searchTerm, setSearchTerm] = useState("");
    const isAdmin = currentUser && currentUser.isAdmin;
    const { currentLanguage } = useSelector((state) => state.language);
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
 
    useEffect(() => {
       const urlParams = new URLSearchParams(location.search);
@@ -31,7 +32,7 @@ export default function Header({ languages }) {
    
    const handleSignout = async () => {
       try {
-         const res = await fetch("/api/user/signout", {
+         const res = await fetch(`${SERVER_URL}/api/user/signout`, {
             method: "POST",
          });
          const data = await res.json();

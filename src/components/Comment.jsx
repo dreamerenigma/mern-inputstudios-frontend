@@ -9,10 +9,12 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
    const [isEditing, setIsEditing] = useState(false);
    const [editedContent, setEditedContent] = useState(comment.content);
    const { currentUser } = useSelector((state) => state.user);
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   
    useEffect(() => {
       const getUser = async () => {
          try {
-            const res = await fetch(`/api/user/${comment.userId}`);
+            const res = await fetch(`${SERVER_URL}/api/user/${comment.userId}`);
             const data = await res.json();
             if (res.ok) {
                setUser(data);
@@ -31,7 +33,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
 
    const handleSave = async () => {
       try {
-         const res = await fetch(`/api/comment/editComment/${comment._id}`, {
+         const res = await fetch(`${SERVER_URL}/api/comment/editComment/${comment._id}`, {
             method: "PUT",
             headers: {
                "Content-Type": "application/json",
@@ -48,6 +50,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
          console.log(error.message);
       }
    };
+
    return (
       <div className="flex p-4 border-b dark:border-gray-600 text-sm">
          <div className="flex-shrink-0 mr-3">

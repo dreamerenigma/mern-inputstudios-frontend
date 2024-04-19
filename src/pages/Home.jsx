@@ -12,10 +12,11 @@ import { BiLogoFigma } from "react-icons/bi";
 export default function Home() {
    const [posts, setPosts] = useState([]);
    const [showScroll, setShowScroll] = useState(false);
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
 
    useEffect(() => {
       const fetchPosts = async () => {
-         const res = await fetch("/api/post/getPosts");
+         const res = await fetch(`${SERVER_URL}/api/post/getPosts`);
          const data = await res.json();
          setPosts(data.posts);
       };
@@ -30,14 +31,14 @@ export default function Home() {
 
    return (
       <div>
-         <div class="relative">
-            <img src="https://i.ibb.co/D83Qdg7/home.jpg" alt="welcome" class="w-full max-h-[450px] h-auto" />
-            <div class="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-center text-white">
-               <h1 class="text-3xl font-bold lg:text-6xl">Welcome to my Blog</h1>
-               <p class="text-xs sm:text-sm mt-5">Here you'll find a variety of articles and tutorials on topics such as web development, software engineering, and programming languages.</p>
+         <div className="relative">
+            <img src="https://i.ibb.co/D83Qdg7/home.jpg" alt="welcome" className="w-full max-h-[450px] h-auto" />
+            <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-center text-white">
+               <h1 className="text-3xl font-bold lg:text-6xl">Welcome to my Blog</h1>
+               <p className="text-xs sm:text-sm mt-5">Here you'll find a variety of articles and tutorials on topics such as web development, software engineering, and programming languages.</p>
                <Link
                   to="/search"
-                  class="text-xs sm:text-sm mt-5 text-teal-500 font-bold hover:underline"
+                  className="text-xs sm:text-sm mt-5 text-teal-500 font-bold hover:underline"
                >
                   View all posts
                </Link>

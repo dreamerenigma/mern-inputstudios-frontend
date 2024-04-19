@@ -21,6 +21,7 @@ export default function CreatePost() {
    const [formData, setFormData] = useState({});
    const [publishError, setPublishError] = useState(null);
    const navigate = useNavigate();
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
 
    const handleUploadFile = async () => {
    try {
@@ -70,7 +71,7 @@ export default function CreatePost() {
    const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-         const res = await fetch("/api/post/create", {
+         const res = await fetch(`${SERVER_URL}/api/post/create`, {
             method: "POST",
             headers: {
                "Content-Type": "application/json",

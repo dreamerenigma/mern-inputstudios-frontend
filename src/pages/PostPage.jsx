@@ -12,12 +12,13 @@ export default function PostPage() {
    const [error, setError] = useState(false);
    const [post, setPost] = useState(null);
    const [recentPosts, setRecentPosts] = useState(null);
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
 
    useEffect(() => {
       const fetchPost = async () => {
          try {
             setLoading(true);
-            const res = await fetch(`/api/post/getposts/?slug=${postSlug}`);
+            const res = await fetch(`${SERVER_URL}/api/post/getposts/?slug=${postSlug}`);
             const data = await res.json();
             if (!res.ok) {
                setError(true);
@@ -40,7 +41,7 @@ export default function PostPage() {
    useEffect(() => {
       try {
          const fetchRecentPosts = async () => {
-            const res = await fetch(`/api/post/getposts?limit=3`);
+            const res = await fetch(`${SERVER_URL}/api/post/getposts?limit=3`);
             const data = await res.json();
             if (res.ok) {
                setRecentPosts(data.posts);

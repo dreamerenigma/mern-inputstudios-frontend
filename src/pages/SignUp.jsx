@@ -8,6 +8,7 @@ export default function SignUp() {
    const [errorMessage, setErrorMessage] = useState(null);
    const [loading, setLoading] = useState(false);
    const navigate = useNavigate();
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const handleChange = (e) => {
       setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
    };
@@ -19,7 +20,7 @@ export default function SignUp() {
       try {
          setLoading(true);
          setErrorMessage(null);
-         const res = await fetch("/api/auth/signup", {
+         const res = await fetch(`${SERVER_URL}/auth/signup`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
