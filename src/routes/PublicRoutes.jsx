@@ -14,6 +14,8 @@ import Workspace from '../pages/Workspace';
 import Projects from '../pages/Projects';
 import PostPage from '../pages/PostPage';
 import Contacts from '../pages/Contacts';
+import ChangePassword from '../pages/ChangePassword';
+import ResetPassword from '../pages/ResetPassword';
 
 export default function PublicRoutes() {
   return (
@@ -33,6 +35,8 @@ export default function PublicRoutes() {
       <Route path="/projects" element={<Projects />} />
       <Route path="/post/:postSlug" element={<PostPage />} />
       <Route path="/contacts" element={<Contacts />} />
+      <Route path="/password/change" element={<ChangePassword />} />
+      <Route path="/password/reset" element={<ResetPassword />} />
     </Routes>
   );
 }
