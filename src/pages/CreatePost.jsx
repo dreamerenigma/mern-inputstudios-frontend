@@ -13,6 +13,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from "react-router-dom";
 import VideoPlayer from "../components/VideoPlayer";
+import { useSelector } from 'react-redux'; 
 
 export default function CreatePost() {
    const [file, setFile] = useState(null);
@@ -22,6 +23,7 @@ export default function CreatePost() {
    const [publishError, setPublishError] = useState(null);
    const navigate = useNavigate();
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const { theme } = useSelector((state) => state.theme); 
 
    const handleUploadFile = async () => {
    try {
@@ -167,15 +169,17 @@ export default function CreatePost() {
                   />
                </div>
             )}
-            <ReactQuill
-               theme="snow"
-               placeholder="Write something..."
-               className="h-72 mb-12"
-               required
-               onChange={(value) => {
-                  setFormData({ ...formData, content: value });
-               }}
-            />
+            <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
+               <ReactQuill
+                  theme="snow"
+                  placeholder="Write something..."
+                  className="h-72 mb-12"
+                  required
+                  onChange={(value) => {
+                     setFormData({ ...formData, content: value });
+                  }}
+               />
+            </div>
             <Button type="submit" gradientDuoTone="purpleToPink">
                Publish
             </Button>
