@@ -18,6 +18,10 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import PrivacyReport from './pages/PrivacyReport';
 import Contacts from './pages/Contacts';
 import TermsOfUse from './pages/TermsOfUse';
+import BrowserWave from './pages/BrowserWave';
+import QuantumEngine from './pages/QuantumEngine';
+import DialogChat from './pages/DialogChat';
+import Workspace from './pages/Workspace';
 
 export default function App() {
   const languages = [
@@ -37,6 +41,10 @@ export default function App() {
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/privacy-report" element={<PrivacyReport />} />
         <Route path="/terms-of-use" element={<TermsOfUse />} />
+        <Route path="/wave" element={<BrowserWave />} />
+        <Route path="/quantum-engine" element={<QuantumEngine />} />
+        <Route path="/dialog-chat" element={<DialogChat />} />
+        <Route path="/workspace" element={<Workspace />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
