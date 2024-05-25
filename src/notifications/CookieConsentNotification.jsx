@@ -21,7 +21,6 @@ const CookieConsentNotification = () => {
          'border-radius': '4px',
          'background-image': 'linear-gradient(68deg, #72be77, #00a0fd)',
          outline: 'none',
-         border: 'none',
          color: 'white',
          'font-size': '14px',
          'font-weight': '500',
