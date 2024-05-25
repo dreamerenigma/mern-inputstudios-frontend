@@ -1,0 +1,42 @@
+/* Media queries */
+@media (min-width: 768px) and (max-width: 859px) {
+  .hidden-in-range {
+    display: none;
+  }
+  .show-in-range {
+    display: block !important;
+  }
+}
+
+@media (max-width: 859px) {
+  .center-text {
+    text-align: center;
+  }
+}
+
+@media (min-width: 860px) {
+  .menu-button,
+  .search-button {
+    display: none;
+  }
+}
+
+@media (min-width: 1080px) {
+  .mx-8-1080 {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
+@media (max-width: 1400px) {
+  .search-button-content span {
+    display: none;
+  }
+  .search-button-text {
+    margin-right: 0;
+  }
+  .username-text,
+  .theme-text {
+    display: none;
+  }
+}

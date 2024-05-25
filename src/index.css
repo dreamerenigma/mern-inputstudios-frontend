@@ -43,3 +43,16 @@ body {
 ul.py-1 {
    padding: 0;
 }
+
+.centered {
+   text-align: center;
+   width: 100%;
+}
+
+.light-theme .ql-editor::before {
+   color: #000;
+}
+
+.dark-theme .ql-editor::before {
+   color: #fff;
+}

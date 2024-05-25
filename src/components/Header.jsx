@@ -1,16 +1,15 @@
-import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
+import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux'; 
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
-import { changeLanguage } from '../redux/language/languageSlice';
-import { Switch } from '@mui/material';
 import { IoCameraOutline } from 'react-icons/io5';
+import CustomTextInput from "./textinput/CustomTextInput";
 
-export default function Header({ languages }) {
+export default function Header() {
    const path = useLocation().pathname;
    const location = useLocation();
    const navigate = useNavigate();
@@ -18,9 +17,11 @@ export default function Header({ languages }) {
    const { currentUser } = useSelector(state => state.user);
    const { theme } = useSelector((state) => state.theme); 
    const [searchTerm, setSearchTerm] = useState("");
+   const [menuOpen, setMenuOpen] = useState(false);
    const isAdmin = currentUser && currentUser.isAdmin;
-   const { currentLanguage } = useSelector((state) => state.language);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+   const [searchVisible, setSearchVisible] = useState(false);
 
    useEffect(() => {
       const urlParams = new URLSearchParams(location.search);
@@ -29,7 +30,7 @@ export default function Header({ languages }) {
          setSearchTerm(searchTermFromUrl);
       }
    }, [location.search]);
-   
+
    const handleSignout = async () => {
       try {
          const res = await fetch(`${SERVER_URL}/api/user/signout`, {
@@ -46,6 +47,23 @@ export default function Header({ languages }) {
       }
    };
 
+   useEffect(() => {
+      const handleResize = () => {
+         setWindowWidth(window.innerWidth);
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      const element = document.querySelector('.mx-auto.flex.flex-wrap.items-center.justify-between');
+      if (element) {
+         element.classList.remove('container');
+      }
+
+      return () => {
+         window.removeEventListener("resize", handleResize);
+      };
+   }, []);
+
    const handleSubmit = (e) => {
       e.preventDefault();
       const urlParams = new URLSearchParams(location.search);
@@ -54,68 +72,126 @@ export default function Header({ languages }) {
       navigate(`/search?${searchQuery}`);
    };
 
-   const handleLanguageChange = (newLanguage) => {
-      dispatch(changeLanguage(newLanguage));
+   const handleClickOutside = (event) => {
+      if (
+         (menuOpen && !event.target.closest(".menu") && !event.target.closest(".search-button")) ||
+         (searchVisible && !event.target.closest(".search-wrapper") && !event.target.closest(".search-button") && !event.target.closest(".search-button-text"))
+      ) {
+         setMenuOpen(false);
+         setSearchVisible(false);
+      }
    };
 
+   const handleButtonClick = (event) => {
+      event.stopPropagation();
+      setMenuOpen(!menuOpen);
+   };
+
+   useEffect(() => {
+      document.addEventListener("click", handleClickOutside);
+      return () => {
+         document.removeEventListener("click", handleClickOutside);
+      };
+   }, [menuOpen, searchVisible]);
+
+   document.addEventListener("DOMContentLoaded", function() {
+      var element = document.querySelector('.mx-auto.flex.flex-wrap.items-center.justify-between');
+      if (element) {
+         element.classList.remove('container');
+      }
+   });
+   
    return (
       <Navbar className="border-b-2">
          <Link
             to="/"
-            className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
+            className={`self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white ${windowWidth >= 1080 ? 'mx-8' : 'mx-0'}`}
          >
-            <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
-               Input Studios
-               </span>
-         </Link>
-         <form onSubmit={handleSubmit}> 
-            <TextInput
-               type="text"
-               placeholder="Search..."
-               rightIcon={AiOutlineSearch}
-               className="hidden lg:inline"
-               value={searchTerm}
-               onChange={(e) => setSearchTerm(e.target.value)}
-            />
-         </form>
-         <Button className="w-12 h-10 lg:hidden flex items-center justify-center" color='gray' pill>
-            <AiOutlineSearch />
-         </Button>
-         <div className="flex gap-2 md:order-2">
-            <div className="flex items-center">
-               <Switch
-                  className="relative"
-                  checked={currentLanguage === 'en'}
-                  onChange={(event) => handleLanguageChange(event.target.checked ? 'en' : 'ru')}
-                  sx={{
-                     '& .MuiSwitch-switchBase.Mui-checked': {
-                        '& .flag-image': {
-                           backgroundImage: 'url(https://i.ibb.co/LtPNm0n/US.png)',
-                        }
-                     },
-                     '& .MuiSwitch-switchBase': {
-                        '& .flag-image': {
-                           backgroundImage: 'url(https://i.ibb.co/489wXn1/RU.png)',
-                        }
-                     },
-                  }}
-               />
-               <span className="flag-image absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full overflow-hidden"></span>
-            </div>
+         <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
+            Input Studios
+         </span>
+      </Link>
+         <div className="flex gap-2">
             <Button
-               className="w-12 h-10 hidden sm:inline"
+               className="w-12 h-10 lg:hidden flex items-center justify-center menu-button border-none"
                color="gray"
                pill
-               onClick={() => dispatch(toggleTheme())}
-            >
-               {theme === "light" ? <FaMoon /> : <FaSun /> }
+               onClick={handleButtonClick}
+               >
+                  {menuOpen ? <AiOutlineClose size={26} /> : <AiOutlineMenu size={26} />}
             </Button>
+            {!searchVisible && window.innerWidth < 860 && (
+               <Button
+                  className="w-12 h-10 flex items-center justify-center search-button-text border-none focus:outline-none focus:ring-0 mr-3"
+                  color="gray"
+                  pill
+                  onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
+               >
+                  <div className="flex items-center search-button-content">
+                     <span className="mr-2">Search</span>
+                     <AiOutlineSearch size={24} style={{ transform: 'rotate(90deg)' }} />
+                  </div>
+               </Button>
+            )}
+            {searchVisible && (
+            <div className="search-wrapper">
+               <form onSubmit={handleSubmit} className="lg:flex-grow">
+                  <CustomTextInput
+                     type="text"
+                     placeholder="Search on InputStudios.com"
+                     leftIcon={<AiOutlineSearch size={22} style={{ transform: 'rotate(90deg)' }} />}
+                     value={searchTerm}
+                     onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+               </form>
+            </div>
+            )}
+         </div>
+         <div className={`flex gap-3 md:order-2 ${windowWidth >= 1080 ? 'mx-8' : 'mx-0'}`}>
+            {!searchVisible && window.innerWidth > 860 && (
+               <Button
+                  className="w-12 h-10 flex items-center justify-center search-button-text border-none focus:outline-none focus:ring-0 mr-5"
+                  color="gray"
+                  pill
+                  onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
+                  style={{ backgroundColor: 'transparent' }}
+               >
+                  <div className="flex items-center search-button-content lg:mr-14">
+                     <span className="mr-2">Search</span>
+                     <AiOutlineSearch size={24} style={{ transform: 'rotate(90deg)' }} />
+                  </div>
+               </Button>
+            )}
+            <div className="flex items-center" onClick={() => dispatch(toggleTheme())}>
+               <Button
+                  className="w-12 h-10 flex items-center justify-center border-none focus:outline-none focus:ring-0"
+                  color="gray"
+                  pill
+                  style={{ backgroundColor: 'transparent' }}
+               >
+                  <div className="flex items-center justify-center cursor-pointer group lg:mr-10">
+                     <span 
+                        className={`mr-2 text-black font-semibold dark:text-[#9CA3AF] text-sm theme-text
+                        ${theme === 'light' ? 'group-hover:text-[#0E7490]' : 'dark:group-hover:text-white'}`}
+                     >
+                        Themes
+                     </span>
+                     {theme === "light" ? 
+                        <FaMoon size={20} className="group-hover:text-[#0E7490]" /> : 
+                        <FaSun size={20} className="group-hover:text-white" style={{ color: '#ffc600' }} />
+                     }
+                  </div>
+               </Button>
+            </div>
             {currentUser ? (
                <Dropdown
                   arrowIcon={false}
                   inline
                   label={
-                     <Avatar alt='user' img={currentUser.profilePicture} rounded />
+                     <div className="flex items-center">
+                        <span className="mr-3 text-sm username-text text-black dark:text-[#9CA3AF]">{currentUser.username}</span>
+                        <Avatar alt='user' img={currentUser.profilePicture} rounded />
+                     </div>
                   }
                >
                   <div className="flex items-center justify-between">
@@ -134,52 +210,51 @@ export default function Header({ languages }) {
                      </span>
                   </div>
                   <Dropdown.Header className="flex items-center gap-2">
-                     <div className="relative">
-                        <Avatar alt='user' img={currentUser.profilePicture} rounded />
-                        <Link to="/dashboard?tab=profile">
-                           <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
-                              <IoCameraOutline className="text-white text-lg" />
-                           </div>
-                        </Link>
-                     </div>
-                     <div>
-                        <span className="block text-sm">{currentUser.username}</span>
-                        <span className="block text-sm font-medium truncate">{currentUser.email}</span>
-                     </div>
+                  <div className="relative">
+                     <Avatar alt='user' img={currentUser.profilePicture} rounded />
+                     <Link to="/dashboard?tab=profile">
+                        <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
+                        <IoCameraOutline className="text-white text-lg" />
+                        </div>
+                     </Link>
+                  </div>
+                  <div>
+                     <span className="block text-sm">{currentUser.username}</span>
+                     <span className="block text-sm font-medium truncate">{currentUser.email}</span>
+                  </div>
                   </Dropdown.Header>
                   {isAdmin && (
-                     <>
-                        <Link to={"/dashboard?tab=dash"}>
-                           <Dropdown.Item>Dashboard</Dropdown.Item>
-                        </Link>
-                        <Dropdown.Divider />
-                     </>
+                  <>
+                     <Link to={"/dashboard?tab=dash"}>
+                        <Dropdown.Item>Dashboard</Dropdown.Item>
+                     </Link>
+                     <Dropdown.Divider />
+                  </>
                   )}
                   <Link to={"/dashboard?tab=profile"}>
-                     <Dropdown.Item>Profile</Dropdown.Item>
+                  <Dropdown.Item>Profile</Dropdown.Item>
                   </Link>
                </Dropdown>
             ) : (
                <Link to="/sign-in">
                   <Button gradientDuoTone="purpleToBlue" outline>
-                     Sign In
+                  Sign In
                   </Button>
                </Link>
             )}
-            <Navbar.Toggle />
          </div>
-         <Navbar.Collapse>
+         <Navbar.Collapse className={`${menuOpen ? "block" : "hidden"} hidden-in-range`}>
             <Navbar.Link active={path === "/"} as={"div"}>
-               <Link to="/">Home</Link>
+               <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
             </Navbar.Link>
             <Navbar.Link active={path === "/about"} as={"div"}>
-               <Link to="/about">About</Link>
+               <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
             </Navbar.Link>
             <Navbar.Link active={path === "/projects"} as={"div"}>
-               <Link to="/projects">Projects</Link>
+               <Link to="/projects" onClick={() => setMenuOpen(false)}>Projects</Link>
             </Navbar.Link>
             <Navbar.Link active={path === "/contacts"} as={"div"}>
-               <Link to="/contacts">Contacts</Link>
+               <Link to="/contacts" onClick={() => setMenuOpen(false)}>Contacts</Link>
             </Navbar.Link>
          </Navbar.Collapse>
       </Navbar>
