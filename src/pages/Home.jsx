@@ -52,32 +52,35 @@ export default function Home() {
                      <p className="text-xs sm:text-sm mt-5">
                         Here you&apos;ll find a variety of articles and tutorials on topics such as web development, software engineering, and programming languages.
                      </p>
-                        <Button 
-                           className="text-xs sm:text-sm mt-5 font-bold focus:outline-none"
-                           >
-                           View all posts
-                        </Button>
+                     <Button 
+                        className="text-xs sm:text-sm mt-5 font-bold focus:outline-none"
+                        >
+                        View all posts
+                     </Button>
                   </div>
                </Link>
             ) : (
-               <Link to="/search" className="w-full h-[200px] bg-white dark:bg-[rgb(16,23,42)] shadow-md dark:shadow-lg flex flex-col justify-center items-center text-center text-black dark:text-white no-underline">
+               <Link 
+                  to="/search" 
+                  className="w-full h-[250px] bg-white dark:bg-[rgb(16,23,42)] shadow-md dark:shadow-lg flex flex-col justify-center items-center text-center text-black dark:text-white no-underline welcome welcome-height" 
+               >
                   <div>
-                     <h1 className="text-3xl font-bold xs:text-4xl sm:text-5xl md:text-5xl">
+                     <h1 className="text-3xl font-bold xs:text-4xl sm:text-5xl md:text-5xl welcome-padding">
                         Welcome to Input Studios
                      </h1>
-                     <p className="text-xs sm:text-sm mt-5">
+                     <p className="text-xs sm:text-sm mt-5 mr-2 ml-2">
                         Here you&apos;ll find a variety of articles and tutorials on topics such as web development, software engineering, and programming languages.
                      </p>
                      <div className="flex justify-center mt-5">
                         <Button className="text-xs sm:text-sm font-bold focus:outline-none">
-                        View all posts
+                           View all posts
                         </Button>
                      </div>
                   </div>
                </Link>
             )}
          </div>
-         <div className="mx-10 mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+         <div className="mx-10 margin-download-card mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {cardsData.map(card => (
                <Card
                   key={card.id}
@@ -89,7 +92,7 @@ export default function Home() {
                />
             ))}
          </div>
-         <div className="p-3 mx-10 mt-20 rounded-lg bg-gray-200 dark:bg-slate-700 shadow-md">
+         <div className="p-3 mx-10 custom-margin mt-20 rounded-lg bg-gray-200 dark:bg-slate-700 shadow-md">
             <CallToAction />
          </div>
          <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7">

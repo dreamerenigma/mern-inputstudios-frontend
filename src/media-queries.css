@@ -1,4 +1,43 @@
 /* Media queries */
+@media (max-width: 365px) {
+  .welcome {
+    height: 250px; 
+  }
+}
+
+@media (max-width: 380px) and (min-width: 366px) {
+  .welcome-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .welcome-height {
+    height: 250px;
+  }
+}
+
+@media (max-width: 390px) {
+  .card-height {
+    height: 450px;
+  }
+}
+
+@media (max-width: 639px) {
+  .block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .flex-1 {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .p-7 {
+    padding: 30px 0 0 0;
+  }
+}
+
 @media (min-width: 768px) and (max-width: 859px) {
   .hidden-in-range {
     display: none;
@@ -18,6 +57,17 @@
   .menu-button,
   .search-button {
     display: none;
+  }
+}
+
+@media (max-width: 1079px) {
+  .custom-margin {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  .margin-download-card {
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
 }
 

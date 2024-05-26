@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function Card({ title, description, buttonText, imageUrl, linkTo }) {
   return (
     <Link to={linkTo}>
-      <div className="group relative w-full border border-teal-500 rounded-lg shadow-md hover:border-2 h-[400px] md:h-[470px] overflow-hidden transition-all">
+      <div className="group relative w-full border border-teal-500 rounded-lg shadow-md hover:border-2 h-[400px] md:h-[430px] card-height overflow-hidden transition-all">
         <div className="flex justify-center">
           <div className="w-full">
             <div className="w-full h-48 overflow-hidden">
