@@ -171,8 +171,7 @@ export default function Header() {
                >
                   <div className="flex items-center justify-center cursor-pointer group lg:mr-10">
                      <span 
-                        className={`mr-2 text-black font-semibold dark:text-[#9CA3AF] text-sm theme-text
-                        ${theme === 'light' ? 'group-hover:text-[#0E7490]' : 'dark:group-hover:text-white'}`}
+                        className="font-semibold mr-2 text-sm theme-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white"
                      >
                         Themes
                      </span>
@@ -188,9 +187,12 @@ export default function Header() {
                   arrowIcon={false}
                   inline
                   label={
-                     <div className="flex items-center">
-                        <span className="mr-3 text-sm username-text text-black dark:text-[#9CA3AF]">{currentUser.username}</span>
-                        <Avatar alt='user' img={currentUser.profilePicture} rounded />
+                     <div className="flex items-center group">
+                        <span 
+                           className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white">
+                           {currentUser.username}
+                        </span>
+                        <Avatar alt="user" img={currentUser.profilePicture} rounded />
                      </div>
                   }
                >
@@ -209,36 +211,37 @@ export default function Header() {
                         Sign out
                      </span>
                   </div>
-                  <Dropdown.Header className="flex items-center gap-2">
-                  <div className="relative">
-                     <Avatar alt='user' img={currentUser.profilePicture} rounded />
-                     <Link to="/dashboard?tab=profile">
-                        <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
-                        <IoCameraOutline className="text-white text-lg" />
-                        </div>
-                     </Link>
+                  <div className="flex items-center gap-2 px-4 pb-4">
+                     <div className="relative">
+                        <Avatar alt="user" img={currentUser.profilePicture} rounded />
+                        <Link to="/dashboard?tab=profile">
+                           <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
+                              <IoCameraOutline className="text-white text-lg" />
+                           </div>
+                        </Link>
+                     </div>
+                     <div>
+                        <span className="block text-sm">{currentUser.username}</span>
+                        <span className="block text-sm font-medium truncate">{currentUser.email}</span>
+                     </div>
                   </div>
-                  <div>
-                     <span className="block text-sm">{currentUser.username}</span>
-                     <span className="block text-sm font-medium truncate">{currentUser.email}</span>
-                  </div>
-                  </Dropdown.Header>
+                  <Dropdown.Divider className="m-0 p-0"/>
                   {isAdmin && (
-                  <>
-                     <Link to={"/dashboard?tab=dash"}>
-                        <Dropdown.Item>Dashboard</Dropdown.Item>
-                     </Link>
-                     <Dropdown.Divider />
-                  </>
+                     <>
+                        <Link to={"/dashboard?tab=dash"}>
+                           <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>Dashboard</Dropdown.Item>
+                        </Link>
+                        <Dropdown.Divider className="m-0 p-0" />
+                     </>
                   )}
                   <Link to={"/dashboard?tab=profile"}>
-                  <Dropdown.Item>Profile</Dropdown.Item>
+                     <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>Profile</Dropdown.Item>
                   </Link>
                </Dropdown>
             ) : (
                <Link to="/sign-in">
                   <Button gradientDuoTone="purpleToBlue" outline>
-                  Sign In
+                     Sign In
                   </Button>
                </Link>
             )}
@@ -252,6 +255,9 @@ export default function Header() {
             </Navbar.Link>
             <Navbar.Link active={path === "/projects"} as={"div"}>
                <Link to="/projects" onClick={() => setMenuOpen(false)}>Projects</Link>
+            </Navbar.Link>
+            <Navbar.Link active={path === "/blogs"} as={"div"}>
+               <Link to="/blogs" onClick={() => setMenuOpen(false)}>Blogs</Link>
             </Navbar.Link>
             <Navbar.Link active={path === "/contacts"} as={"div"}>
                <Link to="/contacts" onClick={() => setMenuOpen(false)}>Contacts</Link>
