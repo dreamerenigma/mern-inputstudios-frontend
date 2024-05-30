@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
 import { Modal, Table, Button } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { FaCheck, FaTimes }  from "react-icons/fa";
 
 export default function DashComments() {
    const { currentUser } = useSelector((state) => state.user);
@@ -133,7 +132,7 @@ export default function DashComments() {
                   </h3>
                   <div className="flex justify-center gap-4">
                      <Button color="failure" onClick={handleDeleteComment}>
-                        Yes, I'm sure
+                        Yes, I&apos;m sure
                      </Button>
                      <Button color="gray" onClick={() => setShowModal(false)}>
                         No, cancel

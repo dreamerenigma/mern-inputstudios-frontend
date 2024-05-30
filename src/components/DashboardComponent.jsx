@@ -67,6 +67,7 @@ export default function DashboardComponent() {
          fetchComments()
       }
    }, [currentUser])
+   
    return (
       <div className="p-3 md:mx-auto">
          <div className="flex-wrap flex gap-4 justify-center">
