@@ -6,7 +6,7 @@ const cardsData = [
     description: 'Быстрый и удобный поиск информации в Интернете. Удобный интерфейс для ввода запросов и просмотра результатов',
     buttonText: 'Скачать',
     imageUrl: 'https://i.ibb.co/y5rVMV8/bg-wave.png',
-    linkTo: '/wave'
+    linkTo: '/wave/download'
   },
   {
     id: 2,
