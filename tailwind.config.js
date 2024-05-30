@@ -14,6 +14,11 @@ export default {
       screens: {
         'lg': '1400px',
       },
+      borderRadius: {
+        'dropdown-bottom-only': '0 0 0.2rem 0.2rem',
+        'bottom-only': '0 0 0.5rem 0.5rem',
+        'top-only': '0.5rem 0.5rem 0 0',
+      },
     },
   },
   plugins: [

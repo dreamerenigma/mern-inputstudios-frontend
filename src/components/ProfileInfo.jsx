@@ -44,7 +44,7 @@ export default function DashProfile() {
   }, []);
 
   return (
-    <div className="w-full md:w-3/4 mx-auto max-w-5xl flex items-center">
+    <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center">
       <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800">
         <div className="flex items-center">
             <div className="flex flex-row items-center justify-between w-full pl-4 pt-3">
@@ -52,7 +52,7 @@ export default function DashProfile() {
                   <span>Profile info</span>
               </div>
               <div className="ml-auto">
-                  <p className="text-right font-semibold mr-4 cursor-pointer text-blue-700">Edit profile info</p>
+                  <p className="text-right mr-4 cursor-pointer text-teal-500 hover:text-teal-700 hover:underline">Edit profile info</p>
               </div>
             </div>
         </div>

@@ -11,7 +11,7 @@ export default function About() {
                <div className="text-md text-gray-500 flex flex-col gap-6">
                   <p>{t("about_blog")}</p>
                   <p>{t("about_search")}</p>
-                  <p>We encourage you to leave comments om our posts and engage with other readers. You can like other people's comments and reply to them as well. We belive that a community of learners can help each other grow and improve.</p>
+                  <p>We encourage you to leave comments om our posts and engage with other readers. You can like other people&apos;s comments and reply to them as well. We belive that a community of learners can help each other grow and improve.</p>
                </div>
             </div>
          </div>
