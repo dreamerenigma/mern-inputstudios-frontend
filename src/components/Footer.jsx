@@ -1,8 +1,5 @@
 import { Footer } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { BsGithub, BsDribbble, BsYoutube } from "react-icons/bs";
-import { SlSocialVkontakte } from 'react-icons/sl';
-import { BiLogoFigma } from 'react-icons/bi';
 import { Switch } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLanguage } from "../redux/language/languageSlice";
@@ -24,22 +21,25 @@ export default function FooterCom({ languages }) {
                      <Footer.Title title="What's new" />
                      <Footer.LinkGroup col>
                         <Footer.Link
-                           href="https://100jsprojects.ru"
-                           target="_blank"
+                           href="/wave"
                            rel="noopener noreferrer"
                         >
-                           Input Studios Sam
+                           Input Studios Wave
                         </Footer.Link>
                         <Footer.Link
-                           href="/about"
-                           target="_blank"
+                           href="/chat-sam"
+                           rel="noopener noreferrer"
+                        >
+                           AI Chat Sam
+                        </Footer.Link>
+                        <Footer.Link
+                           href="/workspace"
                            rel="noopener noreferrer"
                         >
                            Input Studios Workspace
                         </Footer.Link>
                         <Footer.Link
-                           href="/about"
-                           target="_blank"
+                           href="/download-apps"
                            rel="noopener noreferrer"
                         >
                            Input Studios apps
@@ -50,25 +50,28 @@ export default function FooterCom({ languages }) {
                      <Footer.Title title="Projects" />
                      <Footer.LinkGroup col>
                         <Footer.Link
-                           href="https://github.com/inputstudios"
-                           target="_blank"
+                           href="/cloud"
                            rel="noopener noreferrer"
                         >
                            Input Studios Cloud
                         </Footer.Link>
                         <Footer.Link
-                           href="https://discord.gg/eX8vTpbv34"
-                           target="_blank"
+                           href="/weather-api"
                            rel="noopener noreferrer"
                         >
                            Weather API
                         </Footer.Link>
                         <Footer.Link
-                           href="https://discord.gg/eX8vTpbv34"
-                           target="_blank"
+                           href="/e-commerce-apps"
                            rel="noopener noreferrer"
                         >
                            E-commerce apps
+                        </Footer.Link>
+                        <Footer.Link
+                           href="/quantum-engine"
+                           rel="noopener noreferrer"
+                        >
+                           Quantum Engine
                         </Footer.Link>
                      </Footer.LinkGroup>
                   </div>
@@ -76,22 +79,19 @@ export default function FooterCom({ languages }) {
                      <Footer.Title title="Business" />
                      <Footer.LinkGroup col>
                         <Footer.Link
-                           href="https://100jsprojects.ru"
-                           target="_blank"
+                           href="/business"
                            rel="noopener noreferrer"
                         >
-                           Input Studios Security
+                           Input Studios Business
                         </Footer.Link>
                         <Footer.Link
-                           href="/about"
-                           target="_blank"
+                           href="/dialog-chat"
                            rel="noopener noreferrer"
                         >
                            Dialog Chat
                         </Footer.Link>
                         <Footer.Link
-                           href="/about"
-                           target="_blank"
+                           href="/small-business"
                            rel="noopener noreferrer"
                         >
                            Small Business
@@ -140,6 +140,12 @@ export default function FooterCom({ languages }) {
                   <span className="w-16 text-center">
                      {currentLanguage === 'en' ? 'English' : 'Русский'}
                   </span>
+                  <Link to="/dashboard?tab=privacy" className="dark:text-gray-400 hover:underline">
+                     <div className="flex flex-wrap ml-10 items-center">
+                        <img src="/images/ic_privacy.webp" alt="Privacy icon" className="w-10" />
+                        <span className="text-xs ml-3">Your privacy choices</span>
+                     </div>
+                  </Link>
                </div>
                <div className="flex flex-wrap gap-6 sm:mt-0 mt-4 sm:justify-center text-xs">
                   <Link to="/contacts" className="dark:text-gray-400 hover:underline">Contact us Input Studios</Link>
