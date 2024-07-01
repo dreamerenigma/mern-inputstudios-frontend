@@ -8,8 +8,10 @@ import { signoutSuccess } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
 import { IoCameraOutline } from 'react-icons/io5';
 import CustomTextInput from "./textinput/CustomTextInput";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
+   const { t } = useTranslation();
    const path = useLocation().pathname;
    const location = useLocation();
    const navigate = useNavigate();
@@ -107,7 +109,7 @@ export default function Header() {
             to="/"
             className={`self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white ${windowWidth >= 1080 ? 'mx-8' : 'mx-0'}`}
          >
-         <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
+         <span className="px-2 py-1 bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 rounded-lg text-white">
             Input Studios
          </span>
       </Link>
@@ -128,7 +130,7 @@ export default function Header() {
                   onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
                >
                   <div className="flex items-center search-button-content">
-                     <span className="mr-2">Search</span>
+                     <span className="mr-2">{t("header_search")}</span>
                      <AiOutlineSearch size={24} style={{ transform: 'rotate(90deg)' }} />
                   </div>
                </Button>
@@ -138,7 +140,7 @@ export default function Header() {
                <form onSubmit={handleSubmit} className="lg:flex-grow">
                   <CustomTextInput
                      type="text"
-                     placeholder="Search on InputStudios.com"
+                     placeholder={t("header_search_site")}
                      leftIcon={<AiOutlineSearch size={22} style={{ transform: 'rotate(90deg)' }} />}
                      value={searchTerm}
                      onChange={(e) => setSearchTerm(e.target.value)}
@@ -157,7 +159,7 @@ export default function Header() {
                   style={{ backgroundColor: 'transparent' }}
                >
                   <div className="flex items-center search-button-content lg:mr-14">
-                     <span className="mr-2">Search</span>
+                     <span className="mr-2">{t("header_search")}</span>
                      <AiOutlineSearch size={24} style={{ transform: 'rotate(90deg)' }} />
                   </div>
                </Button>
@@ -173,7 +175,7 @@ export default function Header() {
                      <span 
                         className="font-semibold mr-2 text-sm theme-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white"
                      >
-                        Themes
+                        {t("header_themes")}
                      </span>
                      {theme === "light" ? 
                         <FaMoon size={20} className="group-hover:text-[#0E7490]" /> : 
@@ -208,7 +210,7 @@ export default function Header() {
                         onClick={handleSignout}
                         className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
                      >
-                        Sign out
+                        {t("header_sign_out")}
                      </span>
                   </div>
                   <div className="flex items-center gap-2 px-4 pb-4">
@@ -229,38 +231,38 @@ export default function Header() {
                   {isAdmin && (
                      <>
                         <Link to={"/dashboard?tab=dash"}>
-                           <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>Dashboard</Dropdown.Item>
+                           <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header_dashboard")}</Dropdown.Item>
                         </Link>
                         <Dropdown.Divider className="m-0 p-0" />
                      </>
                   )}
                   <Link to={"/dashboard?tab=profile"}>
-                     <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>Profile</Dropdown.Item>
+                     <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header_profile")}</Dropdown.Item>
                   </Link>
                </Dropdown>
             ) : (
                <Link to="/sign-in">
-                  <Button gradientDuoTone="purpleToBlue" outline>
-                     Sign In
+                  <Button outline className="bg-gradient-to-r from-teal-500 via-green-500 to-blue-500">
+                     {t("header_sign_in")}
                   </Button>
                </Link>
             )}
          </div>
          <Navbar.Collapse className={`${menuOpen ? "block" : "hidden"} hidden-in-range`}>
             <Navbar.Link active={path === "/"} as={"div"}>
-               <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+               <Link to="/" onClick={() => setMenuOpen(false)}>{t("header_home")}</Link>
             </Navbar.Link>
             <Navbar.Link active={path === "/about"} as={"div"}>
-               <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
+               <Link to="/about" onClick={() => setMenuOpen(false)}>{t("header_about")}</Link>
             </Navbar.Link>
             <Navbar.Link active={path === "/projects"} as={"div"}>
-               <Link to="/projects" onClick={() => setMenuOpen(false)}>Projects</Link>
+               <Link to="/projects" onClick={() => setMenuOpen(false)}>{t("header_projects")}</Link>
             </Navbar.Link>
             <Navbar.Link active={path === "/blogs"} as={"div"}>
-               <Link to="/blogs" onClick={() => setMenuOpen(false)}>Blogs</Link>
+               <Link to="/blogs" onClick={() => setMenuOpen(false)}>{t("header_blogs")}</Link>
             </Navbar.Link>
             <Navbar.Link active={path === "/contacts"} as={"div"}>
-               <Link to="/contacts" onClick={() => setMenuOpen(false)}>Contacts</Link>
+               <Link to="/contacts" onClick={() => setMenuOpen(false)}>{t("header_contacts")}</Link>
             </Navbar.Link>
          </Navbar.Collapse>
       </Navbar>
