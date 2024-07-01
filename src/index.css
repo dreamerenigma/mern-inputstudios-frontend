@@ -56,3 +56,14 @@ ul.py-1 {
 .dark-theme .ql-editor::before {
    color: #fff;
 }
+
+.browser {
+   margin-top: 7rem;
+   margin-bottom: 7rem;
+}
+
+.flag-image {
+   background-size: cover;
+   background-repeat: no-repeat;
+   display: inline-block;
+}

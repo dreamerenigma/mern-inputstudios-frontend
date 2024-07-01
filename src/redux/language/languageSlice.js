@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-const initialState = {
-  currentLanguage: 'en', // Изначально устанавливаем язык по умолчанию
-};
+import i18n from '../../i18n';
 
 const languageSlice = createSlice({
    name: 'language',
-   initialState,
+   initialState: {
+      currentLanguage: 'ru',
+   },
    reducers: {
-      changeLanguage(state, action) {
-         state.currentLanguage = action.payload; // Устанавливаем новый язык
+      changeLanguage: (state, action) => {
+         state.currentLanguage = action.payload;
+         i18n.changeLanguage(action.payload);
       },
    },
 });
