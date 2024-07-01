@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { Switch } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLanguage } from "../redux/language/languageSlice";
+import { useTranslation } from "react-i18next";
 
-export default function FooterCom({ languages }) {
+export default function FooterCom() {
+   const { t } = useTranslation();
    const dispatch = useDispatch();
    const { currentLanguage } = useSelector((state) => state.language);
 
@@ -43,16 +45,16 @@ export default function FooterCom({ languages }) {
                   <Link to="/dashboard?tab=privacy" className="dark:text-gray-400 hover:underline">
                      <div className="flex flex-wrap ml-10 items-center">
                         <img src="/images/ic_privacy.webp" alt="Privacy icon" className="w-10" />
-                        <span className="text-xs ml-3">Your privacy choices</span>
+                        <span className="text-xs ml-3">{t("custom_footer_privacy_choice")}</span>
                      </div>
                   </Link>
                </div>
                <div className="flex flex-wrap gap-6 sm:mt-0 mt-4 sm:justify-center text-xs">
-                  <Link to="/contacts" className="dark:text-gray-400 hover:underline">Contact us Input Studios</Link>
-                  <Link to="/privacy" className="dark:text-gray-400 hover:underline">Privacy</Link>
-                  <Link to="/terms-of-use" className="dark:text-gray-400 hover:underline">Terms of use</Link>
-                  <Link to="/contact" className="dark:text-gray-400 hover:underline">Trademarks</Link>
-                  <Link to="/contact" className="dark:text-gray-400 hover:underline">About our ads</Link>
+                  <Link to="/contacts" className="dark:text-gray-400 hover:underline">{t("custom_footer_contacts")}</Link>
+                  <Link to="/privacy" className="dark:text-gray-400 hover:underline">{t("custom_footer_privacy")}</Link>
+                  <Link to="/terms-of-use" className="dark:text-gray-400 hover:underline">{t("custom_footer_terms")}</Link>
+                  <Link to="/contact" className="dark:text-gray-400 hover:underline">{t("custom_footer_trademarks")}</Link>
+                  <Link to="/contact" className="dark:text-gray-400 hover:underline">{t("custom_footer_about_ads")}</Link>
                   <Footer.Copyright
                      className="text-xs text-black"
                      href="#"

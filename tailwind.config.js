@@ -13,11 +13,19 @@ export default {
       },
       screens: {
         'lg': '1400px',
+        'xl': '1080px',
       },
       borderRadius: {
         'dropdown-bottom-only': '0 0 0.2rem 0.2rem',
         'bottom-only': '0 0 0.5rem 0.5rem',
         'top-only': '0.5rem 0.5rem 0 0',
+      },
+      width: {
+        '1/2': '50%',
+        '2/3': '66.67%',
+        '3/4': '75%',
+        '4/5': '80%',
+        'full': '100%',
       },
     },
   },

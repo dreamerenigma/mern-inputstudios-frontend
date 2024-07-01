@@ -1,24 +1,18 @@
 import { Footer } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { Switch } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { changeLanguage } from "../redux/language/languageSlice";
+import LanguageSwitcher from "../components/switcher/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
-export default function FooterCom({ languages }) {
-   const dispatch = useDispatch();
-   const { currentLanguage } = useSelector((state) => state.language);
-
-   const handleLanguageChange = (newLanguage) => {
-      dispatch(changeLanguage(newLanguage));
-   };
+export default function FooterCom() {
+   const { t } = useTranslation();
 
    return (
       <Footer container className="border border-t-8 border-teal-500" id="footer">
          <div className="w-full max-w-7xl mx-auto">
             <div className="grid w-full justify-between sm:flex md:grid-cols-1">
                <div className="grid grid-cols-2 gap-8 mt-4 sm:grid-cols-4 sm:gap-6">
-                  <div>
-                     <Footer.Title title="What's new" />
+                  <div className="min-w-[350px]">
+                     <Footer.Title title={t("footer_whats_new")} />
                      <Footer.LinkGroup col>
                         <Footer.Link
                            href="/wave"
@@ -47,7 +41,7 @@ export default function FooterCom({ languages }) {
                      </Footer.LinkGroup>
                   </div>
                   <div>
-                     <Footer.Title title="Projects" />
+                     <Footer.Title title={t("footer_projects")} />
                      <Footer.LinkGroup col>
                         <Footer.Link
                            href="/cloud"
@@ -76,90 +70,70 @@ export default function FooterCom({ languages }) {
                      </Footer.LinkGroup>
                   </div>
                   <div>
-                     <Footer.Title title="Business" />
+                     <Footer.Title title={t("footer_business")} />
                      <Footer.LinkGroup col>
                         <Footer.Link
                            href="/business"
                            rel="noopener noreferrer"
                         >
-                           Input Studios Business
+                           {t("footer_business_company")}
                         </Footer.Link>
                         <Footer.Link
                            href="/dialog-chat"
                            rel="noopener noreferrer"
                         >
-                           Dialog Chat
+                           {t("footer_dialog_chat")}
                         </Footer.Link>
                         <Footer.Link
                            href="/small-business"
                            rel="noopener noreferrer"
                         >
-                           Small Business
+                           {t("footer_small_business")}
                         </Footer.Link>
                      </Footer.LinkGroup>
                   </div>
                   <div>
-                     <Footer.Title title="Company" />
+                     <Footer.Title title={t("footer_company")}/>
                      <Footer.LinkGroup col>
                         <Footer.Link href="/privacy" >
-                           Company news
+                           {t("footer_company_news")}
                         </Footer.Link>
                         <Footer.Link href="/terms-of-use">
-                           Privacy at Input Studios
+                           {t("footer_privacy")}
                         </Footer.Link>
                         <Footer.Link href="/terms-of-use">
-                           Investors
+                           {t("footer_investors")}
                         </Footer.Link>
                      </Footer.LinkGroup>
                   </div>
                </div>
             </div>
             <Footer.Divider />
-            <div className="w-full sm:flex sm:items-center sm:justify-between">
-               <div className="flex items-center">
-                  <div className="relative">
-                     <Switch
-                        className="relative"
-                        checked={currentLanguage === 'en'}
-                        onChange={(event) => handleLanguageChange(event.target.checked ? 'en' : 'ru')}
-                        sx={{
-                        '& .MuiSwitch-switchBase.Mui-checked': {
-                           '& .flag-image': {
-                              backgroundImage: 'url(https://i.ibb.co/LtPNm0n/US.png)',
-                           },
-                        },
-                        '& .MuiSwitch-switchBase': {
-                           '& .flag-image': {
-                              backgroundImage: 'url(https://i.ibb.co/489wXn1/RU.png)',
-                           },
-                        },
-                        }}
-                     />
-                  </div>
-                  <span className="flag-image absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full overflow-hidden"></span>
-                  <span className="w-16 text-center">
-                     {currentLanguage === 'en' ? 'English' : 'Русский'}
-                  </span>
+            <div className="w-full flex flex-wrap items-center justify-between xl:flex-nowrap">
+               <div className="flex items-center mb-4 xl:mb-0">
+                  <LanguageSwitcher />
+               </div>
+               <div className="w-full">
                   <Link to="/dashboard?tab=privacy" className="dark:text-gray-400 hover:underline">
-                     <div className="flex flex-wrap ml-10 items-center">
+                     <div className="flex items-center xl:ml-10">
                         <img src="/images/ic_privacy.webp" alt="Privacy icon" className="w-10" />
-                        <span className="text-xs ml-3">Your privacy choices</span>
+                        <span className="text-xs ml-3">{t("custom_footer_privacy_choice")}</span>
                      </div>
                   </Link>
                </div>
-               <div className="flex flex-wrap gap-6 sm:mt-0 mt-4 sm:justify-center text-xs">
-                  <Link to="/contacts" className="dark:text-gray-400 hover:underline">Contact us Input Studios</Link>
-                  <Link to="/privacy" className="dark:text-gray-400 hover:underline">Privacy</Link>
-                  <Link to="/terms-of-use" className="dark:text-gray-400 hover:underline">Terms of use</Link>
-                  <Link to="/contact" className="dark:text-gray-400 hover:underline">Trademarks</Link>
-                  <Link to="/contact" className="dark:text-gray-400 hover:underline">About our ads</Link>
-                  <Footer.Copyright
-                     className="text-xs text-black"
-                     href="#"
-                     by="Input Studios"
-                     year={new Date().getFullYear()}
-                  />
-               </div>
+            </div>
+            <div className="flex flex-wrap gap-6 mt-6 sm:mt-4 sm:justify-end text-xs">
+               <Link to="/contacts" className="dark:text-gray-400 hover:underline">{t("custom_footer_contacts")}</Link>
+               <Link to="/privacy" className="dark:text-gray-400 hover:underline">{t("custom_footer_privacy")}</Link>
+               <Link to="/terms-of-use" className="dark:text-gray-400 hover:underline">{t("custom_footer_terms")}</Link>
+               <Link to="/contact" className="dark:text-gray-400 hover:underline">{t("custom_footer_trademarks")}</Link>
+               <Link to="/contact" className="dark:text-gray-400 hover:underline">{t("custom_footer_about_ads")}</Link>
+               <Footer.Copyright
+                  className="text-xs text-black"
+                  href="#"
+                  by="Input Studios"
+                  year={new Date().getFullYear()}
+               />
             </div>
          </div>
       </Footer>
