@@ -5,9 +5,8 @@ import { countries } from '../redux/countries';
 import { auth } from '../firebase';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-export default function ProfileInfo() {
+export default function AccountInfo() {
    const { theme } = useSelector((state) => state.theme);
    const [showModalEditBirth, setShowModalEditBirth] = useState(false);
    const [selectedMonth, setSelectedMonth] = useState(months[0].value);
@@ -50,10 +49,10 @@ export default function ProfileInfo() {
             <div className="flex items-center">
                <div className="flex flex-row items-center justify-between w-full pl-4 pt-3">
                   <div>
-                        <span>Profile info</span>
+                        <span>Account info</span>
                   </div>
                   <div className="ml-auto">
-                        <p className="text-right mr-4 cursor-pointer text-teal-500 hover:text-teal-700 hover:underline">Edit profile info</p>
+                        <p className="text-right mr-4 cursor-pointer text-teal-500 hover:text-teal-700 hover:underline">Edit account info</p>
                   </div>
                </div>
             </div>
@@ -80,8 +79,8 @@ export default function ProfileInfo() {
                <Modal.Body>
                   <p className="absolute ml-6 mt-4 top-0 left-0 text-xl font-semibold text-gray-700 dark:text-gray-200">Edit profile info</p>
                   <div className="text-left mb-5 mt-6">
-                     <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">Date of Birth</p>
-                     <div className="text-left mb-5">
+                        <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">Date of Birth</p>
+                        <div className="text-left mb-5">
                         <div className="flex space-x-4">
                            <select 
                               value={selectedMonth} 
@@ -92,53 +91,53 @@ export default function ProfileInfo() {
                            <option key={month.value} value={month.value}>
                               {month.label}
                            </option>
-                           ))}
+                              ))}
                            </select>
                            <select 
-                              className={`border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md p-2 w-full mt-1`}
+                           className={`border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md p-2 w-full mt-1`}
                            >
                            {[...Array(days).keys()].map(day => (
                            <option key={day + 1} value={day + 1}>
-                              {day + 1}
+                                 {day + 1}
                            </option>
                            ))}
                            </select>
                            <select 
-                              className={`border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md p-2 w-full mt-1`}
+                           className={`border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md p-2 w-full mt-1`}
                            >
                            {years.map(year => (
-                              <option key={year} value={year}>
+                                 <option key={year} value={year}>
                                  {year}
-                              </option>
+                                 </option>
                            ))}
                            </select>
                         </div>
                         <p className="text-18 mt-8 font-semibold text-gray-700 dark:text-gray-200">Country or region</p>
                         <select 
-                           className={`border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md p-2 w-full mt-1`}
+                              className={`border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md p-2 w-full mt-1`}
                         >
-                           {countries.map(country => (
-                           <option key={country.value} value={country.value}>
-                                 {country.label}
-                           </option>
-                           ))}
+                              {countries.map(country => (
+                              <option key={country.value} value={country.value}>
+                                    {country.label}
+                              </option>
+                              ))}
                         </select>
-                     </div>
-                     <p className="text-18 mt-8 font-semibold text-gray-700 dark:text-gray-200">Unique ID</p>
-                     <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{userId}</p>
+                        </div>
+                        <p className="text-18 mt-8 font-semibold text-gray-700 dark:text-gray-200">Unique ID</p>
+                        <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{userId}</p>
                   </div>
                   <div className="text-center">
                      <div className="flex justify-end gap-2">
-                        <Button 
+                     <Button 
                            color={isChanged ? 'rgb(73, 149, 199)' : 'gray'} 
                            onClick={() => handleBirthShowModal(false)}
                            disabled={!isChanged}
-                        >
+                     >
                            Save
-                        </Button>
-                        <Button color="gray" onClick={() => handleBirthShowModal(false)}>
+                     </Button>
+                     <Button color="gray" onClick={() => handleBirthShowModal(false)}>
                            Cancel
-                        </Button>
+                     </Button>
                      </div>
                   </div>
                </Modal.Body>
@@ -163,22 +162,21 @@ export default function ProfileInfo() {
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
             <div className="flex flex-row items-center justify-between w-full pl-4 pr-2 space-x-4">
-               <span>Regional formats</span>
-               <span>русский (Россия); 31.08.2000; 1:01 - 23:59</span>
+               <span>Date of birth</span>
+               <span>31/03/1991</span>
+               <span className="mx-2">Your date of birth is used for account safety setting</span>
                <span className="ml-auto pr-2">
                <IoIosArrowForward />
                </span>
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
-            <div className="flex flex-row items-center justify-between w-full px-4 py-4">
-               <div className="flex flex-col">
-                  <div className="flex items-center space-x-2">
-                     <span>Related</span>
-                     <Link to="/billing/addresses" className="pl-5  text-teal-500 hover:underline hover:text-teal-700">
-                        Billing & shipping addresses
-                     </Link>
-                  </div>
-               </div>
+            <div className="flex flex-row items-center justify-between w-full pl-4 pr-2 mb-4 space-x-4">
+               <span>Date of birth</span>
+               <span>31/03/1991</span>
+               <span className="mx-2">Your date of birth is used for account safety setting</span>
+               <span className="ml-auto pr-2">
+               <IoIosArrowForward />
+               </span>
             </div>
          </div>
       </div>

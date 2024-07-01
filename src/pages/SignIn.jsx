@@ -48,7 +48,7 @@ export default function SignIn() {
             {/* left */}
             <div className="flex-1 max-w-sm">
                <Link to="/" className="font-bold dark:text-white text-4xl">
-                  <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
+                  <span className="px-2 py-1 bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 rounded-lg text-white">
                      Input Studios
                   </span>
                </Link>
@@ -81,6 +81,7 @@ export default function SignIn() {
                      gradientDuoTone="purpleToPink"
                      type="submit"
                      disabled={loading}
+                     className="bg-gradient-to-r from-blue-500 via-teal-500 to-green-300"
                   >
                      {loading ? (
                         <>

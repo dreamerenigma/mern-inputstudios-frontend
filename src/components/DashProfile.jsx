@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 import { IoCameraOutline, IoKeyOutline } from 'react-icons/io5';
 import ReCAPTCHA from 'react-google-recaptcha';
 import ProfileInfo from './ProfileInfo'
+import AccountInfo from './AccountInfo'
 
 export default function DashProfile() {
    const { currentUser, error, loading } = useSelector((state) => state.user);
@@ -294,6 +295,7 @@ export default function DashProfile() {
                   <Alert color="failure">{imageFileUploadError}</Alert>
                )}
                <ProfileInfo />
+               <AccountInfo />
                {/* <Button
                   type="submit"
                   gradientDuoTone="purpleToBlue"
