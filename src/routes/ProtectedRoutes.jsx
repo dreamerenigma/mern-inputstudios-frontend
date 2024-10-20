@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import PrivateRoute from '../components/PrivateRoute';
+import PrivateRoute from './PrivateRoute';
 import Dashboard from '../pages/Dashboard';
 
 export default function ProtectedRoutes() {

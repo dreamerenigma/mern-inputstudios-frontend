@@ -12,10 +12,15 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@mui/material": "^6.0.0-alpha.2",
     "@reduxjs/toolkit": "^2.2.3",
+    "client": "file:",
     "firebase": "^10.10.0",
-    "flowbite-react": "^0.7.0",
+    "flowbite-react": "^0.7.8",
     "i18next": "^23.11.2",
     "i18next-browser-languagedetector": "^7.2.1",
     "i18next-http-backend": "^2.5.0",
@@ -25,6 +30,7 @@
     "react-cookie-consent": "^9.0.0",
     "react-dom": "^18.2.0",
     "react-google-recaptcha": "^3.1.0",
+    "react-helmet": "^6.1.0",
     "react-i18next": "^14.1.0",
     "react-icons": "^5.0.1",
     "react-player": "^2.16.0",
@@ -43,9 +49,9 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.39",
     "tailwind-scrollbar": "^3.1.0",
-    "tailwindcss": "^3.4.3",
+    "tailwindcss": "^3.4.6",
     "vite": "^5.2.0"
   }
 }

@@ -5,6 +5,7 @@ import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
 import PostCard from "../components/PostCard";
 import VideoPlayer from '../components/VideoPlayer';
+import { useSelector } from "react-redux";
 
 export default function PostPage() {
    const { postSlug } = useParams();
@@ -13,6 +14,8 @@ export default function PostPage() {
    const [post, setPost] = useState(null);
    const [recentPosts, setRecentPosts] = useState(null);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    useEffect(() => {
       const fetchPost = async () => {

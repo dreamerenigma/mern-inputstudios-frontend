@@ -2,9 +2,10 @@ import { Button, Navbar } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import CustomTextInput from "./textinput/CustomTextInput";
+import CustomTextInput from "../textinput/CustomTextInput";
 import { IoIosArrowDown } from "react-icons/io";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export default function Header() {
    const { t } = useTranslation();
@@ -15,6 +16,8 @@ export default function Header() {
    const [menuOpen, setMenuOpen] = useState(false);
    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
    const [searchVisible, setSearchVisible] = useState(false);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    useEffect(() => {
       const urlParams = new URLSearchParams(location.search);
@@ -128,24 +131,39 @@ export default function Header() {
             )}
          </div>
          <Navbar.Collapse className={`${menuOpen ? "block" : "hidden"} hidden-in-range`}>
-            <Navbar.Link active={path === "/wave"} as={"div"}>
-               <Link to="/wave" onClick={() => setMenuOpen(false)}>Wave</Link>
+            <Navbar.Link 
+               active={path === `${languagePrefix}/wave`} 
+               as={"div"}
+               className={`pb-1 border-b-2 ${path === `${languagePrefix}/wave`} ? "border-current" : "border-transparent"} hover:border-current`}>
+               <Link to={`${languagePrefix}/wave`} onClick={() => setMenuOpen(false)}>Wave</Link>
             </Navbar.Link>
-            <Navbar.Link active={path === "/business"} as={"div"}>
+            <Navbar.Link 
+               active={path === `${languagePrefix}/business`} 
+               as={"div"}
+               className={`pb-1 border-b-2 ${path === `${languagePrefix}/business`} ? "border-current" : "border-transparent"} hover:border-current`}>
                <Link className="flex flex-row items-center">Для бизнеса
                   <IoIosArrowDown className="ml-2"/>
                </Link>
             </Navbar.Link>
-            <Navbar.Link active={path === "/wave/features"} as={"div"}>
-               <Link to="/wave/features" onClick={() => setMenuOpen(false)}>Возможности и советы</Link>
+            <Navbar.Link 
+               active={path === `${languagePrefix}/wave/features`} 
+               as={"div"}
+               className={`pb-1 border-b-2 ${path === `${languagePrefix}/wave/features`} ? "border-current" : "border-transparent"} hover:border-current`}>
+               <Link to={`${languagePrefix}/wave/features`} onClick={() => setMenuOpen(false)}>Возможности и советы</Link>
             </Navbar.Link>
-            <Navbar.Link active={path === "/blogs"} as={"div"}>
+            <Navbar.Link 
+               active={path === `${languagePrefix}/blogs`} 
+               as={"div"}
+               className={`pb-1 border-b-2 ${path === `${languagePrefix}/blogs`} ? "border-current" : "border-transparent"} hover:border-current`}>
                <Link className="flex flex-row items-center">Ресурсы
                   <IoIosArrowDown className="ml-2"/>
                </Link>
             </Navbar.Link>
-            <Navbar.Link active={path === "/contacts"} as={"div"}>
-               <Link to="/wave/download" onClick={() => setMenuOpen(false)}>Загрузки</Link>
+            <Navbar.Link 
+               active={path === `${languagePrefix}/wave/download`} 
+               as={"div"}
+               className={`pb-1 border-b-2 ${path === `${languagePrefix}/wave/download`} ? "border-current" : "border-transparent"} hover:border-current`}>
+               <Link to={`${languagePrefix}/wave/download`} onClick={() => setMenuOpen(false)}>Загрузки</Link>
             </Navbar.Link>
          </Navbar.Collapse>
       </Navbar>

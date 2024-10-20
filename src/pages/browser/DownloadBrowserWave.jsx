@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { FaWindows } from "react-icons/fa";
-import CustomButton from "../../components/button/CustomButton";
+import CustomButton from "../../components/buttons/CustomButton";
 import { HiArrowNarrowDown } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import DownloadModal  from "../../components/modal/DownloadModal"
+import DownloadModal  from "../../components/modals/DownloadModal"
 
 export default function DownloadBrowserWave() {
    const [dropdownOpen, setDropdownOpen] = useState(false);

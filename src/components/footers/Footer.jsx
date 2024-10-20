@@ -1,10 +1,33 @@
 import { Footer } from "flowbite-react";
-import { Link } from "react-router-dom";
-import LanguageSwitcher from "../components/switcher/LanguageSwitcher";
+import { Link, useNavigate } from "react-router-dom";
+import LanguageSwitcher from "../switchers/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import CookieManagementModal from "../modals/CookieManagementModal";
 
 export default function FooterCom() {
    const { t } = useTranslation();
+   const { currentUser } = useSelector(state => state.user);
+   const navigate = useNavigate();
+   const [showModal, setShowModal] = useState(false);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
+   const handleAdSettingsClick = (e) => {
+      if (!currentUser) {
+         e.preventDefault();
+         navigate('/sign-in'); 
+      }
+   };
+
+   const handleDialogClick = () => {
+      setShowModal(true);
+   };
+
+   const handleCloseModal = () => {
+      setShowModal(false);
+   };
 
    return (
       <Footer container className="border border-t-8 border-teal-500" id="footer">
@@ -79,7 +102,7 @@ export default function FooterCom() {
                            {t("footer_business_company")}
                         </Footer.Link>
                         <Footer.Link
-                           href="/dialog-chat"
+                           href="/chatify"
                            rel="noopener noreferrer"
                         >
                            {t("footer_dialog_chat")}
@@ -114,7 +137,7 @@ export default function FooterCom() {
                   <LanguageSwitcher />
                </div>
                <div className="w-full">
-                  <Link to="/dashboard?tab=privacy" className="dark:text-gray-400 hover:underline">
+                  <Link to={`${languagePrefix}/dashboard?tab=privacy`} className="dark:text-gray-400 hover:underline">
                      <div className="flex items-center xl:ml-10">
                         <img src="/images/ic_privacy.webp" alt="Privacy icon" className="w-10" />
                         <span className="text-xs ml-3">{t("custom_footer_privacy_choice")}</span>
@@ -123,11 +146,18 @@ export default function FooterCom() {
                </div>
             </div>
             <div className="flex flex-wrap gap-6 mt-6 sm:mt-4 sm:justify-end text-xs">
-               <Link to="/contacts" className="dark:text-gray-400 hover:underline">{t("custom_footer_contacts")}</Link>
-               <Link to="/privacy" className="dark:text-gray-400 hover:underline">{t("custom_footer_privacy")}</Link>
-               <Link to="/terms-of-use" className="dark:text-gray-400 hover:underline">{t("custom_footer_terms")}</Link>
-               <Link to="/contact" className="dark:text-gray-400 hover:underline">{t("custom_footer_trademarks")}</Link>
-               <Link to="/contact" className="dark:text-gray-400 hover:underline">{t("custom_footer_about_ads")}</Link>
+               <Link to={`${languagePrefix}/contactus`} className="dark:text-gray-400 hover:underline">{t("custom_footer_contacts")}</Link>
+               <Link to="#" className="dark:text-gray-400 hover:underline" onClick={handleDialogClick}>{t("cookie_management")}</Link>
+               <Link to={`${languagePrefix}/privacy-statement`} className="dark:text-gray-400 hover:underline">{t("custom_footer_privacy")}</Link>
+               <Link to={`${languagePrefix}/terms-of-use`} className="dark:text-gray-400 hover:underline">{t("custom_footer_terms")}</Link>
+               <Link to={`${languagePrefix}/trademarks`} className="dark:text-gray-400 hover:underline">{t("custom_footer_trademarks")}</Link>
+               <Link 
+                  to={`${languagePrefix}/privacy/ad-settings`}
+                  className="dark:text-gray-400 hover:underline" 
+                  onClick={handleAdSettingsClick}
+               >
+                  {t("custom_footer_about_ads")}
+               </Link>
                <Footer.Copyright
                   className="text-xs text-black"
                   href="#"
@@ -135,6 +165,7 @@ export default function FooterCom() {
                   year={new Date().getFullYear()}
                />
             </div>
+            <CookieManagementModal showModal={showModal} handleCloseModal={handleCloseModal} />
          </div>
       </Footer>
    );

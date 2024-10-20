@@ -38,6 +38,7 @@
   }
 }
 
+
 @media (min-width: 768px) and (max-width: 859px) {
   .hidden-in-range {
     display: none;
@@ -45,6 +46,7 @@
   .show-in-range {
     display: block !important;
   }
+
 }
 
 @media screen and (max-width: 811px) {
@@ -86,6 +88,21 @@
   }
   .ml-0-custom {
     margin-left: 1.5rem !important;
+  }
+
+  .order-first {
+    order: 2;
+  }
+
+  .order-last {
+    order: 1;
+  }
+}
+
+@media (max-width: 860px) {
+  .custom-flex {
+    flex-direction: column;
+    gap: 4.5rem;
   }
 }
 
@@ -149,6 +166,9 @@
   .center-text {
     text-align: center;
   }
+  .custom-flex {
+    flex-direction: column;
+  }
 }
 
 @media (min-width: 860px) {
@@ -166,6 +186,9 @@
   .margin-download-card {
     margin-left: 1rem;
     margin-right: 1rem;
+  }
+  .responsive-max-width {
+    max-width: none;
   }
 }
 

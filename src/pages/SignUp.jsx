@@ -2,6 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import { useSelector } from "react-redux";
 
 export default function SignUp() {
    const [formData, setFormData] = useState({});
@@ -9,9 +10,13 @@ export default function SignUp() {
    const [loading, setLoading] = useState(false);
    const navigate = useNavigate();
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
    const handleChange = (e) => {
       setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
    };
+
    const handleSubmit = async (e) => {
       e.preventDefault();
       if (!formData.username || !formData.email || !formData.password) {
@@ -38,6 +43,7 @@ export default function SignUp() {
          setLoading(false);
       }
    };
+   
    return (
       <div className="min-h-screen mt-20">
          <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5">
@@ -96,7 +102,7 @@ export default function SignUp() {
                </form>
                <div className="flex gap-2 text-sm mt-5">
                   <span>Have an account?</span>
-                  <Link to="/sign-in" className="text-blue-500">
+                  <Link to={`${languagePrefix}/sign-in`} className="text-blue-500">
                      Sign In
                   </Link>
                </div>

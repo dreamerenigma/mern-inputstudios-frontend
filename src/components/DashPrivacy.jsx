@@ -10,6 +10,8 @@ import { BsPatchCheck } from "react-icons/bs";
 
 export default function DashProfile() {
    const { theme } = useSelector((state) => state.theme);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    return (
       <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-900">
@@ -22,7 +24,7 @@ export default function DashProfile() {
                clear the data for your <br />Input Studios account activity.
             </p>
             <Link
-               to={'/search'}
+               to={`${languagePrefix}/search`}
                className=" text-teal-500 hover:underline mt-4 hover:text-teal-700" 
             >
                Learn more about our commitment to Privacy

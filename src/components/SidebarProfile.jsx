@@ -25,6 +25,8 @@ export default function SidebarProfile() {
    const { theme } = useSelector((state) => state.theme);
    const [isMenuOpen, setIsMenuOpen] = useState(false);
    const [isClicked, setIsClicked] = useState(false);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
    
    const toggleSidebar = () => {
       setIsMenuOpen(!isMenuOpen);
@@ -77,7 +79,7 @@ export default function SidebarProfile() {
             </div>
          </div>
             <div className="flex-grow">
-               <Link to="/dashboard?tab=account">
+               <Link to={`${languagePrefix}/dashboard?tab=account`}>
                   <div className="py-1">
                      <div className={`py-2 px-3 ${tab === "account" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`}>
                         <HiHome
@@ -94,7 +96,7 @@ export default function SidebarProfile() {
                   </div>
                </Link>
                {currentUser && currentUser.isAdmin && (
-                  <Link to={"/dashboard?tab=dash"}>
+                  <Link to={`${languagePrefix}/dashboard?tab=dash`}>
                      <div className="py-1">
                         <div 
                            className={`py-2 px-3 ${tab === "dash" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`}
@@ -108,7 +110,7 @@ export default function SidebarProfile() {
                      </div>
                   </Link>
                )}
-               <Link to="/dashboard?tab=profile">
+               <Link to={`${languagePrefix}/dashboard?tab=profile`}>
                   <div className="py-1">
                      <div className={`py-2 px-3 ${tab === "profile" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`}>
                         <HiUser
@@ -119,7 +121,7 @@ export default function SidebarProfile() {
                      </div>
                   </div>
                </Link>
-               <Link to="/dashboard?tab=privacy">
+               <Link to={`${languagePrefix}/dashboard?tab=privacy`}>
                   <div className="py-1">
                   <div className={`py-2 px-3 ${tab === "privacy" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`}>
                         <HiShieldCheck
@@ -131,7 +133,7 @@ export default function SidebarProfile() {
                   </div>
                </Link>
                {currentUser.isAdmin && (
-                  <Link to="/dashboard?tab=posts">
+                  <Link to={`${languagePrefix}/dashboard?tab=posts`}>
                      <div className="py-1">
                         <div className={`py-2 px-3 ${tab === "posts" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`}>
                            <HiDocumentText 
@@ -145,7 +147,7 @@ export default function SidebarProfile() {
                )}
                {currentUser.isAdmin && (
                   <>
-                     <Link to="/dashboard?tab=users">
+                     <Link to={`${languagePrefix}/dashboard?tab=users`}>
                         <div className="py-1">
                            <div className={`py-2 px-3 ${tab === "users" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`}>
                               <HiOutlineUserGroup 
@@ -156,7 +158,7 @@ export default function SidebarProfile() {
                            </div>
                         </div>
                      </Link>
-                     <Link to="/dashboard?tab=comments">
+                     <Link to={`${languagePrefix}/dashboard?tab=comments`}>
                         <div className="py-1">
                            <div className={`py-2 px-3 ${tab === "comments" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`}>
                               <HiAnnotation 
@@ -169,7 +171,7 @@ export default function SidebarProfile() {
                      </Link>
                   </>
                )}
-               <Link to="/dashboard?tab=signout">
+               <Link to={`${languagePrefix}/dashboard?tab=signout`}>
                   <div 
                      className={`py-2 px-3 ${tab === "signout" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`} 
                      onClick={handleSignout}

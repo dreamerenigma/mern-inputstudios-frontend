@@ -3,12 +3,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux'; 
-import { toggleTheme } from "../redux/theme/themeSlice";
-import { signoutSuccess } from "../redux/user/userSlice";
-import { useEffect, useState } from "react";
+import { toggleTheme } from "../../redux/theme/themeSlice";
+import { signoutSuccess } from "../../redux/user/userSlice";
+import { useEffect, useRef, useState } from "react";
 import { IoCameraOutline } from 'react-icons/io5';
-import CustomTextInput from "./textinput/CustomTextInput";
+import CustomTextInput from "../textinput/CustomTextInput";
 import { useTranslation } from "react-i18next";
+import { IoIosArrowDown } from "react-icons/io";
 
 export default function Header() {
    const { t } = useTranslation();
@@ -16,6 +17,7 @@ export default function Header() {
    const location = useLocation();
    const navigate = useNavigate();
    const dispatch = useDispatch();
+   const dropdownRef = useRef(null);
    const { currentUser } = useSelector(state => state.user);
    const { theme } = useSelector((state) => state.theme); 
    const [searchTerm, setSearchTerm] = useState("");
@@ -24,6 +26,9 @@ export default function Header() {
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
    const [searchVisible, setSearchVisible] = useState(false);
+   const [isOpenAbout, setIsOpenAbout] = useState(false);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    useEffect(() => {
       const urlParams = new URLSearchParams(location.search);
@@ -40,7 +45,7 @@ export default function Header() {
          });
          const data = await res.json();
          if (!res.ok) {
-            console.log(data.messsage);
+            console.log(data.message);
          } else {
             dispatch(signoutSuccess());
          }
@@ -77,10 +82,12 @@ export default function Header() {
    const handleClickOutside = (event) => {
       if (
          (menuOpen && !event.target.closest(".menu") && !event.target.closest(".search-button")) ||
-         (searchVisible && !event.target.closest(".search-wrapper") && !event.target.closest(".search-button") && !event.target.closest(".search-button-text"))
+         (searchVisible && !event.target.closest(".search-wrapper") && !event.target.closest(".search-button") && !event.target.closest(".search-button-text")) ||
+         (isOpenAbout && !event.target.closest(".dropdown") && !event.target.closest(".menu-link"))
       ) {
          setMenuOpen(false);
          setSearchVisible(false);
+         setIsOpenAbout(false);
       }
    };
 
@@ -89,12 +96,19 @@ export default function Header() {
       setMenuOpen(!menuOpen);
    };
 
+   const handleToggle = () => {
+      if (isOpenAbout) {
+         setIsOpenAbout(false);
+      }
+      setIsOpenAbout(!isOpenAbout);
+   };
+   
    useEffect(() => {
       document.addEventListener("click", handleClickOutside);
       return () => {
          document.removeEventListener("click", handleClickOutside);
       };
-   }, [menuOpen, searchVisible]);
+   }, [menuOpen, searchVisible, isOpenAbout]);
 
    document.addEventListener("DOMContentLoaded", function() {
       var element = document.querySelector('.mx-auto.flex.flex-wrap.items-center.justify-between');
@@ -158,9 +172,13 @@ export default function Header() {
                   onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
                   style={{ backgroundColor: 'transparent' }}
                >
-                  <div className="flex items-center search-button-content lg:mr-14">
-                     <span className="mr-2">{t("header_search")}</span>
-                     <AiOutlineSearch size={24} style={{ transform: 'rotate(90deg)' }} />
+                  <div>
+                     <div className={`flex items-center lg:mr-14 relative hover:border-current`}>
+                        <span className={`search-button-content pb-0.2 border-b-2 ${path === `/${languagePrefix}/whats-new` ? "border-current" : "border-transparent"} hover:border-current`}>
+                           {t("header_search")}
+                        </span>
+                        <AiOutlineSearch size={24} className="ml-2 relative bottom-1" style={{ transform: 'rotate(90deg)' }} />
+                     </div>
                   </div>
                </Button>
             )}
@@ -216,7 +234,7 @@ export default function Header() {
                   <div className="flex items-center gap-2 px-4 pb-4">
                      <div className="relative">
                         <Avatar alt="user" img={currentUser.profilePicture} rounded />
-                        <Link to="/dashboard?tab=profile">
+                        <Link to={`${languagePrefix}/dashboard?tab=profile`}>
                            <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
                               <IoCameraOutline className="text-white text-lg" />
                            </div>
@@ -236,12 +254,12 @@ export default function Header() {
                         <Dropdown.Divider className="m-0 p-0" />
                      </>
                   )}
-                  <Link to={"/dashboard?tab=profile"}>
+                  <Link to={`${languagePrefix}/dashboard?tab=profile`}>
                      <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header_profile")}</Dropdown.Item>
                   </Link>
                </Dropdown>
             ) : (
-               <Link to="/sign-in">
+               <Link to={`${languagePrefix}/sign-in`}>
                   <Button outline className="bg-gradient-to-r from-teal-500 via-green-500 to-blue-500">
                      {t("header_sign_in")}
                   </Button>
@@ -249,21 +267,53 @@ export default function Header() {
             )}
          </div>
          <Navbar.Collapse className={`${menuOpen ? "block" : "hidden"} hidden-in-range`}>
-            <Navbar.Link active={path === "/"} as={"div"}>
+            <div className={`pb-0.2 border-b-2 ${path === "/" ? "border-current" : "border-transparent"} hover:border-current`}>
                <Link to="/" onClick={() => setMenuOpen(false)}>{t("header_home")}</Link>
-            </Navbar.Link>
-            <Navbar.Link active={path === "/about"} as={"div"}>
-               <Link to="/about" onClick={() => setMenuOpen(false)}>{t("header_about")}</Link>
-            </Navbar.Link>
-            <Navbar.Link active={path === "/projects"} as={"div"}>
-               <Link to="/projects" onClick={() => setMenuOpen(false)}>{t("header_projects")}</Link>
-            </Navbar.Link>
-            <Navbar.Link active={path === "/blogs"} as={"div"}>
-               <Link to="/blogs" onClick={() => setMenuOpen(false)}>{t("header_blogs")}</Link>
-            </Navbar.Link>
-            <Navbar.Link active={path === "/contacts"} as={"div"}>
-               <Link to="/contacts" onClick={() => setMenuOpen(false)}>{t("header_contacts")}</Link>
-            </Navbar.Link>
+            </div>
+            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/projects` ? "border-current" : "border-transparent"} hover:border-current`}>
+               <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
+                  {t("header_projects")}
+               </Link>
+            </div>
+            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-transparent"} hover:border-current`}>
+               <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
+                  {t("header_blogs")}
+               </Link>
+            </div>
+            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} hover:border-current`}>
+               <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
+                  {t("header_forum")}
+               </Link>
+            </div>
+            <div
+               onClick={handleToggle}
+               ref={dropdownRef}
+               className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} hover:border-current`}
+            >
+               <Link className="flex flex-row items-center menu-link" onClick={() => setMenuOpen(false)}>
+                  {t("header_about")}
+                  <IoIosArrowDown className="ml-2" />
+               </Link>
+               {isOpenAbout && (
+               <ul className="absolute left-0 top-full mt-2 bg-white dark:bg-gray-600 shadow-md rounded-md z-10 whitespace-nowrap dropdown">
+                  <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-t-md hover:underline">
+                     <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
+                        {t("about_company")}
+                     </Link>
+                  </li>
+                  <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 hover:underline">
+                     <Link to={`${languagePrefix}/our-history`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
+                        {t("our_history")}
+                     </Link>
+                  </li>
+                  <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-b-md hover:underline">
+                     <Link to={`${languagePrefix}/contactus`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
+                        {t("header_contacts")}
+                     </Link>
+                  </li>
+               </ul>
+               )}
+            </div>
          </Navbar.Collapse>
       </Navbar>
    );

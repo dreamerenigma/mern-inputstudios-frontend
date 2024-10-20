@@ -36,6 +36,8 @@ export default function DashProfile() {
    const dispatch = useDispatch();
    const [captchaValue, setCaptchaValue] = useState(null);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    const handleImageChange = (e) => {
       const file = e.target.files[0];
@@ -206,7 +208,7 @@ export default function DashProfile() {
                               />
                            )}
                            <div className="relative w-32 h-32">
-                              <Link to="/dashboard?tab=profile">
+                              <Link to={`${languagePrefix}/dashboard?tab=profile`}>
                                  <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
                                     <IoCameraOutline className="text-white text-[50px]" />
                                  </div>

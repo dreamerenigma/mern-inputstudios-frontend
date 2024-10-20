@@ -1,5 +1,5 @@
 
-export default function DialogChat() {
+export default function Chatify() {
   return (
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="mb-8">

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { IoKeyOutline } from 'react-icons/io5';
 import { IoIosArrowDown } from "react-icons/io";
 import accountData from "../data/accountData";
-import DeleteUserModal from "../components/modal/DeleteUserModal";
+import DeleteUserModal from "../components/modals/DeleteUserModal";
 import { Button } from "flowbite-react";
 
 export default function DashProfile() {

@@ -1,9 +1,14 @@
-import CustomButton from "../../components/button/CustomButton";
+import { Link } from "react-router-dom";
+import CustomButton from "../../components/buttons/CustomButton";
+import { useSelector } from "react-redux";
 
 export default function BrowserWave() {
+  const currentLanguage = useSelector((state) => state.language.currentLanguage);
+  const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
   return (
     <div className="relative text-center">
-      <div className="relative min-h-screen  items-center justify-center ье-">
+      <div className="relative min-h-screen items-center justify-center ье-">
         <img
           src="/images/bg_wave.jpg"
           alt="WaveBrowser"
@@ -81,7 +86,7 @@ export default function BrowserWave() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row bg-gray-200 dark:bg-gray-800 rounded-lg p-10 mx-20 my-20 import items-center text-center browser">
+      <div className="flex flex-row bg-gray-200 dark:bg-gray-800 rounded-lg p-10 mx-20 import items-center text-center browser">
         <div className="flex-shrink-0 text-center md:text-left">
           <div className="flex justify-center items-center md:justify-start">
             <img
@@ -117,7 +122,7 @@ export default function BrowserWave() {
           </div>
         </div>
       </div>
-      <div className="mx-20 my-30 theme-container browser">
+      <div className="mx-20 theme-container browser">
         <div className="flex flex-row w-full">
           <div className="flex flex-col w-2/5 text-left text-container">
             <span className="text-3xl mt-2 sm:text-3xl md:text-3xl lg:text-4xl xl:text-4xl">
@@ -148,7 +153,7 @@ export default function BrowserWave() {
           </div>
         </div>
       </div>
-      <div className="mx-20 my-30 theme-container browser bg-gray-200 dark:bg-gray-800 rounded-xl p-10">
+      <div className="mx-20 theme-container browser bg-gray-200 dark:bg-gray-800 rounded-xl p-10">
         <div className="flex flex-row w-full">
           <div className="flex flex-col justify-end items-start w-2/4 h-1/4 mr-auto image">
             <img
@@ -170,7 +175,7 @@ export default function BrowserWave() {
           </div>
         </div>
       </div>
-      <div className="mx-20 my-30 theme-container browser">
+      <div className="mx-20 theme-container browser">
         <div className="flex flex-row w-full">
           <div className="flex flex-col w-2/5 text-left text-container">
             <span className="text-4xl mt-2">Ознакомьтесь с лучшим браузером для бизнеса</span>
@@ -188,6 +193,40 @@ export default function BrowserWave() {
               alt="BusinessBrowser"
               className="w-500 h-300 object-cover rounded-2xl"
             />
+          </div>
+        </div>
+      </div>
+      <div className="mx-20 theme-container browser">
+        <div className="flex flex-col md:flex-row w-full">
+          <div className="flex flex-col order-first md:order-first w-full md:w-2/5 text-left text-container">
+            <span className="text-4xl mt-2">Просматривайте веб-страницы с помощью Wave на любых устройствах</span>
+            <span className="text-xl mt-4">
+              Легко синхронизируйте свои пароли, избранное и параметры на любых устройствах с Windows, macOS, iOS и Android.
+            </span>
+            <div className="inline-block mt-10">
+              <Link to={`${languagePrefix}/wave/download`}>
+              <CustomButton>Скачать для вашего устройства</CustomButton>
+              </Link>
+            </div>
+          </div>
+          <div className="flex flex-col order-last md:order-last w-full md:w-3/5 justify-end items-end mt-6 md:mt-0 h-1/4 ml-auto">
+            <div className="flex gap-6 w-full justify-end md:w-auto">
+              <img
+                src="../images/notebook.jpg"
+                alt="Image 1"
+                className="image-devices rounded-lg mt-6 w-full sm:w-1/3 md:w-1/4 lg:w-[180px] transition-all duration-500"
+              />
+              <img
+                src="../images/smartphone.jpg"
+                alt="Image 2"
+                className="image-devices rounded-lg mt-6 w-full sm:w-1/3 md:w-1/4 lg:w-[180px] transition-all duration-500"
+              />
+              <img
+                src="../images/tablet.jpg"
+                alt="Image 3"
+                className="image-devices rounded-lg mt-6 w-full sm:w-1/3 md:w-1/4 lg:w-[180px] transition-all duration-500"
+              />
+            </div>
           </div>
         </div>
       </div>

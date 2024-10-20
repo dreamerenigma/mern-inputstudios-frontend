@@ -67,3 +67,39 @@ ul.py-1 {
    background-repeat: no-repeat;
    display: inline-block;
 }
+
+.custom-scrollbar {
+   @apply overflow-y-auto max-h-[60vh];
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+   width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+   background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+   background: #888;
+   border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+   background: #555;
+}
+
+/* For Firefox */
+.custom-scrollbar {
+   scrollbar-width: thin;
+   scrollbar-color: #888 transparent;
+}
+
+.transition-transform {
+   transition: transform 0.3s ease;
+}
+
+.link {
+   color: teal;
+   text-decoration: underline;
+}

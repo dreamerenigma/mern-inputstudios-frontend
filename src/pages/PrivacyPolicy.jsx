@@ -1,24 +1,60 @@
 import { useTranslation } from 'react-i18next';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { FaSearch } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function About() {
    const { t } = useTranslation();
+   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
+   useEffect(() => {
+      const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+      window.removeEventListener("resize", handleResize);
+      };
+   }, []);
 
    return (
       <div className="min-h-screen items-center justify-center">
          <div className="mx-auto">
-            <div className="relative">
-               <img
-                  className="w-full max-h-[450px] h-auto"
-                  src="https://i.ibb.co/DR26wCp/privacy.png"
-                  alt="privacy"
-               />
-               <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-center text-white">
-                  <h1 className="text-4xl font-bold lg:text-6xl">Privacy at Input Studios</h1>
-                  <h2 className="text-2xl mt-6">Your data is private at work, at home, and on the go.</h2>
-                  <p className="text-sm mt-6">At Input Studios, we value, protect, and defend privacy. We believe in transparency, so that people and organizations can control their data and have meaningful choices in how it is used. We empower and defend the privacy choices of every person who uses our products and services.</p>
-               </div>
+            <div className="relative mx-12 lg:mx-8">
+               <Link to={`${languagePrefix}/search`} className="block w-full max-h-[450px] h-auto">
+               <img className="w-full max-h-[450px] h-auto" src="https://i.ibb.co/DR26wCp/privacy.png" alt="privacy" />
+               </Link>
+               {windowWidth >= 1080 ? (
+                  <Link to={`${languagePrefix}/search`}>
+                     <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-center text-white">
+                        <h1 className="text-3xl font-bold lg:text-6xl xs:text-4xl sm:text-5xl md:text-5xl xl:text-7xl">Privacy at Input Studios</h1>
+                        <p className="text-xs sm:text-sm mt-5">Your data is private at work, at home, and on the go.</p>
+                        <p className="text-xs mx-12 sm:text-sm mt-5">At Input Studios, we value, protect, and defend privacy. We believe in transparency, so that people and organizations can control their data and have meaningful choices in how it is used. We empower and defend the privacy choices of every person who uses our products and services.</p>
+                     </div>
+                  </Link>
+               ) : (
+                  <Link 
+                     to={`${languagePrefix}/search`} 
+                     className="w-full h-[250px] bg-white dark:bg-[rgb(16,23,42)] shadow-md dark:shadow-lg flex flex-col justify-center items-center text-center text-black dark:text-white no-underline welcome welcome-height" 
+                  >
+                     <div>
+                        <h1 className="text-3xl font-bold xs:text-4xl sm:text-5xl md:text-5xl welcome-padding">
+                           {t("home_welcome")}
+                        </h1>
+                        <p className="text-xs sm:text-sm mt-5 mr-2 ml-2">
+                           {t("home_welcome_description")}
+                        </p>
+                        <div className="flex justify-center mt-5">
+                        </div>
+                     </div>
+                  </Link>
+               )}
             </div>
             <div className="p-10">
                <h1 className="text-3xl font font-semibold text-center my-7">Our commitment to privacy</h1>
@@ -51,7 +87,7 @@ export default function About() {
                </nav>
             </div>
             <div className='mt-10'>
-               <h1 className="text-3xl font font-semibold text-center my-7">What's new</h1>
+               <h1 className="text-3xl font font-semibold text-center my-7">What`s new</h1>
                <p className="text-md text-gray-500 flex flex-col gap-6 text-center">Check out the latest articles, blog posts, and news from Input Studios about protecting your privacy at home and at work. (Some content might only be available in English.)</p>
             </div>
             <div className="flex flex-row justify-center mt-10">
@@ -87,7 +123,7 @@ export default function About() {
             <div className="text-sm mt-20 mb-10">
                <p className='pb-2'>To learn more about privacy at Input Studios, see <a href="/privacy-in-our-products" className="text-blue-500 underline">Input Studios products and your data</a>.</p>
                <p className='pb-2'>To learn about managing your privacy settings, see <a href="/support" className="text-blue-500 underline">Where can I find privacy settings in Input Studios products?</a></p>
-               <p className='pb-2'>We’re always working to improve, so if you notice something in our products and services that doesn’t work the way you’d expect when it comes to privacy, please <a href="/concern/privacy" className="text-blue-500 underline">let us know</a>.</p>
+               <p className='pb-2'>We`re always working to improve, so if you notice something in our products and services that doesn’t work the way you’d expect when it comes to privacy, please <a href="/concern/privacy" className="text-blue-500 underline">let us know</a>.</p>
             </div>
          </div>
       </div>

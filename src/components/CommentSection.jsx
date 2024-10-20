@@ -14,31 +14,49 @@ export default function CommentSection({ postId }) {
    const [commentToDelete, setCommentToDelete] = useState(null);
    const navigate = useNavigate();
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    const handleSubmit = async (e) => {
       e.preventDefault();
       if (comment.length > 200) {
          return;
       }
+      
+      const token = localStorage.getItem('token');
+      
       try {
          const res = await fetch(`${SERVER_URL}/api/comment/create`, {
-         method: "POST",
-         headers: {
-            "Content-Type": "application/json",
-         },
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`
+            },
             body: JSON.stringify({
                content: comment,
                postId,
                userId: currentUser._id
             }),
          });
-         const data = await res.json();
+   
+         let data;
+         try {
+            data = await res.json();
+         } catch (jsonError) {
+            data = await res.text(); // Обработка текста, если JSON не получается
+            throw new Error(data);
+         }
+   
          if (res.ok) {
             setComment("");
             setCommentError(null);
             setComments([data, ...comments]);
+         } else {
+            console.error("Error response:", data);
+            throw new Error(data.message || 'An error occurred');
          }
       } catch (error) {
+         console.error("Fetch error:", error.message);
          setCommentError(error.message);
       }
    };
@@ -122,10 +140,10 @@ export default function CommentSection({ postId }) {
                <img
                   className="h-5 w-5 object-cover rounded-full"
                   src={currentUser.profilePicture}
-                  alt=""
+                  alt="Profile picture"
                />
                <Link
-                  to={"/dashboard?tab=profile"}
+                  to={`${languagePrefix}/dashboard?tab=profile`}
                   className="text-xs text-cyan-600 hover:underline"
                >
                   @{currentUser.username}
@@ -134,7 +152,7 @@ export default function CommentSection({ postId }) {
          ) : (
             <div className="text-sm text-teal-500 my-5 flex gap-1">
                You must be signed in to comment.
-               <Link className="text-blue-500 hover:underline" to={"/sign-in"}>
+               <Link className="text-blue-500 hover:underline" to={`${languagePrefix}/sign-in`}>
                   Sign In
                </Link>
             </div>

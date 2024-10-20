@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { HiArrowUp } from 'react-icons/hi2';
+import PropTypes from 'prop-types';
 
-const ScrollToTopButton = () => {
+const ScrollToTopButton = ({ languageChanged, setLanguageChanged, scrollPositionRef }) => {
+   const { t } = useTranslation();
    const [showScroll, setShowScroll] = useState(false);
    const [buttonBottom, setButtonBottom] = useState('20px');
 
@@ -19,7 +22,7 @@ const ScrollToTopButton = () => {
          const footerRect = footer.getBoundingClientRect();
          const windowHeight = window.innerHeight;
          if (footerRect.top < windowHeight) {
-            const newButtonBottom = `${windowHeight - footerRect.top + 20}px`; // Adjust 20px as needed
+            const newButtonBottom = `${windowHeight - footerRect.top + 20}px`;
             setButtonBottom(newButtonBottom);
          } else {
             setButtonBottom('20px');
@@ -46,24 +49,39 @@ const ScrollToTopButton = () => {
       checkFooterPosition();
    }, []);
 
+   useEffect(() => {
+      if (languageChanged) {
+         window.scrollTo(0, scrollPositionRef.current); // Restore scroll position
+         setLanguageChanged(false); // Reset language change flag
+      }
+   }, [languageChanged, setLanguageChanged, scrollPositionRef]);
+
    return (
       <div
          className={`fixed right-5 z-50 ${
-         showScroll
-            ? 'opacity-100 transition-opacity duration-700'
-            : 'opacity-0 transition-opacity duration-1000 delay-800'
+            showScroll
+               ? 'opacity-100 transition-opacity duration-700'
+               : 'opacity-0 transition-opacity duration-1000 delay-800'
          }`}
-         style={{ bottom: buttonBottom, zIndex: 1000 }} // Ensure the button is above other elements, like the footer
+         style={{ bottom: buttonBottom, zIndex: 1000 }}
       >
          <div
             className="flex items-center cursor-pointer bg-gray-300 px-3 py-2 rounded shadow-lg hover:bg-white"
             onClick={scrollTop}
          >
             <HiArrowUp className="text-black mr-2 animate-bounce" />
-            <span className="text-black animate-bounce">Наверх</span>
+            <span className="text-black animate-bounce">{t("scroll_up_button")}</span>
          </div>
       </div>
    );
+};
+
+ScrollToTopButton.propTypes = {
+   languageChanged: PropTypes.bool.isRequired,
+   setLanguageChanged: PropTypes.func.isRequired,
+   scrollPositionRef: PropTypes.shape({
+      current: PropTypes.number.isRequired,
+   }).isRequired,
 };
 
 export default ScrollToTopButton;

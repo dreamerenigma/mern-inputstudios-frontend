@@ -21,6 +21,9 @@ export default function DashboardComponent() {
    const [lastMonthPosts, setLastMonthPosts] = useState(0);
    const [lastMonthComments, setLastMonthComments] = useState(0);
    const { currentUser } = useSelector((state) => state.user);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
    useEffect(() => {
       const fetchUsers = async () => {
          try {
@@ -128,7 +131,7 @@ export default function DashboardComponent() {
                      outline
                      gradientDuoTone="purpleToPink"
                   >
-                     <Link to={"/dashboard?tab=users"}>See all</Link>
+                     <Link to={`${languagePrefix}/dashboard?tab=users`}>See all</Link>
                   </Button>
                </div>
                <Table hoverable>
@@ -156,7 +159,7 @@ export default function DashboardComponent() {
                <div className="flex justify-between p-3 text-sm font-semibold">
                   <h1 className="text-center p-2">Recent comments</h1>
                   <Button outline gradientDuoTone="purpleToPink">
-                     <Link to={"/dashboard?tab=comments"}>See all</Link>
+                     <Link to={`${languagePrefix}/dashboard?tab=comments`}>See all</Link>
                   </Button>
                </div>
                <Table hoverable>
@@ -183,7 +186,7 @@ export default function DashboardComponent() {
                      outline
                      gradientDuoTone="purpleToPink"
                   >
-                     <Link to={"/dashboard?tab=posts"}>See all</Link>
+                     <Link to={`${languagePrefix}/dashboard?tab=posts`}>See all</Link>
                   </Button>
                </div>
                <Table hoverable>

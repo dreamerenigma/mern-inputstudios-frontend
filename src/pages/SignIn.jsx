@@ -15,9 +15,13 @@ export default function SignIn() {
    const dispatch = useDispatch();
    const navigate = useNavigate();
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
    const handleChange = (e) => {
       setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
    };
+
    const handleSubmit = async (e) => {
       e.preventDefault();
       if (!formData.email || !formData.password) {
@@ -42,6 +46,7 @@ export default function SignIn() {
          dispatch(signInFailure(error.message));
       }
    };
+   
    return (
       <div className="min-h-screen mt-20">
          <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5">
@@ -96,7 +101,7 @@ export default function SignIn() {
                </form>
                <div className="flex gap-2 text-sm mt-5">
                   <span>Don&apos;t have an account?</span>
-                  <Link to="/sign-up" className="text-blue-500">
+                  <Link to={`${languagePrefix}/sign-up`} className="text-blue-500">
                      Sign Up
                   </Link>
                </div>

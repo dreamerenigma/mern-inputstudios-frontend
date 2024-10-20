@@ -23,6 +23,8 @@ export default function SidebarBlog() {
    const [isMenuOpen, setIsMenuOpen] = useState(false);
    const [isClicked, setIsClicked] = useState(false);
    const [isVisible, setIsVisible] = useState(false); 
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
    
    const toggleVisibility = () => {
       setIsVisible(!isVisible);
@@ -99,7 +101,7 @@ export default function SidebarBlog() {
                   </Link>
                )}
                {currentUser.isAdmin && (
-                  <Link to="/dashboard?tab=posts">
+                  <Link to={`${languagePrefix}/dashboard?tab=posts`}>
                      <div className="py-1">
                         <div className={`py-2 px-3 ${tab === "posts" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`}>
                            <HiDocumentText 
@@ -113,7 +115,7 @@ export default function SidebarBlog() {
                )}
                {currentUser.isAdmin && (
                   <>
-                     <Link to="/dashboard?tab=users">
+                     <Link to={`${languagePrefix}/dashboard?tab=users`}>
                         <div className="py-1">
                            <div className={`py-2 px-3 ${tab === "users" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`}>
                               <HiOutlineUserGroup 
@@ -124,7 +126,7 @@ export default function SidebarBlog() {
                            </div>
                         </div>
                      </Link>
-                     <Link to="/dashboard?tab=comments">
+                     <Link to={`${languagePrefix}/dashboard?tab=comments`}>
                         <div className="py-1">
                            <div className={`py-2 px-3 ${tab === "comments" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`}>
                               <HiAnnotation 

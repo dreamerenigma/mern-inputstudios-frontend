@@ -107,7 +107,7 @@ export default function FeedbackButton() {
                <Link to="/privacystatement" className="text-sm text-teal-500 block hover:underline hover:text-teal-700">
                   Privacy and Cookie
                </Link>
-               <p className="text-sm pt-4">Need help? <a href="/contacts" className="text-teal-500 hover:underline hover:text-teal-700">Contact us</a></p>
+               <p className="text-sm pt-4">Need help? <a href="/contactus" className="text-teal-500 hover:underline hover:text-teal-700">Contact us</a></p>
                <div className="text-center mt-10">
                   <div className="flex justify-end gap-4">
                   <Button
