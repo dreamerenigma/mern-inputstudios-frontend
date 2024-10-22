@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Comment from './Comment';
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import PropTypes from 'prop-types';
 
 export default function CommentSection({ postId }) {
    const { currentUser } = useSelector(state => state.user);
@@ -24,6 +25,7 @@ export default function CommentSection({ postId }) {
       }
       
       const token = localStorage.getItem('token');
+      console.log("Token being sent:", token);
       
       try {
          const res = await fetch(`${SERVER_URL}/api/comment/create`, {
@@ -43,7 +45,7 @@ export default function CommentSection({ postId }) {
          try {
             data = await res.json();
          } catch (jsonError) {
-            data = await res.text(); // Обработка текста, если JSON не получается
+            data = await res.text();
             throw new Error(data);
          }
    
@@ -74,7 +76,7 @@ export default function CommentSection({ postId }) {
          }
       };
       getComments();
-   }, [postId]);
+   }, [SERVER_URL, postId]);
 
    const handleLike = async (commentId) => {
       try {
@@ -82,9 +84,17 @@ export default function CommentSection({ postId }) {
             navigate("/sign-in");
             return;
          }
+   
+         const token = localStorage.getItem('token');
+   
          const res = await fetch(`${SERVER_URL}/api/comment/likeComment/${commentId}`, {
             method: "PUT",
+            headers: {
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`,
+            },
          });
+   
          if (res.ok) {
             const data = await res.json();
             setComments(
@@ -98,6 +108,9 @@ export default function CommentSection({ postId }) {
                      : comment
                )
             );
+         } else {
+            const errorData = await res.json();
+            console.log(errorData.message);
          }
       } catch (error) {
          console.log(error.message);
@@ -112,7 +125,6 @@ export default function CommentSection({ postId }) {
       );
    };
 
-   
    const handleDelete = async (commentId) => {
       setShowModal(false);
       try {
@@ -120,12 +132,19 @@ export default function CommentSection({ postId }) {
             navigate("/sign-in");
             return;
          }
+         const token = localStorage.getItem('token');
          const res = await fetch(`${SERVER_URL}/api/comment/deleteComment/${commentId}`, {
             method: "DELETE",
+            headers: {
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`
+            },
          });
+   
          if (res.ok) {
-            const data = await res.json();
             setComments(comments.filter((comment) => comment._id !== commentId));
+         } else {
+            console.log(`Failed to delete comment: ${res.statusText}`);
          }
       } catch (error) {
          console.log(error.message);
@@ -238,3 +257,7 @@ export default function CommentSection({ postId }) {
       </div>
    );
 }
+
+CommentSection.propTypes = {
+   postId: PropTypes.string.isRequired, // Ensure postId is required and is a string
+};

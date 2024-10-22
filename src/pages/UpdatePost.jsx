@@ -1,14 +1,9 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import {
-   getDownloadURL, 
-   getStorage,
-   ref,
-   uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams } from "react-router-dom";
@@ -23,29 +18,58 @@ export default function UpdatePost() {
    const navigate = useNavigate();
    const { postId } = useParams();
    const { currentUser } = useSelector((state) => state.user);
+   const imageRef = useRef(formData.image);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
 
    useEffect(() => {
-      try {
-         const fetchPost = async () => {
-            const res = await fetch(`${SERVER_URL}/api/post/getposts?postId=${postId}`);
-            const data = await res.json();
-            if (!res.ok) {
-               console.log(data.message);
-               setPublishError(data.message);
-               return;
-            }
-            if (res.ok) {
-               setPublishError(null);
-               setFormData(data.posts[0]);
-            }
-         };
+      const controller = new AbortController();
+      const { signal } = controller;
 
+      const fetchPost = async () => {
+         try {
+            console.log("Fetching post with ID:", postId);
+
+            const res = await fetch(`${SERVER_URL}/api/post/getposts?postId=${postId}`, { signal });
+
+            if (!res.ok) {
+                  const errorData = await res.json();
+                  console.log(errorData.message);
+                  setPublishError(errorData.message);
+                  return;
+            }
+
+            const data = await res.json();
+            console.log("Fetched post data:", data);
+
+            if (data.posts && data.posts.length > 0) {
+                  const post = data.posts[0];
+                  console.log("Fetched post object:", post); // Логирование поста
+
+                  setFormData({
+                     ...post,
+                     _id: post._id, // Явно добавляем _id
+                     image: post.image || imageRef.current
+                  });
+            } else {
+                  setPublishError("No post found.");
+            }
+         } catch (error) {
+            if (error.name === "AbortError") {
+                  console.log("Fetch aborted");
+            } else {
+                  console.error("Error fetching post:", error.message);
+            }
+         }
+      };
+
+      if (postId) {
          fetchPost();
-      } catch (error) {
-         console.log(error.message);
       }
-   }, [postId]);
+
+      return () => {
+         controller.abort();
+      };
+   }, [SERVER_URL, postId]);
 
    const handleUploadImage = async () => {
       try {
@@ -66,7 +90,7 @@ export default function UpdatePost() {
                setImageUploadProgress(progress.toFixed(0));
             },
             (error) => {
-               setImageUploadError("Image upload failed");
+               setImageUploadError(`Image upload failed: ${error.message}`);
                setImageUploadProgress(null);
             },
             () => {
@@ -79,7 +103,7 @@ export default function UpdatePost() {
          );
 
       } catch (error) {
-         setImageUploadError("Image upload failed");
+         setImageUploadError(`Image upload failed: ${error.message}`);
          setImageUploadProgress(null);
          console.log(error);
       }
@@ -87,27 +111,38 @@ export default function UpdatePost() {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
+      console.log("Form Data: ", formData);
+
+      if (!formData._id) {
+         setPublishError("Post ID is missing");
+         return;
+      }
+
       try {
+         const token = localStorage.getItem('token');
          const res = await fetch(`${SERVER_URL}/api/post/updatepost/${formData._id}/${currentUser._id}`, {
             method: "PUT",
             headers: {
-               "Content-Type": "application/json",
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify(formData),
          });
+
          const data = await res.json();
          if (!res.ok) {
+            console.log("Update error:", data.message);
             setPublishError(data.message);
             return;
          }
-         if (res.ok) {
-            setPublishError(null);
-            navigate(`/post/${data.slug}`);
-         }
-      } catch {
-         setPublishError("Something went wrong");
+         setPublishError(null);
+         navigate(`/post/${data.slug}`);
+      } catch (error) {
+         setPublishError("Something went wrong: " + error.message);
+         console.error("Submission error:", error);
       }
    };
+
    return (
       <div className="p-3 max-w-3xl mx-auto min-h-screen">
          <h1 className="text-center text-3xl my-7 font-semibold">Update post</h1>

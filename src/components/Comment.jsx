@@ -3,6 +3,7 @@ import moment from "moment";
 import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Button, Textarea } from "flowbite-react";
+import PropTypes from "prop-types";
 
 export default function Comment({ comment, onLike, onEdit, onDelete }) {
    const [user, setUser] = useState({});
@@ -24,7 +25,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
          }
       }
       getUser();
-   }, [comment]);
+   }, [SERVER_URL, comment]);
 
    const handleEdit = () => {
       setIsEditing(true);
@@ -33,18 +34,23 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
 
    const handleSave = async () => {
       try {
+         const token = localStorage.getItem('token');
          const res = await fetch(`${SERVER_URL}/api/comment/editComment/${comment._id}`, {
             method: "PUT",
             headers: {
                "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                content: editedContent,
             }),
          });
+         
          if (res.ok) {
             setIsEditing(false);
             onEdit(comment, editedContent);
+         } else {
+            console.log(`Failed to edit comment: ${res.statusText}`);
          }
       } catch (error) {
          console.log(error.message);
@@ -143,3 +149,17 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
       </div>
    );
 }
+
+Comment.propTypes = {
+   comment: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      userId: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      likes: PropTypes.arrayOf(PropTypes.string).isRequired,
+      numberOfLikes: PropTypes.number.isRequired,
+   }).isRequired,
+   onLike: PropTypes.func.isRequired,
+   onEdit: PropTypes.func.isRequired,
+   onDelete: PropTypes.func.isRequired,
+};

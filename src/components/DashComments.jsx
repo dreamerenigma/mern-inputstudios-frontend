@@ -16,33 +16,54 @@ export default function DashComments() {
    useEffect(() => {
       const fetchComments = async () => {
          try {
-            const res = await fetch(`${SERVER_URL}/api/comment/getcomments`);
+            const token = localStorage.getItem('token');
+   
+            const res = await fetch(`${SERVER_URL}/api/comment/getcomments`, {
+               method: 'GET',
+               headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`,
+               },
+            });
             const data = await res.json();
             if (res.ok) {
                setComments(data.comments);
                if (data.comments.length < 9) {
                   setShowMore(false);
                }
+            } else {
+               console.log(data.message);
             }
          } catch (error) {
             console.log(error.message);
          }
       };
+   
       if (currentUser.isAdmin) {
          fetchComments();
       }
-   }, [SERVER_URL, currentUser._id, currentUser.isAdmin]);
+   }, [SERVER_URL, currentUser._id, currentUser.isAdmin]);   
 
    const handleShowMore = async () => {
       const startIndex = comments.length;
       try {
-         const res = await fetch(`${SERVER_URL}/api/comment/getcomments?startIndex=${startIndex}`);
+         const token = localStorage.getItem('token');
+   
+         const res = await fetch(`${SERVER_URL}/api/comment/getcomments?startIndex=${startIndex}`, {
+            method: 'GET',
+            headers: {
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`,
+            },
+         });
          const data = await res.json();
          if (res.ok) {
             setComments((prev) => [...prev, ...data.comments]);
             if (data.comments.length < 9) {
                setShowMore(false);
             }
+         } else {
+            console.log(data.message);
          }
       } catch (error) {
          console.log(error.message);
@@ -52,9 +73,16 @@ export default function DashComments() {
    const handleDeleteComment = async () => {
       setShowModal(false);
       try {
+         const token = localStorage.getItem('token');
+   
          const res = await fetch(`${SERVER_URL}/api/comment/deleteComment/${commentIdToDelete}`, {
             method: "DELETE",
+            headers: {
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`,
+            },
          });
+   
          const data = await res.json();
          if (res.ok) {
             setComments((prev) => prev.filter((comment) => comment._id !== commentIdToDelete));

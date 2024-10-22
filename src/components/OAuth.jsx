@@ -26,7 +26,10 @@ export default function OAuth() {
             }),
          })
          const data = await res.json()
+         console.log("Response data:", data);
          if (res.ok) {
+            localStorage.setItem('token', data.token);
+            console.log("Token stored in localStorage:", localStorage.getItem('token'));
             dispatch(signInSuccess(data))
             navigate("/")
          }

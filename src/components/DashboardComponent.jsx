@@ -9,7 +9,6 @@ import {
 import { Button, Table  } from "flowbite-react";
 import { Link } from 'react-router-dom';
 
-
 export default function DashboardComponent() {
    const [users, setUsers] = useState([]);
    const [comments, setComments] = useState([]);
@@ -21,55 +20,89 @@ export default function DashboardComponent() {
    const [lastMonthPosts, setLastMonthPosts] = useState(0);
    const [lastMonthComments, setLastMonthComments] = useState(0);
    const { currentUser } = useSelector((state) => state.user);
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    useEffect(() => {
       const fetchUsers = async () => {
          try {
-            const res = await fetch(`/api/user/getusers?limit=5`)
-            const data = await res.json()
+            const token = localStorage.getItem('token');
+   
+            const res = await fetch(`${SERVER_URL}/api/user/getusers?limit=5`, {
+               method: 'GET',
+               headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`,
+               },
+            });
+            const data = await res.json();
             if (res.ok) {
                setUsers(data.users);
                setTotalUsers(data.totalUsers);
                setLastMonthUsers(data.lastMonthUsers);
+            } else {
+               console.log(data.message);
             }
          } catch (error) {
             console.log(error.message);
          }
       };
-      const fetchPosts = async () => { 
+   
+      const fetchPosts = async () => {
          try {
-            const res = await fetch(`/api/post/getposts?limit=5`)
-            const data = await res.json()
+            const token = localStorage.getItem('token');
+   
+            const res = await fetch(`${SERVER_URL}/api/post/getposts?limit=5`, {
+               method: 'GET',
+               headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`,
+               },
+            });
+            const data = await res.json();
             if (res.ok) {
                setPosts(data.posts);
                setTotalPosts(data.totalPosts);
                setLastMonthPosts(data.lastMonthPosts);
+            } else {
+               console.log(data.message);
             }
          } catch (error) {
             console.log(error.message);
          }
       };
+   
       const fetchComments = async () => {
          try {
-            const res = await fetch(`/api/comment/getcomments?limit=5`)
-            const data = await res.json()
+            const token = localStorage.getItem('token');
+   
+            const res = await fetch(`${SERVER_URL}/api/comment/getcomments?limit=5`, {
+               method: 'GET',
+               headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`,
+               },
+            });
+            const data = await res.json();
             if (res.ok) {
                setComments(data.comments);
                setTotalComments(data.totalComments);
                setLastMonthComments(data.lastMonthComments);
+            } else {
+               console.log(data.message);
             }
          } catch (error) {
             console.log(error.message);
          }
       };
+   
       if (currentUser.isAdmin) {
-         fetchUsers()
-         fetchPosts()
-         fetchComments()
+         fetchUsers();
+         fetchPosts();
+         fetchComments();
       }
-   }, [currentUser])
+   }, [SERVER_URL, currentUser]);
    
    return (
       <div className="p-3 md:mx-auto">
@@ -117,7 +150,7 @@ export default function DashboardComponent() {
                <div className="flex gap-2 text-sm">
                   <span className="text-green-500 flex items-center">
                      <HiArrowNarrowUp />
-                     {lastMonthUsers}
+                     {lastMonthPosts}
                   </span>
                   <div className="text-gray-500">Last month</div>
                </div>

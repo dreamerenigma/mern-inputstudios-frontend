@@ -17,18 +17,30 @@ export default function DashUsers() {
    useEffect(() => {
       const fetchUsers = async () => {
          try {
-            const res = await fetch(`${SERVER_URL}/api/user/getusers`);
+            const token = localStorage.getItem('token'); // Retrieve the JWT token
+   
+            const res = await fetch(`${SERVER_URL}/api/user/getusers`, {
+               method: 'GET',
+               headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`, // Add the JWT token to the Authorization header
+               },
+            });
+            
             const data = await res.json();
             if (res.ok) {
                setUsers(data.users);
                if (data.users.length < 9) {
                   setShowMore(false);
                }
+            } else {
+               console.log(data.message); // Log the server error message if any
             }
          } catch (error) {
             console.log(error.message);
          }
       };
+   
       if (currentUser.isAdmin) {
          fetchUsers();
       }
@@ -37,13 +49,24 @@ export default function DashUsers() {
    const handleShowMore = async () => {
       const startIndex = users.length;
       try {
-         const res = await fetch(`${SERVER_URL}/api/user/getusers?startIndex=${startIndex}`);
+         const token = localStorage.getItem('token'); // Retrieve the JWT token
+   
+         const res = await fetch(`${SERVER_URL}/api/user/getusers?startIndex=${startIndex}`, {
+            method: 'GET',
+            headers: {
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`, // Add the JWT token to the Authorization header
+            },
+         });
+         
          const data = await res.json();
          if (res.ok) {
             setUsers((prev) => [...prev, ...data.users]);
             if (data.users.length < 9) {
                setShowMore(false);
             }
+         } else {
+            console.log(data.message); // Log the server error message if any
          }
       } catch (error) {
          console.log(error.message);
