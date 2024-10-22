@@ -30,7 +30,7 @@ export default function Home() {
          setPosts(data.posts);
       };
       fetchPosts();
-   }, []);
+   }, [SERVER_URL]);
 
    useEffect(() => {
       const handleResize = () => {
@@ -59,7 +59,7 @@ export default function Home() {
                      <h1 className="text-3xl font-bold lg:text-6xl xs:text-4xl sm:text-5xl md:text-5xl xl:text-7xl">
                         {t("home_welcome")}
                      </h1>
-                     <p className="text-xs sm:text-sm mt-5">
+                     <p className="text-xs sm:text-base mt-5">
                         {t("home_welcome_description")}
                      </p>
                      <Button 

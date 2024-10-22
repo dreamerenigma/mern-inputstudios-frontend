@@ -1,16 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 export default function CookieManagementModal({ showModal, handleCloseModal }) {
   const { t } = useTranslation();
   const { theme } = useSelector((state) => state.theme);
   const currentLanguage = useSelector((state) => state.language.currentLanguage);
   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
-
   const [analyticalCookie, setAnalyticalCookie] = useState('');
   const [socialMediaCookies, setSocialMediaCookies] = useState('');
   const [advertisingCookies, setAdvertisingCookies] = useState('');
+
+  useEffect(() => {
+    const savedAnalyticalCookie = localStorage.getItem('analyticalCookie') || '';
+    const savedSocialMediaCookies = localStorage.getItem('socialMediaCookies') || '';
+    const savedAdvertisingCookies = localStorage.getItem('advertisingCookies') || '';
+    
+    setAnalyticalCookie(savedAnalyticalCookie);
+    setSocialMediaCookies(savedSocialMediaCookies);
+    setAdvertisingCookies(savedAdvertisingCookies);
+  }, []);
 
   if (!showModal) return null;
 
@@ -25,10 +35,21 @@ export default function CookieManagementModal({ showModal, handleCloseModal }) {
     `${languagePrefix}/privacy-statement`
   );
 
+  const savePreferences = () => {
+    localStorage.setItem('analyticalCookie', analyticalCookie);
+    localStorage.setItem('socialMediaCookies', socialMediaCookies);
+    localStorage.setItem('advertisingCookies', advertisingCookies);
+
+    handleCloseModal();
+  };
+
   const resetPreferences = () => {
     setAnalyticalCookie('');
     setSocialMediaCookies('');
     setAdvertisingCookies('');
+    localStorage.removeItem('analyticalCookie');
+    localStorage.removeItem('socialMediaCookies');
+    localStorage.removeItem('advertisingCookies');
   };
 
   return (
@@ -37,7 +58,7 @@ export default function CookieManagementModal({ showModal, handleCloseModal }) {
         className="fixed inset-0 bg-black opacity-50" 
         onClick={handleBackdropClick}
       ></div>
-      <div className="relative bg-white dark:bg-gray-800 border border-black p-8 w-11/12 sm:w-3/4 md:w-[40%] lg:w-[40%] max-h-[90vh] overflow-hidden rounded-lg sm:min-w-[600px] md:min-w-[650px] lg:min-w-[650px]">
+      <div className="relative bg-white dark:bg-gray-800 border border-gray-700 shadow-lg p-8 w-11/12 sm:w-3/4 md:w-[40%] lg:w-[40%] max-h-[90vh] overflow-hidden rounded-lg sm:min-w-[600px] md:min-w-[650px] lg:min-w-[650px]">
         <button 
           onClick={handleCloseModal} 
           className={`absolute top-4 right-4 ${theme === 'dark' ? 'text-white' : 'text-black'} text-2xl`}
@@ -95,7 +116,7 @@ export default function CookieManagementModal({ showModal, handleCloseModal }) {
           </button>
           <button 
             className="flex-1 px-4 py-2 bg-gray-200 border border-black hover:bg-gray-300 text-black"
-            onClick={handleCloseModal}
+            onClick={savePreferences}
           >
             {t("save_changes")}
           </button>
@@ -104,3 +125,8 @@ export default function CookieManagementModal({ showModal, handleCloseModal }) {
     </div>
   );
 }
+
+CookieManagementModal.propTypes = {
+  showModal: PropTypes.bool.isRequired,
+  handleCloseModal: PropTypes.func.isRequired,
+};

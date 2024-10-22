@@ -205,7 +205,7 @@ export default function BrowserWave() {
             </span>
             <div className="inline-block mt-10">
               <Link to={`${languagePrefix}/wave/download`}>
-              <CustomButton>Скачать для вашего устройства</CustomButton>
+                <CustomButton CustomButton>Скачать для вашего устройства</CustomButton>
               </Link>
             </div>
           </div>

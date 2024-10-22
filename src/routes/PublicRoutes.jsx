@@ -10,7 +10,6 @@ import BrowserWave from "../pages/browser/BrowserWave";
 import QuantumEngine from "../pages/QuantumEngine";
 import ChatSam from "../pages/ChatSam";
 import Chatify from "../pages/Chatify";
-import DownloadApps from "../pages/DownloadApps";
 import Workspace from "../pages/Workspace";
 import Projects from "../pages/Projects";
 import Cloud from "../pages/Cloud";
@@ -74,7 +73,6 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/chatify`} element={<Chatify />} />
                <Route path={`/${lang}/workspace`} element={<Workspace />} />
                <Route path={`/${lang}/chat-sam`} element={<ChatSam />} />
-               <Route path={`/${lang}/download-apps`} element={<DownloadApps />} />
                <Route path={`/${lang}/projects`} element={<Projects />} />
                <Route path={`/${lang}/forum`} element={<Forum />} />
                <Route path={`/${lang}/cloud`} element={<Cloud />} />

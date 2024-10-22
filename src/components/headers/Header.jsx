@@ -7,9 +7,10 @@ import { toggleTheme } from "../../redux/theme/themeSlice";
 import { signoutSuccess } from "../../redux/user/userSlice";
 import { useEffect, useRef, useState } from "react";
 import { IoCameraOutline } from 'react-icons/io5';
-import CustomTextInput from "../textinput/CustomTextInput";
+import CustomTextInput from "../textinputs/CustomTextInput";
 import { useTranslation } from "react-i18next";
 import { IoIosArrowDown } from "react-icons/io";
+import { useCallback } from 'react';
 
 export default function Header() {
    const { t } = useTranslation();
@@ -79,7 +80,7 @@ export default function Header() {
       navigate(`/search?${searchQuery}`);
    };
 
-   const handleClickOutside = (event) => {
+   const handleClickOutside = useCallback((event) => {
       if (
          (menuOpen && !event.target.closest(".menu") && !event.target.closest(".search-button")) ||
          (searchVisible && !event.target.closest(".search-wrapper") && !event.target.closest(".search-button") && !event.target.closest(".search-button-text")) ||
@@ -88,8 +89,9 @@ export default function Header() {
          setMenuOpen(false);
          setSearchVisible(false);
          setIsOpenAbout(false);
+
       }
-   };
+   }, [menuOpen, searchVisible, isOpenAbout]);
 
    const handleButtonClick = (event) => {
       event.stopPropagation();
@@ -108,7 +110,7 @@ export default function Header() {
       return () => {
          document.removeEventListener("click", handleClickOutside);
       };
-   }, [menuOpen, searchVisible, isOpenAbout]);
+   }, [handleClickOutside]);
 
    document.addEventListener("DOMContentLoaded", function() {
       var element = document.querySelector('.mx-auto.flex.flex-wrap.items-center.justify-between');
@@ -116,17 +118,17 @@ export default function Header() {
          element.classList.remove('container');
       }
    });
-   
+
    return (
-      <Navbar className="border-b-2">
+      <Navbar className="shadow-lg">
          <Link
             to="/"
-            className={`self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white ${windowWidth >= 1080 ? 'mx-8' : 'mx-0'}`}
+            className={`self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white ${windowWidth >= 1080 ? 'mx-20' : 'mx-0'}`}
          >
-         <span className="px-2 py-1 bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 rounded-lg text-white">
-            Input Studios
-         </span>
-      </Link>
+            <span className="px-2 py-1 bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 rounded-lg text-white">
+               Input Studios
+            </span>
+         </Link>
          <div className="flex gap-2">
             <Button
                className="w-12 h-10 lg:hidden flex items-center justify-center menu-button border-none"
@@ -177,7 +179,7 @@ export default function Header() {
                         <span className={`search-button-content pb-0.2 border-b-2 ${path === `/${languagePrefix}/whats-new` ? "border-current" : "border-transparent"} hover:border-current`}>
                            {t("header_search")}
                         </span>
-                        <AiOutlineSearch size={24} className="ml-2 relative bottom-1" style={{ transform: 'rotate(90deg)' }} />
+                        <AiOutlineSearch size={24} className="ml-2 relative" style={{ transform: 'rotate(90deg)' }} />
                      </div>
                   </div>
                </Button>
@@ -207,7 +209,7 @@ export default function Header() {
                   arrowIcon={false}
                   inline
                   label={
-                     <div className="flex items-center group">
+                     <div className="flex items-center group mr-12">
                         <span 
                            className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white">
                            {currentUser.username}
@@ -290,9 +292,9 @@ export default function Header() {
                ref={dropdownRef}
                className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} hover:border-current`}
             >
-               <Link className="flex flex-row items-center menu-link" onClick={() => setMenuOpen(false)}>
+               <Link className="flex flex-row items-center menu-link" onClick={handleToggle}>
                   {t("header_about")}
-                  <IoIosArrowDown className="ml-2" />
+                  <IoIosArrowDown className={`ml-2 transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"}`}/>
                </Link>
                {isOpenAbout && (
                <ul className="absolute left-0 top-full mt-2 bg-white dark:bg-gray-600 shadow-md rounded-md z-10 whitespace-nowrap dropdown">

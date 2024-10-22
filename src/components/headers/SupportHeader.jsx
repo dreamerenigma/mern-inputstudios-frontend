@@ -5,10 +5,11 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux'; 
 import { toggleTheme } from "../../redux/theme/themeSlice";
 import { signoutSuccess } from "../../redux/user/userSlice";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoCameraOutline } from 'react-icons/io5';
-import CustomTextInput from "../textinput/CustomTextInput";
+import CustomTextInput from "../textinputs/CustomTextInput";
 import { useTranslation } from "react-i18next";
+import { useCallback } from 'react';
 
 export default function SupportHeader() {
    const { t } = useTranslation();
@@ -16,7 +17,6 @@ export default function SupportHeader() {
    const location = useLocation();
    const navigate = useNavigate();
    const dispatch = useDispatch();
-   const dropdownRef = useRef(null);
    const { currentUser } = useSelector(state => state.user);
    const { theme } = useSelector((state) => state.theme); 
    const [searchTerm, setSearchTerm] = useState("");
@@ -78,7 +78,7 @@ export default function SupportHeader() {
       navigate(`/search?${searchQuery}`);
    };
 
-   const handleClickOutside = (event) => {
+   const handleClickOutside = useCallback((event) => {
       if (
          (menuOpen && !event.target.closest(".menu") && !event.target.closest(".search-button")) ||
          (searchVisible && !event.target.closest(".search-wrapper") && !event.target.closest(".search-button") && !event.target.closest(".search-button-text")) ||
@@ -88,26 +88,19 @@ export default function SupportHeader() {
          setSearchVisible(false);
          setIsOpenAbout(false);
       }
-   };
+   }, [menuOpen, searchVisible, isOpenAbout]);
 
    const handleButtonClick = (event) => {
       event.stopPropagation();
       setMenuOpen(!menuOpen);
    };
 
-   const handleToggle = () => {
-      if (isOpenAbout) {
-         setIsOpenAbout(false);
-      }
-      setIsOpenAbout(!isOpenAbout);
-   };
-   
    useEffect(() => {
       document.addEventListener("click", handleClickOutside);
       return () => {
          document.removeEventListener("click", handleClickOutside);
       };
-   }, [menuOpen, searchVisible, isOpenAbout]);
+   }, [handleClickOutside]);
 
    document.addEventListener("DOMContentLoaded", function() {
       var element = document.querySelector('.mx-auto.flex.flex-wrap.items-center.justify-between');
@@ -176,7 +169,7 @@ export default function SupportHeader() {
                         <span className={`search-button-content pb-0.2 border-b-2 ${path === `/${languagePrefix}/whats-new` ? "border-current" : "border-transparent"} hover:border-current`}>
                            {t("header_search")}
                         </span>
-                        <AiOutlineSearch size={24} className="ml-2 relative bottom-1" style={{ transform: 'rotate(90deg)' }} />
+                        <AiOutlineSearch size={24} className="ml-2 relative" style={{ transform: 'rotate(90deg)' }} />
                      </div>
                   </div>
                </Button>
@@ -267,21 +260,19 @@ export default function SupportHeader() {
          </div>
          <Navbar.Collapse className={`${menuOpen ? "block" : "hidden"} hidden-in-range`}>
             <div className={`pb-0.2 border-b-2 ${path === "/support" ? "border-current" : "border-transparent"} hover:border-current`}>
-               <a href="/support" rel="noopener noreferrer">Support</a>
+               <Link to={`${languagePrefix}/support`}>{t("header_support")}</Link>
             </div>
-            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/projects` ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to={`${languagePrefix}/projects`}>Workspace</Link>
+            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/workspace` ? "border-current" : "border-transparent"} hover:border-current`}>
+               <Link to={`${languagePrefix}/workspace`}>Workspace</Link>
             </div>
-            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to={`${languagePrefix}/blogs`}>Quantum Engine</Link>
+            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/quantum_engine` ? "border-current" : "border-transparent"} hover:border-current`}>
+               <Link to={`${languagePrefix}/quantum-engine`}>Quantum Engine</Link>
             </div>
-            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to={`${languagePrefix}/forum`}>Apps</Link>
+            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/apps` ? "border-current" : "border-transparent"} hover:border-current`}>
+               <Link to={`${languagePrefix}/apps`}>{t("header_apps")}</Link>
             </div>
-            <div className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link className="flex flex-row items-center menu-link">
-                  Deals
-               </Link>
+            <div className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/deals` ? "border-current" : "border-transparent"} hover:border-current`}>
+               <Link to={`${languagePrefix}/apps`}>{t("header_deals")}</Link>
             </div>
          </Navbar.Collapse>
       </Navbar>

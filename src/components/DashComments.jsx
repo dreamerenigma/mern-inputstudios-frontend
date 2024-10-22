@@ -2,8 +2,10 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
 import { Modal, Table, Button } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { useTranslation } from "react-i18next";
 
 export default function DashComments() {
+   const { t } = useTranslation();
    const { currentUser } = useSelector((state) => state.user);
    const [comments, setComments] = useState([]);
    const [showMore, setShowMore] = useState(true);
@@ -29,7 +31,7 @@ export default function DashComments() {
       if (currentUser.isAdmin) {
          fetchComments();
       }
-   }, [currentUser._id]);
+   }, [SERVER_URL, currentUser._id, currentUser.isAdmin]);
 
    const handleShowMore = async () => {
       const startIndex = comments.length;
@@ -66,17 +68,17 @@ export default function DashComments() {
    };
 
    return (
-      <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+      <div className="table-auto md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
          {currentUser.isAdmin && comments.length > 0 ? (
             <>
                <Table hoverable className="shadow-md">
                   <Table.Head>
-                     <Table.HeadCell>Date updated</Table.HeadCell>
-                     <Table.HeadCell>Comment content</Table.HeadCell>
-                     <Table.HeadCell>Number of likes</Table.HeadCell>
-                     <Table.HeadCell>PostId</Table.HeadCell>
-                     <Table.HeadCell>UserId</Table.HeadCell>
-                     <Table.HeadCell>Delete</Table.HeadCell>
+                     <Table.HeadCell>{t("date_updated")}</Table.HeadCell>
+                     <Table.HeadCell>{t("comment_content")}</Table.HeadCell>
+                     <Table.HeadCell>{t("number_of_likes")}</Table.HeadCell>
+                     <Table.HeadCell>{t("post_id")}</Table.HeadCell>
+                     <Table.HeadCell>{t("user_id")}</Table.HeadCell>
+                     <Table.HeadCell>{t("delete")}</Table.HeadCell>
                   </Table.Head>
                   {comments.map((comment) => (
                      <Table.Body className="divide-y" key={comment._id}>
@@ -96,7 +98,7 @@ export default function DashComments() {
                                  }}
                                  className="font-medium text-red-500 hover:underline cursor-pointer"
                               >
-                                 Delete
+                                 {t("delete")}
                               </span>
                            </Table.Cell>
                            <Table.Cell>
@@ -110,12 +112,19 @@ export default function DashComments() {
                      onClick={handleShowMore}
                      className="w-full text-teal-500 self-center text-sm py-7"
                   >
-                     Show more
+                     {t("show_more")}
                   </button>
                )}
             </>
          ) : (
-            <p>You have no comments yet!</p>
+            <div className="flex flex-col items-center justify-center h-screen">
+               <img 
+                  src="/images/profile/no_data.png"
+                  alt="No comments"
+                  className="mb-4 w-56 h-52"
+               />
+               <p>{t("you_have_no_comments")}</p>
+            </div>
          )}
          <Modal
             show={showModal}
@@ -128,14 +137,14 @@ export default function DashComments() {
                <div className="text-center">
                   <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
                   <h3 className="mb-5 text-lg text-gray-500 dark:text-fray-400">
-                     Are you sure you want to delete this comment?
+                     {t("sure_you_delete_comment")}
                   </h3>
                   <div className="flex justify-center gap-4">
                      <Button color="failure" onClick={handleDeleteComment}>
-                        Yes, I&apos;m sure
+                        {t("yes_sure")}
                      </Button>
                      <Button color="gray" onClick={() => setShowModal(false)}>
-                        No, cancel
+                        {t("no_cancel")}
                      </Button>
                   </div>
                </div>

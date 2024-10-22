@@ -8,36 +8,37 @@ const ScrollToTopButton = ({ languageChanged, setLanguageChanged, scrollPosition
    const [showScroll, setShowScroll] = useState(false);
    const [buttonBottom, setButtonBottom] = useState('20px');
 
-   const checkScrollTop = () => {
-      if (!showScroll && window.scrollY > 300) {
-         setShowScroll(true);
-      } else if (showScroll && window.scrollY <= 300) {
-         setShowScroll(false);
-      }
-   };
-
-   const checkFooterPosition = () => {
-      const footer = document.getElementById('footer');
-      if (footer) {
-         const footerRect = footer.getBoundingClientRect();
-         const windowHeight = window.innerHeight;
-         if (footerRect.top < windowHeight) {
-            const newButtonBottom = `${windowHeight - footerRect.top + 20}px`;
-            setButtonBottom(newButtonBottom);
-         } else {
-            setButtonBottom('20px');
-         }
-      }
-   };
-
    const scrollTop = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
    };
 
    useEffect(() => {
+      const checkScrollTop = () => {
+         if (!showScroll && window.scrollY > 300) {
+            setShowScroll(true);
+         } else if (showScroll && window.scrollY <= 300) {
+            setShowScroll(false);
+         }
+      };
+
+      const checkFooterPosition = () => {
+         const footer = document.getElementById('footer');
+         if (footer) {
+            const footerRect = footer.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            if (footerRect.top < windowHeight) {
+               const newButtonBottom = `${windowHeight - footerRect.top + 20}px`;
+               setButtonBottom(newButtonBottom);
+            } else {
+               setButtonBottom('20px');
+            }
+         }
+      };
+
       window.addEventListener('scroll', checkScrollTop);
       window.addEventListener('scroll', checkFooterPosition);
       window.addEventListener('resize', checkFooterPosition);
+
       return () => {
          window.removeEventListener('scroll', checkScrollTop);
          window.removeEventListener('scroll', checkFooterPosition);
@@ -46,13 +47,21 @@ const ScrollToTopButton = ({ languageChanged, setLanguageChanged, scrollPosition
    }, [showScroll]);
 
    useEffect(() => {
-      checkFooterPosition();
+      const footer = document.getElementById('footer');
+      if (footer) {
+         const footerRect = footer.getBoundingClientRect();
+         const windowHeight = window.innerHeight;
+         if (footerRect.top < windowHeight) {
+            const newButtonBottom = `${windowHeight - footerRect.top + 20}px`;
+            setButtonBottom(newButtonBottom);
+         }
+      }
    }, []);
 
    useEffect(() => {
       if (languageChanged) {
-         window.scrollTo(0, scrollPositionRef.current); // Restore scroll position
-         setLanguageChanged(false); // Reset language change flag
+         window.scrollTo(0, scrollPositionRef.current);
+         setLanguageChanged(false);
       }
    }, [languageChanged, setLanguageChanged, scrollPositionRef]);
 

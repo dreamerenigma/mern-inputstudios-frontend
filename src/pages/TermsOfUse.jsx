@@ -3,13 +3,17 @@ import { useTranslation } from "react-i18next";
 import { SlSocialVkontakte } from "react-icons/sl";
 import { BsDribbble, BsGithub, BsYoutube } from "react-icons/bs";
 import { BiLogoFigma } from "react-icons/bi";
+import { Helmet } from "react-helmet";
 
 export default function TermsOfUse() {
    const { t } = useTranslation();
 
    return (
       <div className="p-12">
-         <h1 className="text-4xl font-semibold">Input Studios – Terms of Use</h1> 
+         <Helmet>
+            <title>{t("terms:title_terms_of_use")}</title>
+         </Helmet>
+         <h1 className="text-4xl font-semibold">{t("terms:terms_of_use")}</h1> 
          <p className="mt-8 text-base">Last Updated: February 7, 2022</p>
          <h1 className="mt-8 text-3xl font-semibold">Acceptance of Terms</h1>
          <p className="mt-6 text-base">The services that Input Studios provides to you are subject to the following Terms of Use ("TOU"). Input Studios reserves the right to update and modify the TOU at any time without notice to you. The most current version of the TOU can be reviewed by clicking on the "Terms of Use" hypertext link located at the bottom of our Web pages. When we make updates to the TOU, Input Studios will update the date at the top of this page. By using the website after a new version of the TOU has been posted, you agree to the terms of such new version.</p>

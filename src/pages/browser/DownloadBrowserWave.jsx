@@ -7,23 +7,30 @@ import CustomButton from "../../components/buttons/CustomButton";
 import { HiArrowNarrowDown } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import DownloadModal  from "../../components/modals/DownloadModal"
+import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 export default function DownloadBrowserWave() {
+   const { t } = useTranslation();
    const [dropdownOpen, setDropdownOpen] = useState(false);
    const { theme } = useSelector((state) => state.theme);
    const dropdownRef = useRef(null);
    const [modalOpen, setModalOpen] = useState(false);
+   const downloadLinkRef = useRef(null);
 
    const toggleDropdown = () => {
+      console.log("Toggle Dropdown called");
       setDropdownOpen(!dropdownOpen);
    };
 
    const closeDropdown = () => {
+      console.log("Close Dropdown called");
       setDropdownOpen(false);
    };
 
    const handleTextClick = (e) => {
       e.stopPropagation();
+      console.log("Text clicked!");
       setModalOpen(true);
    };
 
@@ -32,24 +39,24 @@ export default function DownloadBrowserWave() {
       toggleDropdown();
    };
 
-   const handleCloseModal = () => {
-      setModalOpen(false);
-   };
-
    useEffect(() => {
-   function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-         setDropdownOpen(false);
+      function handleClickOutside(event) {
+         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setDropdownOpen(false);
+         }
       }
-   }
-   document.addEventListener('mousedown', handleClickOutside);
-   return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-   };
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+         document.removeEventListener('mousedown', handleClickOutside);
+      };
    }, [dropdownRef]);
 
    return (
       <div className="flex flex-col items-center justify-center min-h-screen">
+         <Helmet>
+            <title>{t("download_wave")}</title>
+            <link rel="icon" type="image/png" href="/icons/browser/favicon.ico" />
+         </Helmet>
          <div className="mb-8 mt-12">
             <img src="/images/ic_wave.png" alt="InputStudiosWave" className="w-24" />
          </div>
@@ -73,7 +80,6 @@ export default function DownloadBrowserWave() {
                      className={`relative bg-teal-500 text-white w-56 rounded-lg hover:bg-teal-700 ${
                      dropdownOpen ? 'bg-teal-500' : ''
                      }`}
-                     onClick={toggleDropdown}
                   >
                      <span className="flex items-center">
                      <>
@@ -81,7 +87,15 @@ export default function DownloadBrowserWave() {
                            Загрузки <br />
                            для Windows 11 / 10
                         </span>
-                        {modalOpen && <DownloadModal onClose={handleCloseModal} />}
+                        {modalOpen && (
+                           <DownloadModal showModal={modalOpen} setShowModal={setModalOpen} />
+                        )}
+                        <a
+                           ref={downloadLinkRef}
+                           href="/downloads/InputStudiosWaveSetup.exe"
+                           download
+                           style={{ display: 'none' }}
+                        />
                      </>
                         <span
                            className="mx-2 ml-8 h-8 w-px bg-gray-400"

@@ -12,8 +12,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from "../redux/user/userSlice";
+import { useTranslation } from "react-i18next";
 
 export default function SidebarBlog() {
+   const { t } = useTranslation();
    const location = useLocation();
    const dispatch = useDispatch();
    const { currentUser } = useSelector(state => state.user);
@@ -26,12 +28,20 @@ export default function SidebarBlog() {
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
    
+   useEffect(() => {
+      const urlParams = new URLSearchParams(location.search);
+      const tabFromUrl = urlParams.get('tab');
+      if (tabFromUrl) {
+         setTab(tabFromUrl);
+      }
+   }, [location.search]);
+
    const toggleVisibility = () => {
       setIsVisible(!isVisible);
    };
 
    if (!isVisible) {
-      return null; // Если isVisible равно false, компонент не будет рендериться
+      return null;
    }
 
    const toggleSidebar = () => {
@@ -41,15 +51,6 @@ export default function SidebarBlog() {
          setIsClicked(false);
       }, 200);
    };
-
-   useEffect(() => {
-      const urlParams = new URLSearchParams(location.search);
-      const tabFromUrl = urlParams.get('tab');
-      if (tabFromUrl) {
-         setTab(tabFromUrl);
-      }
-   }, [location.search]);
-
    const handleSignout = async () => {
       try {
          const res = await fetch(`${SERVER_URL}/api/user/signout`, {
@@ -95,7 +96,7 @@ export default function SidebarBlog() {
                            size={28}
                            className={`text-${tab === "dash" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
                         />
-                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>Dashboard</span> 
+                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("dashboard")}</span> 
                         </div>
                      </div>
                   </Link>
@@ -108,7 +109,7 @@ export default function SidebarBlog() {
                               size={28}
                               className={`text-${tab === "posts" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
                            />
-                           <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>Posts</span>
+                           <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("posts")}</span>
                         </div>
                      </div>
                   </Link>
@@ -122,7 +123,7 @@ export default function SidebarBlog() {
                                  size={28}
                                  className={`text-${tab === "users" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
                               />
-                                 <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>Users</span>
+                                 <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("users")}</span>
                            </div>
                         </div>
                      </Link>
@@ -133,7 +134,7 @@ export default function SidebarBlog() {
                                  size={28}
                                  className={`text-${tab === "comments" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
                               />
-                                 <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>Comments</span>
+                                 <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("comments")}</span>
                            </div>
                         </div>
                      </Link>
@@ -148,12 +149,12 @@ export default function SidebarBlog() {
                         size={28}
                         className={`text-${tab === "signout" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
                      />
-                     <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>Sign Out</span>
+                     <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("sign_out")}</span>
                   </div>
                </Link>
             </div>
          </div>
-         <span className="px-4 py-2 text-xs">Version 0.0.0.14</span>
+         <span className="px-4 py-2 text-xs">{t("version_app")}</span>
       </div>
    );
 }

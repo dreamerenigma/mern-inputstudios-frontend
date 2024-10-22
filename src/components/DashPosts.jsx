@@ -3,13 +3,16 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Modal, Table, Button } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { useTranslation } from "react-i18next";
 
 export default function DashPosts() {
+   const { t } = useTranslation();
    const { currentUser } = useSelector((state) => state.user);
    const [userPosts, setUserPosts] = useState([]);
    const [showMore, setShowMore] = useState(true);
    const [showModal, setShowModal] = useState(false);
    const [postIdToDelete, setPostIdToDelete] = useState("");
+   
    useEffect(() => {
       const fetchPosts = async () => {
          try {
@@ -28,7 +31,7 @@ export default function DashPosts() {
       if (currentUser.isAdmin) {
          fetchPosts();
       }
-   }, [currentUser._id]);
+   }, [currentUser._id, currentUser.isAdmin]);
 
    const handleShowMore = async () => {
       const startIndex = userPosts.length;
@@ -69,18 +72,18 @@ export default function DashPosts() {
    };
 
    return (
-      <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+      <div className="table-auto md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
          {currentUser.isAdmin && userPosts.length > 0 ? (
             <>
                <Table hoverable className="shadow-md">
                   <Table.Head>
-                     <Table.HeadCell>Date updated</Table.HeadCell>
-                     <Table.HeadCell>Post image</Table.HeadCell>
-                     <Table.HeadCell>Post title</Table.HeadCell>
-                     <Table.HeadCell>Category</Table.HeadCell>
-                     <Table.HeadCell>Delete</Table.HeadCell>
+                     <Table.HeadCell>{t("date_updated")}</Table.HeadCell>
+                     <Table.HeadCell>{t("post_image")}</Table.HeadCell>
+                     <Table.HeadCell>{t("post_title")}</Table.HeadCell>
+                     <Table.HeadCell>{t("post_category")}</Table.HeadCell>
+                     <Table.HeadCell>{t("delete")}</Table.HeadCell>
                      <Table.HeadCell>
-                        <span>Edit</span>
+                        <span>{t("edit")}</span>
                      </Table.HeadCell>
                   </Table.Head>
                   {userPosts.map((post) => (
@@ -115,7 +118,7 @@ export default function DashPosts() {
                                  }}
                                  className="font-medium text-red-500 hover:underline cursor-pointer"
                               >
-                                 Delete
+                                 {t("delete")}
                               </span>
                            </Table.Cell>
                            <Table.Cell>
@@ -123,7 +126,7 @@ export default function DashPosts() {
                                  className="text-teal-500 hover:underline"
                                  to={`/update-post/${post._id}`}
                               >
-                                 <span>Edit</span>
+                                 <span>{t("edit")}</span>
                               </Link>
                            </Table.Cell>
                         </Table.Row>
@@ -135,12 +138,19 @@ export default function DashPosts() {
                      onClick={handleShowMore}
                      className="w-full text-teal-500 self-center text-sm py-7"
                   >
-                     Show more
+                     {t("show_more")}
                   </button>
                )}
             </>
          ) : (
-            <p>You have no posts yet!</p>
+            <div className="flex flex-col items-center justify-center h-screen">
+               <img 
+                  src="/images/profile/no_users.png"
+                  alt={t("no_comments")}
+                  className="mb-4 w-56 h-52"
+               />
+               <p>{t("you_have_no_posts")}</p>
+            </div>
          )}
          <Modal
             show={showModal}
@@ -153,14 +163,14 @@ export default function DashPosts() {
                <div className="text-center">
                   <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
                   <h3 className="mb-5 text-lg text-gray-500 dark:text-fray-400">
-                     Are you sure you want to delete this post?
+                     {t("sure_you_delete_post")}
                   </h3>
                   <div className="flex justify-center gap-4">
                      <Button color="failure" onClick={handleDeletePost}>
-                        Yes, I'm sure
+                        {t("yes_sure")}
                      </Button>
                      <Button color="gray" onClick={() => setShowModal(false)}>
-                        No, cancel
+                        {t("no_cancel")}
                      </Button>
                   </div>
                </div>

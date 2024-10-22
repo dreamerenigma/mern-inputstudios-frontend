@@ -37,26 +37,26 @@ export default function FooterCom() {
                   <div className="min-w-[350px]">
                      <Footer.Title title={t("footer_whats_new")} />
                      <Footer.LinkGroup col>
-                        <Footer.Link
-                           href="/wave"
+                        <Footer.Link 
+                           href={`${languagePrefix}/wave`}
                            rel="noopener noreferrer"
                         >
                            Input Studios Wave
                         </Footer.Link>
-                        <Footer.Link
-                           href="/chat-sam"
+                        <Footer.Link 
+                           href={`${languagePrefix}/chat-sam`}
                            rel="noopener noreferrer"
                         >
                            AI Chat Sam
                         </Footer.Link>
                         <Footer.Link
-                           href="/workspace"
+                           href={`${languagePrefix}/workspace`}
                            rel="noopener noreferrer"
                         >
                            Input Studios Workspace
                         </Footer.Link>
-                        <Footer.Link
-                           href="/download-apps"
+                        <Footer.Link 
+                           href="https://apps.inputstudios.ru/home?hl=ru-ru&gl=RU"
                            rel="noopener noreferrer"
                         >
                            Input Studios apps
@@ -66,26 +66,26 @@ export default function FooterCom() {
                   <div>
                      <Footer.Title title={t("footer_projects")} />
                      <Footer.LinkGroup col>
-                        <Footer.Link
-                           href="/cloud"
+                        <Footer.Link 
+                           href={`${languagePrefix}/cloud`}
                            rel="noopener noreferrer"
                         >
                            Input Studios Cloud
                         </Footer.Link>
-                        <Footer.Link
-                           href="/weather-api"
+                        <Footer.Link 
+                           href={`${languagePrefix}/weather-api`}
                            rel="noopener noreferrer"
                         >
                            Weather API
                         </Footer.Link>
                         <Footer.Link
-                           href="/e-commerce-apps"
+                           href={`${languagePrefix}/e-commerce-apps`}
                            rel="noopener noreferrer"
                         >
                            E-commerce apps
                         </Footer.Link>
-                        <Footer.Link
-                           href="/quantum-engine"
+                        <Footer.Link 
+                           href={`${languagePrefix}/quantum-engine`}
                            rel="noopener noreferrer"
                         >
                            Quantum Engine
@@ -96,19 +96,19 @@ export default function FooterCom() {
                      <Footer.Title title={t("footer_business")} />
                      <Footer.LinkGroup col>
                         <Footer.Link
-                           href="/business"
+                           href={`${languagePrefix}/business`}
                            rel="noopener noreferrer"
                         >
                            {t("footer_business_company")}
                         </Footer.Link>
-                        <Footer.Link
-                           href="/chatify"
+                        <Footer.Link 
+                           href={`${languagePrefix}/chatify`}
                            rel="noopener noreferrer"
                         >
                            {t("footer_dialog_chat")}
                         </Footer.Link>
-                        <Footer.Link
-                           href="/small-business"
+                        <Footer.Link 
+                           href={`${languagePrefix}/small-business`}
                            rel="noopener noreferrer"
                         >
                            {t("footer_small_business")}

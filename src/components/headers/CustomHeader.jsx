@@ -2,7 +2,7 @@ import { Button, Navbar } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import CustomTextInput from "../textinput/CustomTextInput";
+import CustomTextInput from "../textinputs/CustomTextInput";
 import { IoIosArrowDown } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";

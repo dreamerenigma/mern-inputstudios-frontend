@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 
 const CustomTextInput = ({ type, placeholder, leftIcon, value, onChange }) => {
     return (
@@ -16,6 +17,20 @@ const CustomTextInput = ({ type, placeholder, leftIcon, value, onChange }) => {
             )}
         </div>
     );
+};
+
+CustomTextInput.propTypes = {
+    type: PropTypes.string,
+    placeholder: PropTypes.string,
+    leftIcon: PropTypes.node,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+};
+
+CustomTextInput.defaultProps = {
+    type: 'text',
+    placeholder: '',
+    leftIcon: null,
 };
 
 export default CustomTextInput;

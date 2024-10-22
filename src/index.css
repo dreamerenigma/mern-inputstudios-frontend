@@ -103,3 +103,11 @@ ul.py-1 {
    color: teal;
    text-decoration: underline;
 }
+
+.placeholder-gray-500::placeholder {
+   color: #6b7280;
+}
+
+.dark .placeholder-white::placeholder {
+   color: #ffffff;
+}

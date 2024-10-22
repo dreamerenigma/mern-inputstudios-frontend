@@ -15,7 +15,7 @@ export default function LanguageSwitcher() {
    const scrollPositionRef = useRef(0);
 
    const handleLanguageChange = () => {
-      scrollPositionRef.current = window.scrollY; // Сохраняем текущую позицию прокрутки
+      scrollPositionRef.current = window.scrollY;
 
       const newLanguage = currentLanguage === 'en-us' ? 'ru-ru' : 'en-us';
       dispatch(changeLanguage(newLanguage));
@@ -24,8 +24,8 @@ export default function LanguageSwitcher() {
       const pathWithoutLanguage = currentPath.replace(/^\/(ru-ru|en-us)(\/|$)/, '/');
       const newPath = `/${newLanguage}${pathWithoutLanguage}`;
 
-      setLanguageChanged(true); // Устанавливаем флаг переключения языка
-      navigate(newPath, { replace: true }); // Используем replace для изменения URL без перезагрузки страницы
+      setLanguageChanged(true);
+      navigate(newPath, { replace: true });
    };
 
    useEffect(() => {
@@ -60,7 +60,7 @@ export default function LanguageSwitcher() {
          <ScrollToTopButton
             languageChanged={languageChanged}
             setLanguageChanged={setLanguageChanged}
-            scrollPositionRef={scrollPositionRef} // Передаем реф для сохранения позиции прокрутки
+            scrollPositionRef={scrollPositionRef}
          />
       </div>
    );
