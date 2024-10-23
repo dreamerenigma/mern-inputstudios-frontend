@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import PropTypes from "prop-types";
 
 function DownloadCard({ title, description, buttonText, imageUrl, linkTo }) {
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
@@ -88,5 +89,13 @@ function CardsDownload() {
       </div>
    );
 }
+
+DownloadCard.propTypes = {
+   title: PropTypes.shape,
+   description: PropTypes.shape, 
+   buttonText: PropTypes.shape, 
+   imageUrl: PropTypes.shape, 
+   linkTo: PropTypes.shape
+};
 
 export default CardsDownload;

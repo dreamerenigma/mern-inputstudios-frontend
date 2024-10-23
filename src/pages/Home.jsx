@@ -34,13 +34,13 @@ export default function Home() {
 
    useEffect(() => {
       const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+         setWindowWidth(window.innerWidth);
       };
 
       window.addEventListener("resize", handleResize);
 
       return () => {
-      window.removeEventListener("resize", handleResize);
+         window.removeEventListener("resize", handleResize);
       };
    }, []);
 
@@ -62,9 +62,7 @@ export default function Home() {
                      <p className="text-xs sm:text-base mt-5">
                         {t("home_welcome_description")}
                      </p>
-                     <Button 
-                        className="text-xs sm:text-sm mt-5 font-bold focus:outline-none"
-                        >
+                     <Button className="text-xs sm:text-sm mt-5 font-bold focus:outline-none shadow-md">
                         {t("home_view_all_posts")}
                      </Button>
                   </div>
@@ -90,7 +88,7 @@ export default function Home() {
                </Link>
             )}
          </div>
-         <DownloadCard />
+            <DownloadCard />
          <div className="p-3 mx-10 custom-margin mt-20 rounded-lg bg-gray-200 dark:bg-slate-700 shadow-md">
             <CallToAction />
          </div>
@@ -113,7 +111,7 @@ export default function Home() {
                   </Link>
                </div>
             )}
-            <div className="flex flex-wrap gap-4 mt-10 mb-10">
+            <div className="flex flex-wrap gap-4 mt-10 mb-10 mx-4">
                <p>{t("home_subscribe_news")}</p>
                <div className="flex flex-wrap gap-4">
                   <Footer.Icon href="https://vk.com/inputstudios" target="_blank" icon={SlSocialVkontakte} />

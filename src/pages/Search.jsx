@@ -2,14 +2,11 @@ import { Button, Select, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../components/PostCard";
+import { useTranslation } from "react-i18next";
 
 export default function Search() {
-   const [sidebarData, setSidebarData] = useState({
-      searchTerm: "",
-      sort: "desc",
-      category: "uncategorized",
-   });
-   console.log(sidebarData);
+   const { t } = useTranslation();
+   const [sidebarData, setSidebarData] = useState({ searchTerm: "", sort: "desc", category: "uncategorized" });
    const [posts, setPosts] = useState([]);
    const [loading, setLoading] = useState(false);
    const [showMore, setShowMore] = useState(false);
@@ -51,7 +48,7 @@ export default function Search() {
          }
       };
       fetchPosts();
-   }, [location.search]);
+   }, [SERVER_URL, location.search, sidebarData]);
 
    const handleChange = (e) => {
       if (e.target.id === "searchTerm") {
@@ -100,13 +97,13 @@ export default function Search() {
 
    return (
       <div className="flex flex-col md:flex-row">
-         <div className="p-7 border-b md:border-e md:min-h-screen border-gray-500">
+         <div className="p-7  md:min-h-screen">
             <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
                <div className="flex items-center gap-2">
                   <label className="whitespace-nowrap font-semibold">
-                     Search Term:</label>
+                     {t("posts:search_term")}</label>
                   <TextInput
-                     placeholder='Search...'
+                     placeholder={t("posts:search")}
                      id='searchTerm'
                      type='text'
                      value={sidebarData.searchTerm}
@@ -114,53 +111,55 @@ export default function Search() {
                   />
                </div>
                <div className="flex items-center gap-2">
-                  <label className="font-semibold">Sort:</label>
+                  <label className="font-semibold">{t("posts:sort")}</label>
                   <Select
                      onChange={handleChange}
                      value={sidebarData.sort}
                      id="sort"
                   >
-                     <option value="desc">Latest</option>
-                     <option value="desc">Oldest</option>
+                     <option value="desc">{t("posts:latest")}</option>
+                     <option value="desc">{t("posts:oldest")}</option>
                   </Select>
                </div>
                <div className="flex items-center gap-2">
-                  <label className="font-semibold">Category:</label>
+                  <label className="font-semibold">{t("posts:category")}</label>
                   <Select
                      onChange={handleChange}
                      value={sidebarData.category}
                      id="category"
                   >
-                     <option value="uncategorized">Uncategorized</option>
+                     <option value="uncategorized">{t("posts:category")}</option>
+                     <option value="android">Android</option>
                      <option value="reactjs">React.js</option>
                      <option value="nextjs">Next.js</option>
                      <option value="javascript">JavaScript</option>
+                     <option value="python">Python</option>
+                     <option value="cpp">C++</option>
                   </Select>
                </div>
                <Button type="submit" outline gradientDuoTone="purpleToPink">
-                  Apply Filters
+                  {t("posts:apply_filters")}
                </Button>
             </form>
          </div>
          <div className="w-full">
             <h1 className="text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5">
-               Posts results:
+               {t("posts:posts_results")}
             </h1>
             <div className="p-7 flex flex-wrap gap-4">
                {!loading && posts.length === 0 && (
-                  <p className="text-xl text-gray-500">No posts found.</p>
+                  <p className="text-xl text-gray-500">{t("posts:no_posts_found")}</p>
                )}
-               {loading && <p className="text-xl text-gray-500">Loading...</p>}
+               {loading && <p className="text-xl text-gray-500">{t("posts:loading")}</p>}
                {!loading &&
                   posts &&
-                  posts.map((post) => <PostCard key={post._id}
-                     post={post} />)}
+                  posts.map((post) => <PostCard key={post._id} post={post} />)}
                {showMore && (
                   <button
                      onClick={handleShowMore}
                      className="text-teal-500 text-lg hover:underline p-7 w-full"
                   >
-                     Show More
+                     {t("posts:show_more")}
                   </button>
                )}
             </div>

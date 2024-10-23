@@ -111,3 +111,11 @@ ul.py-1 {
 .dark .placeholder-white::placeholder {
    color: #ffffff;
 }
+
+.border-dialog {
+   border-width: 0.2px;
+}
+
+.border-button {
+   border-width: 0.2px;
+}

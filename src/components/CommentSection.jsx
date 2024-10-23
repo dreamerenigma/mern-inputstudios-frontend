@@ -1,12 +1,14 @@
-import { Alert, Button, Modal, Textarea } from "flowbite-react";
+import { Alert, Button, Textarea } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Comment from './Comment';
-import { HiOutlineExclamationCircle } from "react-icons/hi";
 import PropTypes from 'prop-types';
+import DeleteCommentDialog from './dialogs/DeleteCommentDialog';
+import { useTranslation } from "react-i18next";
 
 export default function CommentSection({ postId }) {
+   const { t } = useTranslation();
    const { currentUser } = useSelector(state => state.user);
    const [comment, setComment] = useState("");
    const [commentError, setCommentError] = useState(null);
@@ -155,7 +157,7 @@ export default function CommentSection({ postId }) {
       <div className="max-w-2xl mx-auto w-full p-3">
          {currentUser ? (
             <div className="flex items-center gap-1 my-5 text-gray-500 text-sm">
-               <p>Signed in as:</p>
+               <p className="pr-2">{t("comments:signed_in_as")}</p>
                <img
                   className="h-5 w-5 object-cover rounded-full"
                   src={currentUser.profilePicture}
@@ -170,9 +172,9 @@ export default function CommentSection({ postId }) {
             </div>
          ) : (
             <div className="text-sm text-teal-500 my-5 flex gap-1">
-               You must be signed in to comment.
+               {t("comments:signed_in_comment")}
                <Link className="text-blue-500 hover:underline" to={`${languagePrefix}/sign-in`}>
-                  Sign In
+                  {t("comments:sign_in")}
                </Link>
             </div>
          )}
@@ -182,7 +184,7 @@ export default function CommentSection({ postId }) {
                className="border border-teal-500 rounded-md p-3"
             >
                <Textarea
-                  placeholder="Add a comment..."
+                  placeholder={t("comments:add_comment")}
                   rows="3"
                   maxLength="200"
                   onChange={(e) => setComment(e.target.value)}
@@ -190,13 +192,13 @@ export default function CommentSection({ postId }) {
                />
                <div className="flex justify-between items-center mt-5">
                   <p className="text-gray-500 text-xs">
-                     {200 - comment.length} characters remaining</p>
+                     {200 - comment.length} {t("comments:characters_remaining")}</p>
                   <Button
                      outline
                      gradientDuoTone="purpleToBlue"
                      type="submit"
                   >
-                     Submit
+                     {t("comments:submit")}
                   </Button>
                </div>
                {commentError && (
@@ -207,11 +209,11 @@ export default function CommentSection({ postId }) {
             </form>
          )}
          {comments.length === 0 ? (
-            <p className="text-sm my-5">No comments yet!</p>
+            <p className="text-sm my-5">{t("comments:no_comments_yet")}</p>
          ) : (
             <>
                <div className="text-sm my-5 flex items-center gap-1">
-                  <p>Comments</p>   
+                  <p>{t("comments:comments")}</p>   
                   <div className="border border-gray-400 py-1 px-2 rounded-sm">
                      <p>{comments.length}</p>
                   </div>
@@ -230,34 +232,16 @@ export default function CommentSection({ postId }) {
                ))}
             </>
          )}
-         <Modal
+         <DeleteCommentDialog
             show={showModal}
             onClose={() => setShowModal(false)}
-            popup
-            size="md"
-         >
-            <Modal.Header />
-            <Modal.Body>
-               <div className="text-center">
-                  <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
-                  <h3 className="mb-5 text-lg text-gray-500 dark:text-fray-400">
-                     Are you sure you want to delete this comment?
-                  </h3>
-                  <div className="flex justify-center gap-4">
-                     <Button color="failure" onClick={() => handleDelete(commentToDelete)}>
-                        Yes, I&apos;m sure
-                     </Button>
-                     <Button color="gray" onClick={() => setShowModal(false)}>
-                        No, cancel
-                     </Button>
-                  </div>
-               </div>
-            </Modal.Body>
-         </Modal>
+            onConfirm={() => handleDelete(commentToDelete)}
+            commentToDelete={commentToDelete}
+         />
       </div>
    );
 }
 
 CommentSection.propTypes = {
-   postId: PropTypes.string.isRequired, // Ensure postId is required and is a string
+   postId: PropTypes.string.isRequired,
 };

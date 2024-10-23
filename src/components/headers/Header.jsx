@@ -1,4 +1,4 @@
-import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
+import { Avatar, Button, Dropdown } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { FaMoon, FaSun } from 'react-icons/fa';
@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from "../../redux/theme/themeSlice";
 import { signoutSuccess } from "../../redux/user/userSlice";
 import { useEffect, useRef, useState } from "react";
-import { IoCameraOutline } from 'react-icons/io5';
+import { IoCameraOutline, IoArrowBack } from 'react-icons/io5';
 import CustomTextInput from "../textinputs/CustomTextInput";
 import { useTranslation } from "react-i18next";
 import { IoIosArrowDown } from "react-icons/io";
@@ -23,11 +23,11 @@ export default function Header() {
    const { theme } = useSelector((state) => state.theme); 
    const [searchTerm, setSearchTerm] = useState("");
    const [menuOpen, setMenuOpen] = useState(false);
-   const isAdmin = currentUser && currentUser.isAdmin;
-   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
    const [searchVisible, setSearchVisible] = useState(false);
    const [isOpenAbout, setIsOpenAbout] = useState(false);
+   const isAdmin = currentUser && currentUser.isAdmin;
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
@@ -93,11 +93,6 @@ export default function Header() {
       }
    }, [menuOpen, searchVisible, isOpenAbout]);
 
-   const handleButtonClick = (event) => {
-      event.stopPropagation();
-      setMenuOpen(!menuOpen);
-   };
-
    const handleToggle = () => {
       if (isOpenAbout) {
          setIsOpenAbout(false);
@@ -119,204 +114,295 @@ export default function Header() {
       }
    });
 
+   const toggleMenu = (event) => {
+      event.stopPropagation();
+      setMenuOpen(prev => !prev);
+   };
+
+   const handleToggleMenu = (e) => {
+      e.stopPropagation();
+      setIsOpenAbout(prevState => !prevState);
+   };
+
    return (
-      <Navbar className="shadow-lg">
-         <Link
-            to="/"
-            className={`self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white ${windowWidth >= 1080 ? 'mx-20' : 'mx-0'}`}
-         >
-            <span className="px-2 py-1 bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 rounded-lg text-white">
-               Input Studios
-            </span>
-         </Link>
-         <div className="flex gap-2">
-            <Button
-               className="w-12 h-10 lg:hidden flex items-center justify-center menu-button border-none"
-               color="gray"
-               pill
-               onClick={handleButtonClick}
-               >
-                  {menuOpen ? <AiOutlineClose size={26} /> : <AiOutlineMenu size={26} />}
-            </Button>
-            {!searchVisible && window.innerWidth < 860 && (
-               <Button
-                  className="w-12 h-10 flex items-center justify-center search-button-text border-none focus:outline-none focus:ring-0 mr-3"
-                  color="gray"
-                  pill
-                  onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
-               >
-                  <div className="flex items-center search-button-content">
-                     <span className="mr-2">{t("header_search")}</span>
-                     <AiOutlineSearch size={24} style={{ transform: 'rotate(90deg)' }} />
-                  </div>
-               </Button>
-            )}
-            {searchVisible && (
-            <div className="search-wrapper">
-               <form onSubmit={handleSubmit} className="lg:flex-grow">
-                  <CustomTextInput
-                     type="text"
-                     placeholder={t("header_search_site")}
-                     leftIcon={<AiOutlineSearch size={22} style={{ transform: 'rotate(90deg)' }} />}
-                     value={searchTerm}
-                     onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-               </form>
-            </div>
-            )}
-         </div>
-         <div className={`flex gap-3 md:order-2 ${windowWidth >= 1080 ? 'mx-8' : 'mx-0'}`}>
-            {!searchVisible && window.innerWidth > 860 && (
-               <Button
-                  className="w-12 h-10 flex items-center justify-center search-button-text border-none focus:outline-none focus:ring-0 mr-5"
-                  color="gray"
-                  pill
-                  onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
-                  style={{ backgroundColor: 'transparent' }}
-               >
-                  <div>
-                     <div className={`flex items-center lg:mr-14 relative hover:border-current`}>
-                        <span className={`search-button-content pb-0.2 border-b-2 ${path === `/${languagePrefix}/whats-new` ? "border-current" : "border-transparent"} hover:border-current`}>
-                           {t("header_search")}
-                        </span>
-                        <AiOutlineSearch size={24} className="ml-2 relative" style={{ transform: 'rotate(90deg)' }} />
+      <div>
+         <header>
+            <div className="flex items-center">
+               {!searchVisible && windowWidth < 860 && (
+                  <>
+                     <div className="home-menu-icon mx-4">
+                        {menuOpen ? (
+                        <AiOutlineClose className="text-3xl cursor-pointer" onClick={toggleMenu} />
+                     ) : (
+                        <AiOutlineMenu className="text-3xl cursor-pointer" onClick={toggleMenu} />
+                        )}
                      </div>
-                  </div>
-               </Button>
-            )}
-            <div className="flex items-center" onClick={() => dispatch(toggleTheme())}>
-               <Button
-                  className="w-12 h-10 flex items-center justify-center border-none focus:outline-none focus:ring-0"
-                  color="gray"
-                  pill
-                  style={{ backgroundColor: 'transparent' }}
-               >
-                  <div className="flex items-center justify-center cursor-pointer group lg:mr-10">
-                     <span 
-                        className="font-semibold mr-2 text-sm theme-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white"
+                     <Button
+                        className="w-12 h-10 flex items-center justify-center search-button-text border-none focus:outline-none focus:ring-0 mr-3"
+                        color="gray"
+                        pill
+                        onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
                      >
-                        {t("header_themes")}
-                     </span>
-                     {theme === "light" ? 
-                        <FaMoon size={20} className="group-hover:text-[#0E7490]" /> : 
-                        <FaSun size={20} className="group-hover:text-white" style={{ color: '#ffc600' }} />
-                     }
-                  </div>
-               </Button>
-            </div>
-            {currentUser ? (
-               <Dropdown
-                  arrowIcon={false}
-                  inline
-                  label={
-                     <div className="flex items-center group mr-12">
-                        <span 
-                           className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white">
-                           {currentUser.username}
+                        <div className="flex items-center search-button-content">
+                        <span className="mr-2">{t("header:header_search")}</span>
+                        <AiOutlineSearch size={28} className="text-white transform rotate-90" />
+                        </div>
+                     </Button>
+                  </>
+               )}
+               {(windowWidth >= 860 || !searchVisible) && (
+                  <div className="flex flex-1 justify-center md:justify-center custom-flex-none py-4 md:ml-10 custom-ml">
+                     <Link
+                        to="/"
+                        className="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
+                     >
+                        <span className="px-2 py-1 bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 rounded-lg text-white">
+                           Input Studios
                         </span>
-                        <Avatar alt="user" img={currentUser.profilePicture} rounded />
-                     </div>
-                  }
-               >
-                  <div className="flex items-center justify-between">
-                     <img
-                        src="https://i.ibb.co/jbNDftv/logo-Input-Studios-grey.png"
-                        alt=""
-                        width="90"
-                        height="90"
-                        className="mt-2 ml-2 mb-5"
-                     />
-                     <span
-                        onClick={handleSignout}
-                        className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
-                     >
-                        {t("header_sign_out")}
-                     </span>
+                     </Link>
                   </div>
-                  <div className="flex items-center gap-2 px-4 pb-4">
-                     <div className="relative">
-                        <Avatar alt="user" img={currentUser.profilePicture} rounded />
-                        <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                           <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
-                              <IoCameraOutline className="text-white text-lg" />
+               )}
+               {searchVisible && (
+                  <div className={`search-wrapper flex items-center mr-4 my-2 ml-${windowWidth < 860 ? '6' : '12'} w-full`}>
+                     {windowWidth < 860 && (
+                        <button
+                           className="mr-2 hover:text-gray-700"
+                           onClick={() => setSearchVisible(false)}
+                        >
+                           <IoArrowBack size={28} />
+                        </button>
+                     )}
+                     <form onSubmit={handleSubmit} className="lg:flex-grow flex items-center w-full">
+                        <CustomTextInput
+                           type="text"
+                           placeholder={t("header:header_search_site")}
+                           leftIcon={<AiOutlineSearch size={22} className="transform rotate-90 text-gray-500" />}
+                           value={searchTerm}
+                           onChange={(e) => setSearchTerm(e.target.value)}
+                           className="w-full"
+                        />
+                     </form>
+                     {windowWidth >= 860 && (
+                        <button
+                           className="ml-2 hover:text-gray-700 py-1.5 px-4 rounded-md border-button mr-10 custom-mr"
+                           onClick={() => setSearchVisible(false)}
+                        >
+                           {t("header:cancel")}
+                        </button>
+                     )}
+                  </div>
+               )}
+               {!searchVisible && windowWidth > 860 && (
+                  <>
+                     <div className="custom-hidden md:flex md:items-center md:space-x-6 ml-8 ">
+                        <div className={`pb-0.2 border-b-2 ${path === "/" ? "border-current" : "border-transparent"} hover:border-current`}>
+                           <Link to="/" onClick={() => setMenuOpen(false)}>{t("header:header_home")}</Link>
+                        </div>
+                        <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/projects` ? "border-current" : "border-transparent"} hover:border-current`}>
+                           <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
+                              {t("header:header_projects")}
+                           </Link>
+                        </div>
+                        <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-transparent"} hover:border-current`}>
+                           <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
+                              {t("header:header_blogs")}
+                           </Link>
+                        </div>
+                        <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} hover:border-current`}>
+                           <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
+                              {t("header:header_forum")}
+                           </Link>
+                        </div>
+                        <div
+                           onClick={handleToggle}
+                           ref={dropdownRef}
+                           className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} hover:border-current`}
+                        >
+                           <Link className="flex flex-row items-center menu-link" onClick={handleToggle}>
+                              {t("header:header_about")}
+                              <IoIosArrowDown className={`ml-2 mt-1 transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"}`} />
+                           </Link>
+                           {isOpenAbout && (
+                              <ul className="absolute left-0 top-full mt-2 bg-white dark:bg-gray-600 shadow-md rounded-md z-10 whitespace-nowrap dropdown">
+                                 <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-t-md hover:underline">
+                                    <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
+                                       {t("header:about_company")}
+                                    </Link>
+                                 </li>
+                                 <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 hover:underline">
+                                    <Link to={`${languagePrefix}/our-history`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
+                                       {t("header:our_history")}
+                                    </Link>
+                                 </li>
+                                 <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-b-md hover:underline">
+                                    <Link to={`${languagePrefix}/contactus`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
+                                       {t("header:header_contacts")}
+                                    </Link>
+                                 </li>
+                              </ul>
+                           )}
+                        </div>
+                     </div>
+                  </>
+               )}
+               {(windowWidth < 860 || !searchVisible) && (
+                  <div className="ml-auto flex items-center">
+                     {!searchVisible && windowWidth > 860 && (
+                        <Button
+                           className="flex items-center justify-center search-button-text border-none focus:outline-none focus:ring-0"
+                           color="gray"
+                           pill
+                           onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
+                           style={{ backgroundColor: 'transparent' }}
+                        >
+                           <div>
+                              <div className={`flex items-center relative hover:border-current`}>
+                                 <span className={`search-button-content pb-0.2 border-b-2 ${path === `/${languagePrefix}/whats-new` ? "border-current" : "border-transparent"} hover:border-current`}>
+                                    {t("header:header_search")}
+                                 </span>
+                                 <AiOutlineSearch size={24} className="ml-2 relative" style={{ transform: 'rotate(90deg)' }} />
+                              </div>
                            </div>
-                        </Link>
-                     </div>
-                     <div>
-                        <span className="block text-sm">{currentUser.username}</span>
-                        <span className="block text-sm font-medium truncate">{currentUser.email}</span>
-                     </div>
+                        </Button>
+                     )}
+                     {!searchVisible && (
+                        <>
+                           <div className="flex items-center" onClick={() => dispatch(toggleTheme())}>
+                              <Button
+                                 className="flex items-center justify-center border-none focus:outline-none focus:ring-0"
+                                 color="gray"
+                                 pill
+                                 style={{ backgroundColor: 'transparent' }}
+                              >
+                                 <div className="flex items-center justify-center cursor-pointer group">
+                                    <span
+                                       className="font-semibold mr-2 text-sm theme-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white"
+                                    >
+                                       {t("header:header_themes")}
+                                    </span>
+                                    {theme === "light" ?
+                                       <FaMoon size={20} className="group-hover:text-[#0E7490]" /> :
+                                       <FaSun size={20} className="group-hover:text-white" style={{ color: '#ffc600' }} />}
+                                 </div>
+                              </Button>
+                           </div>
+                           {currentUser ? (
+                              <Dropdown
+                                 arrowIcon={false}
+                                 inline
+                                 label={<div className="flex items-center group margin-header mr-8">
+                                    <span
+                                       className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white">
+                                       {currentUser.username}
+                                    </span>
+                                    <Avatar alt="user" img={currentUser.profilePicture} rounded />
+                                 </div>}
+                              >
+                                 <div className="flex items-center justify-between">
+                                    <img
+                                       src="https://i.ibb.co/jbNDftv/logo-Input-Studios-grey.png"
+                                       alt=""
+                                       width="90"
+                                       height="90"
+                                       className="mt-2 ml-2 mb-5" />
+                                    <span
+                                       onClick={handleSignout}
+                                       className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
+                                    >
+                                       {t("header:header_sign_out")}
+                                    </span>
+                                 </div>
+                                 <div className="flex items-center gap-2 px-4 pb-4">
+                                    <div className="relative">
+                                       <Avatar alt="user" img={currentUser.profilePicture} rounded />
+                                       <Link to={`${languagePrefix}/dashboard?tab=profile`}>
+                                          <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
+                                             <IoCameraOutline className="text-white text-lg" />
+                                          </div>
+                                       </Link>
+                                    </div>
+                                    <div>
+                                       <span className="block text-sm">{currentUser.username}</span>
+                                       <span className="block text-sm font-medium truncate">{currentUser.email}</span>
+                                    </div>
+                                 </div>
+                                 <Dropdown.Divider className="m-0 p-0" />
+                                 {isAdmin && (
+                                    <>
+                                       <Link to={`${languagePrefix}/dashboard?tab=dash`}>
+                                          <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_dashboard")}</Dropdown.Item>
+                                       </Link>
+                                       <Dropdown.Divider className="m-0 p-0" />
+                                    </>
+                                 )}
+                                 <Link to={`${languagePrefix}/dashboard?tab=profile`}>
+                                    <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_profile")}</Dropdown.Item>
+                                 </Link>
+                              </Dropdown>
+                           ) : (
+                              <Link to={`${languagePrefix}/sign-in`}>
+                                 <Button outline className="bg-gradient-to-r from-teal-500 via-green-500 to-blue-500">
+                                    {t("header:header_sign_in")}
+                                 </Button>
+                              </Link>
+                           )}
+                        </>
+                     )}
                   </div>
-                  <Dropdown.Divider className="m-0 p-0"/>
-                  {isAdmin && (
-                     <>
-                        <Link to={"/dashboard?tab=dash"}>
-                           <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header_dashboard")}</Dropdown.Item>
-                        </Link>
-                        <Dropdown.Divider className="m-0 p-0" />
-                     </>
-                  )}
-                  <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                     <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header_profile")}</Dropdown.Item>
-                  </Link>
-               </Dropdown>
-            ) : (
-               <Link to={`${languagePrefix}/sign-in`}>
-                  <Button outline className="bg-gradient-to-r from-teal-500 via-green-500 to-blue-500">
-                     {t("header_sign_in")}
-                  </Button>
-               </Link>
-            )}
-         </div>
-         <Navbar.Collapse className={`${menuOpen ? "block" : "hidden"} hidden-in-range`}>
-            <div className={`pb-0.2 border-b-2 ${path === "/" ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to="/" onClick={() => setMenuOpen(false)}>{t("header_home")}</Link>
-            </div>
-            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/projects` ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
-                  {t("header_projects")}
-               </Link>
-            </div>
-            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
-                  {t("header_blogs")}
-               </Link>
-            </div>
-            <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
-                  {t("header_forum")}
-               </Link>
-            </div>
-            <div
-               onClick={handleToggle}
-               ref={dropdownRef}
-               className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} hover:border-current`}
-            >
-               <Link className="flex flex-row items-center menu-link" onClick={handleToggle}>
-                  {t("header_about")}
-                  <IoIosArrowDown className={`ml-2 transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"}`}/>
-               </Link>
-               {isOpenAbout && (
-               <ul className="absolute left-0 top-full mt-2 bg-white dark:bg-gray-600 shadow-md rounded-md z-10 whitespace-nowrap dropdown">
-                  <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-t-md hover:underline">
-                     <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
-                        {t("about_company")}
-                     </Link>
-                  </li>
-                  <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 hover:underline">
-                     <Link to={`${languagePrefix}/our-history`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
-                        {t("our_history")}
-                     </Link>
-                  </li>
-                  <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-b-md hover:underline">
-                     <Link to={`${languagePrefix}/contactus`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
-                        {t("header_contacts")}
-                     </Link>
-                  </li>
-               </ul>
                )}
             </div>
-         </Navbar.Collapse>
-      </Navbar>
+            <div className={`flex flex-col md:hidden ${menuOpen ? 'flex' : 'hidden'}`}>
+               <div className={`border-b-2 ${path === "/" ? "border-current" : "border-gray-800"}`}></div>
+               <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === "/" ? "border-current" : "border-gray-800"}`}>
+                  <Link to="/" onClick={() => setMenuOpen(false)}>{t("header:header_home")}</Link>
+               </div>
+               <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === `${languagePrefix}/projects` ? "border-current" : "border-gray-800"}`}>
+                  <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
+                     {t("header:header_projects")}
+                  </Link>
+               </div>
+               <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-gray-800"}`}>
+                  <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
+                     {t("header:header_blogs")}
+                  </Link>
+               </div>
+               <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-gray-800"}`}>
+                  <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
+                     {t("header:header_forum")}
+                  </Link>
+               </div>
+               <div
+                  ref={dropdownRef}
+                  className={`relative py-3 px-5 pb-0.2 text-xl border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-gray-800"}`}
+                  >
+                  <div className="flex items-center justify-between" onClick={handleToggleMenu}>
+                     <Link className="menu-link">
+                        {t("header:header_about")}
+                     </Link>
+                     <IoIosArrowDown className={`ml-auto transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"}`} />
+                  </div>
+                  {isOpenAbout && (
+                     <ul className="mt-2 shadow-md rounded-md z-10 whitespace-nowrap">
+                        <li className="pl-12 py-3 px-5 hover:bg-gray-200/70 dark:hover:bg-gray-400/40 rounded-md hover:underline border-b-2 border-gray-800">
+                        <Link to={`${languagePrefix}/about-company`} className="w-full text-left">
+                           {t("header:about_company")}
+                        </Link>
+                        </li>
+                        <li className="pl-12 py-3 px-5 hover:bg-gray-200/70 dark:hover:bg-gray-400/40 hover:underline rounded-md border-b-2 border-gray-800">
+                           <Link to={`${languagePrefix}/our-history`} className="w-full text-left">
+                              {t("header:our_history")}
+                           </Link>
+                        </li>
+                        <li className="pl-12 py-3 px-5 hover:bg-gray-200/70 dark:hover:bg-gray-400/40 rounded-md hover:underline">
+                           <Link to={`${languagePrefix}/contactus`} className="w-full text-left">
+                              {t("header:header_contacts")}
+                           </Link>
+                        </li>
+                     </ul>
+                  )}
+               </div>
+            </div>
+         </header>
+      </div>
    );
 }

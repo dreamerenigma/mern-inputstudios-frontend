@@ -68,7 +68,7 @@ export default function SidebarBlog() {
    };
 
    return ( 
-      <div className="flex flex-col h-full md:w-56">
+      <div className="flex flex-col h-full md:w-64">
       <div 
          className={`flex items-center justify-between pl-6 p-2 xl:hidden ${isClicked ? 'bg-gray-300 dark:bg-gray-800' : 'bg-gray-100 dark:bg-gray-900'}`}
          onClick={toggleSidebar}

@@ -1,7 +1,9 @@
-/* Media queries */
 @media (max-width: 365px) {
   .welcome {
     height: 250px; 
+  }
+  .margin-header {
+    margin-right: 1rem;
   }
 }
 
@@ -27,12 +29,10 @@
     flex-direction: column;
     align-items: center;
   }
-  
   .flex-1 {
     width: 100%;
     max-width: 100%;
   }
-  
   .p-7 {
     padding: 30px 0 0 0;
   }
@@ -65,25 +65,20 @@
     margin-left: 1.5rem;
     margin-right: 1.5rem;
   }
-
   .flex.flex-row {
     flex-direction: column;
   }
-
   .text-container {
     width: 100%;
   }
-
   .image {
     width: 100%;
     margin-bottom: 2rem;
     order: -1;
   }
-
   .productivity-work {
     width: 100%;
   }
-
   .padding-custom {
     padding: 1.5rem;
   }
@@ -98,13 +93,44 @@
   .ml-0-custom {
     margin-left: 1.5rem !important;
   }
-
   .order-first {
     order: 2;
   }
-
   .order-last {
     order: 1;
+  }
+}
+
+@media (max-width: 811px) {
+  .flex-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .flex-row .flex-col {
+    align-items: flex-start;
+  }
+  .custom-button {
+    margin-left: 0 !important;
+    margin-top: 2rem;
+  }
+  .half-height {
+    height: 50vh;
+  }
+}
+
+@media (max-width: 859px) {
+  .center-text {
+    text-align: center;
+  }
+  .custom-flex {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 860px) {
+  .menu-button,
+  .search-button {
+    display: none;
   }
 }
 
@@ -112,6 +138,21 @@
   .custom-flex {
     flex-direction: column;
     gap: 4.5rem;
+  }
+  .menu-icon {
+    display: block;
+  }
+  .custom-hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 861px) {
+  .home-menu-icon {
+    display: none;
+  }
+  .custom-flex-none {
+    flex: none;
   }
 }
 
@@ -151,42 +192,6 @@
   }
 }
 
-@media (max-width: 811px) {
-  .flex-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .flex-row .flex-col {
-    align-items: flex-start;
-  }
-
-  .custom-button {
-    margin-left: 0 !important;
-    margin-top: 2rem;
-  }
-
-  .half-height {
-    height: 50vh;
-  }
-}
-
-@media (max-width: 859px) {
-  .center-text {
-    text-align: center;
-  }
-  .custom-flex {
-    flex-direction: column;
-  }
-}
-
-@media (min-width: 860px) {
-  .menu-button,
-  .search-button {
-    display: none;
-  }
-}
-
 @media (max-width: 1079px) {
   .custom-margin {
     margin-left: 1rem;
@@ -205,6 +210,12 @@
   .mx-8-1080 {
     margin-left: 2rem;
     margin-right: 2rem;
+  }
+  .custom-ml {
+    margin-left: 5.5rem;
+  }
+  .custom-mr {
+    margin-right: 5.5rem;
   }
 }
 

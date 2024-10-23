@@ -1,4 +1,4 @@
-import { Button, Spinner } from "flowbite-react";
+import { Button, Spinner, Footer } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
@@ -6,8 +6,13 @@ import CommentSection from "../components/CommentSection";
 import PostCard from "../components/PostCard";
 import VideoPlayer from '../components/VideoPlayer';
 import { useSelector } from "react-redux";
+import { SlSocialVkontakte } from "react-icons/sl";
+import { BsDribbble, BsGithub, BsYoutube } from "react-icons/bs";
+import { BiLogoFigma } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 
 export default function PostPage() {
+   const { t } = useTranslation();
    const { postSlug } = useParams();
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState(false);
@@ -39,7 +44,7 @@ export default function PostPage() {
          }
       };
       fetchPost();
-   }, [postSlug]);
+   }, [SERVER_URL, postSlug]);
 
    useEffect(() => {
       try {
@@ -54,20 +59,30 @@ export default function PostPage() {
       } catch (error) {
          console.log(error.message);
       }
-   }, [])
+   }, [SERVER_URL])
 
-   if (loading)
+   if (loading) {
       return (
          <div className="flex justify-center items-center min-h-screen">
             <Spinner size="xl" />
          </div>
       );
+   }
+
+   if (error) {
+      return (
+         <div className="flex justify-center items-center min-h-screen">
+            <p className="text-red-500">{t("posts:error_occurred_post")}</p>
+         </div>
+      );
+   }
+
    return (
-      <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
+      <main className="p-3 flex flex-col max-w-7xl mx-auto min-h-screen">
          <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
             {post && post.title}
          </h1>
-         <Link to={`/search?category=${post && post.category}`} className="self-center mt-5">
+         <Link to={`${languagePrefix}/search?category=${post && post.category}`} className="self-center mt-5">
             <Button color="gray" pill size="xs">
                {post && post.category}
             </Button>
@@ -85,7 +100,7 @@ export default function PostPage() {
          ></img>
          <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
             <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
-            <span className="italic">{post && (post.content.length / 1000).toFixed(0)} mins reed</span>
+            <span className="italic">{post && (post.content.length / 1000).toFixed(0)}{t("posts:mins_reed")}</span>
          </div>
          <div
             className="p-3 max-w-2xl mx-auto w-full post-content"
@@ -96,15 +111,27 @@ export default function PostPage() {
          </div>
          <CommentSection postId={post._id} />
          <div className="flex flex-col justify-center items-center mb-5">
-            <h1 className="text-xl mt-5">Recent articles</h1>
-            <div className="flex flex-wrap gap-5 mt-5 justify-center">
+            <h1 className="text-xl mt-12">{t("posts:recent_articles")}</h1>
+            <div className="flex flex-wrap mt-12 justify-center">
                {recentPosts && 
                   recentPosts.map((post) => (
-                     <PostCard key={post._id} post={post} />
+                     <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px]">
+                        <PostCard post={post} />
+                     </div>
                   ))
                }
             </div>
          </div>
+         <div className="flex flex-wrap gap-4 mt-10 mb-10">
+               <p>{t("home_subscribe_news")}</p>
+               <div className="flex flex-wrap gap-4">
+                  <Footer.Icon href="https://vk.com/inputstudios" target="_blank" icon={SlSocialVkontakte} />
+                  <Footer.Icon href="https://www.youtube.com/@input.studios" target="_blank" icon={BsYoutube} />
+                  <Footer.Icon href="https://www.figma.com/team_invite/redeem/IHhVbYADhWDiftybuzpjBl" target="_blank" icon={BiLogoFigma} />
+                  <Footer.Icon href="https://github.com/inputstudios" target="_blank" icon={BsGithub} />
+                  <Footer.Icon href="https://dribbble.com/inputstudios" target="_blank" icon={BsDribbble} />
+               </div>
+            </div>
       </main>
    );
 }

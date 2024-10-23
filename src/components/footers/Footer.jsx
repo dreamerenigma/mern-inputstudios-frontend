@@ -30,12 +30,12 @@ export default function FooterCom() {
    };
 
    return (
-      <Footer container className="border border-t-8 border-teal-500" id="footer">
+      <Footer className="border border-t-8 border-teal-500" id="footer">
          <div className="w-full max-w-7xl mx-auto">
-            <div className="grid w-full justify-between sm:flex md:grid-cols-1">
-               <div className="grid grid-cols-2 gap-8 mt-4 sm:grid-cols-4 sm:gap-6">
-                  <div className="min-w-[350px]">
-                     <Footer.Title title={t("footer_whats_new")} />
+            <div className="grid w-full justify-between sm:flex md:grid-cols-1 p-4">
+               <div className="grid grid-cols-1 gap-8 mt-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-4 justify-items-center">
+                  <div className="max-w-full">
+                     <Footer.Title title={t("footer:footer_whats_new")} />
                      <Footer.LinkGroup col>
                         <Footer.Link 
                            href={`${languagePrefix}/wave`}
@@ -64,7 +64,7 @@ export default function FooterCom() {
                      </Footer.LinkGroup>
                   </div>
                   <div>
-                     <Footer.Title title={t("footer_projects")} />
+                     <Footer.Title title={t("footer:footer_projects")} />
                      <Footer.LinkGroup col>
                         <Footer.Link 
                            href={`${languagePrefix}/cloud`}
@@ -93,39 +93,39 @@ export default function FooterCom() {
                      </Footer.LinkGroup>
                   </div>
                   <div>
-                     <Footer.Title title={t("footer_business")} />
+                     <Footer.Title title={t("footer:footer_business")} />
                      <Footer.LinkGroup col>
                         <Footer.Link
                            href={`${languagePrefix}/business`}
                            rel="noopener noreferrer"
                         >
-                           {t("footer_business_company")}
+                           {t("footer:footer_business_company")}
                         </Footer.Link>
                         <Footer.Link 
                            href={`${languagePrefix}/chatify`}
                            rel="noopener noreferrer"
                         >
-                           {t("footer_dialog_chat")}
+                           {t("footer:footer_dialog_chat")}
                         </Footer.Link>
                         <Footer.Link 
                            href={`${languagePrefix}/small-business`}
                            rel="noopener noreferrer"
                         >
-                           {t("footer_small_business")}
+                           {t("footer:footer_small_business")}
                         </Footer.Link>
                      </Footer.LinkGroup>
                   </div>
                   <div>
-                     <Footer.Title title={t("footer_company")}/>
+                     <Footer.Title title={t("footer:footer_company")}/>
                      <Footer.LinkGroup col>
                         <Footer.Link href="/privacy" >
-                           {t("footer_company_news")}
+                           {t("footer:footer_company_news")}
                         </Footer.Link>
                         <Footer.Link href="/terms-of-use">
-                           {t("footer_privacy")}
+                           {t("footer:footer_privacy")}
                         </Footer.Link>
                         <Footer.Link href="/terms-of-use">
-                           {t("footer_investors")}
+                           {t("footer:footer_investors")}
                         </Footer.Link>
                      </Footer.LinkGroup>
                   </div>
@@ -133,30 +133,30 @@ export default function FooterCom() {
             </div>
             <Footer.Divider />
             <div className="w-full flex flex-wrap items-center justify-between xl:flex-nowrap">
-               <div className="flex items-center mb-4 xl:mb-0">
+               <div className="flex items-center mb-4 xl:mb-0 px-2">
                   <LanguageSwitcher />
                </div>
-               <div className="w-full">
+               <div className="w-full px-4">
                   <Link to={`${languagePrefix}/dashboard?tab=privacy`} className="dark:text-gray-400 hover:underline">
                      <div className="flex items-center xl:ml-10">
                         <img src="/images/ic_privacy.webp" alt="Privacy icon" className="w-10" />
-                        <span className="text-xs ml-3">{t("custom_footer_privacy_choice")}</span>
+                        <span className="text-xs ml-3">{t("footer:custom_footer_privacy_choice")}</span>
                      </div>
                   </Link>
                </div>
             </div>
-            <div className="flex flex-wrap gap-6 mt-6 sm:mt-4 sm:justify-end text-xs">
-               <Link to={`${languagePrefix}/contactus`} className="dark:text-gray-400 hover:underline">{t("custom_footer_contacts")}</Link>
-               <Link to="#" className="dark:text-gray-400 hover:underline" onClick={handleDialogClick}>{t("cookie_management")}</Link>
-               <Link to={`${languagePrefix}/privacy-statement`} className="dark:text-gray-400 hover:underline">{t("custom_footer_privacy")}</Link>
-               <Link to={`${languagePrefix}/terms-of-use`} className="dark:text-gray-400 hover:underline">{t("custom_footer_terms")}</Link>
-               <Link to={`${languagePrefix}/trademarks`} className="dark:text-gray-400 hover:underline">{t("custom_footer_trademarks")}</Link>
+            <div className="flex flex-wrap gap-6 my-6 mx-4 sm:mt-4 sm:justify-end text-xs">
+               <Link to={`${languagePrefix}/contactus`} className="dark:text-gray-400 hover:underline">{t("footer:custom_footer_contacts")}</Link>
+               <Link to="#" className="dark:text-gray-400 hover:underline" onClick={handleDialogClick}>{t("footer:cookie_management")}</Link>
+               <Link to={`${languagePrefix}/privacy-statement`} className="dark:text-gray-400 hover:underline">{t("footer:custom_footer_privacy")}</Link>
+               <Link to={`${languagePrefix}/terms-of-use`} className="dark:text-gray-400 hover:underline">{t("footer:custom_footer_terms")}</Link>
+               <Link to={`${languagePrefix}/trademarks`} className="dark:text-gray-400 hover:underline">{t("footer:custom_footer_trademarks")}</Link>
                <Link 
                   to={`${languagePrefix}/privacy/ad-settings`}
                   className="dark:text-gray-400 hover:underline" 
                   onClick={handleAdSettingsClick}
                >
-                  {t("custom_footer_about_ads")}
+                  {t("footer:custom_footer_about_ads")}
                </Link>
                <Footer.Copyright
                   className="text-xs text-black"

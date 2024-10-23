@@ -1,0 +1,18 @@
+{
+  "mins_reed": " mins reed",
+  "error_occurred_post": "An error occurred while fetching the post.",
+  "recent_articles": "Recent articles",
+  "read_articles": "Read article",
+  "posts_results": "Posts results:",
+  "search": "Search...",
+  "search_term": "Search Term:",
+  "sort": "Sort:",
+  "latest": "Latest",
+  "oldest": "Oldest",
+  "category": "Category:",
+  "uncategorized": "Uncategorized",
+  "apply_filters": "Apply Filters",
+  "no_posts_found": "No posts found.",
+  "loading": "Loading...",
+  "show_more": "Show More"
+}

@@ -17,13 +17,13 @@ export default function DashUsers() {
    useEffect(() => {
       const fetchUsers = async () => {
          try {
-            const token = localStorage.getItem('token'); // Retrieve the JWT token
+            const token = localStorage.getItem('token');
    
             const res = await fetch(`${SERVER_URL}/api/user/getusers`, {
                method: 'GET',
                headers: {
                   "Content-Type": "application/json",
-                  "Authorization": `Bearer ${token}`, // Add the JWT token to the Authorization header
+                  "Authorization": `Bearer ${token}`,
                },
             });
             
@@ -34,7 +34,7 @@ export default function DashUsers() {
                   setShowMore(false);
                }
             } else {
-               console.log(data.message); // Log the server error message if any
+               console.log(data.message);
             }
          } catch (error) {
             console.log(error.message);
@@ -49,13 +49,13 @@ export default function DashUsers() {
    const handleShowMore = async () => {
       const startIndex = users.length;
       try {
-         const token = localStorage.getItem('token'); // Retrieve the JWT token
+         const token = localStorage.getItem('token');
    
          const res = await fetch(`${SERVER_URL}/api/user/getusers?startIndex=${startIndex}`, {
             method: 'GET',
             headers: {
                "Content-Type": "application/json",
-               "Authorization": `Bearer ${token}`, // Add the JWT token to the Authorization header
+               "Authorization": `Bearer ${token}`,
             },
          });
          
@@ -66,7 +66,7 @@ export default function DashUsers() {
                setShowMore(false);
             }
          } else {
-            console.log(data.message); // Log the server error message if any
+            console.log(data.message);
          }
       } catch (error) {
          console.log(error.message);

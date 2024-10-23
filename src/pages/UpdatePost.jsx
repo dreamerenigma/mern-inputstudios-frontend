@@ -13,7 +13,11 @@ export default function UpdatePost() {
    const [file, setFile] = useState(null);
    const [imageUploadProgress, setImageUploadProgress] = useState(null);
    const [imageUploadError, setImageUploadError] = useState(null); 
-   const [formData, setFormData] = useState({});
+   const [formData, setFormData] = useState({
+      title: '',
+      category: 'uncategorized',
+      content: ''
+   });
    const [publishError, setPublishError] = useState(null);
    const navigate = useNavigate();
    const { postId } = useParams();
@@ -43,11 +47,11 @@ export default function UpdatePost() {
 
             if (data.posts && data.posts.length > 0) {
                   const post = data.posts[0];
-                  console.log("Fetched post object:", post); // Логирование поста
+                  console.log("Fetched post object:", post);
 
                   setFormData({
                      ...post,
-                     _id: post._id, // Явно добавляем _id
+                     _id: post._id,
                      image: post.image || imageRef.current
                   });
             } else {

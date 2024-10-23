@@ -1,0 +1,20 @@
+{
+  "header_home": "Главная",
+  "header_about": "О нас",
+  "header_projects": "Проекты",
+  "header_blogs": "Блоги",
+  "header_contacts": "Контакты",
+  "header_search": "Поиск",
+  "header_search_site": "Поиск на InputStudios.ru",
+  "header_themes": "Темы",
+  "header_sign_in": "Вход",
+  "header_sign_out": "Выход",
+  "header_dashboard": "Панель управления",
+  "header_profile": "Профиль",
+  "header_forum": "Форум",
+  "header_products": "Продукты",
+  "header_get_started": "Учавствовать в сообществе",
+  "about_company": "О компании",
+  "our_history": "Наша история",
+  "cancel": "Отмена"
+}

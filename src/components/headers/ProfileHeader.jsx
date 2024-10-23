@@ -145,7 +145,7 @@ export default function ProfileHeader() {
                            onClick={handleSignout}
                            className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
                         >
-                           {t("header_sign_out")}
+                           {t("header:header_sign_out")}
                         </span>
                      </div>
                      <div className="flex items-center gap-2 px-4 pb-4">
@@ -166,20 +166,20 @@ export default function ProfileHeader() {
                      {isAdmin && (
                         <>
                            <Link to={`${languagePrefix}/dashboard?tab=dash`}>
-                              <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header_dashboard")}</Dropdown.Item>
+                              <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_dashboard")}</Dropdown.Item>
                            </Link>
                            <Dropdown.Divider className="m-0 p-0" />
                         </>
                      )}
                      <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                        <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header_profile")}</Dropdown.Item>
+                        <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_profile")}</Dropdown.Item>
                      </Link>
                   </Dropdown>
                </div>
             ) : (
                <Link to={`${languagePrefix}/sign-in`}>
                   <Button outline className="bg-gradient-to-r from-teal-500 via-green-500 to-blue-500">
-                     {t("header_sign_in")}
+                     {t("header:header_sign_in")}
                   </Button>
                </Link>
             )}

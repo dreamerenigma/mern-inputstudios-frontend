@@ -1,7 +1,6 @@
 import { Navbar } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { IoIosArrowDown } from "react-icons/io";
+import { useEffect, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
@@ -31,7 +30,7 @@ export default function PrivacyHeader() {
       };
    }, []);
 
-   const handleClickOutside = (event) => {
+   const handleClickOutside = useCallback((event) => {
       if (
          (menuOpen && !event.target.closest(".menu") && !event.target.closest(".search-button")) ||
          (searchVisible && !event.target.closest(".search-wrapper") && !event.target.closest(".search-button") && !event.target.closest(".search-button-text"))
@@ -39,14 +38,14 @@ export default function PrivacyHeader() {
          setMenuOpen(false);
          setSearchVisible(false);
       }
-   };
+   }, [menuOpen, searchVisible]);
 
    useEffect(() => {
       document.addEventListener("click", handleClickOutside);
       return () => {
          document.removeEventListener("click", handleClickOutside);
       };
-   }, []);
+   }, [handleClickOutside]);
 
    document.addEventListener("DOMContentLoaded", function() {
       var element = document.querySelector('.mx-auto.flex.flex-wrap.items-center.justify-between');
@@ -67,22 +66,22 @@ export default function PrivacyHeader() {
          </Link>
          <Navbar.Collapse className={`${menuOpen ? "block" : "hidden"} hidden-in-range`}>
             <div className={`pb-1 border-b-2 ${path === `${languagePrefix}/wave`} ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to={`${languagePrefix}/wave`} onClick={() => setMenuOpen(false)}>Privacy</Link>
+               <Link to={`${languagePrefix}/wave`} onClick={() => setMenuOpen(false)}>{t("header:privacy")}</Link>
             </div>
             <div className={`pb-1 border-b-2 ${path === `${languagePrefix}/business`} ? "border-current" : "border-transparent"} hover:border-current`}>
                <Link className="flex flex-row items-center">Privacy dashboard</Link>
             </div>
             <div className={`pb-1 border-b-2 ${path === `${languagePrefix}/wave/features`} ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to={`${languagePrefix}/wave/features`} onClick={() => setMenuOpen(false)}>Privacy report</Link>
+               <Link to={`${languagePrefix}/wave/features`} onClick={() => setMenuOpen(false)}>{t("header:privacy_report")}</Link>
             </div>
             <div className={`pb-1 border-b-2 ${path === `${languagePrefix}/blogs`} ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link className="flex flex-row items-center">Privacy settings</Link>
+               <Link className="flex flex-row items-center">{t("header:privacy_settings")}</Link>
             </div>
             <div className={`pb-1 border-b-2 ${path === `${languagePrefix}/wave/download`} ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to={`${languagePrefix}/wave/download`} onClick={() => setMenuOpen(false)}>Privacy Statements</Link>
+               <Link to={`${languagePrefix}/wave/download`} onClick={() => setMenuOpen(false)}>{t("header:privacy_statements")}</Link>
             </div>
             <div className={`pb-1 border-b-2 ${path === `${languagePrefix}/wave/download`} ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to={`${languagePrefix}/wave/download`} onClick={() => setMenuOpen(false)}>Consumer Health Data Privacy Policy</Link>
+               <Link to={`${languagePrefix}/wave/download`} onClick={() => setMenuOpen(false)}>{t("header:health_data_privacy_policy")}</Link>
             </div>
          </Navbar.Collapse>
       </Navbar>
