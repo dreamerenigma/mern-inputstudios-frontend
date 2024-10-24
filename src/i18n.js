@@ -9,6 +9,7 @@ import enPostsTranslation from '../public/locales/en/posts.json';
 import enCommentsTranslation from '../public/locales/en/comments.json';
 import enFooterTranslation from '../public/locales/en/footer.json';
 import enHeadersTranslation from '../public/locales/en/headers.json';
+import enProfileTranslation from '../public/locales/en/profile.json';
 import ruTranslation from '../public/locales/ru/translation.json';
 import ruTermsTranslation from '../public/locales/ru/terms.json';
 import ruDialogsTranslation from '../public/locales/ru/dialogs.json';
@@ -16,6 +17,7 @@ import ruPostsTranslation from '../public/locales/ru/posts.json';
 import ruCommentsTranslation from '../public/locales/ru/comments.json';
 import ruFooterTranslation from '../public/locales/ru/footer.json';
 import ruHeadersTranslation from '../public/locales/ru/headers.json';
+import ruProfileTranslation from '../public/locales/ru/profile.json';
 
 const resources = {
    en: { 
@@ -26,6 +28,7 @@ const resources = {
       footer: enCommentsTranslation,
       comments: enFooterTranslation,
       header: enHeadersTranslation,
+      profile: enProfileTranslation,
    },
    ru: { 
       translation: ruTranslation, 
@@ -35,6 +38,7 @@ const resources = {
       comments: ruCommentsTranslation,
       footer: ruFooterTranslation,
       header: ruHeadersTranslation,
+      profile: ruProfileTranslation,
    },
 };
 

@@ -126,7 +126,7 @@ export default function Header() {
 
    return (
       <div>
-         <header>
+         <header className={`fixed top-0 left-0 right-0 shadow-lg z-50 transition-colors duration-300 ${theme === "light" ? "bg-white" : "bg-gray-800"}`}>
             <div className="flex items-center">
                {!searchVisible && windowWidth < 860 && (
                   <>
@@ -290,13 +290,21 @@ export default function Header() {
                               <Dropdown
                                  arrowIcon={false}
                                  inline
-                                 label={<div className="flex items-center group margin-header mr-8">
-                                    <span
-                                       className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white">
-                                       {currentUser.username}
-                                    </span>
-                                    <Avatar alt="user" img={currentUser.profilePicture} rounded />
-                                 </div>}
+                                 label={
+                                    <div className="flex items-center group margin-header mr-8">
+                                       <span
+                                          className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white">
+                                          {currentUser.username}
+                                       </span>
+                                       <div className="relative w-10 h-10 rounded-full overflow-hidden">
+                                          <img
+                                             src={currentUser.profilePicture}
+                                             alt="User Avatar"
+                                             className="w-full h-full object-cover"
+                                          />
+                                       </div>
+                                    </div>
+                                 }
                               >
                                  <div className="flex items-center justify-between">
                                     <img

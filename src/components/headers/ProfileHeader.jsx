@@ -1,4 +1,4 @@
-import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
+import { Avatar, Button, Dropdown } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { CgMenuGridR } from "react-icons/cg";
@@ -103,87 +103,95 @@ export default function ProfileHeader() {
          <Helmet>
             <title>{t("title_account")}</title>
          </Helmet>
-         <Navbar className="fixed top-0 left-0 right-0 z-10 shadow-lg">
-            <div className="flex items-center">
-               <CgMenuGridR 
-                  className="text-lg sm:text-3xl mr-2 menu-icon cursor-pointer" 
-                  onClick={handleMenuIconClick} 
-               />
-               <Link
-                  to={`${languagePrefix}/dashboard?tab=account`}
-                  className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
-               >
-                  <span className="px-2 py-1 text-lg">
-                     {t("account")}
-                  </span>
-               </Link>
-            </div>
-            {currentUser ? (
+         <div className="fixed top-0 left-0 right-0 z-10 shadow-lg bg-white dark:bg-gray-800">
+            <div className="flex items-center justify-between ">
                <div className="flex items-center">
-                  <AiOutlineQuestion 
-                     className="text-lg sm:text-2xl mr-8 cursor-pointer question-icon" 
-                     onClick={handleQuestionIconClick} 
-                  />
-                  <Dropdown
-                     arrowIcon={false}
-                     inline
-                     label={
-                        <div className="flex items-center group">
-                           <Avatar alt="user" img={currentUser.profilePicture} rounded />
-                        </div>
-                     }
+                  <div 
+                     className="flex items-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 custom-header-padding rounded  menu-icon cursor-pointer" 
+                     onClick={handleMenuIconClick}
                   >
-                     <div className="flex items-center justify-between">
-                        <img
-                           src="https://i.ibb.co/jbNDftv/logo-Input-Studios-grey.png"
-                           alt=""
-                           width="90"
-                           height="90"
-                           className="mt-2 ml-2 mb-5"
-                        />
-                        <span
-                           onClick={handleSignout}
-                           className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
-                        >
-                           {t("header:header_sign_out")}
-                        </span>
-                     </div>
-                     <div className="flex items-center gap-2 px-4 pb-4">
-                        <div className="relative">
-                           <Avatar alt="user" img={currentUser.profilePicture} rounded />
-                           <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                              <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
-                                 <IoCameraOutline className="text-white text-lg" />
-                              </div>
-                           </Link>
-                        </div>
-                        <div>
-                           <span className="block text-sm">{currentUser.username}</span>
-                           <span className="block text-sm font-medium truncate">{currentUser.email}</span>
-                        </div>
-                     </div>
-                     <Dropdown.Divider className="m-0 p-0"/>
-                     {isAdmin && (
-                        <>
-                           <Link to={`${languagePrefix}/dashboard?tab=dash`}>
-                              <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_dashboard")}</Dropdown.Item>
-                           </Link>
-                           <Dropdown.Divider className="m-0 p-0" />
-                        </>
-                     )}
-                     <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                        <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_profile")}</Dropdown.Item>
-                     </Link>
-                  </Dropdown>
+                     <CgMenuGridR className="text-lg sm:text-3xl menu-icon cursor-pointer"/>
+                  </div>
+                  <Link
+                     to={`${languagePrefix}/dashboard?tab=account`}
+                     className="flex items-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 p-3.5 ml-2 rounded cursor-pointer"
+                  >
+                     <span className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white">
+                        {t("account")}
+                     </span>
+                  </Link>
                </div>
-            ) : (
-               <Link to={`${languagePrefix}/sign-in`}>
-                  <Button outline className="bg-gradient-to-r from-teal-500 via-green-500 to-blue-500">
-                     {t("header:header_sign_in")}
-                  </Button>
-               </Link>
-            )}
-         </Navbar>
+               {currentUser ? (
+                  <div className="flex items-center">
+                     <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-4 mr-2 rounded cursor-pointer">
+                        <AiOutlineQuestion 
+                           className="text-lg sm:text-2xl cursor-pointer question-icon" 
+                           onClick={handleQuestionIconClick} 
+                        />
+                     </div>
+                     <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-2 rounded cursor-pointer">
+                        <Dropdown
+                           arrowIcon={false}
+                           inline
+                           label={
+                              <div className="flex items-center group">
+                                 <Avatar alt="user" img={currentUser.profilePicture} rounded />
+                              </div>
+                           }
+                        >
+                           <div className="flex items-center justify-between">
+                              <img
+                                 src="https://i.ibb.co/jbNDftv/logo-Input-Studios-grey.png"
+                                 alt=""
+                                 width="90"
+                                 height="90"
+                                 className="mt-2 ml-2 mb-5"
+                              />
+                              <span
+                                 onClick={handleSignout}
+                                 className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
+                              >
+                                 {t("header:header_sign_out")}
+                              </span>
+                           </div>
+                           <div className="flex items-center gap-2 px-4 pb-4">
+                              <div className="relative">
+                                 <Avatar alt="user" img={currentUser.profilePicture} rounded />
+                                 <Link to={`${languagePrefix}/dashboard?tab=profile`}>
+                                    <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
+                                       <IoCameraOutline className="text-white text-lg" />
+                                    </div>
+                                 </Link>
+                              </div>
+                              <div>
+                                 <span className="block text-sm">{currentUser.username}</span>
+                                 <span className="block text-sm font-medium truncate">{currentUser.email}</span>
+                              </div>
+                           </div>
+                           <Dropdown.Divider className="m-0 p-0"/>
+                           {isAdmin && (
+                              <>
+                                 <Link to={`${languagePrefix}/dashboard?tab=dash`}>
+                                    <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_dashboard")}</Dropdown.Item>
+                                 </Link>
+                                 <Dropdown.Divider className="m-0 p-0" />
+                              </>
+                           )}
+                           <Link to={`${languagePrefix}/dashboard?tab=profile`}>
+                              <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_profile")}</Dropdown.Item>
+                           </Link>
+                        </Dropdown>
+                     </div>
+                  </div>
+               ) : (
+                  <Link to={`${languagePrefix}/sign-in`}>
+                     <Button outline className="bg-gradient-to-r from-teal-500 via-green-500 to-blue-500">
+                        {t("header:header_sign_in")}
+                     </Button>
+                  </Link>
+               )}
+            </div>
+         </div>
          {questionMenuOpen && (
             <div className="bg-white dark:bg-gray-800 shadow-lg top-14 fixed right-0 bottom-0 w-auto question-menu z-10">
                <div className="flex justify-between items-center p-4 mb-4">
@@ -226,45 +234,45 @@ export default function ProfileHeader() {
                   </Link>
                   <div>
                      {!isHelpful ? (
-                     <>
-                        <p>{t("was_this_helpful")}</p>
-                        <div className="flex mt-2">
-                           <button
-                              className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md mr-2 text-black"
-                              onClick={() => handleFeedbackClick(true, event)}
-                           >
-                              {t("yes")}
-                           </button>
-                           <button 
-                              className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md text-black"
-                              onClick={() => handleFeedbackClick(false, event)}
-                           >
-                              {t("no")}
-                           </button>
-                        </div>
-                     </>
-                     ) : (
-                     <>
-                        <p>{t("great_any_other_feedback")}</p>
-                        <textarea
-                           className="w-full h-32 mt-2 p-2 border rounded"
-                           style={{ resize: 'vertical', minHeight: '80px' }}
-                           placeholder={t("type_feedback")}
-                        ></textarea>
-                        <p className="mt-1 max-w-xs">{t("protect_privacy")}{" "}
-                           <a href="/privacy-policy" className="text-teal-500 hover:underline">
-                              {t("privacy_policy")}
-                           </a>
-                        </p>
-                        <div className="mt-2 flex">
-                           <button className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md mr-2 text-black">
-                              {t("send")}
-                           </button>
-                           <button className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md text-black">
-                              {t("no_thanks")}
-                           </button>
-                        </div>
-                     </>
+                        <>
+                           <p>{t("was_this_helpful")}</p>
+                           <div className="flex mt-2">
+                              <button
+                                 className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md mr-2 text-black"
+                                 onClick={() => handleFeedbackClick(true, event)}
+                              >
+                                 {t("yes")}
+                              </button>
+                              <button 
+                                 className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md text-black"
+                                 onClick={() => handleFeedbackClick(false, event)}
+                              >
+                                 {t("no")}
+                              </button>
+                           </div>
+                        </>
+                        ) : (
+                        <>
+                           <p>{t("great_any_other_feedback")}</p>
+                           <textarea
+                              className="w-full h-32 mt-2 p-2 border rounded"
+                              style={{ resize: 'vertical', minHeight: '80px' }}
+                              placeholder={t("type_feedback")}
+                           ></textarea>
+                           <p className="mt-1 max-w-xs">{t("protect_privacy")}{" "}
+                              <a href="/privacy-policy" className="text-teal-500 hover:underline">
+                                 {t("privacy_policy")}
+                              </a>
+                           </p>
+                           <div className="mt-2 flex">
+                              <button className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md mr-2 text-black">
+                                 {t("send")}
+                              </button>
+                              <button className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md text-black">
+                                 {t("no_thanks")}
+                              </button>
+                           </div>
+                        </>
                      )}
                   </div>
                </div>

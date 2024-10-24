@@ -33,7 +33,7 @@ export default function FooterCom() {
       <Footer className="border border-t-8 border-teal-500" id="footer">
          <div className="w-full max-w-7xl mx-auto">
             <div className="grid w-full justify-between sm:flex md:grid-cols-1 p-4">
-               <div className="grid grid-cols-1 gap-8 mt-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-4 justify-items-center">
+               <div className="grid grid-cols-1 gap-8 mt-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-4 md:justify-items-center">
                   <div className="max-w-full">
                      <Footer.Title title={t("footer:footer_whats_new")} />
                      <Footer.LinkGroup col>

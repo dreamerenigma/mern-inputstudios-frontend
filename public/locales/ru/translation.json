@@ -220,5 +220,14 @@
    "loading": "Загрузка...",
    "thanks": "Спасибо!",
    "download_will_start_soon": "Загрузка вскоре начнется",
-   "close": "Закрыть"
+   "close": "Закрыть",
+   "download_chatify_title": "Загрузите Chatify для iOS, Android, Windows",
+   "download_chatify": "Скачать Chatify",
+   "use_chatify_devices": "Используйте Chatify на разных устройствах.",
+   "install_chatify": "Устанавливая Chatify, вы соглашаетесь с нашими",
+   "terms_of_use": "Условиями",
+   "and": "и",
+   "chatify_privacy_policy": "Политикой конфиденциальности",
+   "on_computer": "На компьютере",
+   "use_chatify_web": "Требуется Windows 10 или новее. Во всех других операционных системах можно использовать Chatify Web."
 }

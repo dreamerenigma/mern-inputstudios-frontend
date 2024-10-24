@@ -24,7 +24,8 @@ function Layout() {
   }
 
   const isProfileHeader = languages.some(lang =>
-    location.pathname.startsWith(`/${lang}/dashboard`) && location.search.includes('tab=')
+    location.pathname.startsWith(`/${lang}/dashboard`) && location.search.includes('tab=') ||
+    location.pathname === (`/${lang}/password/change`)
   );
 
   const customHeaderPages = getLanguagePrefixedPages(['/forum']);
@@ -33,10 +34,23 @@ function Layout() {
   const headerPages = getLanguagePrefixedPages(['/wave', '/wave/download', '/quantum-engine', '/chatify', '/workspace']);
   const showHeader = headerPages.includes(location.pathname);
 
-  const isDashboardPage = location.pathname === '/dashboard';
   const isPrivacyPage = location.pathname.includes('/privacy-statement');
   const isForumPage = languages.some(lang => location.pathname.startsWith(`/${lang}/forum`));
   const isSupportPage = languages.some(lang => location.pathname.startsWith(`/${lang}/contactus`));
+
+  const profileFooterPaths = [
+    '/dashboard', 
+    '/profile',
+    '/settings'
+  ];
+
+  const shouldShowProfileFooter = profileFooterPaths.some(path => {
+    const matchesPath = location.pathname.startsWith(path);
+
+    const hasTab = location.search.includes('tab=profile');
+  
+    return matchesPath && hasTab;
+  });
 
   return (
     <div>
@@ -63,7 +77,7 @@ function Layout() {
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
-      {isDashboardPage ? <ProfileFooter /> : <Footer />}
+      {shouldShowProfileFooter ? <ProfileFooter /> : <Footer />}
     </div>
   );
 }

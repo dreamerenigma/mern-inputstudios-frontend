@@ -1,27 +1,20 @@
 import { Alert, Button, Modal } from "flowbite-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-   getDownloadURL,
-   getStorage,
-   ref,
-   uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../firebase";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import {
-   updateStart,
-   updateSuccess,
-   updateFailure,
-} from "../redux/user/userSlice";
+import { updateStart,  updateSuccess, updateFailure } from "../redux/user/userSlice";
 import { Link } from 'react-router-dom';
 import { IoCameraOutline, IoKeyOutline } from 'react-icons/io5';
 import ReCAPTCHA from 'react-google-recaptcha';
 import ProfileInfo from './ProfileInfo'
 import AccountInfo from './AccountInfo'
+import { useTranslation } from "react-i18next";
 
 export default function DashProfile() {
+   const { t } = useTranslation();
    const { currentUser, error, loading } = useSelector((state) => state.user);
    const [imageFile, setImageFile] = useState(null);
    const [imageFileUrl, setImageFileUrl] = useState(null);
@@ -39,55 +32,24 @@ export default function DashProfile() {
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
-   const handleImageChange = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-         setImageFile(file);
-         setImageFileUrl(URL.createObjectURL(file));
-      }
-   };
+   const uploadImage = useCallback(async () => {
+      if (!imageFile) return;
 
-   useEffect(() => {
-      if (imageFile) {
-         uploadImage();
-      }
-   }, [imageFile]);
-
-   useEffect(() => {
-      const savedModalState = localStorage.getItem('showModalEditName');
-      if (savedModalState === 'true') {
-         setShowModalEditName(true);
-      }
-   }, []);
-
-   const uploadImage = async () => {
-      // service firebase.storage {
-      //    match /b/{bucket}/o {
-      //       match /{allPaths=**} {
-      //          allow read;
-      //          allow write: if
-      //          request.resource.size < 2 * 1024 * 1024 &&
-      //          request.resource.contentType.matches("image/.*")
-      //       }
-      //    }
-      // }
       setImageFileUploading(true);
       setImageFileUploadError(null);
       const storage = getStorage(app);
       const fileName = new Date().getTime() + imageFile.name;
       const storageRef = ref(storage, fileName);
       const uploadTask = uploadBytesResumable(storageRef, imageFile);
+      
       uploadTask.on(
          'state_changed',
          (snapshot) => {
-            const progress =
-               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             setImageFileUploadProgress(progress.toFixed(0));
          },
          (error) => {
-            setImageFileUploadError(
-               "Could not upload image (File must be less than 2MB)"
-            );
+            setImageFileUploadError("Could not upload image (File must be less than 2MB),", error);
             setImageFileUploadProgress(null);
             setImageFile(null);
             setImageFileUrl(null);
@@ -101,7 +63,28 @@ export default function DashProfile() {
             });
          }
       );
+   }, [formData, imageFile]);
+
+   const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+         setImageFile(file);
+         setImageFileUrl(URL.createObjectURL(file));
+      }
    };
+
+   useEffect(() => {
+      if (imageFile) {
+         uploadImage();
+      }
+   }, [imageFile, uploadImage]);
+
+   useEffect(() => {
+      const savedModalState = localStorage.getItem('showModalEditName');
+      if (savedModalState === 'true') {
+         setShowModalEditName(true);
+      }
+   }, []);
 
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -156,9 +139,9 @@ export default function DashProfile() {
       <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-900">
          <div className="overview flex flex-col max-w-5xl w-full h-auto mt-8 mx-auto px-4">
             <div className="flex justify-between items-center my-7">
-               <h1 className="font-semibold text-3xl">Profile</h1>
+               <h1 className="font-semibold text-3xl">{t("profile:profile")}</h1>
                <Link
-                  to="/password/change"
+                  to={`${languagePrefix}/password/change`}
                   className="whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white group"
                >
                   <div className="flex items-center gap-2">
@@ -166,7 +149,7 @@ export default function DashProfile() {
                         <IoKeyOutline className="text-center font-semibold text-2xl group-hover:text-white dark:group-hover:text-gray-300"/>
                      </div>
                      <span className="text-sm font-semibold group-hover:text-teal-500 transition-colors duration-200">
-                        Change password
+                        {t("profile:change_password")}
                      </span>
                   </div>
                </Link>
@@ -224,27 +207,24 @@ export default function DashProfile() {
                               />
                            </div>
                         </div>
-                        <div className="ml-5 flex flex-col p-4">
-                           <span>
-                              Personalize your account with a photo. <br />
-                              Your profile photo will appear on apps <br />
-                              and devices that use your Input Studios <br />
-                              account.
+                        <div className="ml-5 flex flex-col p-4 max-w-[300px]">
+                           <span className="text-sm">
+                              {t("profile:your_account_with_photo")}
                            </span>
                            <button
                               className="mt-4 px-4 py-2 bg-teal-500 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 transition duration-300 max-w-[150px]"
                               onClick={() => filePickerRef.current.click()}
                            >
-                              Change photo
+                              {t("profile:change_photo")}
                            </button>
                         </div>
                      </div>
                      <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
                      <div className="flex flex-row items-center justify-between">
-                        <p className="text-left px-4 mb-4 mr-4">Full name</p>
+                        <p className="text-left px-4 mb-4 mr-4">{t("profile:full_name")}</p>
                         <p className="text-left mb-4 mr-20">{currentUser.username}</p>
                         <>
-                           <p className="text-right mb-4 mr-4 text-teal-500 hover:text-teal-700 cursor-pointer" onClick={handleEditNameClick}>Edit name</p>
+                           <p className="text-right mb-4 mr-4 text-teal-500 hover:text-teal-700 cursor-pointer" onClick={handleEditNameClick}>{t("profile:edit_name")}</p>
                            <Modal
                               show={showModalEditName}
                               onClose={() => handleShowModal(false)}
@@ -254,23 +234,23 @@ export default function DashProfile() {
                               <Modal.Header />
                               <Modal.Body>
                                  <div className="text-left mb-5 mt-6">
-                                    <p className="absolute ml-6 mt-4 top-0 left-0 text-xl font-bold text-gray-700 dark:text-gray-200">Edit name</p>
-                                    <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">First name</p>
+                                    <p className="absolute ml-6 mt-4 top-0 left-0 text-xl font-bold text-gray-700 dark:text-gray-200">{t("profile:edit_name")}</p>
+                                    <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{t("profile:first_name")}</p>
                                     <input type="text" placeholder="First name" className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full mt-1" />
                                  </div>
                                  <div className="text-left mb-5 mt-8">
-                                    <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">Last name</p>
+                                    <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{t("profile:last_name")}</p>
                                     <input type="text" placeholder="Last name" className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full mt-1" />
                                  </div>
                                  <div className="text-left mb-5 mt-6">
-                                    <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">Captcha</p>
+                                    <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{t("profile:captcha")}</p>
                                     <div className="mt-4">
                                     <ReCAPTCHA
                                        sitekey="6Lcn5uYpAAAAAM2rTG-jWtWRMeDoh6GT4xFcY0cS"
                                        onChange={handleCaptchaChange}
                                     />
                                     </div>
-                                    {captchaValue && <p>Captcha verified!</p>}
+                                    {captchaValue && <p>{t("profile:captcha")}</p>}
                                     <input 
                                        type="text" 
                                        placeholder="Enter the characters you see" 
@@ -280,10 +260,10 @@ export default function DashProfile() {
                                  <div className="text-center">
                                     <div className="flex justify-end gap-4">
                                        <Button color="gray" onClick={() => handleShowModal(false)}>
-                                          Save
+                                          {t("profile:save")}
                                        </Button>
                                        <Button color="gray" onClick={() => handleShowModal(false)}>
-                                          Cancel
+                                       {t("profile:cancel")}
                                        </Button>
                                     </div>
                                  </div>

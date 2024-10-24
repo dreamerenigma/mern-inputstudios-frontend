@@ -6,8 +6,10 @@ import { auth } from '../firebase';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 export default function ProfileInfo() {
+   const { t } = useTranslation();
    const { theme } = useSelector((state) => state.theme);
    const [showModalEditBirth, setShowModalEditBirth] = useState(false);
    const [selectedMonth, setSelectedMonth] = useState(months[0].value);
@@ -16,7 +18,7 @@ export default function ProfileInfo() {
    const [isChanged, setIsChanged] = useState(false);
    const [userId, setUserId] = useState('');
 
-   const handleChange = (e) => {
+   const handleChange = () => {
       setIsChanged(true);
    };
 
@@ -33,6 +35,7 @@ export default function ProfileInfo() {
       const monthData = months.find(m => m.value === month);
       setSelectedMonth(month);
       setDays(monthData.days);
+      handleChange();
    };
 
    useEffect(() => {
@@ -50,10 +53,10 @@ export default function ProfileInfo() {
             <div className="flex items-center">
                <div className="flex flex-row items-center justify-between w-full pl-4 pt-3">
                   <div>
-                        <span>Profile info</span>
+                     <span>{t("profile:profile_info")}</span>
                   </div>
                   <div className="ml-auto">
-                        <p className="text-right mr-4 cursor-pointer text-teal-500 hover:text-teal-700 hover:underline">Edit profile info</p>
+                     <p className="text-right mr-4 cursor-pointer text-teal-500 hover:text-teal-700 hover:underline">{t("profile:edit_profile_info")}</p>
                   </div>
                </div>
             </div>
@@ -63,9 +66,9 @@ export default function ProfileInfo() {
                theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}
                onClick={handleEditBirthClick}
             >
-               <span>Date of birth</span>
+               <span>{t("profile:date_birth")}</span>
                <span>31/03/1991</span>
-               <span className="mx-2">Your date of birth is used for account safety setting</span>
+               <span className="mx-2">{t("profile:date_birth_account_safety")}</span>
                <span className="ml-auto pr-2">
                   <IoIosArrowForward />
                </span>
@@ -78,9 +81,9 @@ export default function ProfileInfo() {
             >
                <Modal.Header />
                <Modal.Body>
-                  <p className="absolute ml-6 mt-4 top-0 left-0 text-xl font-semibold text-gray-700 dark:text-gray-200">Edit profile info</p>
+                  <p className="absolute ml-6 mt-4 top-0 left-0 text-xl font-semibold text-gray-700 dark:text-gray-200">{t("profile:edit_profile_info")}</p>
                   <div className="text-left mb-5 mt-6">
-                     <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">Date of Birth</p>
+                     <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{t("profile:date_birth")}</p>
                      <div className="text-left mb-5">
                         <div className="flex space-x-4">
                            <select 
@@ -97,23 +100,21 @@ export default function ProfileInfo() {
                            <select 
                               className={`border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md p-2 w-full mt-1`}
                            >
-                           {[...Array(days).keys()].map(day => (
-                           <option key={day + 1} value={day + 1}>
-                              {day + 1}
-                           </option>
-                           ))}
+                              {[...Array(days).keys()].map(day => (
+                                 <option key={day + 1} value={day + 1}>
+                                    {day + 1}
+                                 </option>
+                              ))}
                            </select>
-                           <select 
-                              className={`border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md p-2 w-full mt-1`}
-                           >
-                           {years.map(year => (
-                              <option key={year} value={year}>
-                                 {year}
-                              </option>
-                           ))}
+                           <select className={`border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md p-2 w-full mt-1`}>
+                              {years.map(year => (
+                                 <option key={year} value={year}>
+                                    {year}
+                                 </option>
+                              ))}
                            </select>
                         </div>
-                        <p className="text-18 mt-8 font-semibold text-gray-700 dark:text-gray-200">Country or region</p>
+                        <p className="text-18 mt-8 font-semibold text-gray-700 dark:text-gray-200">{t("profile:country_or_region")}</p>
                         <select 
                            className={`border ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'} rounded-md p-2 w-full mt-1`}
                         >
@@ -124,7 +125,7 @@ export default function ProfileInfo() {
                            ))}
                         </select>
                      </div>
-                     <p className="text-18 mt-8 font-semibold text-gray-700 dark:text-gray-200">Unique ID</p>
+                     <p className="text-18 mt-8 font-semibold text-gray-700 dark:text-gray-200">{t("profile:unique_id")}</p>
                      <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{userId}</p>
                   </div>
                   <div className="text-center">
@@ -134,10 +135,10 @@ export default function ProfileInfo() {
                            onClick={() => handleBirthShowModal(false)}
                            disabled={!isChanged}
                         >
-                           Save
+                           {t("profile:save")}
                         </Button>
                         <Button color="gray" onClick={() => handleBirthShowModal(false)}>
-                           Cancel
+                           {t("profile:cancel")}
                         </Button>
                      </div>
                   </div>
@@ -145,26 +146,26 @@ export default function ProfileInfo() {
             </Modal>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
             <div className="flex flex-row items-center justify-between w-full pl-4 pr-2 space-x-4">
-               <span>Country or region</span>
-               <span>Russia</span>
-               <span className="mx-2">Your country and region are used for privacy settings</span>
+               <span>{t("profile:country_or_region")}</span>
+               <span>{t("profile:country")}</span>
+               <span className="mx-2">{t("profile:your_country_region_privacy_settings")}</span>
                <span className="ml-auto pr-2">
                <IoIosArrowForward />
                </span>
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
             <div className="flex flex-row items-center justify-between w-full pl-4 pr-2 space-x-4">
-               <span>Language</span>
-               <span>russian (Russia), english <br />(United State)</span>
-               <span className="mx-2">Ask me before translating</span>
+               <span>{t("profile:language")}</span>
+               <span>{t("profile:select_language")}</span>
+               <span className="mx-2">{t("profile:ask_before_translating")}</span>
                <span className="ml-auto pr-2">
                <IoIosArrowForward />
                </span>
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
             <div className="flex flex-row items-center justify-between w-full pl-4 pr-2 space-x-4">
-               <span>Regional formats</span>
-               <span>русский (Россия); 31.08.2000; 1:01 - 23:59</span>
+               <span>{t("profile:regional_formats")}</span>
+               <span>{t("profile:language_and_date")}</span>
                <span className="ml-auto pr-2">
                <IoIosArrowForward />
                </span>
@@ -173,9 +174,9 @@ export default function ProfileInfo() {
             <div className="flex flex-row items-center justify-between w-full px-4 py-4">
                <div className="flex flex-col">
                   <div className="flex items-center space-x-2">
-                     <span>Related</span>
+                     <span>{t("profile:related")}</span>
                      <Link to="/billing/addresses" className="pl-5  text-teal-500 hover:underline hover:text-teal-700">
-                        Billing & shipping addresses
+                        {t("profile:billing_shipping_addresses")}
                      </Link>
                   </div>
                </div>

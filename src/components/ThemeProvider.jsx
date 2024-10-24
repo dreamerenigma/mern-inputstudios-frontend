@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
 export default function ThemeProvider({ children }) {
@@ -10,3 +11,7 @@ export default function ThemeProvider({ children }) {
       </div>
    );
 }
+
+ThemeProvider.propTypes = {
+   children: PropTypes.node.isRequired,
+};

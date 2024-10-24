@@ -189,5 +189,14 @@
    "loading": "Loading...",
    "thanks": "Thanks!",
    "download_will_start_soon": "Download will start soon",
-   "close": "Close"
+   "close": "Close",
+   "download_chatify_title": "Download Chatify for iOS, Android, Windows",
+   "download_chatify": "Download Chatify",
+   "use_chatify_devices": "Use Chatify across multiple devices.",
+   "install_chatify": "By installing Chatify, you agree to our",
+   "terms_of_use": "Terms and conditions",
+   "and": "and",
+   "chatify_privacy_policy": "Privacy Policy",
+   "on_computer": "On the computer",
+   "use_chatify_web": "Requires Windows 10 or later. All other operating systems can use Chatify Web."
 }

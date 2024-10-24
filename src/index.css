@@ -119,3 +119,7 @@ ul.py-1 {
 .border-button {
    border-width: 0.2px;
 }
+
+.custom-header-padding {
+   padding: 13px;
+}

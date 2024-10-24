@@ -17,10 +17,10 @@ export default function DashPosts() {
    useEffect(() => {
       const fetchPosts = async () => {
          try {
-            const token = localStorage.getItem('token'); // Retrieve the JWT token
+            const token = localStorage.getItem('token');
             const res = await fetch(`${SERVER_URL}/api/post/getposts?userId=${currentUser._id}`, {
                headers: {
-                  "Authorization": `Bearer ${token}` // Add token to headers
+                  "Authorization": `Bearer ${token}`
                }
             });
             const data = await res.json();
@@ -30,10 +30,10 @@ export default function DashPosts() {
                   setShowMore(false);
                }
             } else {
-               console.error(data.message); // Log any error messages
+               console.error(data.message);
             }
          } catch (error) {
-            console.log(error.message); // Log any fetch errors
+            console.log(error.message);
          }
       };
       if (currentUser.isAdmin) {
@@ -44,10 +44,10 @@ export default function DashPosts() {
    const handleShowMore = async () => {
       const startIndex = userPosts.length;
       try {
-         const token = localStorage.getItem('token'); // Retrieve the JWT token
+         const token = localStorage.getItem('token');
          const res = await fetch(`${SERVER_URL}/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`, {
             headers: {
-               "Authorization": `Bearer ${token}` // Add token to headers
+               "Authorization": `Bearer ${token}`
             }
          });
          const data = await res.json();
@@ -57,31 +57,31 @@ export default function DashPosts() {
                setShowMore(false);
             }
          } else {
-            console.error(data.message); // Log any error messages
+            console.error(data.message);
          }
       } catch (error) {
-         console.log(error.message); // Log any fetch errors
+         console.log(error.message);
       }
    };
 
    const handleDeletePost = async () => {
       setShowModal(false);
       try {
-         const token = localStorage.getItem('token'); // Retrieve the JWT token
+         const token = localStorage.getItem('token');
          const res = await fetch(`${SERVER_URL}/api/post/deletepost/${postIdToDelete}/${currentUser._id}`, {
             method: "DELETE",
             headers: {
-               "Authorization": `Bearer ${token}` // Add token to headers
+               "Authorization": `Bearer ${token}`
             }
          });
          const data = await res.json();
          if (!res.ok) {
-            console.error(data.message); // Log any error messages
+            console.error(data.message);
          } else {
             setUserPosts((prev) => prev.filter((post) => post._id !== postIdToDelete));
          }
       } catch (error) {
-         console.log(error.message); // Log any fetch errors
+         console.log(error.message);
       }
    };
 
