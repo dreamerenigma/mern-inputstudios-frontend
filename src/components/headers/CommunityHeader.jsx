@@ -83,7 +83,7 @@ export default function CommunityHeader() {
    };
 
    return (
-      <Navbar className="border-b-2">
+      <Navbar>
          <Link to="/" className={`self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white ${windowWidth >= 1080 ? 'mx-8' : 'mx-0'}`}>
             <span className="px-2 py-1 bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 rounded-lg text-white">
                Input Studios
@@ -94,7 +94,7 @@ export default function CommunityHeader() {
                <Button className="w-12 h-10 flex items-center justify-center border-none focus:outline-none focus:ring-0" color="gray" pill style={{ backgroundColor: 'transparent' }}>
                   <div className="flex items-center justify-center cursor-pointer group lg:mr-10">
                      <span className="font-semibold mr-2 text-sm theme-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white">
-                        {t("header_themes")}
+                        {t("headers:header_themes")}
                      </span>
                      {theme === "light" ? <FaMoon size={20} className="group-hover:text-[#0E7490]" /> : <FaSun size={20} className="group-hover:text-white" style={{ color: '#ffc600' }} />}
                   </div>
@@ -141,14 +141,14 @@ export default function CommunityHeader() {
          </div>
          <Navbar.Collapse>
             <div className={`pb-1 border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} hover:border-current`}>
-               <Link to={`${languagePrefix}/forum`}>{t("header_forum")}</Link>
+               <Link to={`${languagePrefix}/forum`}>{t("headers:header_forum")}</Link>
             </div>
             <div 
                onClick={handleToggleProducts} 
                ref={dropdownRefProducts}
                className={`pb-0.2 border-b-2 ${path === "/" ? "border-current" : "border-transparent"} hover:border-current`}
             >
-               <Link className="flex flex-row items-center">{t("header_products")}<IoIosArrowDown className="ml-2" /></Link>
+               <Link className="flex flex-row items-center">{t("headers:header_products")}<IoIosArrowDown className="ml-2" /></Link>
                {isOpenProducts && (
                   <ul className="absolute mt-2 bg-white dark:bg-gray-600 shadow-md rounded-md z-10 whitespace-nowrap">
                      <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-t-md">
@@ -166,7 +166,7 @@ export default function CommunityHeader() {
                            Quantum Engine
                         </Link>
                      </li>
-                     <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400">
+                     <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-b-md">
                         <Link to={`${languagePrefix}/wave`} className="w-full text-left block">
                            Input Studios Wave
                         </Link>
@@ -179,7 +179,7 @@ export default function CommunityHeader() {
                ref={dropdownRef}
                className={`pb-0.2 border-b-2 ${path === "/" ? "border-current" : "border-transparent"} hover:border-current`}
             >
-               <Link className="flex flex-row items-center">{t("header_get_started")}<IoIosArrowDown className="ml-2" /></Link>
+               <Link className="flex flex-row items-center">{t("headers:header_get_started")}<IoIosArrowDown className="ml-2" /></Link>
                {isOpen && (
                   <ul className="absolute mt-2 bg-white dark:bg-gray-600 shadow-md rounded-md z-10 whitespace-nowrap">
                      <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-t-md">

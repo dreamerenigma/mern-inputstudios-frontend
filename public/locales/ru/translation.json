@@ -229,5 +229,21 @@
    "and": "и",
    "chatify_privacy_policy": "Политикой конфиденциальности",
    "on_computer": "На компьютере",
-   "use_chatify_web": "Требуется Windows 10 или новее. Во всех других операционных системах можно использовать Chatify Web."
+   "use_chatify_web": "Требуется Windows 10 или новее. Во всех других операционных системах можно использовать Chatify Web.",
+   "please_fill_all_fields": "Пожалуйста, заполните все поля",
+   "sign_in_title": "Вход в учетную запись Input Studios",
+   "sign_in_account": "Используйте аккаунт Input Studios",
+   "your_email": "Ваш email",
+   "your_password": "Ваш пароль",
+   "continue_with_google": "Продолжить с Google",
+   "demo_project": "Это демонстрационный проект. Вы можете войти, используя<br />ваш адрес электронной почты и пароль или Google.",
+   "dont_have_an_account": "У вас нет учетной записи?",
+   "sign_in_sign_up": "Зарегистрироваться!",
+   "sign_up_title": "Регистрация пользователя в Input Studios",
+   "sign_up_account": "Зарегистрируйте аккаунт Input Studios",
+   "your_username": "Ваше имя пользователя",
+   "password": "Пароль",
+   "have_an_account": "Есть аккаунт?",
+   "sign_up_sign_in": "Войти!",
+   "sign_up": "Зарегистрироваться"
 }

@@ -52,6 +52,11 @@ function Layout() {
     return matchesPath && hasTab;
   });
 
+  const isSignInPage = languages.some(lang =>
+    location.pathname === `/${lang}/sign-in` ||
+    location.pathname === `/${lang}/sign-up`
+  );
+
   return (
     <div>
       <FeedbackButton />
@@ -77,7 +82,7 @@ function Layout() {
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
-      {shouldShowProfileFooter ? <ProfileFooter /> : <Footer />}
+      {!isSignInPage && (shouldShowProfileFooter ? <ProfileFooter /> : <Footer />)}
     </div>
   );
 }

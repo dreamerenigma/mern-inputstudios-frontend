@@ -118,6 +118,13 @@
   }
 }
 
+@media (max-width: 840px) and (min-width: 768px) {
+  .image-chatify {
+    width: 20rem;
+    height: 20rem;
+  }
+}
+
 @media (max-width: 859px) {
   .center-text {
     text-align: center;

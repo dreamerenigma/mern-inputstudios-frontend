@@ -185,7 +185,7 @@ export default function SupportHeader() {
                      <span 
                         className="font-semibold mr-2 text-sm theme-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white"
                      >
-                        {t("header_themes")}
+                        {t("headers:header_themes")}
                      </span>
                      {theme === "light" ? 
                         <FaMoon size={20} className="group-hover:text-[#0E7490]" /> : 

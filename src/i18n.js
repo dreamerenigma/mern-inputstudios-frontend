@@ -27,7 +27,7 @@ const resources = {
       posts: enPostsTranslation,
       footer: enCommentsTranslation,
       comments: enFooterTranslation,
-      header: enHeadersTranslation,
+      headers: enHeadersTranslation,
       profile: enProfileTranslation,
    },
    ru: { 
@@ -37,7 +37,7 @@ const resources = {
       posts: ruPostsTranslation,
       comments: ruCommentsTranslation,
       footer: ruFooterTranslation,
-      header: ruHeadersTranslation,
+      headers: ruHeadersTranslation,
       profile: ruProfileTranslation,
    },
 };

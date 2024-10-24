@@ -68,7 +68,7 @@ export default function Forum() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="relative" ref={dropdownRef}>
-        <div className={`flex items-center border-2 mt-44 ${isFocused ? 'border-black dark:border-gray-500' : 'border-black dark:border-gray-500'} bg-white  w-96`}>
+      <div className={`flex items-center border-2 mt-44 ${isFocused ? 'border-black dark:border-gray-500' : 'border-black dark:border-gray-500'} bg-white w-full md:w-96 lg:max-w-full`}>
           <input
             type="text"
             placeholder={t("search_community")}

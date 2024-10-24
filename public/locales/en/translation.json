@@ -1,7 +1,6 @@
 {
    "russian_lang": "Russian",
    "version_app": "Version 0.0.5.14",
-
    "home_welcome": "Welcome to Input Studios",
    "home_welcome_description": "Here you&apos;ll find a variety of articles and tutorials on topics such as web development, software engineering, and programming languages.",
    "home_view_all_posts": "View all posts",
@@ -198,5 +197,21 @@
    "and": "and",
    "chatify_privacy_policy": "Privacy Policy",
    "on_computer": "On the computer",
-   "use_chatify_web": "Requires Windows 10 or later. All other operating systems can use Chatify Web."
+   "use_chatify_web": "Requires Windows 10 or later. All other operating systems can use Chatify Web.",
+   "please_fill_all_fields": "Please fill all the fields",
+   "sign_in_title": "Login to your Input Studios account", 
+   "sign_in_account": "Use an Input Studios account",
+   "your_email": "Your email",
+   "your_password": "Your password",
+   "continue_with_google": "Continue with Google",
+   "demo_project": "This a demo project. You can sign in with <br />your email and password or with Google.",
+   "dont_have_an_account": "Don&apos;t have an account?",
+   "sign_in_sign_up": "Sign Up!",
+   "sign_up_title": "User registration in Input Studios",
+   "sign_up_account": "Register an Input Studios account",
+   "your_username": "Your username",
+   "password": "Password",
+   "have_an_account": "Have an account?",
+   "sign_up_sign_in": "Sign In!",
+   "sign_up": "Sign Up"
 }

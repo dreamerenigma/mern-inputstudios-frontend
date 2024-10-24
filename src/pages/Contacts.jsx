@@ -108,7 +108,7 @@ export default function Contacts() {
                   className={`relative pb-0.2 border-b-2 ml-12 ${path === `/${languagePrefix}/products` ? "border-current" : "border-transparent"} hover:border-current`}
                >
                   <Link className="flex flex-row items-center">
-                     {t("header_products")}
+                     {t("headers:header_products")}
                      <IoIosArrowDown className={`ml-2 transition-transform duration-200 ${isOpenProducts ? 'rotate-180' : 'rotate-0'}`} />
                   </Link>
                   {isOpenProducts && (

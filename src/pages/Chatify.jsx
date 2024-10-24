@@ -110,9 +110,9 @@ export default function Chatify() {
          <div className="bg-teal-100 w-full h-[650px] flex items-center px-4 md:px-8 lg:px-16">
             <div className="flex flex-col mx-auto w-full max-w-md md:max-w-lg lg:max-w-xl">
                <div className="flex flex-col justify-center ">
-                  <h2 className="text-4xl md:mt-4 md:text-6xl text-black font-semibold mb-2">{t("download_chatify")}</h2>
-                  <p className="my-3 text-black text-xl">{t("use_chatify_devices")}</p>
-                  <p className="text-sm text-black">
+                  <h2 className="text-4xl md:mt-4 md:text-6xl text-black font-semibold mb-2 text-center md:text-left">{t("download_chatify")}</h2>
+                  <p className="my-3 text-black text-xl text-center md:text-left">{t("use_chatify_devices")}</p>
+                  <p className="text-sm text-black text-center md:text-left">
                      {t("install_chatify")}{' '}
                      <Link to={`${languagePrefix}/terms-of-use`} className="text-teal-500 underline hover:text-teal-700">
                         {t("terms_of_use")}
@@ -148,14 +148,14 @@ export default function Chatify() {
                <img 
                   src="/images/chatify.png" 
                   alt="WhatsApp" 
-                  className="h-72 md:h-64 lg:h-72"
+                  className="h-auto max-h-72 md:max-h-64 lg:max-h-72 w-full object-contain image-chatify mx-4" 
                />
+               </div>
             </div>
-         </div>
-         <div className="bg-green-100 w-full h-[600px] md:h-[500px] flex flex-row py-12 px-4 md:px-8 lg:px-16">
+         <div className="bg-green-100 w-full min-h-[600px] md:min-h-[500px] flex flex-col md:flex-row py-12 px-4 md:px-8 lg:px-16">
             <div className="flex flex-col mx-auto w-full max-w-md md:max-w-lg lg:max-w-xl">
-               <h3 className="text-4xl md:text-6xl font-semibold mb-8 text-black md:text-left">Другие варианты</h3>
-               <p className="text-lg mb-8 text-black md:text-left">
+               <h3 className="text-4xl md:text-6xl font-semibold mb-8 text-black text-center md:text-left">Другие варианты</h3>
+               <p className="text-lg mb-8 text-black text-center md:text-left">
                   Оставайтесь на связи с друзьями и родными, даже когда пользуетесь разными устройствами.
                </p>
                <div className="flex mt-4 justify-center md:justify-start">
@@ -165,7 +165,7 @@ export default function Chatify() {
                         currentColumn === 0 ? "border-gray-400 text-gray-400 cursor-not-allowed pointer-events-none" : "border-teal-500 text-teal-500"
                      }`}
                      disabled={currentColumn === 0}
-                  >
+                     >
                      <IoIosArrowBack size={32} />
                   </button>
                   <button
@@ -174,54 +174,49 @@ export default function Chatify() {
                         currentColumn === columns.length - 1 ? "border-gray-400 text-gray-400 cursor-not-allowed pointer-events-none" : "border-teal-500 text-teal-500"
                      }`}
                      disabled={currentColumn === columns.length - 1}
-                  >
+                     >
                      <IoIosArrowForward size={32} className="ml-1" />
                   </button>
                </div>
             </div>
-            <div className="flex flex-col ml-8 mt-10 w-full max-w-lg md:max-w-lg lg:max-w-xl">
-               <div className="mx-4 px-6 py-4 rounded-lg shadow-lg bg-gray-100">
+            <div className="flex flex-col mt-10 w-full max-w-lg md:max-w-lg lg:max-w-xl mx-auto">
+               <div className="px-6 py-4 rounded-lg shadow-lg bg-gray-100">
                   <p className="text-xl text-black">{columns[currentColumn].title}</p>
-                  <h3 className="text-2xl mb-4  text-black">{columns[currentColumn].subtitle}</h3>
+                  <h3 className="text-2xl mb-4 text-black">{columns[currentColumn].subtitle}</h3>
                   <p className="text-lg mb-8 text-black">{columns[currentColumn].content}</p>
-                  <p className="flex mt-4 text-xl items-center justify-center md:justify-start group cursor-pointer">
-                     {currentColumn === 2 ? (
-                        <button className="relative overflow-hidden border-2 border-teal-500 text-teal-500 hover:text-white rounded-lg px-4 py-2 group">
-                           <span className="relative z-10 ">Войти</span>
-                           <span className="absolute left-0 bottom-0 w-full h-0 bg-teal-500 transition-all duration-300 group-hover:h-full"></span>
-                        </button>
-                     ) : (
-                        <span 
-                           className="relative"
-                           onClick={handleDownload}
-                        >
-                           <span className="group-hover:text-teal-500 text-black">
-                              Скачать
-                           </span>
-                           <span className="absolute left-0 right-0 bottom-0 h-[2px] bg-teal-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-                        </span>
-                     )}
-                     {currentColumn !== 2 && (
-                        <IoIosArrowForward className="ml-2 mt-1 transition-transform duration-300 group-hover:translate-x-2 group-hover:text-teal-500 text-black" />
-                     )}
+                  <p className="flex mt-4 text-xl items-center justify-start md:justify-start group cursor-pointer">
+                  {currentColumn === 2 ? (
+                     <button className="relative overflow-hidden border-2 border-teal-500 text-teal-500 hover:text-white rounded-lg px-4 py-2 group">
+                        <span className="relative z-10">Войти</span>
+                        <span className="absolute left-0 bottom-0 w-full h-0 bg-teal-500 transition-all duration-300 group-hover:h-full"></span>
+                     </button>
+                  ) : (
+                     <span className="relative" onClick={handleDownload}>
+                        <span className="group-hover:text-teal-500 text-black">Скачать</span>
+                        <span className="absolute left-0 right-0 bottom-0 h-[2px] bg-teal-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                     </span>
+                  )}
+                  {currentColumn !== 2 && (
+                     <IoIosArrowForward className="ml-2 mt-1 transition-transform duration-300 group-hover:translate-x-2 group-hover:text-teal-500 text-black" />
+                  )}
                   </p>
                </div>
             </div>
          </div>
-         <div className="bg-blue-100 w-full h-[700px] md:h-[600px] flex flex-row py-12 px-4 md:px-8 lg:px-16">
+         <div className="bg-blue-100 w-full h-auto flex flex-col md:flex-row py-12 px-4 md:px-8 lg:px-16">
             <div className="flex flex-col mx-auto w-full max-w-md md:max-w-lg lg:max-w-xl">
-            <h3 className="text-4xl md:text-6xl font-semibold mb-8 text-black">Уже скачали?</h3>
-               <p className="text-lg mb-8 text-black">
+               <h3 className="text-4xl md:text-6xl font-semibold mb-8 text-black text-center md:text-left">Уже скачали?</h3>
+               <p className="text-lg mb-8 text-black text-center md:text-left">
                   Узнайте больше о возможностях Chatify.
                </p>
-               <div className="flex mt-4">
+               <div className="flex mt-4 justify-center md:justify-start">
                   <button
                      onClick={handlePrevImage}
                      className={`w-12 h-12 rounded-full mr-5 border-2 flex items-center justify-center ${
                         currentImage === 0 ? "border-gray-400 text-gray-400 cursor-not-allowed pointer-events-none" : "border-teal-500 text-teal-500"
                      }`}
                      disabled={currentImage === 0}
-                  >
+                     >
                      <IoIosArrowBack size={32} />
                   </button>
                   <button
@@ -230,27 +225,27 @@ export default function Chatify() {
                         currentImage === columnsImage.length - 1 ? "border-gray-400 text-gray-400 cursor-not-allowed pointer-events-none" : "border-teal-500 text-teal-500"
                      }`}
                      disabled={currentImage === columnsImage.length - 1}
-                  >
+                     >
                      <IoIosArrowForward size={32} className="ml-1" />
                   </button>
                </div>
             </div>
-            <div className="flex flex-col ml-8 mt-10 w-[550px]">
+            <div className="flex flex-col mx-auto mt-10 w-full max-w-md md:max-w-lg lg:max-w-xl">
                <div className="mx-4 px-6 py-4">
                   <img
-                     src={columnsImage[currentImage]?.image}
-                     alt={columnsImage[currentImage]?.title}
-                     className="rounded-3xl w-62 h-auto mb-4"
+                  src={columnsImage[currentImage]?.image}
+                  alt={columnsImage[currentImage]?.title}
+                  className="rounded-3xl w-full h-auto mb-4"
                   />
                   <p className="text-2xl md:text-3xl text-black">{columnsImage[currentImage].title}</p>
                   <p className="flex mt-4 text-xl items-center group cursor-pointer">
-                     <span className="relative">
-                        <span className="group-hover:text-teal-500 text-black">
-                           Подробнее
-                        </span>
-                        <span className="absolute left-0 right-0 bottom-0 h-[2px] bg-teal-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  <span className="relative">
+                     <span className="group-hover:text-teal-500 text-black">
+                        Подробнее
                      </span>
-                        <IoIosArrowForward className="ml-2 mt-1 transition-transform duration-300 group-hover:translate-x-2 group-hover:text-teal-500 text-black" />
+                     <span className="absolute left-0 right-0 bottom-0 h-[2px] bg-teal-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  </span>
+                  <IoIosArrowForward className="ml-2 mt-1 transition-transform duration-300 group-hover:translate-x-2 group-hover:text-teal-500 text-black" />
                   </p>
                </div>
             </div>

@@ -144,7 +144,7 @@ export default function Header() {
                         onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
                      >
                         <div className="flex items-center search-button-content">
-                        <span className="mr-2">{t("header:header_search")}</span>
+                        <span className="mr-2">{t("headers:header_search")}</span>
                         <AiOutlineSearch size={28} className="text-white transform rotate-90" />
                         </div>
                      </Button>
@@ -175,7 +175,7 @@ export default function Header() {
                      <form onSubmit={handleSubmit} className="lg:flex-grow flex items-center w-full">
                         <CustomTextInput
                            type="text"
-                           placeholder={t("header:header_search_site")}
+                           placeholder={t("headers:header_search_site")}
                            leftIcon={<AiOutlineSearch size={22} className="transform rotate-90 text-gray-500" />}
                            value={searchTerm}
                            onChange={(e) => setSearchTerm(e.target.value)}
@@ -184,10 +184,10 @@ export default function Header() {
                      </form>
                      {windowWidth >= 860 && (
                         <button
-                           className="ml-2 hover:text-gray-700 py-1.5 px-4 rounded-md border-button mr-10 custom-mr"
+                           className="ml-2 hover:bg-gray-700 py-1.5 px-4 rounded-md border-button mr-10 custom-mr"
                            onClick={() => setSearchVisible(false)}
                         >
-                           {t("header:cancel")}
+                           {t("headers:cancel")}
                         </button>
                      )}
                   </div>
@@ -196,21 +196,21 @@ export default function Header() {
                   <>
                      <div className="custom-hidden md:flex md:items-center md:space-x-6 ml-8 ">
                         <div className={`pb-0.2 border-b-2 ${path === "/" ? "border-current" : "border-transparent"} hover:border-current`}>
-                           <Link to="/" onClick={() => setMenuOpen(false)}>{t("header:header_home")}</Link>
+                           <Link to="/" onClick={() => setMenuOpen(false)}>{t("headers:header_home")}</Link>
                         </div>
                         <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/projects` ? "border-current" : "border-transparent"} hover:border-current`}>
                            <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
-                              {t("header:header_projects")}
+                              {t("headers:header_projects")}
                            </Link>
                         </div>
                         <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-transparent"} hover:border-current`}>
                            <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
-                              {t("header:header_blogs")}
+                              {t("headers:header_blogs")}
                            </Link>
                         </div>
                         <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} hover:border-current`}>
                            <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
-                              {t("header:header_forum")}
+                              {t("headers:header_forum")}
                            </Link>
                         </div>
                         <div
@@ -219,24 +219,24 @@ export default function Header() {
                            className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} hover:border-current`}
                         >
                            <Link className="flex flex-row items-center menu-link" onClick={handleToggle}>
-                              {t("header:header_about")}
+                              {t("headers:header_about")}
                               <IoIosArrowDown className={`ml-2 mt-1 transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"}`} />
                            </Link>
                            {isOpenAbout && (
                               <ul className="absolute left-0 top-full mt-2 bg-white dark:bg-gray-600 shadow-md rounded-md z-10 whitespace-nowrap dropdown">
                                  <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-t-md hover:underline">
                                     <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
-                                       {t("header:about_company")}
+                                       {t("headers:about_company")}
                                     </Link>
                                  </li>
                                  <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 hover:underline">
                                     <Link to={`${languagePrefix}/our-history`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
-                                       {t("header:our_history")}
+                                       {t("headers:our_history")}
                                     </Link>
                                  </li>
                                  <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-b-md hover:underline">
                                     <Link to={`${languagePrefix}/contactus`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
-                                       {t("header:header_contacts")}
+                                       {t("headers:header_contacts")}
                                     </Link>
                                  </li>
                               </ul>
@@ -258,7 +258,7 @@ export default function Header() {
                            <div>
                               <div className={`flex items-center relative hover:border-current`}>
                                  <span className={`search-button-content pb-0.2 border-b-2 ${path === `/${languagePrefix}/whats-new` ? "border-current" : "border-transparent"} hover:border-current`}>
-                                    {t("header:header_search")}
+                                    {t("headers:header_search")}
                                  </span>
                                  <AiOutlineSearch size={24} className="ml-2 relative" style={{ transform: 'rotate(90deg)' }} />
                               </div>
@@ -278,7 +278,7 @@ export default function Header() {
                                     <span
                                        className="font-semibold mr-2 text-sm theme-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white"
                                     >
-                                       {t("header:header_themes")}
+                                       {t("headers:header_themes")}
                                     </span>
                                     {theme === "light" ?
                                        <FaMoon size={20} className="group-hover:text-[#0E7490]" /> :
@@ -317,7 +317,7 @@ export default function Header() {
                                        onClick={handleSignout}
                                        className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
                                     >
-                                       {t("header:header_sign_out")}
+                                       {t("headers:header_sign_out")}
                                     </span>
                                  </div>
                                  <div className="flex items-center gap-2 px-4 pb-4">
@@ -338,19 +338,19 @@ export default function Header() {
                                  {isAdmin && (
                                     <>
                                        <Link to={`${languagePrefix}/dashboard?tab=dash`}>
-                                          <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_dashboard")}</Dropdown.Item>
+                                          <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("headers:header_dashboard")}</Dropdown.Item>
                                        </Link>
                                        <Dropdown.Divider className="m-0 p-0" />
                                     </>
                                  )}
                                  <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                                    <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_profile")}</Dropdown.Item>
+                                    <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("headers:header_profile")}</Dropdown.Item>
                                  </Link>
                               </Dropdown>
                            ) : (
                               <Link to={`${languagePrefix}/sign-in`}>
                                  <Button outline className="bg-gradient-to-r from-teal-500 via-green-500 to-blue-500">
-                                    {t("header:header_sign_in")}
+                                    {t("headers:header_sign_in")}
                                  </Button>
                               </Link>
                            )}
@@ -362,21 +362,21 @@ export default function Header() {
             <div className={`flex flex-col md:hidden ${menuOpen ? 'flex' : 'hidden'}`}>
                <div className={`border-b-2 ${path === "/" ? "border-current" : "border-gray-800"}`}></div>
                <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === "/" ? "border-current" : "border-gray-800"}`}>
-                  <Link to="/" onClick={() => setMenuOpen(false)}>{t("header:header_home")}</Link>
+                  <Link to="/" onClick={() => setMenuOpen(false)}>{t("headers:header_home")}</Link>
                </div>
                <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === `${languagePrefix}/projects` ? "border-current" : "border-gray-800"}`}>
                   <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
-                     {t("header:header_projects")}
+                     {t("headers:header_projects")}
                   </Link>
                </div>
                <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-gray-800"}`}>
                   <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
-                     {t("header:header_blogs")}
+                     {t("headers:header_blogs")}
                   </Link>
                </div>
                <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-gray-800"}`}>
                   <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
-                     {t("header:header_forum")}
+                     {t("headers:header_forum")}
                   </Link>
                </div>
                <div
@@ -385,7 +385,7 @@ export default function Header() {
                   >
                   <div className="flex items-center justify-between" onClick={handleToggleMenu}>
                      <Link className="menu-link">
-                        {t("header:header_about")}
+                        {t("headers:header_about")}
                      </Link>
                      <IoIosArrowDown className={`ml-auto transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"}`} />
                   </div>
@@ -393,12 +393,12 @@ export default function Header() {
                      <ul className="mt-2 shadow-md rounded-md z-10 whitespace-nowrap">
                         <li className="pl-12 py-3 px-5 hover:bg-gray-200/70 dark:hover:bg-gray-400/40 rounded-md hover:underline border-b-2 border-gray-800">
                         <Link to={`${languagePrefix}/about-company`} className="w-full text-left">
-                           {t("header:about_company")}
+                           {t("headers:about_company")}
                         </Link>
                         </li>
                         <li className="pl-12 py-3 px-5 hover:bg-gray-200/70 dark:hover:bg-gray-400/40 hover:underline rounded-md border-b-2 border-gray-800">
                            <Link to={`${languagePrefix}/our-history`} className="w-full text-left">
-                              {t("header:our_history")}
+                              {t("headers:our_history")}
                            </Link>
                         </li>
                         <li className="pl-12 py-3 px-5 hover:bg-gray-200/70 dark:hover:bg-gray-400/40 rounded-md hover:underline">
