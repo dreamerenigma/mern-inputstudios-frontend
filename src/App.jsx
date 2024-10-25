@@ -14,17 +14,22 @@ import FeedbackButton from './components/buttons/FeedbackButton';
 import ProfileFooter from './components/footers/ProfileFooter';
 import PrivacyHeader from './components/headers/PrivacyHeader';
 
+function getQueryParams(search) {
+  return new URLSearchParams(search);
+}
+
 const languages = ['ru-ru', 'en-us'];
 
 function Layout() {
   const location = useLocation();
+  const queryParams = getQueryParams(location.search);
 
   function getLanguagePrefixedPages(pages) {
     return languages.flatMap(lang => pages.map(page => `/${lang}/dashboard?tab=${page}`));
   }
 
   const isProfileHeader = languages.some(lang =>
-    location.pathname.startsWith(`/${lang}/dashboard`) && location.search.includes('tab=') ||
+    location.pathname.startsWith(`/${lang}/dashboard`) && queryParams.get('tab') !== null ||
     location.pathname === (`/${lang}/password/change`)
   );
 
@@ -38,18 +43,21 @@ function Layout() {
   const isForumPage = languages.some(lang => location.pathname.startsWith(`/${lang}/forum`));
   const isSupportPage = languages.some(lang => location.pathname.startsWith(`/${lang}/contactus`));
 
-  const profileFooterPaths = [
-    '/dashboard', 
-    '/profile',
-    '/settings'
-  ];
+  const profileFooterPaths = languages.flatMap(lang => [
+    `/${lang}/dashboard`,
+    `/${lang}/profile`,
+    `/${lang}/settings`,
+  ]);
 
   const shouldShowProfileFooter = profileFooterPaths.some(path => {
     const matchesPath = location.pathname.startsWith(path);
-
-    const hasTab = location.search.includes('tab=profile');
-  
-    return matchesPath && hasTab;
+    
+    const isDashboardWithTab = location.pathname.startsWith(`/${languages[0]}/dashboard`) ||
+      location.pathname.startsWith(`/${languages[1]}/dashboard`);
+    
+    const hasTab = queryParams.has('tab');
+    
+    return matchesPath && (isDashboardWithTab || hasTab);
   });
 
   const isSignInPage = languages.some(lang =>

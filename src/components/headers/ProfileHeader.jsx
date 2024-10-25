@@ -25,9 +25,18 @@ export default function ProfileHeader() {
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const [searchVisible, setSearchVisible] = useState(false);
    const [isHelpful, setIsHelpful] = useState(false);
-   const [inputValue, setInputValue] = useState(''); // State for input value
+   const [feedbackText, setFeedbackText] = useState("");
+   const [inputValue, setInputValue] = useState('');
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
+   const handleSendFeedback = () => {
+      const subject = encodeURIComponent("Отправка отзыва");
+      const body = encodeURIComponent(feedbackText);
+      const email = "jarekismail@gmail.com";
+      
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+   };
 
    const handleSignout = async () => {
       try {
@@ -123,11 +132,8 @@ export default function ProfileHeader() {
                </div>
                {currentUser ? (
                   <div className="flex items-center">
-                     <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-4 mr-2 rounded cursor-pointer">
-                        <AiOutlineQuestion 
-                           className="text-lg sm:text-2xl cursor-pointer question-icon" 
-                           onClick={handleQuestionIconClick} 
-                        />
+                     <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-4 mr-2 rounded cursor-pointer" onClick={handleQuestionIconClick}>
+                        <AiOutlineQuestion className="text-lg sm:text-2xl cursor-pointer question-icon" />
                      </div>
                      <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-2 rounded cursor-pointer">
                         <Dropdown
@@ -245,7 +251,7 @@ export default function ProfileHeader() {
                               </button>
                               <button 
                                  className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md text-black"
-                                 onClick={() => handleFeedbackClick(false, event)}
+                                 onClick={() => handleFeedbackClick(true, event)}
                               >
                                  {t("no")}
                               </button>
@@ -255,19 +261,25 @@ export default function ProfileHeader() {
                         <>
                            <p>{t("great_any_other_feedback")}</p>
                            <textarea
-                              className="w-full h-32 mt-2 p-2 border rounded"
+                              className="w-full h-32 mt-2 p-2 border rounded text-black bg-gray-100 dark:bg-gray-400"
                               style={{ resize: 'vertical', minHeight: '80px' }}
                               placeholder={t("type_feedback")}
-                           ></textarea>
-                           <p className="mt-1 max-w-xs">{t("protect_privacy")}{" "}
+                              value={feedbackText}
+                              onChange={(e) => setFeedbackText(e.target.value)}
+                              />
+                              <p className="mt-1 max-w-xs">
+                              {t("protect_privacy")}{" "}
                               <a href="/privacy-policy" className="text-teal-500 hover:underline">
                                  {t("privacy_policy")}
                               </a>
-                           </p>
-                           <div className="mt-2 flex">
-                              <button className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md mr-2 text-black">
-                                 {t("send")}
-                              </button>
+                              </p>
+                              <div className="mt-2 flex">
+                                 <button
+                                    className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md mr-2 text-black"
+                                    onClick={handleSendFeedback}
+                                 >
+                                    {t("send")}
+                                 </button>
                               <button className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md text-black">
                                  {t("no_thanks")}
                               </button>

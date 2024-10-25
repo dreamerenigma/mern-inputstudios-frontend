@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const Divider = ({ className = '', style = {}, lightColor = 'black', darkColor = 'white' }) => {
   const { theme } = useSelector((state) => state.theme);
@@ -10,6 +11,13 @@ const Divider = ({ className = '', style = {}, lightColor = 'black', darkColor =
       style={{ backgroundColor: color, ...style }}
     ></div>
   );
+};
+
+Divider.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object,
+  lightColor: PropTypes.string,
+  darkColor: PropTypes.string,
 };
 
 export default Divider;

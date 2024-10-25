@@ -7,7 +7,7 @@ import PrivacyPolicy from "../pages/PrivacyPolicy";
 import PrivacyReport from "../pages/PrivacyReport";
 import TermsOfUse from "../pages/TermsOfUse";
 import BrowserWave from "../pages/browser/BrowserWave";
-import QuantumEngine from "../pages/QuantumEngine";
+import QuantumEngine from "../pages/quantum-engine/QuantumEngine";
 import ChatSam from "../pages/ChatSam";
 import Chatify from "../pages/Chatify";
 import Workspace from "../pages/Workspace";
