@@ -2,7 +2,7 @@ const imageColumnData = [
   {
     imgSrc: "https://via.placeholder.com/150?text=Image+1",
     title1: "Our company",
-    title2: "Stay informed about Microsoft – from company facts and news to our worldwide locations and more.",
+    title2: "Stay informed about Input Studios – from company facts and news to our worldwide locations and more.",
     title3: "Explore the world of Input Studios",
   },
   {

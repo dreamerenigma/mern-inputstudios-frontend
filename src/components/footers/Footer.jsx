@@ -152,7 +152,7 @@ export default function FooterCom() {
                <Link to={`${languagePrefix}/terms-of-use`} className="dark:text-gray-400 hover:underline">{t("footer:custom_footer_terms")}</Link>
                <Link to={`${languagePrefix}/trademarks`} className="dark:text-gray-400 hover:underline">{t("footer:custom_footer_trademarks")}</Link>
                <Link 
-                  to={`${languagePrefix}/privacy/ad-settings`}
+                  to={currentUser ? "/dashboard?tab=privacy/ad-settings" : "/privacy/ad-settings"}
                   className="dark:text-gray-400 hover:underline" 
                   onClick={handleAdSettingsClick}
                >

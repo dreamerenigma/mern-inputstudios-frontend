@@ -55,9 +55,9 @@ export default function AboutCompany() {
     },
     {
       imgSrc: "/images/about/nature.png",
-      title1: t("microsoft_ai"),
+      title1: t("input_studios_ai"),
       title2: t("ai_with_people_at_center"),
-      title3: t("explore_microsoft_ai"),
+      title3: t("explore_input_studios_ai"),
     },
   ];
 

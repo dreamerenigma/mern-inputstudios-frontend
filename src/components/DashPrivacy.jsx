@@ -7,38 +7,38 @@ import { TbWorldSearch } from "react-icons/tb";
 import { IoAppsSharp, IoPeopleOutline } from "react-icons/io5";
 import { GoBook, GoShieldLock } from "react-icons/go";
 import { BsPatchCheck } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 export default function DashProfile() {
+   const { t } = useTranslation();
    const { theme } = useSelector((state) => state.theme);
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    return (
       <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-900">
+         <Helmet>
+            <title>{t("privacy:title")}</title>
+         </Helmet>
          <div className="overview flex flex-col max-w-5xl w-full h-auto mt-8 mx-auto px-4">
-            <h1 className="my-7 text-left font-semibold text-3xl">Privacy</h1>
-            <p>
-               Privacy starts with putting you in control of your data and giving you the tools and 
-               information you <br />need to make choices you can feel good about. This website is where you can 
-               manage your privacy <br />settings for the Microsoft products you use, and where you can view and 
-               clear the data for your <br />Input Studios account activity.
+            <h1 className="my-7 text-left font-semibold text-3xl">{t("privacy:privacy")}</h1>
+            <p className="w-[700px]">
+               {t("privacy:privacy_starts_with_putting")}
             </p>
             <Link
                to={`${languagePrefix}/search`}
-               className=" text-teal-500 hover:underline mt-4 hover:text-teal-700" 
+               className=" text-teal-500 underline hover:underline mt-4 hover:text-teal-700" 
             >
-               Learn more about our commitment to Privacy
+               {t("privacy:learn_more_about")}
             </Link>
             <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center mt-8"> 
                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800">
                   <div className="col-span-2 p-10 justify-between">
-                     <p className="font-semibold text-xl mt-4 mb-4">Make sure you&apos;re safe and secure</p>
-                     <p className="mb-4">Review your account safety settings to strengthen your online security.</p>
-                     <Button 
-                        className="text-xs sm:text-sm font-bold focus:outline-none"
-                        style={{ width: '120px' }}
-                     >
-                        Get started
+                     <p className="font-semibold text-xl mt-4 mb-4">{t("privacy:make_sure_you")}</p>
+                     <p className="mb-4">{t("privacy:review_your_account")}</p>
+                     <Button className="text-sm sm:text-sm focus:outline-none">
+                        {t("privacy:get_started")}
                      </Button>
                   </div>
                   <div className="p-10 flex items-center justify-center">
@@ -47,10 +47,13 @@ export default function DashProfile() {
                </div>
             </div>
             <div>
-               <h1 className="mt-14 py-2 text-left font-semibold text-2xl">Empower your productivity</h1>
+               <h1 className="mt-14 py-2 text-left font-semibold text-2xl">{t("privacy:empower_your_productivity")}</h1>
                <p>
-                  Your personal data can be used to improve your productivity across Input Studios <br />products. If you have a privacy 
-                  question or <a href="/concern/privacy" className="text-teal-500 underline hover:text-teal-700">concern — contact our privacy team</a>.
+                  {t("privacy:your_personal_data")}
+                  <a href="/concern/privacy" className="text-teal-500 underline hover:text-teal-700">
+                     {t("privacy:contact_privacy_team")}
+                  </a>
+                  <a>.</a>
                </p>
             </div>
             <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center mt-6">
@@ -59,12 +62,12 @@ export default function DashProfile() {
                      <div className="flex flex-col">
                         <div className="flex items-center space-x-2">
                            <CiLocationOn className="text-2xl" />
-                           <span className="pl-2">Location</span>
+                           <span className="pl-2">{t("privacy:location")}</span>
                         </div>
-                        <span className="pl-10 text-xs">Give me directions and other info by using my location data</span>
+                        <span className="pl-10 text-xs">{t("privacy:give_me_directions_other")}</span>
                      </div>
                      <div className="flex items-center space-x-2">
-                        <span className="mr-2">No data</span>
+                        <span className="mr-2">{t("privacy:no_data")}</span>
                         <IoIosArrowForward />
                      </div>
                   </div>
@@ -73,12 +76,12 @@ export default function DashProfile() {
                      <div className="flex flex-col">
                         <div className="flex items-center space-x-2">
                            <TbWorldSearch className="text-2xl" />
-                           <span className="pl-2">Browsing and search</span>
+                           <span className="pl-2">{t("privacy:browsing_search")}</span>
                         </div>
-                        <span className="pl-10 text-xs">Show me more relevant suggestions and results by using my browsing and search history</span>
+                        <span className="pl-10 text-xs">{t("privacy:relevant_suggestions")}</span>
                      </div>
                      <div className="flex items-center space-x-2">
-                        <span className="mr-2">Activities: 0</span>
+                        <span className="mr-2">{t("privacy:activities")}</span>
                         <IoIosArrowForward />
                      </div>
                   </div>
@@ -87,12 +90,12 @@ export default function DashProfile() {
                      <div className="flex flex-col">
                         <div className="flex items-center space-x-2">
                            <IoAppsSharp className="text-xl" />
-                           <span className="pl-2">Browsing and search</span>
+                           <span className="pl-2">{t("privacy:browsing_search")}</span>
                         </div>
-                        <span className="pl-9 text-xs">Show me more relevant suggestions and results by using my browsing and search history</span>
+                        <span className="pl-9 text-xs">{t("privacy:relevant_suggestions")}</span>
                      </div>
                      <div className="flex items-center space-x-2">
-                        <span className="mr-2">Activities: 0</span>
+                        <span className="mr-2">{t("privacy:activities")}</span>
                         <IoIosArrowForward />
                      </div>
                   </div>
@@ -101,12 +104,12 @@ export default function DashProfile() {
                      <div className="flex flex-col">
                         <div className="flex items-center space-x-2">
                            <GoBook className="text-xl" />
-                           <span className="pl-2">Spelling and text</span>
+                           <span className="pl-2">{t("privacy:spelling_and_text")}</span>
                         </div>
-                        <span className="pl-9 text-xs">Improve typing suggestions and handwriting recognition by using my typing and handwriting info</span>
+                        <span className="pl-9 text-xs">{t("privacy:typing_suggestions_and_handwriting")}</span>
                      </div>
                      <div className="flex items-center space-x-2">
-                        <span className="mr-2">Activities: 0</span>
+                        <span className="mr-2">{t("privacy:activities")}</span>
                         <IoIosArrowForward />
                      </div>
                   </div>
@@ -115,12 +118,12 @@ export default function DashProfile() {
                      <div className="flex flex-col">
                         <div className="flex items-center space-x-2">
                            <GoShieldLock className="text-xl" />
-                           <span className="pl-2">App access</span>
+                           <span className="pl-2">{t("privacy:app_access")}</span>
                         </div>
-                        <span className="pl-9 text-xs">Choose which apps and services can access my info</span>
+                        <span className="pl-9 text-xs">{t("privacy:access_my_info")}</span>
                      </div>
                      <div className="flex items-center space-x-2">
-                        <span className="mr-2">Apps: 0</span>
+                        <span className="mr-2">{t("privacy:apps")}</span>
                         <IoIosArrowForward />
                      </div>
                   </div>
@@ -129,9 +132,9 @@ export default function DashProfile() {
                      <div className="flex flex-col">
                         <div className="flex items-center space-x-2">
                            <IoPeopleOutline className="text-xl" />
-                           <span className="pl-2">People suggestions</span>
+                           <span className="pl-2">{t("privacy:people_suggestions")}</span>
                         </div>
-                        <span className="pl-9 text-xs">Expand my suggestions by including people. I have contacted or who have contacted me</span>
+                        <span className="pl-9 text-xs">{t("privacy:suggestions_including_people")}</span>
                      </div>
                      <div className="flex items-center space-x-2">
                         <IoIosArrowForward />
@@ -142,9 +145,9 @@ export default function DashProfile() {
                      <div className="flex flex-col">
                         <div className="flex items-center space-x-2">
                            <IoIosSearch className="text-xl" />
-                           <span className="pl-2">Search and news personalization</span>
+                           <span className="pl-2">{t("privacy:search_news_personalization")}</span>
                         </div>
-                        <span className="pl-9 text-xs">Set preferences for viewing search results and news feeds that reflect my interest</span>
+                        <span className="pl-9 text-xs">{t("privacy:viewing_search_results")}</span>
                      </div>
                      <div className="flex items-center space-x-2">
                         <IoIosArrowForward />
@@ -153,11 +156,15 @@ export default function DashProfile() {
                </div>
             </div>
             <div className="mt-2">
-               <p className="text-gray-600">Some data might not be displayed here or might not be available yet. <a href="/concern/privacy" className="text-teal-500 underline hover:text-teal-700">Learn more about viewing data on this page</a></p>
+               <p className="text-gray-600">{t("privacy:not_displayed")} 
+                  <a href="/concern/privacy" className="text-teal-500 underline hover:text-teal-700">
+                     {t("privacy:about_viewing_data")}
+                  </a>
+               </p>
             </div>
             <div>
-               <h1 className="mt-14 mb-2 text-left font-semibold text-2xl">Manage ads and promotional communications</h1>
-               <p>View and change settings for personalized ads and promotional communications.</p>
+               <h1 className="mt-14 mb-2 text-left font-semibold text-2xl">{t("privacy:manage_ads")}</h1>
+               <p>{t("privacy:view_change_settings")}</p>
             </div>
             <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center mt-6 mb-14">
                <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800">
@@ -165,9 +172,9 @@ export default function DashProfile() {
                      <div className="flex flex-col">
                         <div className="flex items-center space-x-2">
                            <BsPatchCheck className="text-xl" />
-                           <span className="pl-2">Personalized ad settings</span>
+                           <span className="pl-2">{t("privacy:personalized_ad_settings")}</span>
                         </div>
-                        <span className="pl-9 text-xs">Set preferences for viewing ads that more closely reflect my interest</span>
+                        <span className="pl-9 text-xs">{t("privacy:preferences_viewing_ads")}</span>
                      </div>
                      <div className="flex items-center space-x-2">
                         <IoIosArrowForward />
@@ -178,12 +185,41 @@ export default function DashProfile() {
                      <div className="flex flex-col">
                         <div className="flex items-center space-x-2">
                            <CiMail className="text-xl" />
-                           <span className="pl-2">Promotional communications</span>
+                           <span className="pl-2">{t("privacy:promotional_communications")}</span>
                         </div>
-                        <span className="pl-9 text-xs">Send promotional material to my email</span>
+                        <span className="pl-9 text-xs">{t("privacy:send_promotional_material")}</span>
                      </div>
                      <div className="flex items-center space-x-2">
                         <IoIosArrowForward />
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div>
+               <h1 className="mt-6 mb-2 text-left font-semibold text-2xl">{t("privacy:finding_privacy_settings")}</h1>
+               <p>{t("privacy:select_product_manage")}</p>
+               <a href="/topic" className="text-teal-500 underline hover:text-teal-700">
+                  {t("privacy:find_privacy_settings_products")}
+               </a>
+            </div>
+            <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center mt-6 mb-14 ">
+               <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 p-6">
+                  <div className="flex justify-between mx-12">
+                     <div className="flex flex-col items-center p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
+                        <img src="/images/apps/quantum-engine/quantum_engine.png" className="text-4xl text-gray-600 dark:text-gray-300 w-16 h-16" alt="Quantum Engine"/>
+                        <span className="mt-2 text-gray-700 dark:text-gray-400">Quantum Engine</span>
+                     </div>
+                     <div className="flex flex-col items-center p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
+                        <img src="/images/apps/chatify/chatify_logo.png" className="text-4xl text-gray-600 dark:text-gray-300 w-16 h-16" alt="Chatify"/>
+                        <span className="mt-2 text-gray-700 dark:text-gray-400">Chatify</span>
+                     </div>
+                     <div className="flex flex-col items-center p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
+                        <img src="/images/apps/workspace/workspace.png" className="text-4xl text-gray-600 dark:text-gray-300 w-16 h-16" alt="Workspace" />
+                        <span className="mt-2 text-gray-700 dark:text-gray-400">Workspace</span>
+                     </div>
+                     <div className="flex flex-col items-center p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
+                        <img src="/images/apps/wave/wave_logo.png" className="text-4xl text-gray-600 dark:text-gray-300 w-16 h-16" alt="Wave" />
+                        <span className="mt-2 text-gray-700 dark:text-gray-400">Wave</span>
                      </div>
                   </div>
                </div>

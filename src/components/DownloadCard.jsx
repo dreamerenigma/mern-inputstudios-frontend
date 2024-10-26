@@ -91,11 +91,11 @@ function CardsDownload() {
 }
 
 DownloadCard.propTypes = {
-   title: PropTypes.shape,
-   description: PropTypes.shape, 
-   buttonText: PropTypes.shape, 
-   imageUrl: PropTypes.shape, 
-   linkTo: PropTypes.shape
+   title: PropTypes.string.isRequired,
+   description: PropTypes.string.isRequired,
+   buttonText: PropTypes.string.isRequired,
+   imageUrl: PropTypes.string.isRequired,
+   linkTo: PropTypes.string.isRequired,
 };
 
 export default CardsDownload;

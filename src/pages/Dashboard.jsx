@@ -9,6 +9,7 @@ import DashComments from '../components/DashComments';
 import DashboardComponent from '../components/DashboardComponent';
 import DashAccount from '../components/DashAccount';
 import SidebarBlog from '../components/SidebarBlog';
+import DashSecurity from '../components/DashSecurity';
 
 export default function Dashboard() {
    const location = useLocation();
@@ -27,12 +28,13 @@ export default function Dashboard() {
             <SidebarProfile />
             <SidebarBlog />
          </div>
-         {/* Account */}
          {tab === "account" && <DashAccount />}
          {/* Profile */}
          {tab === "profile" && <DashProfile />}
          {/* Privacy */}
          {tab === "privacy" && <DashPrivacy />}
+         {/* Security */}
+         {tab === "security" && <DashSecurity />}
          {/* Post */}
          {tab === "posts" && <DashPosts />}
          {/* Users */}

@@ -144,8 +144,8 @@ export default function Header() {
                         onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
                      >
                         <div className="flex items-center search-button-content">
-                        <span className="mr-2">{t("headers:header_search")}</span>
-                        <AiOutlineSearch size={28} className="text-white transform rotate-90" />
+                           <span className="mr-2">{t("headers:header_search")}</span>
+                           <AiOutlineSearch size={28} className="text-white transform rotate-90" />
                         </div>
                      </Button>
                   </>
@@ -296,7 +296,7 @@ export default function Header() {
                                           className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white">
                                           {currentUser.username}
                                        </span>
-                                       <div className="relative w-10 h-10 rounded-full overflow-hidden">
+                                       <div className="relative w-10 h-10 rounded-full overflow-hidden avatar-small">
                                           <img
                                              src={currentUser.profilePicture}
                                              alt="User Avatar"
@@ -361,49 +361,70 @@ export default function Header() {
             </div>
             <div className={`flex flex-col md:hidden ${menuOpen ? 'flex' : 'hidden'}`}>
                <div className={`border-b-2 ${path === "/" ? "border-current" : "border-gray-800"}`}></div>
-               <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === "/" ? "border-current" : "border-gray-800"}`}>
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === "/" ? "border-current" : "border-gray-800"}`}>
                   <Link to="/" onClick={() => setMenuOpen(false)}>{t("headers:header_home")}</Link>
                </div>
-               <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === `${languagePrefix}/projects` ? "border-current" : "border-gray-800"}`}>
+               <hr className="border-t border-gray-700" />
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/projects` ? "border-current" : "border-gray-800"}`}>
                   <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
                      {t("headers:header_projects")}
                   </Link>
                </div>
-               <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-gray-800"}`}>
+               <hr className="border-t border-gray-700" />
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-gray-800"}`}>
                   <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
                      {t("headers:header_blogs")}
                   </Link>
                </div>
-               <div className={`py-3 px-5 pb-0.2 text-xl border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-gray-800"}`}>
+               <hr className="border-t border-gray-700" />
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/forum` ? "border-current" : "border-gray-800"}`}>
                   <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
                      {t("headers:header_forum")}
                   </Link>
                </div>
+               <hr className="border-t border-gray-700" />
                <div
                   ref={dropdownRef}
-                  className={`relative py-3 px-5 pb-0.2 text-xl border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-gray-800"}`}
-                  >
+                  className={`relative py-3 px-5 pb-0.2 text-xl ${
+                     path === `/${languagePrefix}/about` ? "border-current" : "border-gray-800"
+                  } ${!isOpenAbout ? "hover:bg-gray-200/70 dark:hover:bg-gray-400/40" : ""}`}
+               >
                   <div className="flex items-center justify-between" onClick={handleToggleMenu}>
                      <Link className="menu-link">
                         {t("headers:header_about")}
                      </Link>
-                     <IoIosArrowDown className={`ml-auto transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"}`} />
+                     <IoIosArrowDown
+                        className={`ml-auto transform transition-transform duration-500 ${
+                           isOpenAbout ? "rotate-180" : "rotate-0"
+                        }`}
+                     />
                   </div>
                   {isOpenAbout && (
-                     <ul className="mt-2 shadow-md rounded-md z-10 whitespace-nowrap">
-                        <li className="pl-12 py-3 px-5 hover:bg-gray-200/70 dark:hover:bg-gray-400/40 rounded-md hover:underline border-b-2 border-gray-800">
-                        <Link to={`${languagePrefix}/about-company`} className="w-full text-left">
-                           {t("headers:about_company")}
-                        </Link>
+                     <ul className="mt-2 rounded-md z-10 whitespace-nowrap">
+                        <li className="pl-12 py-3 px-5 rounded-md hover:underline">
+                           <Link
+                              to={`${languagePrefix}/about-company`}
+                              className={`w-full text-left ${!isOpenAbout ? "hover:bg-gray-200/70 dark:hover:bg-gray-400/40" : ""}`}
+                           >
+                              {t("headers:about_company")}
+                           </Link>
                         </li>
-                        <li className="pl-12 py-3 px-5 hover:bg-gray-200/70 dark:hover:bg-gray-400/40 hover:underline rounded-md border-b-2 border-gray-800">
-                           <Link to={`${languagePrefix}/our-history`} className="w-full text-left">
+                        <hr className="border-t border-gray-700 ml-10 mr-4" />
+                        <li className="pl-12 py-3 px-5 rounded-md hover:underline">
+                           <Link
+                              to={`${languagePrefix}/our-history`}
+                              className={`w-full text-left ${!isOpenAbout ? "hover:bg-gray-200/70 dark:hover:bg-gray-400/40" : ""}`}
+                           >
                               {t("headers:our_history")}
                            </Link>
                         </li>
-                        <li className="pl-12 py-3 px-5 hover:bg-gray-200/70 dark:hover:bg-gray-400/40 rounded-md hover:underline">
-                           <Link to={`${languagePrefix}/contactus`} className="w-full text-left">
-                              {t("header:header_contacts")}
+                        <hr className="border-t border-gray-700 ml-10 mr-4" />
+                        <li className="pl-12 py-3 px-5 rounded-md hover:underline">
+                           <Link
+                              to={`${languagePrefix}/contactus`}
+                              className={`w-full text-left ${!isOpenAbout ? "hover:bg-gray-200/70 dark:hover:bg-gray-400/40" : ""}`}
+                           >
+                              {t("headers:header_contacts")}
                            </Link>
                         </li>
                      </ul>

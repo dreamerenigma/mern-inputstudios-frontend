@@ -11,6 +11,15 @@ import {
    HiMenu,
    HiX,
    HiHome,
+   HiOutlineLockClosed,
+   HiOutlineShieldCheck,
+   HiLockClosed,
+   HiOutlineDocumentText,
+   HiUserGroup,
+   HiOutlineAnnotation,
+   HiOutlineUser,
+   HiOutlineChartPie,
+   HiOutlineHome,
 } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
@@ -85,10 +94,17 @@ export default function SidebarProfile() {
                   <div className="py-1">
                      <div className={`py-2 px-3 ${tab === "account" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center justify-between rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "account" ? 'shadow-md' : ''}`}>                        
                         <div className="flex items-center">
-                           <HiHome
-                              size={28}
-                              className={`text-${tab === "account" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                           />
+                           {tab === "account" ? (
+                              <HiHome
+                                 size={28}
+                                 className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                              />
+                           ) : (
+                              <HiOutlineHome
+                                 size={28}
+                                 className={`text-${tab === "account" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                              />
+                           )}
                            <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("sidebar_account")}</span>
                         </div>
                         {currentUser.isAdmin && (
@@ -102,13 +118,18 @@ export default function SidebarProfile() {
                {currentUser && currentUser.isAdmin && (
                   <Link to={`${languagePrefix}/dashboard?tab=dash`}>
                      <div className="py-1">
-                        <div 
-                           className={`py-2 px-3 ${tab === "dash" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "dash" ? 'shadow-md' : ''}`}
-                        >
-                        <HiChartPie 
-                           size={28}
-                           className={`text-${tab === "dash" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                        />
+                        <div className={`py-2 px-3 ${tab === "dash" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "dash" ? 'shadow-md' : ''}`}>
+                           {tab === "dash" ? (
+                              <HiChartPie
+                                 size={28}
+                                 className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                              />
+                           ) : (
+                              <HiOutlineChartPie 
+                                 size={28}
+                                 className={`text-${tab === "dash" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                              />
+                           )}
                         <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("dashboard")}</span> 
                         </div>
                      </div>
@@ -117,22 +138,54 @@ export default function SidebarProfile() {
                <Link to={`${languagePrefix}/dashboard?tab=profile`}>
                   <div className="py-1">
                      <div className={`py-2 px-3 ${tab === "profile" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "profile" ? 'shadow-md' : ''}`}>
-                        <HiUser
-                           size={28}
-                           className={`text-${tab === "profile" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                        />
+                        {tab === "profile" ? (
+                           <HiUser
+                              size={28}
+                              className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                           />
+                        ) : (
+                           <HiOutlineUser
+                              size={28}
+                              className={`text-${tab === "profile" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                           />
+                        )}
                            <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("profile")}</span>
                      </div>
                   </div>
                </Link>
                <Link to={`${languagePrefix}/dashboard?tab=privacy`}>
                   <div className="py-1">
-                  <div className={`py-2 px-3 ${tab === "privacy" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "privacy" ? 'shadow-md' : ''}`}>
-                        <HiShieldCheck
-                           size={28}
-                           className={`text-${tab === "privacy" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                        />
+                     <div className={`py-2 px-3 ${tab === "privacy" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "privacy" ? 'shadow-md' : ''}`}>
+                        {tab === "privacy" ? (
+                           <HiShieldCheck
+                              size={28}
+                              className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                           />
+                        ) : (
+                           <HiOutlineShieldCheck
+                              size={28}
+                              className={`text-${tab === "privacy" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                           />
+                        )}
                         <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("privacy")}</span>
+                     </div>
+                  </div>
+               </Link>
+               <Link to={`${languagePrefix}/dashboard?tab=security`}>
+                  <div className="py-1">
+                     <div className={`py-2 px-3 ${tab === "security" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "security" ? 'shadow-md' : ''}`}>
+                        {tab === "security" ? (
+                           <HiLockClosed
+                              size={28}
+                              className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                           />
+                        ) : (
+                           <HiOutlineLockClosed
+                              size={28}
+                              className={`text-${theme === 'dark' ? 'gray-400' : 'gray-500'}`}
+                           />
+                        )}
+                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("security")}</span>
                      </div>
                   </div>
                </Link>
@@ -140,10 +193,17 @@ export default function SidebarProfile() {
                   <Link to={`${languagePrefix}/dashboard?tab=posts`}>
                      <div className="py-1">
                         <div className={`py-2 px-3 ${tab === "posts" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "posts" ? 'shadow-md' : ''}`}>
-                           <HiDocumentText 
-                              size={28}
-                              className={`text-${tab === "posts" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                           />
+                           {tab === "posts" ? (
+                              <HiDocumentText
+                                 size={28}
+                                 className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                              />
+                           ) : (
+                              <HiOutlineDocumentText 
+                                 size={28}
+                                 className={`text-${tab === "posts" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                              />
+                           )}
                            <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("posts")}</span>
                         </div>
                      </div>
@@ -154,10 +214,17 @@ export default function SidebarProfile() {
                      <Link to={`${languagePrefix}/dashboard?tab=users`}>
                         <div className="py-1">
                            <div className={`py-2 px-3 ${tab === "users" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "users" ? 'shadow-md' : ''}`}>
-                              <HiOutlineUserGroup 
-                                 size={28}
-                                 className={`text-${tab === "users" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                              />
+                              {tab === "users" ? (
+                                 <HiUserGroup
+                                    size={28}
+                                    className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                                 />
+                              ) : (
+                                 <HiOutlineUserGroup 
+                                    size={28}
+                                    className={`text-${tab === "users" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                                 />
+                              )}
                                  <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("users")}</span>
                            </div>
                         </div>
@@ -165,10 +232,17 @@ export default function SidebarProfile() {
                      <Link to={`${languagePrefix}/dashboard?tab=comments`}>
                         <div className="py-1">
                            <div className={`py-2 px-3 ${tab === "comments" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "comments" ? 'shadow-md' : ''}`}>
-                              <HiAnnotation 
-                                 size={28}
-                                 className={`text-${tab === "comments" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                              />
+                              {tab === "comments" ? (
+                                 <HiAnnotation
+                                    size={28}
+                                    className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                                 />
+                              ) : (
+                                 <HiOutlineAnnotation 
+                                    size={28}
+                                    className={`text-${tab === "comments" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                                 />
+                              )}
                                  <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("comments")}</span>
                            </div>
                         </div>

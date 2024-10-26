@@ -38,6 +38,7 @@ import { useSelector } from "react-redux";
 import AboutCompany from "../pages/about/AboutCompany";
 import OurHistory from "../pages/about/OurHistory";
 import SupportRoutes from "./SupportRoutes";
+import AccountPrivacy from "../pages/AccountPrivacy";
 
 const languages = ['ru-ru', 'en-us'];
 
@@ -60,9 +61,11 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/sign-in`} element={<SignIn />} />
                <Route path={`/${lang}/sign-up`} element={<SignUp />} />
                <Route path={`/${lang}/search`} element={<Search />} />
+               <Route path={`/${lang}/account/privacy`} element={<AccountPrivacy />} />
                <Route path={`/${lang}/privacy`} element={<PrivacyPolicy />} />
                <Route path={`/${lang}/privacy-report`} element={<PrivacyReport />} />
                <Route path={`/${lang}/privacy/ad-settings`} element={<PrivacyAdSettings />} />
+               <Route path={`/${lang}/dashboard?tab=/privacy/ad-settings`} element={<PrivacyAdSettings />} />
                <Route path={`/${lang}/privacy-statement`} element={<PrivacyStatement />} />
                <Route path={`/${lang}/concern/privacy`} element={<ConcernPrivacy />} />
                <Route path={`/${lang}/consent/manage`} element={<ConcentManage />} />

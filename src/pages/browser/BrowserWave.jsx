@@ -14,7 +14,7 @@ export default function BrowserWave() {
           alt="WaveBrowser"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="relative z-10 flex flex-col items-center">
+        <div className="relative z-10 flex flex-col items-center mt-[60px]">
           <p className="text-white p-4 mt-8 rounded text-3xl sm:text-3xl md:text-4xl lg:text-4xl leading-normal font-semibold text-center">
             Input Studios Wave — браузер с более <br />
             эффективным способом поиска информации

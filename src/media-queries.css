@@ -1,3 +1,10 @@
+@media (max-width: 350px) {
+  .avatar-small {
+      width: 26px;
+      height: 26px;
+  }
+}
+
 @media (max-width: 365px) {
   .welcome {
     height: 250px; 
@@ -20,6 +27,22 @@
 @media (max-width: 390px) {
   .card-height {
     height: 450px;
+  }
+}
+
+@media (min-width: 541px) and (max-width: 639px) {
+  .custom-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 540px) {
+  .custom-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
   }
 }
 
@@ -82,7 +105,6 @@
   .padding-custom {
     padding: 1.5rem;
   }
-
   .ml-6-custom {
     margin-left: 1.5rem;
     margin-top: 1rem;
@@ -125,6 +147,13 @@
   }
 }
 
+@media (minx-width: 768px) and (max-width: 1080px) {
+  .grid-column-card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 859px) {
   .center-text {
     text-align: center;
@@ -132,16 +161,17 @@
   .custom-flex {
     flex-direction: column;
   }
-}
-
-@media (min-width: 860px) {
-  .menu-button,
-  .search-button {
-    display: none;
+  .text-left-860 {
+    text-align: left;
   }
-}
-
-@media (max-width: 860px) {
+  .padding-card {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .grid-column-card {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
   .custom-flex {
     flex-direction: column;
     gap: 4.5rem;
@@ -154,12 +184,27 @@
   }
 }
 
-@media (min-width: 861px) {
+@media (min-width: 860px) {
   .home-menu-icon {
     display: none;
   }
   .custom-flex-none {
     flex: none;
+  }
+  .max-width {
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .menu-button,
+  .search-button {
+    display: none;
+  }
+}
+
+@media (min-width: 860px) and (max-width: 1080px) {
+  .text-card {
+    font-size: 1.25rem;
   }
 }
 
@@ -211,6 +256,10 @@
   .responsive-max-width {
     max-width: none;
   }
+  .padding-card {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 @media (min-width: 1080px) {
@@ -223,6 +272,10 @@
   }
   .custom-mr {
     margin-right: 5.5rem;
+  }
+  .padding-card {
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
 }
 

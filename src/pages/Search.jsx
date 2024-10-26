@@ -96,8 +96,8 @@ export default function Search() {
    };
 
    return (
-      <div className="flex flex-col md:flex-row">
-         <div className="p-7  md:min-h-screen">
+      <div className="flex flex-col md:flex-row mt-[60px]">
+         <div className="p-7 md:min-h-screen">
             <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
                <div className="flex items-center gap-2">
                   <label className="whitespace-nowrap font-semibold">

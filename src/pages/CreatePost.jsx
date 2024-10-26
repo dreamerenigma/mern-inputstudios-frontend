@@ -51,12 +51,9 @@ export default function CreatePost() {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                setFileUploadProgress(null);
                setFileUploadError(null);
-               // Проверяем, является ли загруженный файл видео
                if (file.type.includes('video')) {
-                  // Если да, устанавливаем URL только для видео
                   setFormData({ ...formData, video: downloadURL, previewImage: downloadURL });
                } else {
-                  // Иначе устанавливаем URL только для изображения
                   setFormData({ ...formData, image: downloadURL });
                }
             });
