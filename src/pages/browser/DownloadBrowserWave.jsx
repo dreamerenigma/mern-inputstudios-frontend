@@ -17,6 +17,8 @@ export default function DownloadBrowserWave() {
    const dropdownRef = useRef(null);
    const [modalOpen, setModalOpen] = useState(false);
    const downloadLinkRef = useRef(null);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    const toggleDropdown = () => {
       console.log("Toggle Dropdown called");
@@ -52,20 +54,20 @@ export default function DownloadBrowserWave() {
    }, [dropdownRef]);
 
    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
+      <div className="flex flex-col items-center justify-center min-h-screen mt-[60px]">
          <Helmet>
             <title>{t("download_wave")}</title>
             <link rel="icon" type="image/png" href="/icons/browser/favicon.ico" />
          </Helmet>
          <div className="mb-8 mt-12">
-            <img src="/images/ic_wave.png" alt="InputStudiosWave" className="w-24" />
+            <img src="/images/apps/wave/wave_logo.png" alt="InputStudiosWave" className="w-24" />
          </div>
          <h1 className="text-center mb-4 w-[50%] text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl">
             Просматривайте веб-страницы с помощью Input Studios Wave на ПК устройствах
          </h1>
          <div className="flex flex-col lg:flex-row items-center justify-center mt-16">
             <img
-               src="/images/computer.png"
+               src="/images/apps/wave/computer.png"
                alt="Computer"
                className="max-w-[25%] rounded-lg mb-4 lg:mb-0 custom-max-width"
             />
@@ -140,13 +142,13 @@ export default function DownloadBrowserWave() {
             </div>
          </div>
          <div className="mt-20 px-4 text-center">
-            <Link to="/" className="text-xl text-teal-500 hover:text-teal-700 hover:underline">
+            <Link to={`${languagePrefix}/`} className="text-xl text-teal-500 hover:text-teal-700 hover:underline">
                <span>Используете Windows Server? Скачайте Input Studios Wave здесь.</span>
             </Link>
          </div>
          <div className="flex flex-row bg-gray-200 dark:bg-gray-800 rounded-lg py-6 mx-20 mt-20 items-center import">
             <img 
-               src="/images/business-browser.png" 
+               src="/images/apps/wave/business-browser.png" 
                alt="BusinessBrowser" 
                width="150" 
                height="150" 
@@ -166,7 +168,7 @@ export default function DownloadBrowserWave() {
          </div>
          <div className="flex flex-row bg-gray-200 dark:bg-gray-800 rounded-lg py-6 mx-20 my-20 items-center import">
             <img 
-               src="/images/preview-browser.png" 
+               src="/images/apps/wave/preview-browser.png" 
                alt="PreviewBrowser" 
                width="200" 
                height="200" 

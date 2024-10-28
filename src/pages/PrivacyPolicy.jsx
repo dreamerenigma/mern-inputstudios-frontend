@@ -21,7 +21,7 @@ export default function About() {
                   <p className="text-lg font-semibold mt-5">{t("privacy:data_stays_private_work")}</p>
                </div>
                <Link to={`${languagePrefix}/search`} className="block w-full mx-auto mb-8">
-                  <img className="w-full h-auto" src="/images/privacy_landing_main.avif" alt="privacy" />
+                  <img className="w-full h-auto" src="/images/privacy/privacy_landing_main.avif" alt="privacy" />
                </Link>
                <div className="text-center max-width mx-auto my-7 text-left-860">
                   <h1 className="text-2xl md:text-3xl lg:text-3xl font-semibold">{t("privacy:privacy_protection_measures")}</h1>
@@ -52,13 +52,13 @@ export default function About() {
                   }
                ].map((item, index) => (
                   <div key={index} className="bg-white dark:bg-gray-700 shadow-md rounded-xl flex flex-col">
-                        <img 
-                           src={item.imgSrc} 
-                           alt={`Description ${index + 1}`} 
-                           className="w-full h-auto rounded-t-xl object-cover" 
-                        />
-                        <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 px-4 sm:px-6">{item.title}</h2>
-                        <p className="px-4 sm:px-6 pb-4 flex-grow text-sm sm:text-base">{item.description}</p>
+                     <img 
+                        src={item.imgSrc} 
+                        alt={`Description ${index + 1}`} 
+                        className="w-full h-auto rounded-t-xl object-cover" 
+                     />
+                     <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 px-4 sm:px-6">{item.title}</h2>
+                     <p className="px-4 sm:px-6 pb-4 flex-grow text-sm sm:text-base">{item.description}</p>
                   </div>
                ))}
             </div>
@@ -71,41 +71,41 @@ export default function About() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6 px-4 md:px-16 padding-card">
                {[
                   {
-                        imgSrc: "/images/privacy/privacy_dashboard_card.avif",
-                        title: t("privacy:visit_privacy_dashboard"),
-                        description: t("privacy:privacy_dashboard_lets_manage"),
-                        linkText: t("privacy:go_privacy_dashboard"),
-                        linkPath: `${languagePrefix}/account/privacy`
+                     imgSrc: "/images/privacy/privacy_dashboard_card.avif",
+                     title: t("privacy:visit_privacy_dashboard"),
+                     description: t("privacy:privacy_dashboard_lets_manage"),
+                     linkText: t("privacy:go_privacy_dashboard"),
+                     linkPath: `${languagePrefix}/account/privacy`
                   },
                   {
-                        imgSrc: "/images/privacy/privacy_account_checkup_card.avif",
-                        title: t("privacy:account_verification"),
-                        description: t("privacy:account_verification_wizard"),
-                        linkText: t("privacy:perform_account_verification"),
-                        linkPath: `${languagePrefix}/account/privacy`
+                     imgSrc: "/images/privacy/privacy_account_checkup_card.avif",
+                     title: t("privacy:account_verification"),
+                     description: t("privacy:account_verification_wizard"),
+                     linkText: t("privacy:perform_account_verification"),
+                     linkPath: `${languagePrefix}/account/privacy`
                   },
                   {
-                        imgSrc: "/images/privacy/privacy_controls_card.avif",
-                        title: t("privacy:finding_privacy_controls"),
-                        description: t("privacy:fight_stronger_privacy"),
-                        linkText: t("privacy:additional_privacy_controls"),
-                        linkPath: `${languagePrefix}/account/privacy`
+                     imgSrc: "/images/privacy/privacy_controls_card.avif",
+                     title: t("privacy:finding_privacy_controls"),
+                     description: t("privacy:fight_stronger_privacy"),
+                     linkText: t("privacy:additional_privacy_controls"),
+                     linkPath: `${languagePrefix}/account/privacy`
                   }
                ].map((item, index) => (
                   <div key={index} className="bg-white dark:bg-gray-700 shadow-md rounded-xl flex flex-col overflow-hidden">
-                        <img 
-                           src={item.imgSrc} 
-                           alt={`Description ${index + 1}`} 
-                           className="w-full h-auto rounded-t-xl object-cover" 
-                        />
-                        <h2 className="text-lg md:text-xl lg:text-2xl text-card font-semibold mt-2 p-4 px-6">{item.title}</h2>
-                        <p className="px-6 pb-4 flex-grow text-sm md:text-base">{item.description}</p>
-                        <div className="pb-6 group">
-                           <Link to={item.linkPath} className="flex items-center px-6 text-teal-500">
-                              <span className="mr-2 hover:underline">{item.linkText}</span>
-                              <IoIosArrowForward size={20} className="transform transition-transform duration-300 group-hover:translate-x-1" />
-                           </Link>
-                        </div>
+                     <img 
+                        src={item.imgSrc} 
+                        alt={`Description ${index + 1}`} 
+                        className="w-full h-auto rounded-t-xl object-cover" 
+                     />
+                     <h2 className="text-lg md:text-xl lg:text-2xl text-card font-semibold mt-2 p-4 px-6">{item.title}</h2>
+                     <p className="px-6 pb-4 flex-grow text-sm md:text-base">{item.description}</p>
+                     <div className="pb-6 group">
+                        <Link to={item.linkPath} className="flex items-center px-6 text-teal-500">
+                           <span className="mr-2 hover:underline">{item.linkText}</span>
+                           <IoIosArrowForward size={20} className="transform transition-transform duration-300 group-hover:translate-x-1" />
+                        </Link>
+                     </div>
                   </div>
                ))}
             </div>
@@ -132,41 +132,41 @@ export default function About() {
             <div className="flex flex-wrap justify-center gap-4 pt-6 px-4 md:px-16 padding-card w-full">
                {[
                   {
-                        title: t("privacy:privacy_statement"),
-                        description: t("privacy:privacy_very_important"),
-                        link: "/privacystatement"
+                     title: t("privacy:privacy_statement"),
+                     description: t("privacy:privacy_very_important"),
+                     link: "/privacystatement"
                   },
                   {
-                        title: t("privacy:privacy_young_people"),
-                        description: t("privacy:privacy_young_about_and_understand"),
-                        link: "/young-people"
+                     title: t("privacy:privacy_young_people"),
+                     description: t("privacy:privacy_young_about_and_understand"),
+                     link: "/young-people"
                   },
                   {
-                        title: t("privacy:report_privacy_statement"),
-                        description: t("privacy:privacy_report_contains"),
-                        link: "/privacy-report"
+                     title: t("privacy:report_privacy_statement"),
+                     description: t("privacy:privacy_report_contains"),
+                     link: "/privacy-report"
                   },
                   {
-                        title: t("privacy:answers_frequently_asked"),
-                        description: t("privacy:have_questions_about_privacy"),
-                        link: "/faq"
+                     title: t("privacy:answers_frequently_asked"),
+                     description: t("privacy:have_questions_about_privacy"),
+                     link: "/faq"
                   },
                   {
-                        title: t("privacy:corporate_social_responsibility"),
-                        description: t("privacy:approach_creating_more"),
-                        link: "/corporate-responsibility"
+                     title: t("privacy:corporate_social_responsibility"),
+                     description: t("privacy:approach_creating_more"),
+                     link: "/corporate-responsibility"
                   },
                   {
-                        title: t("privacy:data_privacy_notice"),
-                        description: t("privacy:located_data_privacy_notice"),
-                        link: "/ccpa"
+                     title: t("privacy:data_privacy_notice"),
+                     description: t("privacy:located_data_privacy_notice"),
+                     link: "/ccpa"
                   }
                ].map((item, index) => (
                   <div key={index} className="w-full sm:w-1/2 lg:w-1/3 flex flex-col">
-                        <div className="bg-white dark:bg-gray-700 shadow-md rounded-xl flex flex-col flex-grow p-4">
-                           <Link to={item.link} className="text-lg sm:text-xl font-semibold text-teal-500 underline hover:text-teal-700">{item.title}</Link>
-                           <p className="mt-2 text-sm sm:text-base">{item.description}</p>
-                        </div>
+                     <div className="bg-white dark:bg-gray-700 shadow-md rounded-xl flex flex-col flex-grow p-4">
+                        <Link to={item.link} className="text-lg sm:text-xl font-semibold text-teal-500 underline hover:text-teal-700">{item.title}</Link>
+                        <p className="mt-2 text-sm sm:text-base">{item.description}</p>
+                     </div>
                   </div>
                ))}
             </div>
@@ -179,38 +179,38 @@ export default function About() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-6 px-4 md:px-16 padding-card">
                {[
                   {
-                        img: "/images/privacy/gdpr_and_generative_ai_a_guide_for_the_public_sector.avif",
-                        title: t("privacy:gdpr_and_generative_ai"),
-                        description: t("privacy:paper_provides_practical"),
+                     img: "/images/privacy/gdpr_and_generative_ai_a_guide_for_the_public_sector.avif",
+                     title: t("privacy:gdpr_and_generative_ai"),
+                     description: t("privacy:paper_provides_practical"),
                   },
                   {
-                        img: "/images/privacy/protecting_the_data_of_our_commercial_and_public_sector_customers_in_the_ai_era.avif",
-                        title: t("privacy:protecting_commercial_public_sector"),
-                        description: t("privacy:commitment_protecting"),
+                     img: "/images/privacy/protecting_the_data_of_our_commercial_and_public_sector_customers_in_the_ai_era.avif",
+                     title: t("privacy:protecting_commercial_public_sector"),
+                     description: t("privacy:commitment_protecting"),
                   },
                   {
-                        img: "/images/privacy/enhancing_trust_and_protecting_privacy_in_the_ai_era.avif",
-                        title: t("privacy:building_trust_protecting"),
-                        description: t("privacy:privacy_commitment_applies"),
+                     img: "/images/privacy/enhancing_trust_and_protecting_privacy_in_the_ai_era.avif",
+                     title: t("privacy:building_trust_protecting"),
+                     description: t("privacy:privacy_commitment_applies"),
                   },
                   {
-                        img: "/images/privacy/eu_data_boundary_blog_image_small.avif",
-                        title: t("privacy:enables_customers_store"),
-                        description: t("privacy:eu_data_border_enables_customers"),
+                     img: "/images/privacy/eu_data_boundary_blog_image_small.avif",
+                     title: t("privacy:enables_customers_store"),
+                     description: t("privacy:eu_data_border_enables_customers"),
                   }
                ].map((item, index) => (
                   <div key={index} className="bg-white dark:bg-gray-700 shadow-md rounded-xl flex flex-col">
-                        <div className="flex-grow flex flex-col">
-                           <img src={item.img} alt={`Description ${index + 1}`} className="w-full h-auto rounded-t-xl" />
-                           <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 p-4">{item.title}</h2>
-                           <p className="p-4 flex-grow text-sm sm:text-base">{item.description}</p>
-                           <div className="pb-6 group">
-                              <Link to={`${languagePrefix}/account/privacy`} className="flex items-center px-4 text-teal-500">
-                                    <span className="mr-2 hover:underline">{t("privacy:read_more")}</span>
-                                    <IoIosArrowForward size={22} className="transform transition-transform duration-300 group-hover:translate-x-1" />
-                              </Link>
-                           </div>
+                     <div className="flex-grow flex flex-col">
+                        <img src={item.img} alt={`Description ${index + 1}`} className="w-full h-auto rounded-t-xl" />
+                        <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 p-4">{item.title}</h2>
+                        <p className="p-4 flex-grow text-sm sm:text-base">{item.description}</p>
+                        <div className="pb-6 group">
+                           <Link to={`${languagePrefix}/account/privacy`} className="flex items-center px-4 text-teal-500">
+                              <span className="mr-2 hover:underline">{t("privacy:read_more")}</span>
+                              <IoIosArrowForward size={22} className="transform transition-transform duration-300 group-hover:translate-x-1" />
+                           </Link>
                         </div>
+                     </div>
                   </div>
                ))}
             </div>

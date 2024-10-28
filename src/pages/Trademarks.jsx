@@ -6,25 +6,35 @@ import { faCircle as faCircleOutline } from '@fortawesome/free-regular-svg-icons
 import { Footer } from "flowbite-react";
 import { useTranslation } from "react-i18next";
 import { SlSocialVkontakte } from "react-icons/sl";
-import { BsDribbble, BsGithub, BsYoutube } from "react-icons/bs";
-import { BiLogoFigma } from "react-icons/bi";
+import { BsDribbble } from "react-icons/bs";
 import { Helmet } from "react-helmet";
+import { useSelector } from 'react-redux';
+import { IoIosArrowForward } from "react-icons/io";
+import { Link } from "react-router-dom";
+import { RxDiscordLogo } from "react-icons/rx";
+import { AiOutlineYoutube } from "react-icons/ai";
+import { FaFigma } from "react-icons/fa";
+import { FiGithub } from "react-icons/fi";
 
 export default function Trademarks() {
    const { t } = useTranslation();
+   const theme = useSelector((state) => state.theme.theme);
+   const isDarkMode = theme === "dark";
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    return (
-      <div className="relative mx-4 md:mx-8 lg:mx-12">
+      <div className="relative mx-4 md:mx-8 lg:mx-12 mt-[60px]">
          <Helmet>
-         <title>{t("trademarks:title")}</title>
+            <title>{t("trademarks:title")}</title>
          </Helmet>
          <div className="relative sm:px-6 lg:px-6">
             <img 
                className="w-full max-h-[550px] h-auto object-cover sm:max-h-[400px] md:max-h-[500px] lg:max-h-[550px]" 
-               src="../images/trademark.webp" 
+               src="/images/brands/trademark.webp" 
                alt="trademarks" 
             />
-            <div className="md:absolute md:top-52 md:left-12 bg-white p-4 border border-black md:mt-0">
+            <div className="md:absolute mx-20-1080 md:top-1/2 md:left-12 transform md:-translate-y-1/2 bg-white p-4 border border-black">
                <h2 className="py-2 px-4 md:p-10 text-2xl md:text-3xl font-bold text-black break-words">
                   {t("trademarks:trademark_brand_guidelines")}
                </h2>
@@ -39,28 +49,28 @@ export default function Trademarks() {
             <li className="mt-4" dangerouslySetInnerHTML={{ __html: t("trademarks:game_can_be_played") }}></li>
             <li className="mt-4" dangerouslySetInnerHTML={{ __html: t("trademarks:contoso_app_works") }}></li>
          </ul>
-         <h1 className="mt-8 text-2xl md:text-4xl font-bold break-words px-4 sm:px-6 lg:px-0">{t("trademarks:examples_brand_assets")}</h1>
-         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-24">
-         <div className="p-4">
-            <img src="../images/logo_Input_Studios_grey.png" alt="logo"/>
-            <h1 className="mt-16 font-bold text-2xl">{t("trademarks:logo")}</h1>
+         <h1 className="mt-16 text-2xl md:text-4xl font-bold break-words sm:px-6 lg:px-6">{t("trademarks:examples_brand_assets")}</h1>
+         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 md:mt-16">
+            <div className="sm:px-6 lg:px-6">
+            <img src={isDarkMode ? "../images/brands/trademarks_is_logo_dark.avif" : "../images/brands/trademarks_is_logo_light.avif"} alt="logo"/>
+            <h1 className="font-bold text-2xl">{t("trademarks:logo")}</h1>
             <p className="mt-4">{t("trademarks:specific_brand_product")}</p>
          </div>
-         <div className="p-4">
-            <img src="../images/logo_Input_Studios_grey.png" alt="logo"/>
-            <h1 className="mt-16 font-bold text-2xl">{t("trademarks:logo_lockups")}</h1>
-            <p className="mt-4">{t("trademarks:logo_lockups_flagship")}</p>
-         </div>
-         <div className="p-4">
-            <img src="../images/logo_Input_Studios_grey.png" alt="logo"/>
-            <h1 className="mt-16 font-bold text-2xl">{t("trademarks:product_icons")}</h1>
-            <p className="mt-4">{t("trademarks:include_app_icons_products")}</p>
-         </div>
-         <div className="p-4">
-            <img src="../images/logo_Input_Studios_grey.png" alt="logo"/>
-            <h1 className="mt-16 font-bold text-2xl">{t("trademarks:badges")}</h1>
-            <p className="mt-4">{t("trademarks:includes_badges_designations")}</p>
-         </div>
+            <div className="sm:px-6 lg:px-6">
+               <img src={isDarkMode ? "../images/brands/trademarks_is_platforms_dark.avif" : "../images/brands/trademarks_is_platforms_light.avif"} alt="logo"/>
+               <h1 className="font-bold text-2xl">{t("trademarks:logo_lockups")}</h1>
+               <p className="mt-4">{t("trademarks:logo_lockups_flagship")}</p>
+            </div>
+            <div className="sm:px-6 lg:px-6">
+               <img src={isDarkMode ? "../images/brands/trademarks_is_workspace_dark.avif" : "../images/brands/trademarks_is_workspace_light.avif"} alt="logo"/>
+               <h1 className="font-bold text-2xl">{t("trademarks:product_icons")}</h1>
+               <p className="mt-4">{t("trademarks:include_app_icons_products")}</p>
+            </div>
+            <div className="sm:px-6 lg:px-6">
+               <img src={isDarkMode ? "../images/brands/trademarks_is_badges_dark.avif" : "../images/brands/trademarks_is_badges_light.avif"} alt="logo"/>
+               <h1 className="font-bold text-2xl">{t("trademarks:badges")}</h1>
+               <p className="mt-4">{t("trademarks:includes_badges_designations")}</p>
+            </div>
          </div>
          <Divider className="mt-8 mb-10" style={{ opacity: 0.5 }} lightColor={colors.black} darkColor={colors.white} />
          <h1 className="mt-8 text-4xl md:text-4xl font-bold sm:px-6 lg:px-6">{t("trademarks:dos_and_donts")}</h1>
@@ -313,13 +323,38 @@ export default function Trademarks() {
             <li className="mt-4"><a href="https://support.inputstudios.ru/support-for-business" className="text-blue-500 underline">{t("trademarks:partner_led_marketing_guidelines")}</a></li>
             <li className="mt-4"><a href="https://partner.inputstudios.ru/community/my-partner-hub/branding" className="text-blue-500 underline">{t("trademarks:input_studios_partner_brand_guidelines")}</a></li>
          </ul>
+         <div className="flex flex-col md:flex-row items-stretch p-4 mt-16">
+            <div className="flex-shrink-0 h-84">
+               <img 
+                  src="../images/brands/trademark_legal_document.avif" 
+                  alt="Trademark Document" 
+                  className="h-full w-auto object-cover"
+               />
+            </div>
+            <div className="bg-blue-600 p-8 flex flex-col justify-center h-auto md:h-84 w-full md:w-auto md:mx-2">
+               <h2 className="text-2xl font-bold mb-4 text-white">Intellectual Property</h2>
+               <p className="mb-4 text-white">Innovation is at the heart of Input Studios as a company.</p>
+               <Link to={`${languagePrefix}/legal/intellectualproperty`} className="text-white font-semibold flex items-center group">
+                  <span className="group-hover:underline">Explore Input Studios IP</span>
+                  <IoIosArrowForward
+                     className="ml-1 transition-transform duration-200 transform group-hover:translate-x-1"
+                  />
+               </Link>
+            </div>
+            <div className="h-84 mt-2 md:mt-0">
+               <Link to={`${languagePrefix}/legal/intellectualproperty`}>
+                  <img src="../images/brands/trademark_lawyers.avif" alt="Trademark Lawyers" className="h-full object-cover" />
+               </Link>
+            </div>
+         </div>
          <div className="flex flex-wrap gap-4 mt-16 mb-16 sm:px-6 lg:px-6">
             <p>{t("home_subscribe_news")}</p>
             <div className="flex flex-wrap gap-4">
                <Footer.Icon href="https://vk.com/inputstudios" target="_blank" icon={SlSocialVkontakte} />
-               <Footer.Icon href="https://www.youtube.com/@input.studios" target="_blank" icon={BsYoutube} />
-               <Footer.Icon href="https://www.figma.com/team_invite/redeem/IHhVbYADhWDiftybuzpjBl" target="_blank" icon={BiLogoFigma} />
-               <Footer.Icon href="https://github.com/inputstudios" target="_blank" icon={BsGithub} />
+               <Footer.Icon href="https://discord.com/inputstudios" target="_blank" icon={RxDiscordLogo} />
+               <Footer.Icon href="https://www.youtube.com/@input.studios" target="_blank" icon={AiOutlineYoutube} />
+               <Footer.Icon href="https://www.figma.com/team_invite/redeem/IHhVbYADhWDiftybuzpjBl" target="_blank" icon={FaFigma} />
+               <Footer.Icon href="https://github.com/inputstudios" target="_blank" icon={FiGithub} />
                <Footer.Icon href="https://dribbble.com/inputstudios" target="_blank" icon={BsDribbble} />
             </div>
          </div>

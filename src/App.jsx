@@ -39,7 +39,7 @@ function Layout() {
   const headerPages = getLanguagePrefixedPages(['/wave', '/wave/download', '/quantum-engine', '/chatify', '/workspace']);
   const showHeader = headerPages.includes(location.pathname);
 
-  const isPrivacyPage = location.pathname.includes('/privacy-statement');
+  const isPrivacyPage = location.pathname.includes('/privacystatement');
   const isForumPage = languages.some(lang => location.pathname.startsWith(`/${lang}/forum`));
   const isSupportPage = languages.some(lang => location.pathname.startsWith(`/${lang}/contactus`));
 

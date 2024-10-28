@@ -19,6 +19,7 @@ export default function Header() {
    const navigate = useNavigate();
    const dispatch = useDispatch();
    const dropdownRef = useRef(null);
+   const dropdownProducts = useRef(null);
    const { currentUser } = useSelector(state => state.user);
    const { theme } = useSelector((state) => state.theme); 
    const [searchTerm, setSearchTerm] = useState("");
@@ -26,6 +27,10 @@ export default function Header() {
    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
    const [searchVisible, setSearchVisible] = useState(false);
    const [isOpenAbout, setIsOpenAbout] = useState(false);
+   const [isOpenProducts, setIsOpenProducts] = useState(false);
+   const [showAbout, setShowAbout] = useState(true);
+   const [showForum, setShowForum] = useState(true);
+   const [showBlogs, setShowBlogs] = useState(true);
    const isAdmin = currentUser && currentUser.isAdmin;
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
@@ -72,6 +77,26 @@ export default function Header() {
       };
    }, []);
 
+   useEffect(() => {
+      if (windowWidth < 880) {
+         setShowBlogs(false);
+         setShowForum(false);
+         setShowAbout(false);
+      } else if (windowWidth < 960) {
+         setShowBlogs(true);
+         setShowForum(false);
+         setShowAbout(false);
+      } else if (windowWidth < 1140) {
+         setShowBlogs(true);
+         setShowForum(true);
+         setShowAbout(false);
+      } else {
+         setShowBlogs(true);
+         setShowForum(true);
+         setShowAbout(true);
+      }
+   }, [windowWidth]);
+
    const handleSubmit = (e) => {
       e.preventDefault();
       const urlParams = new URLSearchParams(location.search);
@@ -84,20 +109,28 @@ export default function Header() {
       if (
          (menuOpen && !event.target.closest(".menu") && !event.target.closest(".search-button")) ||
          (searchVisible && !event.target.closest(".search-wrapper") && !event.target.closest(".search-button") && !event.target.closest(".search-button-text")) ||
-         (isOpenAbout && !event.target.closest(".dropdown") && !event.target.closest(".menu-link"))
+         (isOpenAbout && !event.target.closest(".dropdown") && !event.target.closest(".menu-link")) ||
+         (isOpenProducts && !event.target.closest(".dropdown-products") && !event.target.closest(".menu-link-products"))
       ) {
          setMenuOpen(false);
          setSearchVisible(false);
          setIsOpenAbout(false);
-
+         setIsOpenProducts(false);
       }
-   }, [menuOpen, searchVisible, isOpenAbout]);
+   }, [menuOpen, searchVisible, isOpenAbout, isOpenProducts]);
 
    const handleToggle = () => {
       if (isOpenAbout) {
          setIsOpenAbout(false);
       }
       setIsOpenAbout(!isOpenAbout);
+   };
+
+   const handleToggleProducts = () => {
+      if (isOpenProducts) {
+         setIsOpenProducts(false);
+      }
+      setIsOpenProducts(!isOpenProducts);
    };
    
    useEffect(() => {
@@ -194,7 +227,7 @@ export default function Header() {
                )}
                {!searchVisible && windowWidth > 860 && (
                   <>
-                     <div className="custom-hidden md:flex md:items-center md:space-x-6 ml-8 ">
+                     <div className="custom-hidden md:flex md:items-center md:space-x-6 ml-8">
                         <div className={`pb-0.2 border-b-2 ${path === "/" ? "border-current" : "border-transparent"} hover:border-current`}>
                            <Link to="/" onClick={() => setMenuOpen(false)}>{t("headers:header_home")}</Link>
                         </div>
@@ -203,67 +236,161 @@ export default function Header() {
                               {t("headers:header_projects")}
                            </Link>
                         </div>
-                        <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-transparent"} hover:border-current`}>
-                           <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
-                              {t("headers:header_blogs")}
-                           </Link>
-                        </div>
-                        <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} hover:border-current`}>
-                           <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
-                              {t("headers:header_forum")}
-                           </Link>
-                        </div>
-                        <div
-                           onClick={handleToggle}
-                           ref={dropdownRef}
-                           className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} hover:border-current`}
-                        >
-                           <Link className="flex flex-row items-center menu-link" onClick={handleToggle}>
-                              {t("headers:header_about")}
-                              <IoIosArrowDown className={`ml-2 mt-1 transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"}`} />
-                           </Link>
-                           {isOpenAbout && (
-                              <ul className="absolute left-0 top-full mt-2 bg-white dark:bg-gray-600 shadow-md rounded-md z-10 whitespace-nowrap dropdown">
-                                 <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-t-md hover:underline">
-                                    <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
-                                       {t("headers:about_company")}
-                                    </Link>
-                                 </li>
-                                 <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 hover:underline">
-                                    <Link to={`${languagePrefix}/our-history`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
-                                       {t("headers:our_history")}
-                                    </Link>
-                                 </li>
-                                 <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-b-md hover:underline">
-                                    <Link to={`${languagePrefix}/contactus`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
-                                       {t("headers:header_contacts")}
-                                    </Link>
-                                 </li>
-                              </ul>
-                           )}
-                        </div>
+                        {showBlogs  && (
+                           <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-transparent"} hover:border-current`}>
+                              <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
+                                 {t("headers:header_blogs")}
+                              </Link>
+                           </div>
+                        )}
+                        {showForum && (
+                           <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} hover:border-current`}>
+                              <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
+                                 {t("headers:header_forum")}
+                              </Link>
+                           </div>
+                        )}
+                        {showAbout && (
+                           <div
+                              onClick={handleToggle}
+                              ref={dropdownRef}
+                              className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} hover:border-current`}
+                           >
+                              <Link className="flex flex-row items-center menu-link" onClick={handleToggle}>
+                                 {t("headers:header_about")}
+                                 <IoIosArrowDown className={`ml-2 mt-1 transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"}`} />
+                              </Link>
+                              {isOpenAbout && (
+                                 <ul className="absolute left-0 top-full mt-[18px] bg-white dark:bg-gray-600 shadow-md rounded-md z-10 whitespace-nowrap dropdown">
+                                    <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-t-md hover:underline">
+                                       <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
+                                          {t("headers:about_company")}
+                                       </Link>
+                                    </li>
+                                    <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 hover:underline">
+                                       <Link to={`${languagePrefix}/our-history`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
+                                          {t("headers:our_history")}
+                                       </Link>
+                                    </li>
+                                    <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-b-md hover:underline">
+                                       <Link to={`${languagePrefix}/contactus`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
+                                          {t("headers:header_contacts")}
+                                       </Link>
+                                    </li>
+                                 </ul>
+                              )}
+                           </div>
+                        )}
                      </div>
                   </>
                )}
                {(windowWidth < 860 || !searchVisible) && (
                   <div className="ml-auto flex items-center">
                      {!searchVisible && windowWidth > 860 && (
-                        <Button
-                           className="flex items-center justify-center search-button-text border-none focus:outline-none focus:ring-0"
-                           color="gray"
-                           pill
-                           onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
-                           style={{ backgroundColor: 'transparent' }}
-                        >
-                           <div>
-                              <div className={`flex items-center relative hover:border-current`}>
-                                 <span className={`search-button-content pb-0.2 border-b-2 ${path === `/${languagePrefix}/whats-new` ? "border-current" : "border-transparent"} hover:border-current`}>
-                                    {t("headers:header_search")}
-                                 </span>
-                                 <AiOutlineSearch size={24} className="ml-2 relative" style={{ transform: 'rotate(90deg)' }} />
-                              </div>
+                        <>
+                           <div
+                              onClick={handleToggleProducts}
+                              ref={dropdownProducts}
+                              className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} hover:border-current`}
+                           >
+                              <Link className="flex flex-row items-center menu-link-products" onClick={handleToggleProducts}>
+                                 Продукты Input Studios
+                                 <IoIosArrowDown className={`ml-2 mt-1 transform transition-transform duration-500 ${isOpenProducts ? "rotate-180" : "rotate-0"}`} />
+                              </Link>
+                              {isOpenProducts && (
+                                 <ul className="absolute w-[900px] right-0 top-full mt-[18px] bg-white dark:bg-gray-600 shadow-md rounded-md z-10 grid grid-cols-4 gap-6 p-4">
+                                    <div className="space-y-2">
+                                       <p className="py-2 px-2 mb-2 font-bold">ПО</p>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             Приложения для Windows
+                                          </Link>
+                                       </li>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             ИИ
+                                          </Link>
+                                       </li>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             Chatify
+                                          </Link>
+                                       </li>
+                                    </div>
+                                    <div className="space-y-2">
+                                       <p className="py-2 px-2 mb-2 font-bold">Развлечения</p>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             Компьютерные игры
+                                          </Link>
+                                       </li>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             Игры для Windows
+                                          </Link>
+                                       </li>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             Игры для смартфонов
+                                          </Link>
+                                       </li>
+                                    </div>
+                                    <div className="space-y-2">
+                                       <p className="py-2 px-2 mb-2 font-bold">Для бизнеса</p>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             Input Studios Cloud
+                                          </Link>
+                                       </li>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             Input Studios Workspace для бизнеса
+                                          </Link>
+                                       </li>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             Input Studios Security
+                                          </Link>
+                                       </li>
+                                    </div>
+                                    <div className="space-y-2">
+                                       <p className="py-2 px-2 mb-2 font-bold">Другое</p>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             Бесплатная загрузка и средства безопасности
+                                          </Link>
+                                       </li>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             Образование
+                                          </Link>
+                                       </li>
+                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
+                                             Лицензирование
+                                          </Link>
+                                       </li>
+                                    </div>
+                                 </ul>
+                              )}
                            </div>
-                        </Button>
+                           <Button
+                              className="flex items-center justify-center search-button-text border-none focus:outline-none focus:ring-0"
+                              color="gray"
+                              pill
+                              onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
+                              style={{ backgroundColor: 'transparent' }}
+                           >
+                              <div>
+                                 <div className={`flex items-center relative hover:border-current`}>
+                                    <span className={`search-button-content pb-0.2 border-b-2 ${path === `/${languagePrefix}/whats-new` ? "border-current" : "border-transparent"} hover:border-current`}>
+                                       {t("headers:header_search")}
+                                    </span>
+                                    <AiOutlineSearch size={24} className="ml-2 relative" style={{ transform: 'rotate(90deg)' }} />
+                                 </div>
+                              </div>
+                           </Button>
+                        </>
                      )}
                      {!searchVisible && (
                         <>
@@ -291,7 +418,7 @@ export default function Header() {
                                  arrowIcon={false}
                                  inline
                                  label={
-                                    <div className="flex items-center group margin-header mr-8">
+                                    <div className="flex items-center group margin-header margin-right mr-20">
                                        <span
                                           className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white">
                                           {currentUser.username}
@@ -361,26 +488,26 @@ export default function Header() {
             </div>
             <div className={`flex flex-col md:hidden ${menuOpen ? 'flex' : 'hidden'}`}>
                <div className={`border-b-2 ${path === "/" ? "border-current" : "border-gray-800"}`}></div>
-               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === "/" ? "border-current" : "border-gray-800"}`}>
-                  <Link to="/" onClick={() => setMenuOpen(false)}>{t("headers:header_home")}</Link>
-               </div>
-               <hr className="border-t border-gray-700" />
-               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/projects` ? "border-current" : "border-gray-800"}`}>
-                  <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
-                     {t("headers:header_projects")}
-                  </Link>
-               </div>
-               <hr className="border-t border-gray-700" />
-               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-gray-800"}`}>
-                  <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
-                     {t("headers:header_blogs")}
-                  </Link>
-               </div>
-               <hr className="border-t border-gray-700" />
-               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/forum` ? "border-current" : "border-gray-800"}`}>
-                  <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
-                     {t("headers:header_forum")}
-                  </Link>
+                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === "/" ? "border-current" : "border-gray-800"}`}>
+                     <Link to="/" onClick={() => setMenuOpen(false)}>{t("headers:header_home")}</Link>
+                  </div>
+                  <hr className="border-t border-gray-700" />
+                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/projects` ? "border-current" : "border-gray-800"}`}>
+                     <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
+                        {t("headers:header_projects")}
+                     </Link>
+                  </div>
+                  <hr className="border-t border-gray-700" />
+                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-gray-800"}`}>
+                     <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
+                        {t("headers:header_blogs")}
+                     </Link>
+                  </div>
+                  <hr className="border-t border-gray-700" />
+                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/forum` ? "border-current" : "border-gray-800"}`}>
+                     <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
+                        {t("headers:header_forum")}
+                     </Link>
                </div>
                <hr className="border-t border-gray-700" />
                <div

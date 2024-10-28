@@ -31,8 +31,8 @@ export default function CookieManagementModal({ showModal, handleCloseModal }) {
   };
 
   const useCookiesTranslation = t("use_cookies").replace(
-    '/privacy-statement',
-    `${languagePrefix}/privacy-statement`
+    '/privacystatement',
+    `${languagePrefix}/privacystatement`
   );
 
   const savePreferences = () => {

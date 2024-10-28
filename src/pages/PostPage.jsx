@@ -10,6 +10,10 @@ import { SlSocialVkontakte } from "react-icons/sl";
 import { BsDribbble, BsGithub, BsYoutube } from "react-icons/bs";
 import { BiLogoFigma } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
+import { RxDiscordLogo } from "react-icons/rx";
+import { AiOutlineYoutube } from "react-icons/ai";
+import { FaFigma } from "react-icons/fa";
+import { FiGithub } from "react-icons/fi";
 
 export default function PostPage() {
    const { t } = useTranslation();
@@ -122,16 +126,17 @@ export default function PostPage() {
                }
             </div>
          </div>
-         <div className="flex flex-wrap gap-4 mt-10 mb-10">
-               <p>{t("home_subscribe_news")}</p>
-               <div className="flex flex-wrap gap-4">
-                  <Footer.Icon href="https://vk.com/inputstudios" target="_blank" icon={SlSocialVkontakte} />
-                  <Footer.Icon href="https://www.youtube.com/@input.studios" target="_blank" icon={BsYoutube} />
-                  <Footer.Icon href="https://www.figma.com/team_invite/redeem/IHhVbYADhWDiftybuzpjBl" target="_blank" icon={BiLogoFigma} />
-                  <Footer.Icon href="https://github.com/inputstudios" target="_blank" icon={BsGithub} />
-                  <Footer.Icon href="https://dribbble.com/inputstudios" target="_blank" icon={BsDribbble} />
-               </div>
+         <div className="flex flex-wrap gap-4 mt-10 mb-10 mx-4">
+            <p>{t("home_subscribe_news")}</p>
+            <div className="flex flex-wrap gap-4">
+               <Footer.Icon href="https://vk.com/inputstudios" target="_blank" icon={SlSocialVkontakte} />
+               <Footer.Icon href="https://discord.com/inputstudios" target="_blank" icon={RxDiscordLogo} />
+               <Footer.Icon href="https://www.youtube.com/@input.studios" target="_blank" icon={AiOutlineYoutube} />
+               <Footer.Icon href="https://www.figma.com/team_invite/redeem/IHhVbYADhWDiftybuzpjBl" target="_blank" icon={FaFigma} />
+               <Footer.Icon href="https://github.com/inputstudios" target="_blank" icon={FiGithub} />
+               <Footer.Icon href="https://dribbble.com/inputstudios" target="_blank" icon={BsDribbble} />
             </div>
+         </div>
       </main>
    );
 }

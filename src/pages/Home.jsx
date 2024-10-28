@@ -49,7 +49,7 @@ export default function Home() {
 
    return (
       <div>
-         <div className="relative">
+         <div className="relative mt-[60px]">
             <Helmet>
                <title>{t("home_title")}</title>
             </Helmet>
@@ -95,23 +95,25 @@ export default function Home() {
          <div className="p-3 mx-10 custom-margin mt-20 rounded-lg bg-gray-200 dark:bg-slate-700 shadow-md">
             <CallToAction />
          </div>
-         <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7">
+         <div className="mx-auto px-6 flex flex-col gap-8 py-7">
             {posts && posts.length > 0 && (
-               <div className="flex flex-col gap-6 item-center">
+               <div className="flex flex-col gap-6 items-center">
                   <h2 className="text-2xl font-semibold text-center">{t("home_recent_posts")}</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 justify-center items-center">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 gap-4 justify-center items-center mt-2">
                      {posts.map((post) => (
                         <div key={post._id} className="flex justify-center">
                            <PostCard post={post} />
                         </div>
                      ))}
                   </div>
-                  <Link
-                     to={`${languagePrefix}/search`}
-                     className="text-lg text-teal-500 hover:underline text-center"
-                  >
-                     {t("home_view_all_posts")}
-                  </Link>
+                  <div className="flex justify-center w-full mt-4">
+                     <Link 
+                        to={`${languagePrefix}/search`} 
+                        className="text-lg text-teal-500 hover:underline text-center"
+                     >
+                        {t("home_view_all_posts")}
+                     </Link>
+                  </div>
                </div>
             )}
             <div className="flex flex-wrap gap-4 mt-10 mb-10 mx-4">

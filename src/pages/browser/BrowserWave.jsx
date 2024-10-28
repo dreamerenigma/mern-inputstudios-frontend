@@ -10,7 +10,7 @@ export default function BrowserWave() {
     <div className="relative text-center">
       <div className="relative min-h-screen items-center justify-center ье-">
         <img
-          src="/images/bg_wave.jpg"
+          src="/images/apps/wave/bg_wave.jpg"
           alt="WaveBrowser"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -20,7 +20,7 @@ export default function BrowserWave() {
             эффективным способом поиска информации
           </p>
           <img
-            src="/images/WebBrowser.png"
+            src="/images/apps/wave/WebBrowser.png"
             alt="WebBrowser"
             className="w-1/2 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 2xl:w-1/2 mt-8 rounded-xl"
           />
@@ -43,7 +43,7 @@ export default function BrowserWave() {
         </div>
       </div>
       <div className="flex flex-row bg-gray-200 dark:bg-gray-800 rounded-lg p-6 mx-20 my-20 items-start import browser">
-        <img src="/images/wave_import.png" alt="" className="w-24 mr-6" />
+        <img src="/images/apps/wave/wave_import.png" alt="" className="w-24 mr-6" />
         <div className="flex flex-col w-full">
           <div className="flex flex-row items-center justify-between w-full">
             <div className="flex flex-col text-left">
@@ -79,7 +79,7 @@ export default function BrowserWave() {
           </div>
           <div className="flex flex-col justify-end items-end w-2/4 h-1/4 ml-auto image">
             <img
-              src="/images/themes.png"
+              src="/images/apps/wave/themes.png"
               alt="ThemesBrowser"
               className="w-500 h-300 object-cover rounded-2xl"
             />
@@ -90,7 +90,7 @@ export default function BrowserWave() {
         <div className="flex-shrink-0 text-center md:text-left">
           <div className="flex justify-center items-center md:justify-start">
             <img
-              src="/images/security.png"
+              src="/images/apps/wave/security.png"
               alt="SecurityBrowser"
               className="w-24 mr-14"
             />
@@ -146,7 +146,7 @@ export default function BrowserWave() {
           </div>
           <div className="flex flex-col justify-end items-end w-2/4 h-1/4 ml-auto image">
             <img
-              src="/images/productivity.jpg"
+              src="/images/apps/wave/productivity.jpg"
               alt="ProductivityWork"
               className="w-500 h-300 object-cover rounded-2xl"
             />
@@ -157,7 +157,7 @@ export default function BrowserWave() {
         <div className="flex flex-row w-full">
           <div className="flex flex-col justify-end items-start w-2/4 h-1/4 mr-auto image">
             <img
-              src="/images/games.png"
+              src="/images/apps/wave/games.png"
               alt="BusinessBrowser"
               className="w-500 h-300 object-cover rounded-2xl"
             />
@@ -189,7 +189,7 @@ export default function BrowserWave() {
           </div>
           <div className="flex flex-col justify-end items-end w-2/4 h-1/4 ml-auto image">
             <img
-              src="/images/business.jpg"
+              src="/images/apps/wave/business.jpg"
               alt="BusinessBrowser"
               className="w-500 h-300 object-cover rounded-2xl"
             />
@@ -212,17 +212,17 @@ export default function BrowserWave() {
           <div className="flex flex-col order-last md:order-last w-full md:w-3/5 justify-end items-end mt-6 md:mt-0 h-1/4 ml-auto">
             <div className="flex gap-6 w-full justify-end md:w-auto">
               <img
-                src="../images/notebook.jpg"
+                src="../images/apps/wave/notebook.jpg"
                 alt="Image 1"
                 className="image-devices rounded-lg mt-6 w-full sm:w-1/3 md:w-1/4 lg:w-[180px] transition-all duration-500"
               />
               <img
-                src="../images/smartphone.jpg"
+                src="../images/apps/wave/smartphone.jpg"
                 alt="Image 2"
                 className="image-devices rounded-lg mt-6 w-full sm:w-1/3 md:w-1/4 lg:w-[180px] transition-all duration-500"
               />
               <img
-                src="../images/tablet.jpg"
+                src="../images/apps/wave/tablet.jpg"
                 alt="Image 3"
                 className="image-devices rounded-lg mt-6 w-full sm:w-1/3 md:w-1/4 lg:w-[180px] transition-all duration-500"
               />

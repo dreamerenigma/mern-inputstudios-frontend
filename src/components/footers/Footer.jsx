@@ -33,7 +33,7 @@ export default function FooterCom() {
       <Footer className="border border-t-8 border-teal-500" id="footer">
          <div className="w-full max-w-7xl mx-auto">
             <div className="grid w-full justify-between sm:flex md:grid-cols-1 p-4">
-               <div className="grid grid-cols-1 gap-8 mt-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-4 md:justify-items-center">
+               <div className="grid grid-cols-1 gap-8 mt-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-5 md:justify-items-center">
                   <div className="max-w-full">
                      <Footer.Title title={t("footer:footer_whats_new")} />
                      <Footer.LinkGroup col>
@@ -60,6 +60,41 @@ export default function FooterCom() {
                            rel="noopener noreferrer"
                         >
                            Input Studios apps
+                        </Footer.Link>
+                     </Footer.LinkGroup>
+                  </div>
+                  <div>
+                     <Footer.Title title="Input Studios Store" />
+                     <Footer.LinkGroup col>
+                        <Footer.Link
+                           href={`${languagePrefix}/business`}
+                           rel="noopener noreferrer"
+                        >
+                           Профиль учетной записи
+                        </Footer.Link>
+                        <Footer.Link 
+                           href={`${languagePrefix}/chatify`}
+                           rel="noopener noreferrer"
+                        >
+                           Центр загрузки
+                        </Footer.Link>
+                        <Footer.Link 
+                           href={`${languagePrefix}/small-business`}
+                           rel="noopener noreferrer"
+                        >
+                           Поддержка Input Studios Store
+                        </Footer.Link>
+                        <Footer.Link 
+                           href={`${languagePrefix}/small-business`}
+                           rel="noopener noreferrer"
+                        >
+                           Возврат товаров
+                        </Footer.Link>
+                        <Footer.Link 
+                           href={`${languagePrefix}/small-business`}
+                           rel="noopener noreferrer"
+                        >
+                           Отслеживание заказа
                         </Footer.Link>
                      </Footer.LinkGroup>
                   </div>
@@ -148,7 +183,7 @@ export default function FooterCom() {
             <div className="flex flex-wrap gap-6 my-6 mx-4 sm:mt-4 sm:justify-end text-xs">
                <Link to={`${languagePrefix}/contactus`} className="dark:text-gray-400 hover:underline">{t("footer:custom_footer_contacts")}</Link>
                <Link to="#" className="dark:text-gray-400 hover:underline" onClick={handleDialogClick}>{t("footer:cookie_management")}</Link>
-               <Link to={`${languagePrefix}/privacy-statement`} className="dark:text-gray-400 hover:underline">{t("footer:custom_footer_privacy")}</Link>
+               <Link to={`${languagePrefix}/privacy/privacystatement`} className="dark:text-gray-400 hover:underline">{t("footer:custom_footer_privacy")}</Link>
                <Link to={`${languagePrefix}/terms-of-use`} className="dark:text-gray-400 hover:underline">{t("footer:custom_footer_terms")}</Link>
                <Link to={`${languagePrefix}/trademarks`} className="dark:text-gray-400 hover:underline">{t("footer:custom_footer_trademarks")}</Link>
                <Link 

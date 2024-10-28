@@ -157,7 +157,7 @@ export default function ProfileHeader() {
                                  onClick={handleSignout}
                                  className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
                               >
-                                 {t("header:header_sign_out")}
+                                 {t("headers:header_sign_out")}
                               </span>
                            </div>
                            <div className="flex items-center gap-2 px-4 pb-4">
@@ -178,13 +178,13 @@ export default function ProfileHeader() {
                            {isAdmin && (
                               <>
                                  <Link to={`${languagePrefix}/dashboard?tab=dash`}>
-                                    <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_dashboard")}</Dropdown.Item>
+                                    <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("headers:header_dashboard")}</Dropdown.Item>
                                  </Link>
                                  <Dropdown.Divider className="m-0 p-0" />
                               </>
                            )}
                            <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                              <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("header:header_profile")}</Dropdown.Item>
+                              <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("headers:header_profile")}</Dropdown.Item>
                            </Link>
                         </Dropdown>
                      </div>
@@ -261,17 +261,17 @@ export default function ProfileHeader() {
                         <>
                            <p>{t("great_any_other_feedback")}</p>
                            <textarea
-                              className="w-full h-32 mt-2 p-2 border rounded text-black bg-gray-100 dark:bg-gray-400"
+                              className="w-full h-32 mt-2 p-2 border rounded text-black bg-gray-100 dark:bg-gray-400 focus:outline-none focus:border-teal-500"
                               style={{ resize: 'vertical', minHeight: '80px' }}
                               placeholder={t("type_feedback")}
                               value={feedbackText}
                               onChange={(e) => setFeedbackText(e.target.value)}
-                              />
+                           />
                               <p className="mt-1 max-w-xs">
-                              {t("protect_privacy")}{" "}
-                              <a href="/privacy-policy" className="text-teal-500 hover:underline">
-                                 {t("privacy_policy")}
-                              </a>
+                                 {t("protect_privacy")}{" "}
+                                 <a href="/privacy-policy" className="text-teal-500 hover:underline">
+                                    {t("privacy_policy")}
+                                 </a>
                               </p>
                               <div className="mt-2 flex">
                                  <button

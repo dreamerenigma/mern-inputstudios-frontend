@@ -39,6 +39,8 @@ import AboutCompany from "../pages/about/AboutCompany";
 import OurHistory from "../pages/about/OurHistory";
 import SupportRoutes from "./SupportRoutes";
 import AccountPrivacy from "../pages/AccountPrivacy";
+import NewTread from "../pages/forum/NewTread";
+import IntellectualProperty from "../pages/legal/IntellectualProperty";
 
 const languages = ['ru-ru', 'en-us'];
 
@@ -66,7 +68,7 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/privacy-report`} element={<PrivacyReport />} />
                <Route path={`/${lang}/privacy/ad-settings`} element={<PrivacyAdSettings />} />
                <Route path={`/${lang}/dashboard?tab=/privacy/ad-settings`} element={<PrivacyAdSettings />} />
-               <Route path={`/${lang}/privacy-statement`} element={<PrivacyStatement />} />
+               <Route path={`/${lang}/privacy/privacystatement`} element={<PrivacyStatement />} />
                <Route path={`/${lang}/concern/privacy`} element={<ConcernPrivacy />} />
                <Route path={`/${lang}/consent/manage`} element={<ConcentManage />} />
                <Route path={`/${lang}/terms-of-use`} element={<TermsOfUse />} />
@@ -91,6 +93,8 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/wave/features`} element={<WaveFeatures />} />
                <Route path={`/${lang}/trademarks`} element={<Trademarks />} />
                <Route path={`/${lang}/support-for-business`} element={<SupportBusiness />} />
+               <Route path={`/${lang}/newthreads`} element={<NewTread />} />
+               <Route path={`/${lang}/legal/intellectualproperty`} element={<IntellectualProperty />} />
             </React.Fragment>
          ))}
       </Routes>
