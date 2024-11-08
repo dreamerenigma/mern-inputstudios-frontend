@@ -20,6 +20,7 @@
     "@mui/material": "^6.0.0-alpha.2",
     "@reduxjs/toolkit": "^2.2.3",
     "client": "file:",
+    "draft-js": "^0.11.7",
     "emailjs-com": "^3.2.0",
     "firebase": "^10.10.0",
     "flowbite-react": "^0.7.8",

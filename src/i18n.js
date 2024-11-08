@@ -12,6 +12,7 @@ import enHeadersTranslation from '../public/locales/en/headers.json';
 import enProfileTranslation from '../public/locales/en/profile.json';
 import enTrademarksTranslation from '../public/locales/en/trademarks.json';
 import enPrivacyTranslation from '../public/locales/en/privacy.json';
+import enBrowserTranslation from '../public/locales/en/browser.json';
 import ruTranslation from '../public/locales/ru/translation.json';
 import ruTermsTranslation from '../public/locales/ru/terms.json';
 import ruDialogsTranslation from '../public/locales/ru/dialogs.json';
@@ -22,6 +23,7 @@ import ruHeadersTranslation from '../public/locales/ru/headers.json';
 import ruProfileTranslation from '../public/locales/ru/profile.json';
 import ruTrademarksTranslation from '../public/locales/ru/trademarks.json';
 import ruPrivacyTranslation from '../public/locales/ru/privacy.json';
+import ruBrowserTranslation from '../public/locales/ru/browser.json';
 
 const resources = {
    en: { 
@@ -35,6 +37,7 @@ const resources = {
       profile: enProfileTranslation,
       trademarks: enTrademarksTranslation,
       privacy: enPrivacyTranslation,
+      browser: enBrowserTranslation,
    },
    ru: { 
       translation: ruTranslation, 
@@ -47,6 +50,7 @@ const resources = {
       profile: ruProfileTranslation,
       trademarks: ruTrademarksTranslation,
       privacy: ruPrivacyTranslation,
+      browser: ruBrowserTranslation,
    },
 };
 

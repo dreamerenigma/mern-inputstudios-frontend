@@ -23,6 +23,14 @@ export default function Trademarks() {
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
+   const products = [
+      { id: 1, src: '../logos/input_studios_logo.avif', text: 'Input Studios', link:`${languagePrefix}/chatify/forum` },
+      { id: 2, src: '../logos/logo_chatify.png', text: 'Chatify', link:`${languagePrefix}/chatify/forum` },
+      { id: 3, src: '../logos/logo_easyshoppin.png', text: 'Easy Shoppin', link: `${languagePrefix}/easy-shoppin/forum` },
+      { id: 4, src: '../logos/logo_quantum_engine.png', text: 'Quantum Engine', link: `${languagePrefix}/quantum-engine/forum` },
+      { id: 5, src: '../logos/logo_wave.png', text: 'Wave', link: `${languagePrefix}/wave/forum` },
+   ];
+
    return (
       <div className="relative mx-4 md:mx-8 lg:mx-12 mt-[60px]">
          <Helmet>
@@ -306,6 +314,25 @@ export default function Trademarks() {
             </div>
          </div>
          <p className="mt-12 sm:px-6 lg:px-6">{t("trademarks:brand_assets_manner")}</p>
+         <Divider className="mt-8 mb-10" style={{ opacity: 0.5 }} lightColor={colors.black} darkColor={colors.white} />
+         <h1 className="mt-8 text-4xl font-bold sm:px-6 lg:px-6">Specific Brand and Product Guidelines</h1>
+         <p className="mt-6 sm:px-6 lg:px-6">Certain Brand Assets have Specific Brand and Product Guidelines providing guidance on how to use them. Several of these Specific Brand and Product Guidelines are published below and others may be provided to you by your relevant Microsoft contact in the context of your relationship with Microsoft. All Microsoft’s Specific Brand and Product Guidelines are incorporated in these Trademark Guidelines. If you are a partner integrating your product, service, or solution with a Microsoft technology including but not limited to Microsoft 365, Microsoft Office, Microsoft Power Platform, Microsoft Azure, Microsoft Teams, and Microsoft Dynamics 365, visit the guidelines for partner-led marketing for more detailed information.</p>
+         <div className={`grid my-12 mx-12 gap-32 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 ${products.length === 5 ? 'xl:grid-cols-4 2xl:grid-cols-5' : 'xl:grid-cols-5 2xl:grid-cols-6'}`}>
+            {products.map(product => (
+               <Link 
+               to={product.link} 
+               key={product.id} 
+               className="group inline-flex relative"
+            >
+               <div className="inline-flex flex-col p-3 items-center flex-grow rounded-lg transition-colors duration-200 bg-transparent group-hover:bg-gray-200 dark:group-hover:bg-gray-700">
+                  <img src={product.src} alt={product.text} className="w-20 h-20 mb-2" />
+                  <div className="flex justify-center text-teal-500 underline">
+                     <p className="text-center whitespace-nowrap">{product.text}</p>
+                  </div>
+               </div>
+            </Link>
+            ))}
+         </div>
          <Divider className="mt-8 mb-10" style={{ opacity: 0.5 }} lightColor={colors.black} darkColor={colors.white} />
          <h1 className="mt-8 text-4xl font-bold sm:px-6 lg:px-6">{t("trademarks:copyrighted_content")}</h1>
          <p className="mt-6 sm:px-6 lg:px-6">{t("trademarks:visit_use_input_studios_copyrighted_content")}</p>

@@ -20,8 +20,9 @@ export default function Header() {
    const dispatch = useDispatch();
    const dropdownRef = useRef(null);
    const dropdownProducts = useRef(null);
+   const theme = useSelector((state) => state.theme.theme);
+   const isDarkMode = theme === "dark";
    const { currentUser } = useSelector(state => state.user);
-   const { theme } = useSelector((state) => state.theme); 
    const [searchTerm, setSearchTerm] = useState("");
    const [menuOpen, setMenuOpen] = useState(false);
    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -178,7 +179,7 @@ export default function Header() {
                      >
                         <div className="flex items-center search-button-content">
                            <span className="mr-2">{t("headers:header_search")}</span>
-                           <AiOutlineSearch size={28} className="text-white transform rotate-90" />
+                           <AiOutlineSearch size={28} className="text-black dark:text-white transform rotate-90" />
                         </div>
                      </Button>
                   </>
@@ -196,7 +197,7 @@ export default function Header() {
                   </div>
                )}
                {searchVisible && (
-                  <div className={`search-wrapper flex items-center mr-4 my-2 ml-${windowWidth < 860 ? '6' : '12'} w-full`}>
+                  <div className={`search-wrapper flex items-center mr-4 my-[9px] ml-${windowWidth < 860 ? '6' : '12'} w-full`}>
                      {windowWidth < 860 && (
                         <button
                            className="mr-2 hover:text-gray-700"
@@ -228,37 +229,69 @@ export default function Header() {
                {!searchVisible && windowWidth > 860 && (
                   <>
                      <div className="custom-hidden md:flex md:items-center md:space-x-6 ml-8">
-                        <div className={`pb-0.2 border-b-2 ${path === "/" ? "border-current" : "border-transparent"} hover:border-current`}>
-                           <Link to="/" onClick={() => setMenuOpen(false)}>{t("headers:header_home")}</Link>
-                        </div>
-                        <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/projects` ? "border-current" : "border-transparent"} hover:border-current`}>
-                           <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
-                              {t("headers:header_projects")}
-                           </Link>
-                        </div>
-                        {showBlogs  && (
-                           <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-transparent"} hover:border-current`}>
-                              <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
-                                 {t("headers:header_blogs")}
+                        <div className="group">
+                           <div className={`pb-0.2 border-b-2 group ${path === "/" ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]`}>
+                              <Link
+                                 to={`${languagePrefix}/`}
+                                 onClick={() => setMenuOpen(false)}
+                                 className="text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]"
+                              >
+                                 {t("headers:header_home")}
                               </Link>
+                           </div>
+                        </div>
+                        <div className="group">
+                           <div className={`pb-0.2 border-b-2 group ${path === `${languagePrefix}/projects` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]`}>
+                              <Link
+                                 to={`${languagePrefix}/projects`}
+                                 onClick={() => setMenuOpen(false)}
+                                 className="text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]"
+                              >
+                                 {t("headers:header_projects")}
+                              </Link>
+                           </div>
+                        </div>
+                        {showBlogs && (
+                           <div className="group">
+                              <div className={`pb-0.2 border-b-2 group ${path === `${languagePrefix}/blogs` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]`}>
+                                 <Link
+                                    to={`${languagePrefix}/blogs`}
+                                    onClick={() => setMenuOpen(false)}
+                                    className="text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]"
+                                 >
+                                    {t("headers:header_blogs")}
+                                 </Link>
+                              </div>
                            </div>
                         )}
                         {showForum && (
-                           <div className={`pb-0.2 border-b-2 ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} hover:border-current`}>
-                              <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
+                           <div className="group">
+                           <div className={`pb-0.2 border-b-2 group ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]`}>
+                              <Link
+                                 to={`${languagePrefix}/forum`}
+                                 onClick={() => setMenuOpen(false)}
+                                 className="text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]"
+                              >
                                  {t("headers:header_forum")}
                               </Link>
                            </div>
+                        </div>
                         )}
                         {showAbout && (
                            <div
                               onClick={handleToggle}
                               ref={dropdownRef}
-                              className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} hover:border-current`}
+                              className="relative hover:border-current"
                            >
-                              <Link className="flex flex-row items-center menu-link" onClick={handleToggle}>
-                                 {t("headers:header_about")}
-                                 <IoIosArrowDown className={`ml-2 mt-1 transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"}`} />
+                              <Link className="flex flex-row items-center menu-link group relative" onClick={handleToggle}>
+                                 <span 
+                                    className={`pb-0.2 border-b-2 group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF] ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"}  group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]  transition duration-200`}
+                                 >
+                                    {t("headers:header_about")}
+                                 </span>
+                                 <IoIosArrowDown 
+                                    className={`ml-2 transform transition-transform duration-500  ${isOpenAbout ? "rotate-180" : "rotate-0"} group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]`}
+                                 />
                               </Link>
                               {isOpenAbout && (
                                  <ul className="absolute left-0 top-full mt-[18px] bg-white dark:bg-gray-600 shadow-md rounded-md z-10 whitespace-nowrap dropdown">
@@ -291,11 +324,17 @@ export default function Header() {
                            <div
                               onClick={handleToggleProducts}
                               ref={dropdownProducts}
-                              className={`relative pb-0.2 border-b-2 ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} hover:border-current`}
+                              className="relative hover:border-current"
                            >
-                              <Link className="flex flex-row items-center menu-link-products" onClick={handleToggleProducts}>
-                                 Продукты Input Studios
-                                 <IoIosArrowDown className={`ml-2 mt-1 transform transition-transform duration-500 ${isOpenProducts ? "rotate-180" : "rotate-0"}`} />
+                              <Link className="flex flex-row items-center menu-link-products group relative" onClick={handleToggleProducts}>
+                                 <span 
+                                    className={`pb-0.2 border-b-2 group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF] ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"}  group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]  transition duration-200`}
+                                 >
+                                    Продукты Input Studios
+                                 </span>
+                                 <IoIosArrowDown 
+                                    className={`ml-2 transform transition-transform duration-500  ${isOpenProducts ? "rotate-180" : "rotate-0"} group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]`}
+                                 />
                               </Link>
                               {isOpenProducts && (
                                  <ul className="absolute w-[900px] right-0 top-full mt-[18px] bg-white dark:bg-gray-600 shadow-md rounded-md z-10 grid grid-cols-4 gap-6 p-4">
@@ -382,11 +421,11 @@ export default function Header() {
                               style={{ backgroundColor: 'transparent' }}
                            >
                               <div>
-                                 <div className={`flex items-center relative hover:border-current`}>
-                                    <span className={`search-button-content pb-0.2 border-b-2 ${path === `/${languagePrefix}/whats-new` ? "border-current" : "border-transparent"} hover:border-current`}>
+                                 <div className={`flex items-center relative hover:border-current group`}>
+                                    <span className={`search-button-content pb-0.2 border-b-2 dark:text-white dark:group-hover:text-[#9CA3AF] ${path === `/${languagePrefix}/whats-new` ? "border-current" : "border-transparent"} hover:border-current`}>
                                        {t("headers:header_search")}
                                     </span>
-                                    <AiOutlineSearch size={24} className="ml-2 relative" style={{ transform: 'rotate(90deg)' }} />
+                                    <AiOutlineSearch size={24} className="ml-2 relative dark:text-white dark:group-hover:text-[#9CA3AF]" style={{ transform: 'rotate(90deg)' }} />
                                  </div>
                               </div>
                            </Button>
@@ -402,9 +441,7 @@ export default function Header() {
                                  style={{ backgroundColor: 'transparent' }}
                               >
                                  <div className="flex items-center justify-center cursor-pointer group">
-                                    <span
-                                       className="font-semibold mr-2 text-sm theme-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white"
-                                    >
+                                    <span className="font-semibold mr-2 text-sm theme-text text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF] border-b-2 border-transparent group-hover:border-current">
                                        {t("headers:header_themes")}
                                     </span>
                                     {theme === "light" ?
@@ -420,10 +457,10 @@ export default function Header() {
                                  label={
                                     <div className="flex items-center group margin-header margin-right mr-20">
                                        <span
-                                          className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-[#9CA3AF] group-hover:text-[#0E7490] dark:group-hover:text-white">
+                                          className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]">
                                           {currentUser.username}
                                        </span>
-                                       <div className="relative w-10 h-10 rounded-full overflow-hidden avatar-small">
+                                       <div className="relative w-9 h-9 rounded-full overflow-hidden avatar-small">
                                           <img
                                              src={currentUser.profilePicture}
                                              alt="User Avatar"
@@ -449,7 +486,7 @@ export default function Header() {
                                  </div>
                                  <div className="flex items-center gap-2 px-4 pb-4">
                                     <div className="relative">
-                                       <Avatar alt="user" img={currentUser.profilePicture} rounded />
+                                       <Avatar alt="user" img={currentUser.profilePicture} rounded/>
                                        <Link to={`${languagePrefix}/dashboard?tab=profile`}>
                                           <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
                                              <IoCameraOutline className="text-white text-lg" />
@@ -475,10 +512,15 @@ export default function Header() {
                                  </Link>
                               </Dropdown>
                            ) : (
-                              <Link to={`${languagePrefix}/sign-in`}>
-                                 <Button outline className="bg-gradient-to-r from-teal-500 via-green-500 to-blue-500">
-                                    {t("headers:header_sign_in")}
-                                 </Button>
+                              <Link to={`${languagePrefix}/sign-in`} className="flex items-center space-x-2 mr-20">
+                                 <span className="text-sm text-[#111827] dark:text-white">{t("headers:header_sign_in")}</span>
+                                 <div className="w-9 h-9 flex items-center justify-center border border-white rounded-full">
+                                    <img
+                                       src={isDarkMode ? "/images/sign_in_light.svg" : "/images/sign_in_dark.svg"}
+                                       alt="user"
+                                       className="w-5 h-5"
+                                    />
+                                 </div>
                               </Link>
                            )}
                         </>

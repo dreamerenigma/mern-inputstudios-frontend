@@ -1,7 +1,7 @@
 import { Button, Navbar } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CustomTextInput from "../textinputs/CustomTextInput";
 import { IoIosArrowDown } from "react-icons/io";
 import { useTranslation } from "react-i18next";
@@ -52,7 +52,7 @@ export default function Header() {
       navigate(`/search?${searchQuery}`);
    };
 
-   const handleClickOutside = (event) => {
+   const handleClickOutside = useCallback((event) => {
       if (
          (menuOpen && !event.target.closest(".menu") && !event.target.closest(".search-button")) ||
          (searchVisible && !event.target.closest(".search-wrapper") && !event.target.closest(".search-button") && !event.target.closest(".search-button-text"))
@@ -60,7 +60,7 @@ export default function Header() {
          setMenuOpen(false);
          setSearchVisible(false);
       }
-   };
+   }, [menuOpen, searchVisible]);
 
    const handleButtonClick = (event) => {
       event.stopPropagation();
@@ -72,7 +72,7 @@ export default function Header() {
       return () => {
          document.removeEventListener("click", handleClickOutside);
       };
-   }, [menuOpen, searchVisible]);
+   }, [handleClickOutside, menuOpen, searchVisible]);
 
    document.addEventListener("DOMContentLoaded", function() {
       var element = document.querySelector('.mx-auto.flex.flex-wrap.items-center.justify-between');

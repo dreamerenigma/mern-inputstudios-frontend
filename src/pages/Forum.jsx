@@ -9,6 +9,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 export default function Forum() {
    const { t } = useTranslation();
@@ -78,6 +79,9 @@ export default function Forum() {
 
    return (
       <div className="flex flex-col items-center justify-center min-h-screen">
+         <Helmet>
+            <title>{t("community_title")}</title>
+         </Helmet>
          <div className="relative" ref={dropdownRef}>
             <div className={`flex items-center border-2 mt-44 ${isFocused ? 'border-black dark:border-gray-500' : 'border-black dark:border-gray-500'} bg-white w-full md:w-96 lg:max-w-full`}>
                <input
@@ -189,10 +193,10 @@ export default function Forum() {
             ))}
          </div>
          {products.length > 4 && (
-         <div className="flex flex-row items-center cursor-pointer mb-10" onClick={handleToggleShowAllProducts}>
-            <p>{t("view_all_products")}</p>
-            <IoIosArrowDown className={`ml-2 transform ${showAllProducts ? 'rotate-180' : 'rotate-0'} transition-transform`} />
-         </div>
+            <div className="flex flex-row items-center cursor-pointer mb-10" onClick={handleToggleShowAllProducts}>
+               <p>{t("view_all_products")}</p>
+               <IoIosArrowDown className={`ml-2 transform ${showAllProducts ? 'rotate-180' : 'rotate-0'} transition-transform`} />
+            </div>
          )}
       </div>
    );

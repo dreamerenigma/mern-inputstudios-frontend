@@ -293,7 +293,7 @@ export default function PrivacyHeader() {
                   </div>
                <hr className="border-t border-black dark:border-white" />
             </div>
-            {windowWidth < 860 && (
+            {windowWidth < 860 && !menuOpen && (
                <div className="ml-auto items-center">
                   <div
                      onClick={handleTogglePrivacy}

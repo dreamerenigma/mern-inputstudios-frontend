@@ -95,6 +95,7 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/support-for-business`} element={<SupportBusiness />} />
                <Route path={`/${lang}/newthreads`} element={<NewTread />} />
                <Route path={`/${lang}/legal/intellectualproperty`} element={<IntellectualProperty />} />
+               <Route path={`/${lang}/profile`} element={<IntellectualProperty />} />
             </React.Fragment>
          ))}
       </Routes>
