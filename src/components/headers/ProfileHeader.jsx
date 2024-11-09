@@ -1,5 +1,5 @@
 import { Avatar, Button, Dropdown } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { CgMenuGridR } from "react-icons/cg";
 import { AiOutlineQuestion, AiOutlineClose } from "react-icons/ai";
@@ -16,6 +16,7 @@ import { Helmet } from "react-helmet";
 export default function ProfileHeader() {
    const { t } = useTranslation();
    const dispatch = useDispatch();
+   const location = useLocation();
    const [menuOpen, setMenuOpen] = useState(false);
    const [questionMenuOpen, setQuestionMenuOpen] = useState(false);
    const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -29,6 +30,7 @@ export default function ProfileHeader() {
    const [inputValue, setInputValue] = useState('');
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+   const isPostsTab = location.pathname === `${languagePrefix}/dashboard` && new URLSearchParams(location.search).get('tab') === 'posts';
 
    const handleSendFeedback = () => {
       const subject = encodeURIComponent("Отправка отзыва");
@@ -130,6 +132,19 @@ export default function ProfileHeader() {
                      </span>
                   </Link>
                </div>
+               {currentUser.isAdmin && isPostsTab && (
+                  <div className="flex justify-end w-full mr-4">
+                     <Link to="/create-post">
+                        <Button
+                           type="button"
+                           gradientDuoTone="purpleToPink"
+                           className="w-full md:w-[120px] max-w-lg"
+                        >
+                           Create a post
+                        </Button>
+                     </Link>
+                  </div>
+               )}
                {currentUser ? (
                   <div className="flex items-center">
                      <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-4 mr-2 rounded cursor-pointer" onClick={handleQuestionIconClick}>
@@ -141,7 +156,13 @@ export default function ProfileHeader() {
                            inline
                            label={
                               <div className="flex items-center group">
-                                 <Avatar alt="user" img={currentUser.profilePicture} rounded />
+                                 <div className="relative w-10 h-10 rounded-full overflow-hidden avatar-small">
+                                    <img
+                                       src={currentUser.profilePicture}
+                                       alt="User Avatar"
+                                       className="w-full h-full object-cover"
+                                    />
+                                 </div>
                               </div>
                            }
                         >

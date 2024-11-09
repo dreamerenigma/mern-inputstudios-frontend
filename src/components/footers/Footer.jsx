@@ -70,31 +70,31 @@ export default function FooterCom() {
                            href={`${languagePrefix}/business`}
                            rel="noopener noreferrer"
                         >
-                           Профиль учетной записи
+                           {t("footer:account_profile")}
                         </Footer.Link>
                         <Footer.Link 
                            href={`${languagePrefix}/chatify`}
                            rel="noopener noreferrer"
                         >
-                           Центр загрузки
+                           {t("footer:download_center")}
                         </Footer.Link>
                         <Footer.Link 
                            href={`${languagePrefix}/small-business`}
                            rel="noopener noreferrer"
                         >
-                           Поддержка Input Studios Store
+                           {t("footer:support")}
                         </Footer.Link>
                         <Footer.Link 
                            href={`${languagePrefix}/small-business`}
                            rel="noopener noreferrer"
                         >
-                           Возврат товаров
+                           {t("footer:return_of_goods")}
                         </Footer.Link>
                         <Footer.Link 
                            href={`${languagePrefix}/small-business`}
                            rel="noopener noreferrer"
                         >
-                           Отслеживание заказа
+                           {t("footer:order_tracking")}
                         </Footer.Link>
                      </Footer.LinkGroup>
                   </div>

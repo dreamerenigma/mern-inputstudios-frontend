@@ -15,6 +15,8 @@ export default function DashSecurity() {
    const [visibleContainers, setVisibleContainers] = useState(Array(accountData.length).fill(false));
    const [showDeleteModal, setShowDeleteModal] = useState(false);
    const { currentUser, error } = useSelector((state) => state.user);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    const handleContainerClick = (index) => {
       setVisibleContainers(prevState => {
@@ -25,12 +27,12 @@ export default function DashSecurity() {
    };
 
    return (
-      <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-900">
+      <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)]">
          <div className="gap-4 overview flex flex-col max-w-5xl w-full h-auto mt-8 mx-auto px-4">
             <div className="flex justify-between items-center my-7">
                <h1 className="font-semibold text-3xl">{t("profile:security")}</h1>
                <Link
-                  to="/password/change"
+                  to={`${languagePrefix}/password/change`}
                   className="whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white group"
                >
                   <div className="flex items-center gap-2">

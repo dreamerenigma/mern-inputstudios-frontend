@@ -7,8 +7,7 @@ import PostCard from "../components/PostCard";
 import VideoPlayer from '../components/VideoPlayer';
 import { useSelector } from "react-redux";
 import { SlSocialVkontakte } from "react-icons/sl";
-import { BsDribbble, BsGithub, BsYoutube } from "react-icons/bs";
-import { BiLogoFigma } from "react-icons/bi";
+import { BsDribbble } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import { RxDiscordLogo } from "react-icons/rx";
 import { AiOutlineYoutube } from "react-icons/ai";
@@ -82,8 +81,8 @@ export default function PostPage() {
    }
 
    return (
-      <main className="p-3 flex flex-col max-w-7xl mx-auto min-h-screen">
-         <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
+      <main className="p-3 flex flex-col max-w-7xl mx-auto min-h-screen mt-[60px]">
+         <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-3xl mx-auto lg:text-4xl">
             {post && post.title}
          </h1>
          <Link to={`${languagePrefix}/search?category=${post && post.category}`} className="self-center mt-5">
@@ -107,7 +106,7 @@ export default function PostPage() {
             <span className="italic">{post && (post.content.length / 1000).toFixed(0)}{t("posts:mins_reed")}</span>
          </div>
          <div
-            className="p-3 max-w-2xl mx-auto w-full post-content"
+            className="p-3 max-w-2xl mx-auto w-full post-content break-words"
             dangerouslySetInnerHTML={{ __html: post && post.content }}
          ></div>
          <div className="max-w-4xl mx-auto w-full">
@@ -116,10 +115,10 @@ export default function PostPage() {
          <CommentSection postId={post._id} />
          <div className="flex flex-col justify-center items-center mb-5">
             <h1 className="text-xl mt-12">{t("posts:recent_articles")}</h1>
-            <div className="flex flex-wrap mt-12 justify-center">
+            <div className="flex flex-wrap justify-center">
                {recentPosts && 
                   recentPosts.map((post) => (
-                     <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px]">
+                     <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-10">
                         <PostCard post={post} />
                      </div>
                   ))

@@ -17,7 +17,7 @@ export default function DashProfile() {
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    return (
-      <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-900">
+      <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)]">
          <Helmet>
             <title>{t("privacy:title")}</title>
          </Helmet>

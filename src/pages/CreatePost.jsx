@@ -44,7 +44,7 @@ export default function CreatePost() {
             setFileUploadProgress(progress.toFixed(0));
          },
          (error) => {
-            setFileUploadError("File upload failed");
+            setFileUploadError(`File upload failed: ${error.message || error.code}`);
             setFileUploadProgress(null);
          },
          () => {
@@ -60,12 +60,12 @@ export default function CreatePost() {
          }
       );
 
-   } catch (error) {
-      setFileUploadError("File upload failed");
-      setFileUploadProgress(null);
-      console.log(error);
-   }
-};
+      } catch (error) {
+         setFileUploadError("File upload failed");
+         setFileUploadProgress(null);
+         console.log(error);
+      }
+   };
 
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -96,7 +96,7 @@ export default function CreatePost() {
       return url.substring(lastSlashIndex + 1);
    };
    return (
-      <div className="p-3 max-w-3xl mx-auto min-h-screen">
+      <div className="p-3 max-w-3xl mx-auto min-h-screen mt-[60px]">
          <h1 className="text-center text-3xl my-7 font-semibold">Create a post</h1>
          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4 sm:flex-row justify-between">

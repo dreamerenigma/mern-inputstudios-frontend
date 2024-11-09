@@ -96,7 +96,7 @@ export default function Search() {
    };
 
    return (
-      <div className="flex flex-col md:flex-row mt-[60px]">
+      <div className="flex flex-col md:flex-row mt-[60px] mx-6 sm:mx-0">
          <div className="p-7 md:min-h-screen">
             <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
                <div className="flex items-center gap-2">
@@ -157,7 +157,7 @@ export default function Search() {
                {showMore && (
                   <button
                      onClick={handleShowMore}
-                     className="text-teal-500 text-lg hover:underline p-7 w-full"
+                     className="text-teal-500 text-lg hover:underline p-7 w-full mb-12 sm:mb-0"
                   >
                      {t("posts:show_more")}
                   </button>

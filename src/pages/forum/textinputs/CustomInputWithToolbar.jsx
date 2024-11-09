@@ -291,9 +291,9 @@ const CustomInputWithToolbar = () => {
 
    return (
       <div className="w-full mt-4 border border-gray-600 rounded-md">
-         <div className="bg-gray-200 dark:bg-gray-700 rounded-t-md flex items-center border border-gray-600 p-2">
-            <div className="flex">
-               <div className="flex items-stretch border-button rounded-lg border-gray-500 mr-3">
+         <div className="bg-gray-200 dark:bg-gray-700 rounded-t-md flex flex-wrap items-center border border-gray-600 p-2">
+            <div className="flex flex-wrap gap-3">
+               <div className="flex items-stretch border-button rounded-lg border-gray-500">
                   <button className="flex items-center p-2 border-gray-500 last:border-0 hover:bg-gray-600 focus:outline-none">
                      <IoIosUndo className="w-4 h-4 text-gray-600 dark:text-gray-200 hover:text-gray-100" />
                   </button>
@@ -302,7 +302,7 @@ const CustomInputWithToolbar = () => {
                      <IoIosRedo className="w-4 h-4 text-gray-600 dark:text-gray-200 hover:text-gray-100" />
                   </button>
                </div>
-               <div className="flex items-stretch border-button rounded-lg border-gray-500 mr-3">
+               <div className="flex items-stretch border-button rounded-lg border-gray-500">
                   <button
                      className={`flex items-center p-2 border-gray-600 last:border-0 focus:outline-none ${isBold ? 'bg-teal-500 rounded-tl-md rounded-bl-md' : ''}`}
                      onClick={toggleBold}
@@ -324,7 +324,7 @@ const CustomInputWithToolbar = () => {
                      <AiOutlineUnderline className="w-5 h-5 text-gray-600 dark:text-gray-200 hover:text-gray-100" />
                   </button>
                </div>
-               <div className="relative inline-block mr-3" ref={dropdownRef}>
+               <div className="relative inline-block" ref={dropdownRef}>
                   <div className="border-button rounded-lg border-gray-500">
                      <button
                         className="flex flex-col items-center p-2 hover:bg-gray-600 focus:outline-none"
@@ -360,7 +360,7 @@ const CustomInputWithToolbar = () => {
                      </div>
                   )}
                </div>
-               <div className="flex items-stretch border-button rounded-lg border-gray-500 mr-3">
+               <div className="flex items-stretch border-button rounded-lg border-gray-500">
                   <button
                      className={`flex items-center p-2 border-gray-600 last:border-0 focus:outline-none ${textAlign === 'left' ? 'bg-teal-500 rounded-tl-md rounded-bl-md' : 'hover:bg-gray-600 '}`}
                      onClick={() => handleTextAlign('left')}
@@ -389,48 +389,48 @@ const CustomInputWithToolbar = () => {
                      <CiTextAlignJustify className="w-5 h-5 text-gray-600 dark:text-gray-200 hover:text-gray-100" />
                   </button>
                </div>
-               <div className="relative inline-block mr-3" ref={dropdownFontRef}>
-               <div className="border-button rounded-md border-gray-500">
-                  <button
-                     className="flex flex-col items-center p-2 hover:bg-gray-600 focus:outline-none"
-                     onClick={toggleFontDropdown}
-                  >
-                     <div className="flex items-center">
-                           <span>{selectedFontSize}</span>
-                           <IoMdArrowDropdown className="ml-4 text-gray-200 hover:text-gray-100" />
-                     </div>
-                  </button>
-               </div>
-               {isFontDropdownOpen && (
-                  <div className="absolute left-0 mt-1 w-full bg-gray-800 border border-gray-600 rounded-md shadow-lg z-50">
-                     <div className="flex flex-col">
-                        <span className="text-2xl text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2 rounded-t-md" onClick={() => handleFontSizeSelect('Заголовок 1')}>
-                           Заголовок 1
-                        </span>
-                        <span className="text-lg text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2" onClick={() => handleFontSizeSelect('Заголовок 2')}>
-                           Заголовок 2
-                        </span>
-                        <span className="text-base text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2" onClick={() => handleFontSizeSelect('Заголовок 3')}>
-                           Заголовок 3
-                        </span>
-                        <span className="text-base text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2" onClick={() => handleFontSizeSelect('Стандартный')}>
-                           Стандартный
-                        </span>
-                        <span className="text-base text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2 rounded-b-md" onClick={() => handleFontSizeSelect('Блок кода')}>
-                           Блок кода
-                        </span>
-                     </div>
+               <div className="relative inline-block" ref={dropdownFontRef}>
+                  <div className="border-button rounded-md border-gray-500">
+                     <button
+                        className="flex flex-col items-center p-2 hover:bg-gray-600 focus:outline-none"
+                        onClick={toggleFontDropdown}
+                     >
+                        <div className="flex items-center">
+                              <span>{selectedFontSize}</span>
+                              <IoMdArrowDropdown className="ml-4 text-gray-200 hover:text-gray-100" />
+                        </div>
+                     </button>
                   </div>
-               )}
+                  {isFontDropdownOpen && (
+                     <div className="absolute left-0 mt-1 w-full bg-gray-800 border border-gray-600 rounded-md shadow-lg z-50">
+                        <div className="flex flex-col">
+                           <span className="text-2xl text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2 rounded-t-md" onClick={() => handleFontSizeSelect('Заголовок 1')}>
+                              Заголовок 1
+                           </span>
+                           <span className="text-lg text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2" onClick={() => handleFontSizeSelect('Заголовок 2')}>
+                              Заголовок 2
+                           </span>
+                           <span className="text-base text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2" onClick={() => handleFontSizeSelect('Заголовок 3')}>
+                              Заголовок 3
+                           </span>
+                           <span className="text-base text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2" onClick={() => handleFontSizeSelect('Стандартный')}>
+                              Стандартный
+                           </span>
+                           <span className="text-base text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2 rounded-b-md" onClick={() => handleFontSizeSelect('Блок кода')}>
+                              Блок кода
+                           </span>
+                        </div>
+                     </div>
+                  )}
                </div>
-               <div className="flex items-stretch border-button rounded-lg border-gray-500 mr-3">
+               <div className="flex items-stretch border-button rounded-lg border-gray-500">
                   <button className="flex items-center p-2 border-gray-600 last:border-0 hover:bg-gray-600 focus:outline-none">
                      <FaListOl className="w-5 h-5 text-gray-600 dark:text-gray-200 hover:text-gray-100" />
                   </button>
                   <div className="border-r border-gray-500 h-full" />
                   <button 
                      onClick={addListItem}
-                     className="flex items-center p-2  border-gray-600 last:border-0 hover:bg-gray-600 focus:outline-none"
+                     className="flex items-center p-2 border-gray-600 last:border-0 hover:bg-gray-600 focus:outline-none"
                   >
                      <FaListUl className="w-5 h-5 text-gray-600 dark:text-gray-200 hover:text-gray-100" />
                   </button>

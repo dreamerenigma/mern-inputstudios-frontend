@@ -28,6 +28,7 @@
   "last_name": "Last name",
   "captcha": "Captcha",
   "captcha_verified": "Captcha verified!",
+  "enter_characters_you_see": "Enter the characters you see",
   "total_users": "Total Users",
   "last_month": "Last month",
   "total_comments": "Total Comments",
@@ -44,8 +45,5 @@
   "category": "Category",
   "security": "Security",
   "device": "Device",
-  "": "Find, repair, and manage your devices",
-  "": "",
-  "": "",
-  "": ""
+  "": "Find, repair, and manage your devices"
 }

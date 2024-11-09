@@ -77,7 +77,7 @@ export default function Projects() {
                   </Link>
                </div>
             </motion.div>
-            <div className="pt-8 px-4 md:px-8 lg:px-16 text-center text-left-860">
+            <div ref={refChatify} className="pt-8 px-4 md:px-8 lg:px-16 text-center text-left-860">
                <motion.h1
                   className="text-2xl md:text-3xl lg:text-3xl font-semibold my-7 max-w-4xl mx-auto"
                   initial={{ opacity: 0, y: 60 }}
@@ -102,18 +102,18 @@ export default function Projects() {
                animate={inViewChatify ? { opacity: 1, y: 0 } : {}}
                transition={{ duration: 0.9 }}
             >
-               <div className="w-full md:w-1/2 flex flex-col justify-center md:mr-12">
-               <h2 className="text-3xl font-semibold mb-4">Мессенджер Chatify</h2>
-               <p className="text-md mb-4">
-                  Chatify — это современный мессенджер, который объединяет все необходимые функции для комфортного общения. С помощью Chatify вы можете обмениваться текстовыми сообщениями, совершать видеозвонки в высоком качестве и делиться мультимедиа файлами. Удобный интерфейс, быстрый доступ к контактам и поддержка групповых чатов делают общение еще проще и доступнее. Chatify также обеспечивает надежную защиту данных, чтобы каждый разговор оставался конфиденциальным.
-               </p>
-               <Link to={`${languagePrefix}/chatify`}>
-                  <button className="w-[60%] md:w-[200px] mt-2 px-4 py-2 bg-teal-500 text-white shadow-md rounded-lg hover:bg-teal-600 text-left md:text-center">
-                     Узнать подробнее
-                  </button>
-               </Link>
+               <div className="w-full md:w-1/2 flex flex-col justify-center md:mr-12 order-2 md:order-1">
+                  <h2 className="text-3xl font-semibold mb-4">Мессенджер Chatify</h2>
+                  <p className="text-md mb-4">
+                     Chatify — это современный мессенджер, который объединяет все необходимые функции для комфортного общения. С помощью Chatify вы можете обмениваться текстовыми сообщениями, совершать видеозвонки в высоком качестве и делиться мультимедиа файлами. Удобный интерфейс, быстрый доступ к контактам и поддержка групповых чатов делают общение еще проще и доступнее. Chatify также обеспечивает надежную защиту данных, чтобы каждый разговор оставался конфиденциальным.
+                  </p>
+                  <Link to={`${languagePrefix}/chatify`}>
+                     <button className="w-[60%] md:w-[200px] mt-2 px-4 py-2 bg-teal-500 text-white shadow-md rounded-lg hover:bg-teal-600 text-left md:text-center">
+                        Узнать подробнее
+                     </button>
+                  </Link>
                </div>
-               <div className="relative w-full md:w-1/2 mb-6 md:mb-0">
+               <div className="relative w-full md:w-1/2 mb-6 md:mb-0 order-1 md:order-2">
                   <img src="/images/apps/chatify/chatify.png" alt="Description" className="w-full h-auto rounded-xl shadow-md" />
                   <div className="absolute top-0 left-0 flex flex-col gap-4 p-4 mt-8">
                      <motion.div

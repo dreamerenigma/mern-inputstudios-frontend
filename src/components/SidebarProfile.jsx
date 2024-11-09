@@ -81,7 +81,7 @@ export default function SidebarProfile() {
             {isMenuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
          </button>
       </div>
-      <div className={`h-full overflow-y-auto overflow-x-hidden pl-3 py-4 rounded bg-gray-100 dark:bg-gray-900 flex flex-col justify-between transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 ${!isMenuOpen ? 'w-full md:w-auto' : 'md:w-56'}`}>
+      <div className={`h-full overflow-y-auto overflow-x-hidden pl-3 py-4 rounded bg-gray-100 dark:bg-[rgb(16,23,42)] flex flex-col justify-between transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 ${!isMenuOpen ? 'w-full md:w-auto' : 'md:w-56'}`}>
          <div className="flex items-center mb-5 ml-2">
             <Avatar alt='user' img={currentUser.profilePicture} rounded />
             <div className="ml-4 hidden xl:block">

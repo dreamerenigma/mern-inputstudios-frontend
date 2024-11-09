@@ -78,6 +78,19 @@ export default function CommunityHeader() {
          document.removeEventListener("click", handleClickOutside);
       };
    }, []);
+   
+   useEffect(() => {
+      if (windowWidth < 880) {
+         setShowParticipateCommunity(true);
+      } else if (windowWidth < 960) {
+         setShowParticipateCommunity(true);
+      } else if (windowWidth < 1240) {
+         setShowParticipateCommunity(true);
+      } else {
+         setShowProducts(true);
+         setShowParticipateCommunity(true);
+      }
+   }, [windowWidth]);
 
    const handleSubmit = (e) => {
       e.preventDefault();
@@ -138,7 +151,7 @@ export default function CommunityHeader() {
                   </>
                )}
                {(windowWidth >= 860 || !searchVisible) && (
-                  <div className="flex flex-1 justify-center md:justify-center custom-flex-none py-4 md:ml-10 custom-ml">
+                  <div className="flex flex-responsive justify-center md:justify-center custom-flex-none py-4 md:ml-10 custom-ml">
                      <Link
                         to="/"
                         className="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
@@ -238,12 +251,12 @@ export default function CommunityHeader() {
                            >
                               <Link className="flex flex-row items-center menu-link group relative" onClick={handleToggle}>
                                  <span 
-                                    className={`pb-0.2 border-b-2 group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF] ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"}  group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]  transition duration-200`}
+                                    className={`pb-0.2 border-b-2 group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF] ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF] transition duration-200`}
                                  >
-                                    Учавствовать в сообществе
+                                    {windowWidth < 1240 ? "Ещё" : "Учавствовать в сообществе"}
                                  </span>
                                  <IoIosArrowDown 
-                                    className={`ml-2 transform transition-transform duration-500  ${isOpenAbout ? "rotate-180" : "rotate-0"} group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]`}
+                                    className={`ml-2 transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"} group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]`}
                                  />
                               </Link>
                               {isOpenAbout && (
@@ -279,14 +292,14 @@ export default function CommunityHeader() {
                               ref={dropdownProducts}
                               className="relative hover:border-current"
                            >
-                              <Link className="flex flex-row items-center menu-link-products group relative" onClick={handleToggleProducts}>
+                              <Link className="flex items-center space-x-2 menu-link-products group relative" onClick={handleToggleProducts}>
                                  <span 
-                                    className={`pb-0.2 border-b-2 group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF] ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"}  group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]  transition duration-200`}
+                                    className={`pb-0.2 border-b-2 group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF] ${path === `/${languagePrefix}/about` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF] transition duration-200`}
                                  >
                                     Продукты Input Studios
                                  </span>
                                  <IoIosArrowDown 
-                                    className={`ml-2 transform transition-transform duration-500  ${isOpenProducts ? "rotate-180" : "rotate-0"} group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]`}
+                                    className={`transform transition-transform duration-500 ${isOpenProducts ? "rotate-180" : "rotate-0"} group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]`}
                                  />
                               </Link>
                               {isOpenProducts && (

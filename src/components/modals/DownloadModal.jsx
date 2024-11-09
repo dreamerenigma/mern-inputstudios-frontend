@@ -1,14 +1,22 @@
 import { HiX } from 'react-icons/hi';
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useTranslation } from "react-i18next";
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-export default function DownloadModal({ showModal, setShowModal }) {
+export default function DownloadModal({ showModal, setShowModal, downloadLink }) {
    const { t } = useTranslation();
    const modalRef = useRef();
+   const dropdownRef = useRef(null);
    const [loading, setLoading] = useState(true);
    const [downloadComplete, setDownloadComplete] = useState(false);
+   const [isOpen, setIsOpen] = useState(false);
+   const [selectedLanguage, setSelectedLanguage] = useState("Русский");
+   const toggleDropdown = () => setIsOpen(!isOpen);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    useEffect(() => {
       const handleCloseModal = (e) => {
@@ -16,12 +24,21 @@ export default function DownloadModal({ showModal, setShowModal }) {
             setShowModal(false);
          }
       };
-
+   
+      const handleCloseDropdown = (e) => {
+         if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+            setIsOpen(false);
+         }
+      };
+   
       document.addEventListener('mousedown', handleCloseModal);
+      document.addEventListener('mousedown', handleCloseDropdown);
+   
       return () => {
          document.removeEventListener('mousedown', handleCloseModal);
+         document.removeEventListener('mousedown', handleCloseDropdown);
       };
-   }, [setShowModal]);
+   }, [setShowModal, setIsOpen]);
 
    useEffect(() => {
       if (showModal) {
@@ -38,20 +55,22 @@ export default function DownloadModal({ showModal, setShowModal }) {
 
    const handleLanguageChange = (language) => {
       console.log(`Language changed to: ${language}`);
+      setSelectedLanguage(language);
+      setIsOpen(false);
    };
 
    const handleDownload = () => {
       setDownloadComplete(true);
       const link = document.createElement('a');
-      link.href = '/downloads/InputStudiosWaveSetup.exe';
-      link.setAttribute('download', 'InputStudiosWaveSetup.exe');
+      link.href = downloadLink;
+      link.setAttribute('download', downloadLink.split('/').pop());
       document.body.appendChild(link);
       link.click();
       link.remove();
    };
 
    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
          <div ref={modalRef} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg max-w-[820px] w-full relative overflow-hidden min-h-[550px]">
             <button
                onClick={() => setShowModal(false)}
@@ -138,33 +157,57 @@ export default function DownloadModal({ showModal, setShowModal }) {
                      </div>
                   </div>
                   <div className="mt-6 mb-4">
-                     <p className="text-base text-teal-500 mx-4 font-medium hover:underline hover:text-teal-700">
+                     <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-base text-teal-500 mx-4 font-medium hover:underline hover:text-teal-700">
                         {t("browser:privacy_statement")}
-                     </p>
+                     </Link>
                   </div>
-                  <div className="relative flex justify-between">
-                     <div className="flex cursor-pointer">
-                        <p className="text-sm mx-4 mb-2">{t("browser:select_language")}</p>
+                  <div className="relative flex justify-between items-center mb-4">
+                     <div className="flex flex-col items-start mb-4 mx-4" ref={dropdownRef}>
+                        <p className="text-sm mb-2">{t("browser:select_language")}</p>
+                        <button
+                           onClick={toggleDropdown}
+                           className="flex items-center justify-between w-[300px] bg-white border border-gray-300 rounded-md shadow-lg px-4 py-1.5 cursor-pointer"
+                        >
+                           <span className="text-black">{selectedLanguage}</span>
+                           {isOpen ? (
+                              <IoIosArrowUp className="ml-auto text-black" />
+                           ) : (
+                              <IoIosArrowDown className="ml-auto text-black" />
+                           )}
+                        </button>
+                        {isOpen && (
+                           <div className="absolute z-50 top-[-110%] w-[300px] bg-white border border-gray-300 rounded-md shadow-lg">
+                              <ul className="py-1">
+                                 <li
+                                    onClick={() => handleLanguageChange("Русский")}
+                                    className="flex items-center justify-between text-sm text-gray-700 hover:bg-gray-100 px-4 py-2 cursor-pointer"
+                                 >
+                                    Русский
+                                 </li>
+                                 <li
+                                    onClick={() => handleLanguageChange("English")}
+                                    className="flex items-center justify-between text-sm text-gray-700 hover:bg-gray-100 px-4 py-2 cursor-pointer"
+                                 >
+                                    English
+                                 </li>
+                                 <li
+                                    onClick={() => handleLanguageChange("Español")}
+                                    className="flex items-center justify-between text-sm text-gray-700 hover:bg-gray-100 px-4 py-2 cursor-pointer"
+                                 >
+                                    Español
+                                 </li>
+                              </ul>
+                           </div>
+                        )}
                      </div>
-                     <div className="absolute z-10 mx-4 mt-7 mb-4 w-[300px] bg-white border border-gray-300 rounded-md shadow-lg">
-                        <ul className="py-1">
-                           <li
-                              onClick={() => handleLanguageChange('Русский')}
-                              className="flex items-center justify-between text-sm text-gray-700 hover:bg-gray-100 px-4 py-2 cursor-pointer"
-                           >
-                              {t("russian_lang")}
-                              <span className="ml-auto">
-                                 <IoIosArrowDown className="text-black" />
-                              </span>
-                           </li>
-                        </ul>
+                     <div className="ml-auto">
+                        <button
+                           onClick={handleDownload}
+                           className="bg-teal-500 hover:bg-teal-700 text-white px-4 py-2 mt-1 rounded shadow-md"
+                        >
+                           {t("browser:accept_download")}
+                        </button>
                      </div>
-                     <button 
-                        onClick={handleDownload}
-                        className="ml-auto bg-teal-500 hover:bg-teal-700 text-white px-4 mt-6 py-2 rounded shadow-md"
-                     >
-                        {t("browser:accept_download")}
-                     </button>
                   </div>
                </div>
             )}
@@ -176,4 +219,5 @@ export default function DownloadModal({ showModal, setShowModal }) {
 DownloadModal.propTypes = {
    setShowModal: PropTypes.func.isRequired,
    showModal: PropTypes.bool.isRequired,
+   downloadLink: PropTypes.bool.isRequired,
 };

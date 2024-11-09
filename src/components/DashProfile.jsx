@@ -1,4 +1,4 @@
-import { Alert, Button, Modal } from "flowbite-react";
+import { Alert } from "flowbite-react";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
@@ -7,7 +7,7 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { updateStart,  updateSuccess, updateFailure } from "../redux/user/userSlice";
 import { Link } from 'react-router-dom';
-import { IoCameraOutline, IoKeyOutline } from 'react-icons/io5';
+import { IoCameraOutline } from 'react-icons/io5';
 import ReCAPTCHA from 'react-google-recaptcha';
 import ProfileInfo from './ProfileInfo'
 import AccountInfo from './AccountInfo'
@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 
 export default function DashProfile() {
    const { t } = useTranslation();
-   const { currentUser, error, loading } = useSelector((state) => state.user);
+   const { currentUser, error } = useSelector((state) => state.user);
    const [imageFile, setImageFile] = useState(null);
    const [imageFileUrl, setImageFileUrl] = useState(null);
    const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
@@ -32,13 +32,38 @@ export default function DashProfile() {
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
+   const handleSubmitWithImage = useCallback(async (imageUrl) => {
+      try {
+         dispatch(updateStart());
+         const res = await fetch(`${SERVER_URL}/api/user/update/${currentUser._id}`, {
+            method: "PUT",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...formData, profilePicture: imageUrl }),
+         });
+         const data = await res.json();
+         if (!res.ok) {
+            dispatch(updateFailure(data.message));
+            setUpdateUserError(data.message);
+         } else {
+            dispatch(updateSuccess(data));
+            setUpdateUserSuccess("User's profile updated successfully");
+         }
+      } catch (error) {
+         dispatch(updateFailure(error.message));
+         setUpdateUserError(error.message);
+      }
+   }, [dispatch, SERVER_URL, currentUser._id, formData]);
+
    const uploadImage = useCallback(async () => {
       if (!imageFile) return;
-
+   
       setImageFileUploading(true);
       setImageFileUploadError(null);
+   
       const storage = getStorage(app);
-      const fileName = new Date().getTime() + imageFile.name;
+      const fileName = `profile_image/${new Date().getTime()}_${imageFile.name}`;
       const storageRef = ref(storage, fileName);
       const uploadTask = uploadBytesResumable(storageRef, imageFile);
       
@@ -52,18 +77,19 @@ export default function DashProfile() {
             setImageFileUploadError("Could not upload image (File must be less than 2MB),", error);
             setImageFileUploadProgress(null);
             setImageFile(null);
-            setImageFileUrl(null);
             setImageFileUploading(false);
          },
-         () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
-               setImageFileUrl(downloadUrl);
-               setFormData({ ...formData, profilePicture: downloadUrl });
-               setImageFileUploading(false);
-            });
+         async () => {
+            const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
+            setImageFileUrl(downloadUrl);
+            setFormData({ ...formData, profilePicture: downloadUrl });
+            setImageFile(null);
+            setImageFileUploadProgress(null);
+            setImageFileUploading(false);
+            await handleSubmitWithImage(downloadUrl);
          }
       );
-   }, [formData, imageFile]);
+   }, [formData, handleSubmitWithImage, imageFile]);
 
    const handleImageChange = (e) => {
       const file = e.target.files[0];
@@ -136,23 +162,10 @@ export default function DashProfile() {
    };  
 
    return (
-      <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-900">
+      <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)]">
          <div className="overview flex flex-col max-w-5xl w-full h-auto mt-8 mx-auto px-4">
             <div className="flex justify-between items-center my-7">
                <h1 className="font-semibold text-3xl">{t("profile:profile")}</h1>
-               <Link
-                  to={`${languagePrefix}/password/change`}
-                  className="whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white group"
-               >
-                  <div className="flex items-center gap-2">
-                     <div className="flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 w-10 h-10 group-hover:bg-teal-500 transition-colors duration-200">
-                        <IoKeyOutline className="text-center font-semibold text-2xl group-hover:text-white dark:group-hover:text-gray-300"/>
-                     </div>
-                     <span className="text-sm font-semibold group-hover:text-teal-500 transition-colors duration-200">
-                        {t("profile:change_password")}
-                     </span>
-                  </div>
-               </Link>
             </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                <input
@@ -169,7 +182,7 @@ export default function DashProfile() {
                            className="p-4 relative w-40 h-50 cursor-pointer overflow-hidden rounded-full"
                            onClick={() => filePickerRef.current.click()}
                         >
-                           {imageFileUploadProgress && (
+                           {imageFileUploadProgress > 0 && imageFileUploadProgress < 100 && (
                               <CircularProgressbar
                                  value={imageFileUploadProgress || 0}
                                  text={`${imageFileUploadProgress}%`}
@@ -183,9 +196,7 @@ export default function DashProfile() {
                                        left: 0,
                                     },
                                     path: {
-                                       stroke: `rgba(62, 152, 199, ${
-                                          imageFileUploadProgress / 100
-                                       })`,
+                                       stroke: `rgba(62, 152, 199, ${imageFileUploadProgress / 100})`,
                                     },
                                  }}
                               />
@@ -223,52 +234,84 @@ export default function DashProfile() {
                      <div className="flex flex-row items-center justify-between">
                         <p className="text-left px-4 mb-4 mr-4">{t("profile:full_name")}</p>
                         <p className="text-left mb-4 mr-20">{currentUser.username}</p>
-                        <>
-                           <p className="text-right mb-4 mr-4 text-teal-500 hover:text-teal-700 cursor-pointer" onClick={handleEditNameClick}>{t("profile:edit_name")}</p>
-                           <Modal
-                              show={showModalEditName}
-                              onClose={() => handleShowModal(false)}
-                              popup
-                              size="md"
-                              >
-                              <Modal.Header />
-                              <Modal.Body>
-                                 <div className="text-left mb-5 mt-6">
-                                    <p className="absolute ml-6 mt-4 top-0 left-0 text-xl font-bold text-gray-700 dark:text-gray-200">{t("profile:edit_name")}</p>
-                                    <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{t("profile:first_name")}</p>
-                                    <input type="text" placeholder="First name" className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full mt-1" />
-                                 </div>
-                                 <div className="text-left mb-5 mt-8">
-                                    <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{t("profile:last_name")}</p>
-                                    <input type="text" placeholder="Last name" className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full mt-1" />
-                                 </div>
-                                 <div className="text-left mb-5 mt-6">
-                                    <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{t("profile:captcha")}</p>
-                                    <div className="mt-4">
-                                    <ReCAPTCHA
-                                       sitekey="6Lcn5uYpAAAAAM2rTG-jWtWRMeDoh6GT4xFcY0cS"
-                                       onChange={handleCaptchaChange}
-                                    />
+                           <>
+                           <p
+                              className="text-right mb-4 mr-4 text-teal-500 hover:text-teal-700 cursor-pointer"
+                              onClick={handleEditNameClick}
+                           >
+                              {t("profile:edit_name")}
+                           </p>
+                           {showModalEditName && (
+                              <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                                 <div className="bg-white dark:bg-gray-800 rounded-md w-full md:w-[450px] p-6 relative">
+                                    <button
+                                       className="absolute text-3xl top-2 right-4 text-gray-600 dark:text-gray-200 hover:translate-y-[-4px] transition-all"
+                                       onClick={() => handleShowModal(false)}
+                                    >
+                                       &times;
+                                    </button>
+                                    <p className="absolute ml-6 mt-4 top-0 left-0 text-xl font-bold text-gray-700 dark:text-gray-200">
+                                       {t("profile:edit_name")}
+                                    </p>
+                                    <div className="text-left mb-5 mt-12">
+                                       <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">
+                                          {t("profile:first_name")}
+                                       </p>
+                                       <input
+                                          type="text"
+                                          placeholder={t("profile:first_name")}
+                                          className="border border-gray-600 rounded-md p-2 w-full mt-1 bg-white dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-teal-500"
+                                          autoComplete="off"
+                                       />
                                     </div>
-                                    {captchaValue && <p>{t("profile:captcha")}</p>}
-                                    <input 
-                                       type="text" 
-                                       placeholder="Enter the characters you see" 
-                                       className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full mt-1" 
-                                    />
-                                 </div>
-                                 <div className="text-center">
-                                    <div className="flex justify-end gap-4">
-                                       <Button color="gray" onClick={() => handleShowModal(false)}>
-                                          {t("profile:save")}
-                                       </Button>
-                                       <Button color="gray" onClick={() => handleShowModal(false)}>
-                                       {t("profile:cancel")}
-                                       </Button>
+                                    <div className="text-left mb-5 mt-8">
+                                       <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">
+                                          {t("profile:last_name")}
+                                       </p>
+                                       <input
+                                          type="text"
+                                          placeholder={t("profile:last_name")}
+                                          className="border border-gray-600 rounded-md p-2 w-full mt-1 bg-white dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-teal-500"
+                                          autoComplete="off"
+                                       />
+                                    </div>
+                                    <div className="text-left mb-5 mt-6">
+                                       <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">
+                                          {t("profile:captcha")}
+                                       </p>
+                                       <div className="mt-4">
+                                          <ReCAPTCHA
+                                          sitekey="6Lcn5uYpAAAAAM2rTG-jWtWRMeDoh6GT4xFcY0cS"
+                                          onChange={handleCaptchaChange}
+                                          />
+                                       </div>
+                                       {captchaValue && <p>{t("profile:captcha")}</p>}
+                                       <input
+                                          type="text"
+                                          placeholder={t("profile:enter_characters_you_see")}
+                                          className="border border-gray-600 rounded-md p-2 w-full mt-1 bg-white dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-teal-500"
+                                          autoComplete="off"
+                                       />
+                                    </div>
+                                    <div className="text-center">
+                                       <div className="flex justify-end gap-4">
+                                          <button
+                                             onClick={() => handleShowModal(false)}
+                                             className="border border-gray-600 bg-transparent text-white py-2 px-4 rounded-md hover:bg-gray-700"
+                                          >
+                                             {t("profile:save")}
+                                          </button>
+                                          <button
+                                             onClick={() => handleShowModal(false)}
+                                             className="border border-gray-600 bg-transparent text-white py-2 px-4 rounded-md hover:bg-gray-700"
+                                          >
+                                             {t("profile:cancel")}
+                                          </button>
+                                       </div>
                                     </div>
                                  </div>
-                              </Modal.Body>
-                           </Modal>
+                              </div>
+                           )}
                         </>
                      </div>
                   </div>
@@ -278,26 +321,7 @@ export default function DashProfile() {
                )}
                <ProfileInfo />
                <AccountInfo />
-               {/* <Button
-                  type="submit"
-                  gradientDuoTone="purpleToBlue"
-                  outline
-                  disabled={loading || imageFileUploading}
-                  className="w-full md:w-1/2 mx-auto max-w-lg"
-               >
-                  {loading ? "Loading..." : "Update"} 
-               </Button>
-               {currentUser.isAdmin && (
-                  <Link to={"/create-post"}>
-                     <Button
-                        type="button"
-                        gradientDuoTone="purpleToPink"
-                        className="w-full md:w-1/2 mx-auto max-w-lg"
-                     >
-                        Create a post
-                     </Button>
-                  </Link>
-               )} */}
+               
             </form>
             {updateUserSuccess && (
                <Alert color="success" className="mt-5">

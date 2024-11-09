@@ -28,6 +28,7 @@
   "last_name": "Фамилия",
   "captcha": "Капча",
   "captcha_verified": "Капча проверена!",
+  "enter_characters_you_see": "Введите символы, которые вы видите",
   "total_users": "Всего пользователей",
   "last_month": "В прошлом месяце",
   "total_comments": "Всего комментариев",

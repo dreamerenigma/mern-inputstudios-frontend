@@ -6,13 +6,15 @@ import CookieManagementModal from '../components/modals/CookieManagementModal';
 
 const CustomCookieConsentNotification = () => {
    const { t } = useTranslation();
-   const [isVisible, setIsVisible] = useState(true);
+   const [isVisible, setIsVisible] = useState(null);
    const [showModal, setShowModal] = useState(false);
 
    useEffect(() => {
       const cookieConsent = Cookies.get('cookieConsent');
       if (cookieConsent) {
          setIsVisible(false);
+      } else {
+         setIsVisible(true);
       }
    }, []);
 
@@ -36,6 +38,8 @@ const CustomCookieConsentNotification = () => {
       console.log('Opening cookie settings modal');
       setShowModal(true);
    };
+
+   if (isVisible === null) return null;
 
    return (
       <>

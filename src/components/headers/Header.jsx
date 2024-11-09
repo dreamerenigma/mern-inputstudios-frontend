@@ -218,7 +218,7 @@ export default function Header() {
                      </form>
                      {windowWidth >= 860 && (
                         <button
-                           className="ml-2 hover:bg-gray-700 py-1.5 px-4 rounded-md border-button mr-10 custom-mr"
+                           className="ml-2 border border-black dark:border-gray-500 hover:bg-gray-300 dark:hover:bg-gray-700 py-2 px-4 rounded-md border-button mr-10 custom-mr"
                            onClick={() => setSearchVisible(false)}
                         >
                            {t("headers:cancel")}
@@ -451,66 +451,68 @@ export default function Header() {
                               </Button>
                            </div>
                            {currentUser ? (
-                              <Dropdown
-                                 arrowIcon={false}
-                                 inline
-                                 label={
-                                    <div className="flex items-center group margin-header margin-right mr-20">
+                              <div className="mr-20">
+                                 <Dropdown
+                                    arrowIcon={false}
+                                    inline
+                                    label={
+                                       <div className="flex items-center group margin-header margin-right">
+                                          <span
+                                             className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]">
+                                             {currentUser.username}
+                                          </span>
+                                          <div className="relative w-9 h-9 rounded-full overflow-hidden avatar-small">
+                                             <img
+                                                src={currentUser.profilePicture}
+                                                alt="User Avatar"
+                                                className="w-full h-full object-cover"
+                                             />
+                                          </div>
+                                       </div>
+                                    }
+                                 >
+                                    <div className="flex items-center justify-between">
+                                       <img
+                                          src="https://i.ibb.co/jbNDftv/logo-Input-Studios-grey.png"
+                                          alt=""
+                                          width="90"
+                                          height="90"
+                                          className="mt-2 ml-2 mb-5" />
                                        <span
-                                          className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]">
-                                          {currentUser.username}
+                                          onClick={handleSignout}
+                                          className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
+                                       >
+                                          {t("headers:header_sign_out")}
                                        </span>
-                                       <div className="relative w-9 h-9 rounded-full overflow-hidden avatar-small">
-                                          <img
-                                             src={currentUser.profilePicture}
-                                             alt="User Avatar"
-                                             className="w-full h-full object-cover"
-                                          />
+                                    </div>
+                                    <div className="flex items-center gap-2 px-4 pb-4">
+                                       <div className="relative">
+                                          <Avatar alt="user" img={currentUser.profilePicture} rounded/>
+                                          <Link to={`${languagePrefix}/dashboard?tab=profile`}>
+                                             <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
+                                                <IoCameraOutline className="text-white text-lg" />
+                                             </div>
+                                          </Link>
+                                       </div>
+                                       <div>
+                                          <span className="block text-sm">{currentUser.username}</span>
+                                          <span className="block text-sm font-medium truncate">{currentUser.email}</span>
                                        </div>
                                     </div>
-                                 }
-                              >
-                                 <div className="flex items-center justify-between">
-                                    <img
-                                       src="https://i.ibb.co/jbNDftv/logo-Input-Studios-grey.png"
-                                       alt=""
-                                       width="90"
-                                       height="90"
-                                       className="mt-2 ml-2 mb-5" />
-                                    <span
-                                       onClick={handleSignout}
-                                       className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
-                                    >
-                                       {t("headers:header_sign_out")}
-                                    </span>
-                                 </div>
-                                 <div className="flex items-center gap-2 px-4 pb-4">
-                                    <div className="relative">
-                                       <Avatar alt="user" img={currentUser.profilePicture} rounded/>
-                                       <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                                          <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
-                                             <IoCameraOutline className="text-white text-lg" />
-                                          </div>
-                                       </Link>
-                                    </div>
-                                    <div>
-                                       <span className="block text-sm">{currentUser.username}</span>
-                                       <span className="block text-sm font-medium truncate">{currentUser.email}</span>
-                                    </div>
-                                 </div>
-                                 <Dropdown.Divider className="m-0 p-0" />
-                                 {isAdmin && (
-                                    <>
-                                       <Link to={`${languagePrefix}/dashboard?tab=dash`}>
-                                          <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("headers:header_dashboard")}</Dropdown.Item>
-                                       </Link>
-                                       <Dropdown.Divider className="m-0 p-0" />
-                                    </>
-                                 )}
-                                 <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                                    <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("headers:header_profile")}</Dropdown.Item>
-                                 </Link>
-                              </Dropdown>
+                                    <Dropdown.Divider className="m-0 p-0" />
+                                    {isAdmin && (
+                                       <>
+                                          <Link to={`${languagePrefix}/dashboard?tab=dash`}>
+                                             <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("headers:header_dashboard")}</Dropdown.Item>
+                                          </Link>
+                                          <Dropdown.Divider className="m-0 p-0" />
+                                       </>
+                                    )}
+                                    <Link to={`${languagePrefix}/dashboard?tab=profile`}>
+                                       <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("headers:header_profile")}</Dropdown.Item>
+                                    </Link>
+                                 </Dropdown>
+                              </div>
                            ) : (
                               <Link to={`${languagePrefix}/sign-in`} className="flex items-center space-x-2 mr-20">
                                  <span className="text-sm text-[#111827] dark:text-white">{t("headers:header_sign_in")}</span>
