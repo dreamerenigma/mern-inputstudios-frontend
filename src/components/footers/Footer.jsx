@@ -140,7 +140,7 @@ export default function FooterCom() {
                            href={`${languagePrefix}/chatify`}
                            rel="noopener noreferrer"
                         >
-                           {t("footer:footer_dialog_chat")}
+                           {t("footer:footer_chatify")}
                         </Footer.Link>
                         <Footer.Link 
                            href={`${languagePrefix}/small-business`}

@@ -1,6 +1,6 @@
 {
    "russian_lang": "Русский",
-   "version_app": "Версия 0.0.5.14",
+   "version_app": "Версия 0.1.54.1362",
    "home_welcome": "Добро пожаловать в Input Studios",
    "home_welcome_description": "Здесь вы найдете множество статей и учебных пособий по таким темам, как веб-разработка, разработка программного обеспечения и языки программирования.",
    "home_view_all_posts": "Просмотреть все посты",
@@ -171,6 +171,7 @@
    "sidebar_account": "Аккаунт",
    "profile": "Профиль",
    "privacy": "Конфиденциальность",
+   "address_book": "Адресная книга",
    "security": "Безопасность",
    "sign_out": "Выход",
    "download_chatify_title": "Загрузите Chatify для iOS, Android, Windows",

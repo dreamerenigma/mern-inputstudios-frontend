@@ -2,15 +2,18 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import 'react-circular-progressbar/dist/styles.css';
 import { IoIosArrowDown } from "react-icons/io";
-import accountData from "../data/accountData";
-import DeleteUserModal from "../components/modals/DeleteUserModal";
 import { Button } from "flowbite-react";
+import { BsCart4, BsShieldLockFill } from "react-icons/bs";
+import { RiComputerFill, RiDeleteBin5Line } from "react-icons/ri";
+import { TbShieldCheckeredFilled } from "react-icons/tb";
+import { FaRegCreditCard } from "react-icons/fa6";
+import { MdManageAccounts } from "react-icons/md";
 import { useTranslation } from "react-i18next";
+import DeleteUserModal from "../components/modals/DeleteUserModal";
 
 export default function DashProfile() {
    const { t } = useTranslation();
    const { theme } = useSelector((state) => state.theme);
-   const [visibleContainers, setVisibleContainers] = useState(Array(accountData.length).fill(false));
    const [showDeleteModal, setShowDeleteModal] = useState(false);
    const { currentUser, error } = useSelector((state) => state.user);
 
@@ -26,8 +29,155 @@ export default function DashProfile() {
       setShowDeleteModal(true);
    };
 
+   const accountData = [
+      {
+         id: 0,
+         icon: <RiComputerFill className="text-xl" />,
+         title: t("profile:device"),
+         description: t("profile:find_repair_devices"),
+         content: (
+            <>
+            </>
+         ),
+         relatedLinks: [
+            { text: t("profile:device"), url: "/devices" },
+            { text: t("profile:device"), url: "/find-my-device" },
+            { text: t("profile:device"), url: "/online-support" },
+         ]
+      },
+      {
+         id: 1,
+         icon: <BsShieldLockFill className="text-xl" />,
+         title: t("profile:device"),
+         description: t("profile:manage_your_privacy"),
+         content: (
+            <>
+               <p className="font-semibold text-xl mb-4">{t("profile:privacy_dashboard")}</p>
+               <p className="mb-4">
+                  {t("profile:privacy_dashboard_you_can_manage")}
+               </p>
+               <Button
+                  className="text-xs sm:text-sm font-bold focus:outline-none mb-10"
+                  onClick={() => alert("Privacy button clicked")}
+               >
+                  {t("profile:privacy_dashboard")}
+               </Button>
+            </>
+         ),
+         relatedLinks: [
+            { text: t("profile:privacy_statement"), url: "/privacystatement" },
+            { text: t("profile:apps_and_services"), url: "/consent/manage" }
+         ],
+         imageSrc: "/images/privacy.svg"
+      },
+      {
+         id: 2,
+         icon: <TbShieldCheckeredFilled className="text-xl" />,
+         title: t("profile:security"),
+         description: t("profile:tools_help_keep"),
+         content: (
+            <>
+               <p className="font-semibold text-xl mb-4">{t("profile:privacy_dashboard")}</p>
+               <p className="mb-4">
+                  {t("profile:privacy_dashboard_you_can_manage")}
+               </p>
+               <Button
+                  className="text-xs sm:text-sm font-bold focus:outline-none mb-10"
+                  onClick={() => alert("Privacy button clicked")}
+               >
+                  {t("profile:security_dashboard")}
+               </Button>
+            </>
+         ),
+         relatedLinks: [
+            { text: t("profile:stay_secure"), url: "/proofs/manage/additional" },
+            { text: t("profile:about_digital_security"), url: "/security" }
+         ],
+         imageSrc: "/images/security.svg"
+      },
+      {
+         id: 3,
+         icon: <FaRegCreditCard className="text-xl" />,
+         title: t("profile:payment_options"),
+         description: t("profile:manage_pay_purchases"),
+         content: (
+            <>
+               <p className="font-semibold text-xl mb-4">{t("profile:privacy_dashboard")}</p>
+               <p className="mb-4">
+                  {t("profile:you_can_manage_data")}
+               </p>
+               <Button
+                  className="text-xs sm:text-sm font-bold focus:outline-none mb-10"
+                  onClick={() => alert("Privacy button clicked")}
+               >
+                  {t("profile:privacy_dashboard")}
+               </Button>
+            </>
+         ),
+         relatedLinks: [
+            { text: t("profile:view_transactions"), url: "/billing/payments" },
+            { text: t("profile:view_notifications"), url: "/billing/payments" }
+         ],
+      },
+      {
+         id: 4,
+         icon: <BsCart4 className="text-xl" />,
+         title: t("profile:privacy_dashboard"),
+         description: t("profile:view_recent_purchases"),
+         content: (
+            <>
+               <p className="mb-4">{t("profile:no_purchases_made")}</p>
+            </>
+         ),
+         relatedLinks: [
+            { text: t("profile:get_billing_help"), url: "/account" },
+            { text: t("profile:view_order_history"), url: "/billing/orders" }
+         ],
+      },
+      {
+         id: 5,
+         icon: <MdManageAccounts className="text-xl" />,
+         title: t("profile:manage_account"),
+         description: t("profile:view_recent_purchases"),
+         content: (
+            <>
+            </>
+         ),
+         relatedLinks: [
+            { text: t("profile:get_billing_help"), url: "/account" },
+            { text: t("profile:view_order_history"), url: "/billing/orders" }
+         ],
+      },
+      {
+         id: 6,
+         icon: <RiDeleteBin5Line className="text-xl text-red-600" />,
+         title: <span className="text-red-600">Удалить аккаунт</span>,
+         description: <span className="text-red-600">Управление удалением аккаунта и всех данных пользователя</span>,
+         content: (
+            <>
+               <p className="font-semibold text-xl mb-4">Удалить аккаунт и все данные</p>
+               <p className="mb-4">
+                  При удалении аккаунта все ваши данные удаляються
+               </p>
+               <button
+                  className="ml-0 text-white flex justify-between mb-6 bg-red-600 hover:bg-red-800 rounded-md p-2"
+                  onClick={handleDeleteButtonClick}
+               >
+                  <span>{t("profile:delete_account")}</span>
+               </button>
+            </>
+         ),
+         relatedLinks: [
+            { text: "Помощь при удалении аккаунта", url: "/account" },
+            { text: "Сохранить данные", url: "/billing/orders" }
+         ],
+      },
+   ];
+
+   const [visibleContainers, setVisibleContainers] = useState(Array(accountData.length).fill(false));
+
    return (
-      <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)]">
+      <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)] mb-20">
          <div className="gap-4 overview flex flex-col max-w-5xl w-full h-auto mt-8 mx-auto px-4">
             <div className="flex justify-between items-center my-7">
                <h1 className="font-semibold text-3xl">{t("profile:account")}</h1>
@@ -56,12 +206,9 @@ export default function DashProfile() {
                            <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center mt-8">
                               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full transition-colors duration-300 bg-white dark:bg-gray-800">
                                  <div className="col-span-2 pl-12 pr-10 justify-between">
-                                    {container.content} 
-                                    {container.id === 5 && (
-                                       <div className="flex items-center space-x-2">
-                                          <Button className="mx-auto text-white flex justify-between" onClick={handleDeleteButtonClick}>
-                                             <span>{t("profile:account")}Delete Account</span>
-                                          </Button>
+                                    {container.content}
+                                    {container.id === 6 && (
+                                       <div className="flex flex-col items-start space-y-2">
                                        </div>
                                     )}
                                  </div>
@@ -76,7 +223,7 @@ export default function DashProfile() {
                            <div className="flex flex-row items-center justify-between w-full px-4 py-4">
                               <div className="flex flex-col">
                                  <div className="flex items-center space-x-2">
-                                    <span className="pl-2 text-sm">Related</span>
+                                    <span className="pl-2 text-sm">{t("profile:related")}</span>
                                     {container.relatedLinks.map((link, index) => (
                                        <a key={index} href={link.url} className="pl-5 text-sm text-teal-500 hover:underline hover:text-teal-700">
                                           {link.text}

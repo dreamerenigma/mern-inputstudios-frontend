@@ -2,7 +2,6 @@ import { Avatar } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { 
    HiUser, 
-   HiArrowSmRight, 
    HiDocumentText, 
    HiOutlineUserGroup, 
    HiAnnotation, 
@@ -21,8 +20,10 @@ import {
    HiOutlineChartPie,
    HiOutlineHome,
 } from 'react-icons/hi';
+import { IoExit, IoExitOutline, IoLocationOutline, IoLocationSharp } from "react-icons/io5";
+import { AiOutlineClose } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useTranslation } from "react-i18next";
 
@@ -30,12 +31,14 @@ export default function SidebarProfile() {
    const { t } = useTranslation();
    const location = useLocation();
    const dispatch = useDispatch();
+   const navigate = useNavigate();
    const { currentUser } = useSelector(state => state.user);
    const [tab, setTab] = useState('');
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const { theme } = useSelector((state) => state.theme);
    const [isMenuOpen, setIsMenuOpen] = useState(false);
    const [isClicked, setIsClicked] = useState(false);
+   const [isDialogOpen, setDialogOpen] = useState(false);
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
    
@@ -65,10 +68,16 @@ export default function SidebarProfile() {
             console.log(data.message);
          } else {
             dispatch(signoutSuccess());
+            setDialogOpen(false);
+            navigate("/");
          }
       } catch (error) {
          console.log(error.message);
       }
+   };
+
+   const handleSignoutClick = () => {
+      setDialogOpen(true);
    };
 
    return ( 
@@ -225,7 +234,7 @@ export default function SidebarProfile() {
                                     className={`text-${tab === "users" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
                                  />
                               )}
-                                 <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("users")}</span>
+                              <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("users")}</span>
                            </div>
                         </div>
                      </Link>
@@ -243,27 +252,82 @@ export default function SidebarProfile() {
                                     className={`text-${tab === "comments" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
                                  />
                               )}
-                                 <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("comments")}</span>
+                              <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("comments")}</span>
                            </div>
                         </div>
                      </Link>
                   </>
                )}
+               <Link to={`${languagePrefix}/dashboard?tab=addresses`}>
+                  <div className="py-1">
+                     <div className={`py-2 px-3 ${tab === "addresses" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "addresses" ? 'shadow-md' : ''}`}>
+                        {tab === "addresses" ? (
+                           <IoLocationSharp
+                              size={28}
+                              className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                           />
+                        ) : (
+                           <IoLocationOutline 
+                              size={28}
+                              className={`text-${tab === "addresses" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                           />
+                        )}
+                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("address_book")}</span>
+                     </div>
+                  </div>
+               </Link>
                <Link to={`${languagePrefix}/dashboard?tab=signout`}>
                   <div 
                      className={`py-2 px-3 ${tab === "signout" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "signout" ? 'shadow-md' : ''}`} 
-                     onClick={handleSignout}
-                     >
-                     <HiArrowSmRight 
+                     onClick={handleSignoutClick}
+                  >
+                     {tab === "signout" ? (
+                        <IoExit
+                        size={28}
+                        className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                        />
+                     ) : (
+                        <IoExitOutline 
                         size={28}
                         className={`text-${tab === "signout" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                     />
+                        />
+                     )}
                      <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("sign_out")}</span>
                   </div>
                </Link>
             </div>
          </div>
-         <span className="px-4 py-2 text-xs">{t("version_app")}</span>
+         {isDialogOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+               <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-1/4 h-1/4 relative flex flex-col">
+                  <button
+                     onClick={() => setDialogOpen(false)}
+                     className="absolute top-4 right-4 text-gray-600 dark:text-white hover:translate-y-[-2px] transition-transform duration-200"
+                  >
+                     <AiOutlineClose size={20} />
+                  </button>
+                  <p className="text-xl mb-4">{t("profile:are_you_sure_signout")}</p>
+                  <p className="text-md text-gray-500 mb-4">
+                  {t("profile:all_unsaved_data")}
+                  </p>
+                  <div className="mt-auto flex justify-between w-full">
+                  <button
+                     onClick={() => setDialogOpen(false)}
+                     className="px-4 py-2 bg-gray-600 hover:bg-gray-700 shadow-md rounded-lg flex-grow mr-2"
+                  >
+                     {t("profile:cancel")}
+                  </button>
+                  <button
+                     onClick={handleSignout}
+                     className="px-4 py-2 bg-red-600 hover:bg-red-800 shadow-md text-white rounded-lg flex-grow ml-2"
+                  >
+                     {t("profile:sign_out")}
+                  </button>
+                  </div>
+               </div>
+            </div>
+         )}
+         <span className="px-6 py-2 text-xs">{t("version_app")}</span>
       </div>
    );
 }

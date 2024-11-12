@@ -177,7 +177,7 @@ export default function DashProfile() {
                />
                <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center"> 
                   <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800">
-                     <div className="flex items-center">
+                     <div className="flex custom-flex-500 items-start">
                         <div
                            className="p-4 relative w-40 h-50 cursor-pointer overflow-hidden rounded-full"
                            onClick={() => filePickerRef.current.click()}
@@ -201,7 +201,7 @@ export default function DashProfile() {
                                  }}
                               />
                            )}
-                           <div className="relative w-32 h-32">
+                           <div className="relative avatar-image w-32 h-32">
                               <Link to={`${languagePrefix}/dashboard?tab=profile`}>
                                  <div className="absolute inset-0 flex items-center justify-center bg-black opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full">
                                     <IoCameraOutline className="text-white text-[50px]" />
@@ -210,7 +210,7 @@ export default function DashProfile() {
                               <img
                                  src={imageFileUrl || currentUser.profilePicture}
                                  alt="user"
-                                 className={`rounded-full w-full h-full object-cover border-4 border-[lightgray] ${
+                                 className={`rounded-full w-full h-full avatar-image object-cover border-4 border-[lightgray] ${
                                     imageFileUploadProgress &&
                                     imageFileUploadProgress < 100 &&
                                     "opacity-60"
@@ -219,7 +219,7 @@ export default function DashProfile() {
                            </div>
                         </div>
                         <div className="ml-5 flex flex-col p-4 max-w-[300px]">
-                           <span className="text-sm">
+                           <span className="text-base">
                               {t("profile:your_account_with_photo")}
                            </span>
                            <button
@@ -233,7 +233,7 @@ export default function DashProfile() {
                      <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
                      <div className="flex flex-row items-center justify-between">
                         <p className="text-left px-4 mb-4 mr-4">{t("profile:full_name")}</p>
-                        <p className="text-left mb-4 mr-20">{currentUser.username}</p>
+                        <p className="text-left mb-4 mr-64">{currentUser.username}</p>
                            <>
                            <p
                               className="text-right mb-4 mr-4 text-teal-500 hover:text-teal-700 cursor-pointer"
@@ -321,7 +321,6 @@ export default function DashProfile() {
                )}
                <ProfileInfo />
                <AccountInfo />
-               
             </form>
             {updateUserSuccess && (
                <Alert color="success" className="mt-5">

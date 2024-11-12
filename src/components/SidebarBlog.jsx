@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useTranslation } from "react-i18next";
+import { IoLocationOutline, IoLocationSharp } from "react-icons/io5";
 
 export default function SidebarBlog() {
    const { t } = useTranslation();
@@ -140,6 +141,24 @@ export default function SidebarBlog() {
                      </Link>
                   </>
                )}
+               <Link to={`${languagePrefix}/dashboard?tab=addresses`}>
+                  <div className="py-1">
+                     <div className={`py-2 px-3 ${tab === "addresses" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "addresses" ? 'shadow-md' : ''}`}>
+                        {tab === "addresses" ? (
+                           <IoLocationSharp
+                              size={28}
+                              className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                           />
+                        ) : (
+                           <IoLocationOutline 
+                              size={28}
+                              className={`text-${tab === "addresses" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                           />
+                        )}
+                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("address_book")}</span>
+                     </div>
+                  </div>
+               </Link>
                <Link to="/dashboard?tab=signout">
                   <div 
                      className={`py-2 px-3 ${tab === "signout" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'}`} 

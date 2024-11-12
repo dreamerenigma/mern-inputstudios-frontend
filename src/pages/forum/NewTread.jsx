@@ -4,16 +4,32 @@ import { IoIosArrowDown, IoIosArrowForward, IoIosArrowUp } from "react-icons/io"
 import { useEffect, useRef, useState } from "react";
 import CustomCheckbox from "./checkboxes/CustomCheckbox";
 import CustomInputWithToolbar from "./textinputs/CustomInputWithToolbar";
+import { Dialog } from "@mui/material";
 
 export default function NewTread() {
    const { t } = useTranslation();
    const [isOpen, setIsOpen] = useState(false);
    const dropdownRef = useRef(null);
+   const [showDialog, setShowDialog] = useState(false);
    const [inputValue, setInputValue] = useState("Выберите");
 
    const handleToggle = () => {
       setIsOpen(!isOpen);
    };
+
+   useEffect(() => {
+      const handleBeforeUnload = (event) => {
+         event.preventDefault();
+         setShowDialog(true);
+         event.returnValue = '';
+      };
+
+      window.addEventListener('beforeunload', handleBeforeUnload);
+
+      return () => {
+         window.removeEventListener('beforeunload', handleBeforeUnload);
+      };
+   }, []);
 
    useEffect(() => {
       const handleClickOutside = (event) => {
@@ -31,6 +47,11 @@ export default function NewTread() {
    const handleSelect = (value) => {
       setInputValue(value);
       setIsOpen(false);
+   };
+
+   const handleConfirmLeave = () => {
+      setShowDialog(false);
+      window.location.reload();
    };
 
    return (
@@ -118,7 +139,7 @@ export default function NewTread() {
                <div className="flex flex-col md:flex-col">
                   <label className="text-left mt-6">Продукты <span className="text-red-500">*</span></label>
                </div>
-               <div className="relative w-[250px] max-w-md mt-4 shadow-md" ref={dropdownRef}>
+               <div className="relative flex max-w-md mt-4 shadow-md" ref={dropdownRef}>
                   <div className="bg-gray-100 dark:bg-gray-800 rounded-md p-1 flex items-center">
                      <div className="flex-grow">
                         <input
@@ -155,13 +176,14 @@ export default function NewTread() {
                   )}
                </div>
                <div className="py-4 mt-4">
-                  <div className="flex items-center">
+                  <div className="flex items-center space-x-4">
                      <CustomCheckbox
                         id="exampleCheckbox"
                         label="Уведомлять меня при размещении ответов на публикацию"
+                        className="flex-none w-auto"
                      />
                   </div>
-                  <div>
+                  <div className="">
                      <button className="bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-6 rounded-md mr-6">
                         Отмена
                      </button>
@@ -179,9 +201,11 @@ export default function NewTread() {
                   <p className="text-left mb-4 break-words">
                      Обсуждайте новинки и делитесь открытиями, советами и рекомендациями с другими участниками сообщества.
                   </p>
-                  <button className="flex flex-col items-center bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded-md shadow-md group text-xs sm:text-sm md:text-base">
+                  <button className="flex flex-col xl:flex-row items-center bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded-md shadow-md group text-xs sm:text-sm md:text-base">
                      <span>Начать обсуждение</span>
-                     <IoIosArrowForward className="ml-2 mt-2 transition-transform duration-200 transform group-hover:translate-x-1" />
+                     <span className="ml-2 mt-2 md:mt-0 transition-transform duration-200 transform group-hover:translate-x-1">
+                        <IoIosArrowForward />
+                     </span>
                   </button>
                </div>
                <div className="ml-12 mt-12 md:w-[150px] lg:w-[280px] xl:w-[280px] hidden md:block">
@@ -196,6 +220,7 @@ export default function NewTread() {
                </div>
             </div>
          </div>
+         <Dialog open={showDialog} onClose={handleConfirmLeave} sx={{backdrop: 'none', '& .MuiBackdrop-root': { backgroundColor: 'transparent' }}}></Dialog>
       </div>
    );
 }

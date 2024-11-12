@@ -13,8 +13,7 @@ import ProfileHeader from './components/headers/ProfileHeader';
 import FeedbackButton from './components/buttons/FeedbackButton';
 import ProfileFooter from './components/footers/ProfileFooter';
 import PrivacyHeader from './components/headers/PrivacyHeader';
-
-
+import { useEffect, useState } from 'react';
 
 function getQueryParams(search) {
   return new URLSearchParams(search);
@@ -24,7 +23,12 @@ const languages = ['ru-ru', 'en-us'];
 
 function Layout() {
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
   const queryParams = getQueryParams(location.search);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   function getLanguagePrefixedPages(pages) {
     return languages.flatMap(lang => pages.map(page => `/${lang}/dashboard?tab=${page}`));
@@ -32,7 +36,8 @@ function Layout() {
 
   const isProfileHeader = languages.some(lang =>
     location.pathname.startsWith(`/${lang}/dashboard`) && queryParams.get('tab') !== null ||
-    location.pathname === (`/${lang}/password/change`)
+    location.pathname === (`/${lang}/password/change`) ||
+    location.pathname === (`/${lang}/names/manage`)
   );
 
   const customHeaderPages = getLanguagePrefixedPages(['/forum']);
@@ -54,6 +59,7 @@ function Layout() {
     `/${lang}/profile`,
     `/${lang}/settings`,
     `/${lang}/privacy/privacystatement`,
+    `/${lang}/names/manage`
   ]);
 
   const shouldShowProfileFooter = profileFooterPaths.some(path => {
@@ -77,28 +83,32 @@ function Layout() {
     <div>
       <FeedbackButton />
       <ScrollToTop />
-      {isPrivacyPage ? (
-        <PrivacyHeader />
-      ) : isProfileHeader ? (
-        <ProfileHeader />
-      ) : isForumPage ? (
-        <CommunityHeader />
-      ) : isSupportPage ? ( 
-        <SupportHeader />
-      ) : showCommunityHeader ? (
-        <CommunityHeader />
-      ) : showHeader ? (
-        <CustomHeader />
-      ) : (
-        <Header languages={languages} />
+      {isLoading ? null : (
+        <>
+          {isPrivacyPage ? (
+            <PrivacyHeader />
+          ) : isProfileHeader ? (
+            <ProfileHeader />
+          ) : isForumPage ? (
+            <CommunityHeader />
+          ) : isSupportPage ? ( 
+            <SupportHeader />
+          ) : showCommunityHeader ? (
+            <CommunityHeader />
+          ) : showHeader ? (
+            <CustomHeader />
+          ) : (
+            <Header languages={languages} />
+          )}
+          <PublicRoutes />
+          <ProtectedRoutes />
+          <AdminRoutes />
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+          {!isSignInPage && (shouldShowProfileFooter ? <ProfileFooter /> : <Footer />)}
+        </>
       )}
-      <PublicRoutes />
-      <ProtectedRoutes />
-      <AdminRoutes />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-      {!isSignInPage && (shouldShowProfileFooter ? <ProfileFooter /> : <Footer />)}
     </div>
   );
 }

@@ -41,6 +41,9 @@ import SupportRoutes from "./SupportRoutes";
 import AccountPrivacy from "../pages/AccountPrivacy";
 import NewTread from "../pages/forum/NewTread";
 import IntellectualProperty from "../pages/legal/IntellectualProperty";
+import PrivacyUpdates from "../pages/privacy/PrivacyUpdates";
+import PrivacySupportRequests from "../pages/privacy/PrivacySupportRequests";
+import ManageSignInService from "../pages/profile/ManageSignInService";
 
 const languages = ['ru-ru', 'en-us'];
 
@@ -67,6 +70,8 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/privacy`} element={<PrivacyPolicy />} />
                <Route path={`/${lang}/privacy-report`} element={<PrivacyReport />} />
                <Route path={`/${lang}/privacy/ad-settings`} element={<PrivacyAdSettings />} />
+               <Route path={`/${lang}/privacy/updates`} element={<PrivacyUpdates />} />
+               <Route path={`/${lang}/privacy/privacy-support-requests`} element={<PrivacySupportRequests />} />
                <Route path={`/${lang}/dashboard?tab=/privacy/ad-settings`} element={<PrivacyAdSettings />} />
                <Route path={`/${lang}/privacy/privacystatement`} element={<PrivacyStatement />} />
                <Route path={`/${lang}/concern/privacy`} element={<ConcernPrivacy />} />
@@ -96,6 +101,7 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/newthreads`} element={<NewTread />} />
                <Route path={`/${lang}/legal/intellectualproperty`} element={<IntellectualProperty />} />
                <Route path={`/${lang}/profile`} element={<IntellectualProperty />} />
+               <Route path={`/${lang}/names/manage`} element={<ManageSignInService />} />
             </React.Fragment>
          ))}
       </Routes>

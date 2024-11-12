@@ -23,6 +23,7 @@ export default function Home() {
    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
    const [languageChanged, setLanguageChanged] = useState(false);
    const scrollPositionRef = useRef(0);
+   const [isLoading, setIsLoading] = useState(true); 
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
@@ -47,6 +48,10 @@ export default function Home() {
       };
    }, []);
 
+   useEffect(() => {
+      setIsLoading(false);
+   }, []);
+
    return (
       <div>
          <div className="relative mt-[60px]">
@@ -59,7 +64,7 @@ export default function Home() {
             {windowWidth >= 1080 ? (
                <Link to={`${languagePrefix}/search`}>
                   <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-center text-white">
-                     <h1 className="text-3xl font-bold lg:text-6xl xs:text-4xl sm:text-5xl md:text-5xl xl:text-7xl">
+                     <h1 className="text-3xl font-bold lg:text-6xl xs:text-4xl sm:text-5xl md:text-5xl xl:text-6xl">
                         {t("home_welcome")}
                      </h1>
                      <p className="text-xs w-[700px] sm:text-base mt-5">
@@ -79,7 +84,7 @@ export default function Home() {
                      <h1 className="text-3xl font-bold xs:text-4xl sm:text-5xl md:text-5xl welcome-padding">
                         {t("home_welcome")}
                      </h1>
-                     <p className="text-xs sm:text-sm mt-5 mr-2 ml-2">
+                     <p className="text-xs sm:text-sm mt-5 mx-4">
                         {t("home_welcome_description")}
                      </p>
                      <div className="flex justify-center mt-5">
@@ -91,8 +96,11 @@ export default function Home() {
                </Link>
             )}
          </div>
-            <DownloadCard />
-         <div className="p-3 mx-10 custom-margin mt-20 rounded-lg bg-gray-200 dark:bg-slate-700 shadow-md">
+         <DownloadCard />
+         <div 
+            className={`p-3 mx-10 custom-margin mt-20 rounded-lg bg-gray-200 dark:bg-slate-700 shadow-md ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+            style={{ display: isLoading ? 'none' : 'block' }}
+         >
             <CallToAction />
          </div>
          <div className="mx-auto px-6 flex flex-col gap-8 py-7">
@@ -116,7 +124,10 @@ export default function Home() {
                   </div>
                </div>
             )}
-            <div className="flex flex-wrap gap-4 mt-10 mb-10 mx-4">
+            <div
+               className={`flex flex-row gap-4 mt-10 mb-10 mx-4 ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+               style={{ display: isLoading ? 'none' : 'flex' }}
+            >
                <p>{t("home_subscribe_news")}</p>
                <div className="flex flex-wrap gap-4">
                   <Footer.Icon href="https://vk.com/inputstudios" target="_blank" icon={SlSocialVkontakte} />

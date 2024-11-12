@@ -1,68 +1,130 @@
-import { Button } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import ChangePasswordInput from "./profile/inputs/ChangePasswordInput";
 
 export default function ChangePassword() {
-  const { theme } = useSelector((state) => state.theme);
-  const navigate = useNavigate();
+   const { t } = useTranslation();
+   const navigate = useNavigate();
+   const [currentPassword, setCurrentPassword] = useState("");
+   const [newPassword, setNewPassword] = useState("");
+   const [reenterPassword, setReenterPassword] = useState("");
+   const [isChanged, setIsChanged] = useState(false);
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
-  const handleCancelClick = () => {
-    navigate('/dashboard?tab=profile');
-  };
+   const initialState = {
+      currentPassword: "",
+      newPassword: "",
+      reenterPassword: "",
+   };
 
-  return (
-    <div className="ml-6">
-      <div className="ml-6 pt-6">
-        <p className="text-3xl mb-6">Change your password</p>
-        <p className="text-md">A strong password helps prevent unauthorized access to your email account.</p>
-      </div>
+   const handleCancelClick = () => {
+      navigate(`${languagePrefix}/dashboard?tab=security`);
+   };
+
+   useEffect(() => {
+      const isAnyFieldChanged =
+         currentPassword !== initialState.currentPassword ||
+         newPassword !== initialState.newPassword ||
+         reenterPassword !== initialState.reenterPassword;
+      setIsChanged(isAnyFieldChanged);
+   }, [currentPassword, initialState.currentPassword, initialState.newPassword, initialState.reenterPassword, newPassword, reenterPassword]);
+
+   const handlePasswordChange = async () => {
+      if (newPassword !== reenterPassword) {
+         alert(t("profile:passwords_do_not_match"));
+         return;
+      }
+      try {
+         const res = await fetch(`${SERVER_URL}/api/password/change`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ currentPassword, newPassword })
+         });
+         const data = await res.json();
+         if (res.ok && data.success) {
+            alert(t("profile:password_updated_successfully"));
+            navigate(`${languagePrefix}/dashboard?tab=security`);
+         } else {
+            alert(data.message || t("profile:password_update_failed"));
+         }
+      } catch (error) {
+         console.error(error);
+         alert(t("profile:password_update_failed"));
+      }
+   };
+
+   return (
       <div className="ml-6">
-        <div className="text-left mb-4 mt-6">
-          <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">Current password</p>
-          <input 
-            type="text" 
-            placeholder="Current password" 
-            className={`border ${theme === 'dark' ? 'bg-transparent' : 'bg-white'} border-gray-300 dark:border-gray-600 rounded-md p-2 w-1/3 mt-1`} 
-          />
-          <Link to="/password/reset" className="text-blue-500 block">
-            Forgot your password?
-          </Link>
-        </div>
+         <div className="ml-6 pt-6">
+         <p className="text-3xl mb-6">{t("profile:change_your_password")}</p>
+         <p className="text-md">{t("profile:strong_password_helps")}</p>
+         </div>
+         <div className="ml-6">
+            <div className="text-left mb-4 mt-6">
+               <ChangePasswordInput 
+                  labelText={t("profile:current_password")}
+                  placeholderText={t("profile:current_password")}
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+               />
+               <Link to="/password/reset" className="text-teal-500 block">
+                  {t("profile:forgot_your_password")}
+               </Link>
+            </div>
+         </div>
+         <div className="text-left mb-4 ml-6">
+            <ChangePasswordInput 
+               labelText={t("profile:new_password")}
+               placeholderText={t("profile:new_password")}
+               value={newPassword}
+               onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <p className="text-sm">{t("profile:character_minimum")}</p>
+         </div>
+         <div className="ml-6">
+            <div className="text-left mb-2">
+               <ChangePasswordInput 
+                  labelText={t("profile:reenter_password")}
+                  placeholderText={t("profile:reenter_password")}
+                  value={reenterPassword}
+                  onChange={(e) => setReenterPassword(e.target.value)}
+               />
+            </div>
+            <div className="flex items-center mt-8">
+               <input
+                  type="checkbox"
+                  id="change-password"
+                  className="appearance-none h-5 w-5 border border-white rounded-sm bg-white text-teal-500 checked:bg-teal-500 checked:border-teal-500 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 mr-2 cursor-pointer"
+               />
+               <label htmlFor="change-password" className="font-semibold text-gray-700 dark:text-gray-200">
+                  {t("profile:make_me_change_password")}
+               </label>
+               </div>
+         </div>
+         <div className="flex justify-left gap-2 ml-6 mt-16 mb-20">
+            <button
+               className={`${
+                  isChanged
+                  ? "bg-transparent border border-gray-600 hover:bg-gray-700"
+                  : "bg-teal-500 hover:bg-teal-700"
+               } text-white py-2 px-4 rounded-md`}
+               disabled={!isChanged}
+               onClick={handlePasswordChange} 
+            >
+               {t("profile:save")}
+            </button>
+            <button 
+               className="bg-gray-500 hover:bg-gray-700 text-white py-2 px-7 rounded-md"
+               onClick={handleCancelClick}
+            >
+               {t("profile:cancel")}
+            </button>
+         </div>
       </div>
-      <div className="ml-6">
-        <div className="text-left mb-4">
-        <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">New password</p>
-        <input 
-          type="text" 
-          placeholder="New password" 
-          className={`border ${theme === 'dark' ? 'bg-transparent' : 'bg-white'} border-gray-300 dark:border-gray-600 rounded-md p-2 w-1/3 mt-1`} 
-        />
-          <p className="text-sm">8-character minimum; case sensitive</p>
-        </div>
-      </div>
-      <div className="ml-6">
-        <div className="text-left mb-2">
-          <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">Reenter password</p>
-          <input 
-            type="text" 
-            placeholder="Reenter password" 
-            className={`border ${theme === 'dark' ? 'bg-transparent' : 'bg-white'} border-gray-300 dark:border-gray-600 rounded-md p-2 w-1/3 mt-1`} 
-          />
-        </div>
-        <div className="flex items-center mt-1">
-          <input type="checkbox" id="change-password" className="mr-2" />
-          <label htmlFor="change-password" className="font-semibold text-gray-700 dark:text-gray-200">Make me change my password every 72 days</label>
-        </div>
-      </div>
-      <div className="flex justify-left gap-2 ml-6 mt-16 mb-20">
-        <Button color="blue">
-          Save
-        </Button>
-        <Button color="gray"  onClick={handleCancelClick}>
-          Cancel
-        </Button>
-      </div>
-    </div>
-  );
+   );
 }

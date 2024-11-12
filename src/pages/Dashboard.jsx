@@ -10,6 +10,7 @@ import DashboardComponent from '../components/DashboardComponent';
 import DashAccount from '../components/DashAccount';
 import SidebarBlog from '../components/SidebarBlog';
 import DashSecurity from '../components/DashSecurity';
+import DashAddressBook from '../components/DashAddressBook';
 
 export default function Dashboard() {
    const location = useLocation();
@@ -41,6 +42,8 @@ export default function Dashboard() {
          {tab === "users" && <DashUsers />}
          {/* Comments */}
          {tab === "comments" && <DashComments />}
+         {/* Address book */}
+         {tab === "addresses" && <DashAddressBook />}
          {/* Dashboard Component */}
          {tab === "dash" && <DashboardComponent />}
       </div>

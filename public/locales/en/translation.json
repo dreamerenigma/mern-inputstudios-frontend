@@ -1,6 +1,6 @@
 {
    "russian_lang": "Russian",
-   "version_app": "Version 0.0.5.14",
+   "version_app": "Version 0.1.54.1362",
    "home_welcome": "Welcome to Input Studios",
    "home_welcome_description": "Here you&apos;ll find a variety of articles and tutorials on topics such as web development, software engineering, and programming languages.",
    "home_view_all_posts": "View all posts",
@@ -170,6 +170,7 @@
    "comments": "Comments",
    "sidebar_account": "Account",
    "profile": "Profile",
+   "address_book": "Address book",
    "privacy": "Privacy",
    "sign_out": "Sign Out",
    "download_wave": "Download Input Studios Wave",

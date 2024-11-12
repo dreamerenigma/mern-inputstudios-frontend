@@ -24,7 +24,7 @@ const CustomCheckbox = () => {
             onMouseLeave={() => setIsHovered(false)}
             className={`w-6 h-6 border-2 rounded-md flex items-center justify-center cursor-pointer transition-colors duration-200 ${
                isChecked ? 'bg-teal-500 border-teal-500' : 'bg-white border-gray-400'
-            }`}
+            } flex-shrink-0`}
          >
             {(isChecked || (isHovered && !isChecked)) && (
                <FaCheck className={`text-white transition-opacity duration-200 ${isChecked || isHovered ? 'opacity-100' : 'opacity-0'}`} />

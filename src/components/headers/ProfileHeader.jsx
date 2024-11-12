@@ -138,9 +138,9 @@ export default function ProfileHeader() {
                         <Button
                            type="button"
                            gradientDuoTone="purpleToPink"
-                           className="w-full md:w-[120px] max-w-lg"
+                           className="w-full md:w-[130px] max-w-lg"
                         >
-                           Create a post
+                           {t("profile:create_post")}
                         </Button>
                      </Link>
                   </div>

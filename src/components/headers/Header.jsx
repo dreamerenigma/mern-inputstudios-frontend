@@ -185,7 +185,7 @@ export default function Header() {
                   </>
                )}
                {(windowWidth >= 860 || !searchVisible) && (
-                  <div className="flex flex-1 justify-center md:justify-center custom-flex-none py-4 md:ml-10 custom-ml">
+                  <div className={`flex flex-1 justify-center custom-flex-none py-4 ${windowWidth > 1080 ? "md:ml-20" : (windowWidth < 860 ? "ml-0" : "ml-10")}`}>
                      <Link
                         to="/"
                         className="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
@@ -451,12 +451,12 @@ export default function Header() {
                               </Button>
                            </div>
                            {currentUser ? (
-                              <div className="mr-20">
+                              <div className="mr-20-768-1080">
                                  <Dropdown
                                     arrowIcon={false}
                                     inline
                                     label={
-                                       <div className="flex items-center group margin-header margin-right">
+                                       <div className="flex items-center group margin-header margin-right mr-4">
                                           <span
                                              className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]">
                                              {currentUser.username}
