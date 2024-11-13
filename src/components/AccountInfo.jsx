@@ -1,18 +1,33 @@
+import { useState } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
+import DeletePhoneDialog from "../pages/profile/dialogs/DeletePhoneDialog";
 
 export default function AccountInfo() {
+   const [isDialogOpen, setIsDialogOpen] = useState(false);
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
+   const handleOpenDialog = () => {
+      setIsDialogOpen(true);
+   };
+
+   const handleCloseDialog = () => {
+      setIsDialogOpen(false);
+   };
+
+   const handleDelete = () => {
+      handleCloseDialog();
+   };
+
    return (
       <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center">
-         <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 mb-20">
+         <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800">
             <div className="flex items-center">
                <div className="flex flex-row items-center justify-between w-full pl-4 pt-3">
                   <div>
-                     <span>Сведения о счете</span>
+                     <span className="text-md font-semibold">Сведения о счете</span>
                   </div>
                   <div className="ml-auto">
                      <Link to={`${languagePrefix}/names/manage`} className="text-right mr-4 cursor-pointer text-teal-500 hover:text-teal-700 hover:underline">Изменить данные учетной записи</Link>
@@ -35,22 +50,29 @@ export default function AccountInfo() {
                </div>
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
-            <div className="grid grid-cols-[250px_auto_1fr] items-center w-full pl-4 py-2">
-               <span className="inline-block text-left">Телефон подключен к компьютеру</span>
-               <span className="text-left font-semibold">+7 999 194-03-98</span>
-               <span className="mx-4 flex items-center justify-end text-teal-500 text-left cursor-pointer">
-                  <RiDeleteBin5Line size={24} className="mr-2" />
-                  <span>&quot;Удалить&quot;</span>
-               </span>
+            <div>
+               <div className="grid grid-cols-[250px_auto_1fr] items-center w-full pl-4 py-2">
+                  <span className="inline-block text-left">Телефон подключен к компьютеру</span>
+                  <span className="text-left font-semibold">+7 999 194-03-98</span>
+                  <span className="mx-4 flex items-center justify-end text-left cursor-pointer" onClick={handleOpenDialog}>
+                     <RiDeleteBin5Line size={24} className="mr-2 text-teal-500 " />
+                     <span className="text-teal-500 ">&quot;Удалить&quot;</span>
+                  </span>
+               </div>
+               <DeletePhoneDialog
+                  isOpen={isDialogOpen}
+                  onClose={handleCloseDialog}
+                  onDelete={handleDelete}
+               />
             </div>
             <hr className="mt-4 border-t border-gray-300 dark:border-gray-600" />
             <div className="flex flex-row items-center justify-between w-full pl-4 pr-2 space-x-4 p-5">
                <div className="flex flex-col">
                   <div className="flex items-center space-x-2">
-                     <Link to={`${languagePrefix}/dashboard?tab=addresses`} className="text-teal-500 hover:underline hover:text-teal-700 text-left">
+                     <Link to={`${languagePrefix}/names/manage`} className="text-teal-500 hover:underline hover:text-teal-700 text-left">
                         Предпочтения для входа
                      </Link>
-                     <Link to={`${languagePrefix}/dashboard?tab=addresses`} className="pl-5 text-teal-500 hover:underline hover:text-teal-700 text-left">
+                     <Link to={`${languagePrefix}/account-billing/how-to-close-your-input-studios-account`} className="pl-5 text-teal-500 hover:underline hover:text-teal-700 text-left">
                         Закрыть учетную запись
                      </Link>
                   </div>

@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import ScrollToTop from './components/ScrollToTop';
 import Header from './components/headers/Header';
 import CommunityHeader from './components/headers/CommunityHeader';
 import SupportHeader from './components/headers/SupportHeader';
@@ -82,7 +81,6 @@ function Layout() {
   return (
     <div>
       <FeedbackButton />
-      <ScrollToTop />
       {isLoading ? null : (
         <>
           {isPrivacyPage ? (

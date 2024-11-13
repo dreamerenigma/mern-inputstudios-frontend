@@ -83,5 +83,15 @@
   "new_password": "New password",
   "character_minimum": "8-character minimum; case sensitive",
   "reenter_password": "Reenter password",
-  "make_me_change_password": "Make me change my password every 72 days"
+  "make_me_change_password": "Make me change my password every 72 days",
+  "feedback": "Feedback and suggestions",
+  "how_satisfied": "How satisfied are you with your experience today?",
+  "things_better": "What can we do to make things better?",
+  "include_personal_info": "Don't include personal info, such as your name, phone number, or email address.",
+  "maximum_characters": "maximum characters",
+  "protect_your_privacy": "To protect your privacy, don&apos;t include your contact info.",
+  "need_help": "Need help?",
+  "contact_us": "Contact us",
+  "privacy_and_cookie": "Privacy and Cookie",
+  "submit": "Submit"
 }

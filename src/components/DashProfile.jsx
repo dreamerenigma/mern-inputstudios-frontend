@@ -12,6 +12,8 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import ProfileInfo from './ProfileInfo'
 import AccountInfo from './AccountInfo'
 import { useTranslation } from "react-i18next";
+import { RiCloseLine } from "react-icons/ri";
+import ProfileServices from "./ProfileServices";
 
 export default function DashProfile() {
    const { t } = useTranslation();
@@ -27,6 +29,7 @@ export default function DashProfile() {
    const [formData, setFormData] = useState({});
    const filePickerRef = useRef();
    const dispatch = useDispatch();
+   const [hasChanges, setHasChanges] = useState(false);
    const [captchaValue, setCaptchaValue] = useState(null);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
@@ -150,6 +153,10 @@ export default function DashProfile() {
    const handleShowModal = (state) => {
       setShowModalEditName(state);
       localStorage.setItem('showModalEditName', state);
+   
+      if (!state) {
+         setHasChanges(false);
+      }
    };
 
    const handleEditNameClick = () => {
@@ -159,7 +166,25 @@ export default function DashProfile() {
    const handleCaptchaChange = (value) => {
       console.log("Captcha value:", value);
       setCaptchaValue(value);
-   };  
+   };
+
+   const handleFirstNameChange = (e) => {
+      const newFirstName = e.target.value;
+      setFormData({
+         ...formData,
+         firstName: newFirstName
+      });
+      setHasChanges(newFirstName !== "" || formData.lastName !== "");
+   };
+   
+   const handleLastNameChange = (e) => {
+      const newLastName = e.target.value;
+      setFormData({
+         ...formData,
+         lastName: newLastName
+      });
+      setHasChanges(formData.firstName !== "" || newLastName !== "");
+   };
 
    return (
       <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)]">
@@ -242,13 +267,20 @@ export default function DashProfile() {
                               {t("profile:edit_name")}
                            </p>
                            {showModalEditName && (
-                              <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                                 <div className="bg-white dark:bg-gray-800 rounded-md w-full md:w-[450px] p-6 relative">
+                              <div 
+                                 className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+                                 onClick={(e) => {
+                                    if (e.target === e.currentTarget) {
+                                       handleShowModal(false);
+                                    }
+                                 }}
+                              >
+                                 <div className="bg-white dark:bg-gray-800 border border-gray-700 rounded-lg w-full md:w-[450px] p-6 relative">
                                     <button
-                                       className="absolute text-3xl top-2 right-4 text-gray-600 dark:text-gray-200 hover:translate-y-[-4px] transition-all"
+                                       className="absolute text-3xl top-4 right-4 text-gray-600 dark:text-gray-200 hover:translate-y-[-4px] transition-all"
                                        onClick={() => handleShowModal(false)}
                                     >
-                                       &times;
+                                       <RiCloseLine size={24} className="rounded-md hover:translate-y-[-3px] transition-transform duration-200 hover:bg-gray-600"/>
                                     </button>
                                     <p className="absolute ml-6 mt-4 top-0 left-0 text-xl font-bold text-gray-700 dark:text-gray-200">
                                        {t("profile:edit_name")}
@@ -262,6 +294,8 @@ export default function DashProfile() {
                                           placeholder={t("profile:first_name")}
                                           className="border border-gray-600 rounded-md p-2 w-full mt-1 bg-white dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-teal-500"
                                           autoComplete="off"
+                                          value={formData.firstName || ''}
+                                          onChange={handleFirstNameChange}
                                        />
                                     </div>
                                     <div className="text-left mb-5 mt-8">
@@ -273,6 +307,8 @@ export default function DashProfile() {
                                           placeholder={t("profile:last_name")}
                                           className="border border-gray-600 rounded-md p-2 w-full mt-1 bg-white dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-teal-500"
                                           autoComplete="off"
+                                          value={formData.lastName || ''}
+                                          onChange={handleLastNameChange}
                                        />
                                     </div>
                                     <div className="text-left mb-5 mt-6">
@@ -296,8 +332,13 @@ export default function DashProfile() {
                                     <div className="text-center">
                                        <div className="flex justify-end gap-4">
                                           <button
+                                             className={`px-4 py-2 rounded-md border ${
+                                                hasChanges
+                                                   ? 'bg-transparent text-white hover:bg-gray-700 cursor-pointer border-gray-600'
+                                                   : 'bg-transparent text-gray-600 border-gray-600'
+                                             }`}
                                              onClick={() => handleShowModal(false)}
-                                             className="border border-gray-600 bg-transparent text-white py-2 px-4 rounded-md hover:bg-gray-700"
+                                             disabled={!hasChanges}
                                           >
                                              {t("profile:save")}
                                           </button>
@@ -321,6 +362,7 @@ export default function DashProfile() {
                )}
                <ProfileInfo />
                <AccountInfo />
+               <ProfileServices />
             </form>
             {updateUserSuccess && (
                <Alert color="success" className="mt-5">

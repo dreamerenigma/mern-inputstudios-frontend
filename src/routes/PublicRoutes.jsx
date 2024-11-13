@@ -44,6 +44,7 @@ import IntellectualProperty from "../pages/legal/IntellectualProperty";
 import PrivacyUpdates from "../pages/privacy/PrivacyUpdates";
 import PrivacySupportRequests from "../pages/privacy/PrivacySupportRequests";
 import ManageSignInService from "../pages/profile/ManageSignInService";
+import CompanyNews from "../pages/news/CompanyNews";
 
 const languages = ['ru-ru', 'en-us'];
 
@@ -102,6 +103,7 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/legal/intellectualproperty`} element={<IntellectualProperty />} />
                <Route path={`/${lang}/profile`} element={<IntellectualProperty />} />
                <Route path={`/${lang}/names/manage`} element={<ManageSignInService />} />
+               <Route path={`/${lang}/news`} element={<CompanyNews />} />
             </React.Fragment>
          ))}
       </Routes>

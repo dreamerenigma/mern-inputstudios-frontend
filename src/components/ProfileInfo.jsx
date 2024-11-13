@@ -8,6 +8,7 @@ import { getCountries } from '../redux/countries';
 import { getMonths } from '../redux/months';
 import LanguageSettingsModal from "../pages/profile/dialogs/LanguageSettingsModal";
 import ChangeRegionalFormatModal from "../pages/profile/dialogs/ChangeRegionalFormatModal";
+import { RiCloseLine } from "react-icons/ri";
 
 export default function ProfileInfo() {
    const { t } = useTranslation();
@@ -121,7 +122,7 @@ export default function ProfileInfo() {
             <div className="flex items-center">
                <div className="flex flex-row items-center justify-between w-full pl-4 pt-3">
                   <div>
-                     <span>{t("profile:profile_info")}</span>
+                     <span className="text-md font-semibold">{t("profile:profile_info")}</span>
                   </div>
                   <div className="ml-auto">
                      <div 
@@ -136,7 +137,7 @@ export default function ProfileInfo() {
             <hr className="mt-4 border-t border-gray-300 dark:border-gray-600" />
             <div 
                className={`grid grid-cols-3 items-center w-full pl-4 cursor-pointer px-4 py-2 ${
-                  theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'
+                  theme === 'dark' ? 'hover:bg-gray-700/60 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'
                }`}
                onClick={handleEditBirthClick}
             >
@@ -150,8 +151,15 @@ export default function ProfileInfo() {
                </div>
             </div>
             {showModalEditBirth && (
-               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                  <div className="bg-white dark:bg-gray-800 rounded-lg p-8 w-full max-w-xl relative">
+               <div 
+                  className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+                  onClick={(e) => {
+                     if (e.target === e.currentTarget) {
+                        handleBirthShowModal(false);
+                     }
+                  }}
+               >
+                  <div className="bg-white dark:bg-gray-800 border border-gray-700 rounded-lg p-8 w-full max-w-xl relative">
                      <p className="absolute ml-6 mt-4 top-0 left-0 text-xl font-semibold text-gray-700 dark:text-gray-200">{t("profile:edit_profile_info")}</p>
                      <div className="text-left mb-5 mt-12">
                         <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{t("profile:date_birth")}</p>
@@ -210,7 +218,7 @@ export default function ProfileInfo() {
                      <div className="text-center">
                         <div className="flex justify-end gap-2">
                            <button
-                              className={`px-4 py-2 rounded border ${
+                              className={`px-4 py-2 rounded-md border ${
                                  isChanged
                                     ? 'bg-transparent text-white hover:bg-gray-700 cursor-pointer border-gray-600'
                                     : 'bg-transparent text-gray-600  border-gray-600'
@@ -221,26 +229,26 @@ export default function ProfileInfo() {
                               {t("profile:save")}
                            </button>
                            <button
-                              className="px-4 py-2 rounded bg-transparent border border-gray-600 text-gray-100 hover:bg-gray-700"
+                              className="px-4 py-2 rounded-md bg-transparent border border-gray-600 text-gray-100 hover:bg-gray-700"
                               onClick={() => handleBirthShowModal(false)}
                            >
                               {t("profile:cancel")}
                            </button>
                         </div>
                      </div>
-                     <button
-                        className="absolute top-2 right-4 text-3xl text-gray-500 dark:text-gray-300 transition-transform transform hover:translate-y-[-4px]"
+                     <button  
+                        className="py-3 absolute top-2 right-4 text-3xl rounded text-gray-500 dark:text-gray-300 transition-transform transform hover:translate-y-[-4px]"
                         onClick={() => handleBirthShowModal(false)}
                      >
-                        &times;
-                        </button>
+                        <RiCloseLine size={24} className="rounded-md hover:translate-y-[-3px] transition-transform duration-200 hover:bg-gray-600"/>
+                     </button>
                   </div>
                </div>
             )}
             <hr className="border-t border-gray-300 dark:border-gray-600" />
             <div 
                className={`grid grid-cols-3 items-center w-full pl-4 cursor-pointer px-4 py-2 ${
-                  theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'
+                  theme === 'dark' ? 'hover:bg-gray-700/60 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'
                }`}
                onClick={handleEditBirthClick}
             >
@@ -257,7 +265,7 @@ export default function ProfileInfo() {
             <div
                className={`grid grid-cols-3 items-center w-full pl-4 cursor-pointer px-4 py-4 ${
                   theme === 'dark'
-                     ? 'hover:bg-gray-700 focus:bg-gray-300'
+                     ? 'hover:bg-gray-700/60 focus:bg-gray-300'
                      : 'hover:bg-gray-200 focus:bg-gray-300'
                }`}
                onClick={handleLanguageSettings}
@@ -273,7 +281,7 @@ export default function ProfileInfo() {
             <hr className="border-t border-gray-300 dark:border-gray-600" />
             <div 
                className={`grid grid-cols-3 items-center w-full pl-4 cursor-pointer px-4 py-5 ${
-                  theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'
+                  theme === 'dark' ? 'hover:bg-gray-700/60 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'
                }`}
                onClick={handleChangeRegionalFormat}
             >

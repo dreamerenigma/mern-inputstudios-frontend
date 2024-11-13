@@ -59,6 +59,12 @@ export default function FooterCom() {
                            href="https://apps.inputstudios.ru/home?hl=ru-ru&gl=RU"
                            rel="noopener noreferrer"
                         >
+                           Узнайте больше о продуктах Input Studios
+                        </Footer.Link>
+                        <Footer.Link 
+                           href="https://apps.inputstudios.ru/home?hl=ru-ru&gl=RU"
+                           rel="noopener noreferrer"
+                        >
                            Input Studios apps
                         </Footer.Link>
                      </Footer.LinkGroup>
@@ -102,10 +108,10 @@ export default function FooterCom() {
                      <Footer.Title title={t("footer:footer_projects")} />
                      <Footer.LinkGroup col>
                         <Footer.Link 
-                           href={`${languagePrefix}/cloud`}
+                           href={`${languagePrefix}/workspace`}
                            rel="noopener noreferrer"
                         >
-                           Input Studios Cloud
+                           Input Studios Workspace
                         </Footer.Link>
                         <Footer.Link 
                            href={`${languagePrefix}/weather-api`}
@@ -114,10 +120,10 @@ export default function FooterCom() {
                            Weather API
                         </Footer.Link>
                         <Footer.Link
-                           href={`${languagePrefix}/e-commerce-apps`}
+                           href={`${languagePrefix}/easy-shoppin`}
                            rel="noopener noreferrer"
                         >
-                           E-commerce apps
+                           Easy Shoppin
                         </Footer.Link>
                         <Footer.Link 
                            href={`${languagePrefix}/quantum-engine`}
@@ -125,11 +131,35 @@ export default function FooterCom() {
                         >
                            Quantum Engine
                         </Footer.Link>
+                        <Footer.Link 
+                           href={`${languagePrefix}/clever`}
+                           rel="noopener noreferrer"
+                        >
+                           Input Studios Clever
+                        </Footer.Link>
                      </Footer.LinkGroup>
                   </div>
                   <div>
                      <Footer.Title title={t("footer:footer_business")} />
                      <Footer.LinkGroup col>
+                        <Footer.Link 
+                           href={`${languagePrefix}/small-business`}
+                           rel="noopener noreferrer"
+                        >
+                           Input Studios Cloud
+                        </Footer.Link>
+                        <Footer.Link
+                           href={`${languagePrefix}/business`}
+                           rel="noopener noreferrer"
+                        >
+                           Input Studios Workspace
+                        </Footer.Link>
+                        <Footer.Link
+                           href={`${languagePrefix}/business`}
+                           rel="noopener noreferrer"
+                        >
+                           Input Studios Advertising
+                        </Footer.Link>
                         <Footer.Link
                            href={`${languagePrefix}/business`}
                            rel="noopener noreferrer"
@@ -153,14 +183,17 @@ export default function FooterCom() {
                   <div>
                      <Footer.Title title={t("footer:footer_company")}/>
                      <Footer.LinkGroup col>
-                        <Footer.Link href="/privacy" >
+                        <Footer.Link as={Link} to={`${languagePrefix}/news`} >
                            {t("footer:footer_company_news")}
                         </Footer.Link>
-                        <Footer.Link href="/terms-of-use">
+                        <Footer.Link as={Link} to={`${languagePrefix}/privacy`}>
                            {t("footer:footer_privacy")}
                         </Footer.Link>
-                        <Footer.Link href="/terms-of-use">
+                        <Footer.Link as={Link} to={`${languagePrefix}/investor/default`}>
                            {t("footer:footer_investors")}
+                        </Footer.Link>
+                        <Footer.Link as={Link} to={`${languagePrefix}/terms-of-use`}>
+                           {t("footer:footer_environmental_sustainability")}
                         </Footer.Link>
                      </Footer.LinkGroup>
                   </div>

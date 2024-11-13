@@ -3,6 +3,9 @@
       width: 26px;
       height: 26px;
   }
+  .ml-2-350 {
+    margin-left: 0.5rem;
+  }
 }
 
 @media (max-width: 365px) {
@@ -219,6 +222,9 @@
   }
   .custom-hidden {
     display: none;
+  }
+  .mr-4-860 {
+    margin-right: 1rem;
   }
 }
 

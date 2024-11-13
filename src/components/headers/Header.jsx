@@ -158,6 +158,41 @@ export default function Header() {
       setIsOpenAbout(prevState => !prevState);
    };
 
+   const menuData = [
+      {
+         title: "ПО",
+         items: [
+            { label: "Приложения для Windows", link: "/about-company" },
+            { label: "ИИ", link: "/about-company" },
+            { label: "Chatify", link: "/about-company" }
+         ]
+      },
+      {
+         title: "Развлечения",
+         items: [
+            { label: "Компьютерные игры", link: "/about-company" },
+            { label: "Игры для Windows", link: "/about-company" },
+            { label: "Игры для смартфонов", link: "/about-company" }
+         ]
+      },
+      {
+         title: "Для бизнеса",
+         items: [
+            { label: "Input Studios Cloud", link: "/about-company" },
+            { label: "Input Studios Workspace для бизнеса", link: "/about-company" },
+            { label: "Input Studios Security", link: "/about-company" }
+         ]
+      },
+      {
+         title: "Другое",
+         items: [
+            { label: "Бесплатная загрузка и средства безопасности", link: "/about-company" },
+            { label: "Образование", link: "/about-company" },
+            { label: "Лицензирование", link: "/about-company" }
+         ]
+      }
+   ];
+
    return (
       <div>
          <header className={`fixed top-0 left-0 right-0 shadow-lg z-50 transition-colors duration-300 ${theme === "light" ? "bg-white" : "bg-gray-800"}`}>
@@ -318,7 +353,7 @@ export default function Header() {
                   </>
                )}
                {(windowWidth < 860 || !searchVisible) && (
-                  <div className="ml-auto flex items-center">
+                  <div className="ml-auto flex items-center gap-5">
                      {!searchVisible && windowWidth > 860 && (
                         <>
                            <div
@@ -338,85 +373,28 @@ export default function Header() {
                               </Link>
                               {isOpenProducts && (
                                  <ul className="absolute w-[900px] right-0 top-full mt-[18px] bg-white dark:bg-gray-600 shadow-md rounded-md z-10 grid grid-cols-4 gap-6 p-4">
-                                    <div className="space-y-2">
-                                       <p className="py-2 px-2 mb-2 font-bold">ПО</p>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             Приложения для Windows
-                                          </Link>
-                                       </li>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             ИИ
-                                          </Link>
-                                       </li>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             Chatify
-                                          </Link>
-                                       </li>
-                                    </div>
-                                    <div className="space-y-2">
-                                       <p className="py-2 px-2 mb-2 font-bold">Развлечения</p>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             Компьютерные игры
-                                          </Link>
-                                       </li>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             Игры для Windows
-                                          </Link>
-                                       </li>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             Игры для смартфонов
-                                          </Link>
-                                       </li>
-                                    </div>
-                                    <div className="space-y-2">
-                                       <p className="py-2 px-2 mb-2 font-bold">Для бизнеса</p>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             Input Studios Cloud
-                                          </Link>
-                                       </li>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             Input Studios Workspace для бизнеса
-                                          </Link>
-                                       </li>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             Input Studios Security
-                                          </Link>
-                                       </li>
-                                    </div>
-                                    <div className="space-y-2">
-                                       <p className="py-2 px-2 mb-2 font-bold">Другое</p>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             Бесплатная загрузка и средства безопасности
-                                          </Link>
-                                       </li>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             Образование
-                                          </Link>
-                                       </li>
-                                       <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                          <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="text-left block text-sm">
-                                             Лицензирование
-                                          </Link>
-                                       </li>
-                                    </div>
+                                    {menuData.map((section) => (
+                                       <div key={section.title} className="space-y-2">
+                                       <p className="py-2 px-2 mb-2 font-bold">{section.title}</p>
+                                       {section.items.map((item) => (
+                                          <li key={item.label} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                             <Link
+                                             to={`${languagePrefix}${item.link}`}
+                                             onClick={() => setMenuOpen(false)}
+                                             className="text-left block text-sm"
+                                             >
+                                             {item.label}
+                                             </Link>
+                                          </li>
+                                       ))}
+                                       </div>
+                                    ))}
                                  </ul>
                               )}
                            </div>
-                           <Button
+                           <button
                               className="flex items-center justify-center search-button-text border-none focus:outline-none focus:ring-0"
                               color="gray"
-                              pill
                               onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
                               style={{ backgroundColor: 'transparent' }}
                            >
@@ -428,16 +406,15 @@ export default function Header() {
                                     <AiOutlineSearch size={24} className="ml-2 relative dark:text-white dark:group-hover:text-[#9CA3AF]" style={{ transform: 'rotate(90deg)' }} />
                                  </div>
                               </div>
-                           </Button>
+                           </button>
                         </>
                      )}
                      {!searchVisible && (
                         <>
-                           <div className="flex items-center" onClick={() => dispatch(toggleTheme())}>
-                              <Button
+                           <div className="flex items-center ml-2-350" onClick={() => dispatch(toggleTheme())}>
+                              <button
                                  className="flex items-center justify-center border-none focus:outline-none focus:ring-0"
                                  color="gray"
-                                 pill
                                  style={{ backgroundColor: 'transparent' }}
                               >
                                  <div className="flex items-center justify-center cursor-pointer group">
@@ -448,7 +425,7 @@ export default function Header() {
                                        <FaMoon size={20} className="group-hover:text-[#0E7490]" /> :
                                        <FaSun size={20} className="group-hover:text-white" style={{ color: '#ffc600' }} />}
                                  </div>
-                              </Button>
+                              </button>
                            </div>
                            {currentUser ? (
                               <div className="mr-20-768-1080">
@@ -456,7 +433,7 @@ export default function Header() {
                                     arrowIcon={false}
                                     inline
                                     label={
-                                       <div className="flex items-center group margin-header margin-right mr-4">
+                                       <div className="flex items-center group margin-header margin-right mr-4-860">
                                           <span
                                              className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]">
                                              {currentUser.username}

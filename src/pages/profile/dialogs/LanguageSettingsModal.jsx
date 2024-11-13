@@ -73,7 +73,7 @@ export default function LanguageSettingsModal({ isOpen, onClose }) {
    return (
       <>
          <div className="fixed inset-0 bg-black opacity-50 z-40" onClick={onClose}></div>
-         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 bg-white dark:bg-gray-800 py-2 shadow-lg z-50 rounded-lg">
+         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 border border-gray-700 bg-white dark:bg-gray-800 py-2 shadow-lg z-50 rounded-lg">
             <div className="flex justify-between items-center mb-4">
                <div className="flex flex-row px-4 py-2 items-center">
                   {(showLanguageInterface || showPreferredLanguages || showTranslation) ? (
