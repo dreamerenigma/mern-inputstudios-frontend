@@ -11,11 +11,16 @@ import { BsDribbble } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import { RxDiscordLogo } from "react-icons/rx";
 import { AiOutlineYoutube } from "react-icons/ai";
-import { FaFigma } from "react-icons/fa";
+import { FaFigma, FaRegClock, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
+import { FaRegEye, FaMessage } from "react-icons/fa6";
+import { Helmet } from "react-helmet";
+import { IoIosShareAlt } from "react-icons/io";
+import NewsCard from "../components/NewsCard";
 
 export default function PostPage() {
    const { t } = useTranslation();
+   const { currentUser } = useSelector(state => state.user);
    const { postSlug } = useParams();
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState(false);
@@ -82,37 +87,127 @@ export default function PostPage() {
 
    return (
       <main className="p-3 flex flex-col max-w-7xl mx-auto min-h-screen mt-[60px]">
-         <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-3xl mx-auto lg:text-4xl">
-            {post && post.title}
-         </h1>
-         <Link to={`${languagePrefix}/search?category=${post && post.category}`} className="self-center mt-5">
-            <Button color="gray" pill size="xs">
-               {post && post.category}
-            </Button>
-         </Link>
-         <VideoPlayer
-            url={post && post.video}
-            previewImage={post && post.image}
-            alt={post && post.title}
-            className="mt-10 p-3 max-h-[300px] w-full object-cover"
-         />
-         <img
-            src={post && post.image}
-            alt={post && post.title}
-            className="mt-10 p-3 max-h-[300px] w-full object-cover"
-         ></img>
-         <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
-            <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
-            <span className="italic">{post && (post.content.length / 1000).toFixed(0)}{t("posts:mins_reed")}</span>
+         <Helmet>
+            <title>{post?.title || "Новости IT - Главные новости технологий"}</title>
+         </Helmet>
+         <div className="flex flex-col lg:flex-row gap-4 max-w-6xl mx-auto">
+            <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg lg:w-3/4 overflow-hidden">
+               <div className="p-4">
+                  {currentUser ? (
+                     <Link
+                        to={`${languagePrefix}/dashboard?tab=profile`}
+                        className="flex items-center gap-2 text-gray-500 text-sm max-w-max"
+                     >
+                        <img
+                           className="h-8 w-8 object-cover rounded-full"
+                           src={currentUser.profilePicture}
+                           alt="Profile picture"
+                        />
+                        <span className="text-sm text-teal-500 hover:underline">@{currentUser.username}</span>
+                     </Link> 
+                  ) : (
+                     <div className="text-sm text-teal-500 my-5 flex gap-1 max-w-max">
+                        {t("comments:signed_in_comment")}
+                        <Link className="text-blue-500 hover:underline" to={`${languagePrefix}/sign-in`}>
+                           {t("comments:sign_in")}
+                        </Link>
+                     </div>
+                  )}
+                  <h1 className="text-xl mt-2 font-semibold lg:text-2xl">
+                     {post && post.title}
+                  </h1>
+                  <Link to={`${languagePrefix}/search?category=${post && post.category}`} className="self-center mt-5">
+                     <Button color="gray" pill size="xs" className="mt-6">
+                        {post && post.category}
+                     </Button>
+                  </Link>
+                  <VideoPlayer
+                     url={post && post.video}
+                     previewImage={post && post.image}
+                     alt={post && post.title}
+                     className="mt-10 p-3 max-h-[300px] w-full object-cover"
+                  />
+                  <img
+                     src={post && post.image}
+                     alt={post && post.title}
+                     className="mt-4 py-3 w-full h-auto object-contain"
+                  />
+                  <div className="flex justify-between py-2 border-b border-slate-500 text-md">
+                     <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
+                     <div className="flex gap-4 items-center">
+                        <div className="flex items-center gap-1">
+                           <FaRegClock size={20} className="text-gray-400" />
+                           <span className="text-gray-400">
+                              {post && (post.content.length / 1000).toFixed(0)} {t("posts:mins_read")}
+                           </span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                           <FaRegEye size={20} className="text-gray-400" />
+                           <span className="text-gray-400">235</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div
+                     className="py-3 post-content break-words text-left"
+                     dangerouslySetInnerHTML={{ __html: post && post.content }}>
+                  </div>
+                  <div>
+                     <button className="px-4 py-1 my-4 border border-teal-500 text-teal-500 rounded-md hover:bg-teal-800">
+                        Источник
+                     </button>
+                  </div>
+                  <div>
+                     <p>Теги:</p>
+                  </div>
+               </div>
+               <div className="mb-3">
+                  <hr className="border-t border-gray-300 dark:border-gray-600" />
+                  <div className="flex gap-6 mt-4 px-5">
+                     <div className="flex items-center gap-2 text-teal-500">
+                        <FaThumbsUp size={16} />
+                        <span>1</span>
+                     </div>
+                     <div className="flex items-center gap-2 text-teal-500">
+                        <FaThumbsDown size={16} />
+                        <span>0</span>
+                     </div>
+                     <div className="flex items-center gap-2 text-teal-500">
+                        <IoIosShareAlt size={24} />
+                        <span>2</span>
+                     </div>
+                     <div className="flex items-center gap-2 text-teal-500">
+                        <FaMessage size={16} />
+                        <span>1</span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div className="border border-gray-700 p-4 mb-3 bg-gray-100 dark:bg-gray-800 rounded-lg lg:w-1/4 overflow-hidden">
+               <p>НОВОСТИ</p>
+               <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
+               {recentPosts && 
+                  recentPosts.map((post) => (
+                     <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
+                        <NewsCard post={post} />
+                     </div>
+                  ))
+               }
+            </div>
          </div>
-         <div
-            className="p-3 max-w-2xl mx-auto w-full post-content break-words"
-            dangerouslySetInnerHTML={{ __html: post && post.content }}
-         ></div>
-         <div className="max-w-4xl mx-auto w-full">
-            <CallToAction />
+         <div className="flex flex-col lg:flex-row gap-4 max-w-6xl mx-auto">
+            <div className="flex-1">
+               <div className="max-w-5xl mx-auto w-full">
+                  <CallToAction />
+               </div>
+               <CommentSection postId={post._id} />
+            </div>
+            <div className="w-full lg:w-1/4 mt-8 lg:mt-0">
+               <div className="border border-gray-700 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg h-full">
+                  <p className="font-semibold text-lg">ДРУГИЕ НОВОСТИ</p>
+                  <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
+               </div>
+            </div>
          </div>
-         <CommentSection postId={post._id} />
          <div className="flex flex-col justify-center items-center mb-5">
             <h1 className="text-xl mt-12">{t("posts:recent_articles")}</h1>
             <div className="flex flex-wrap justify-center">

@@ -6,11 +6,13 @@ import { Button, Textarea } from "flowbite-react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 
-export default function Comment({ comment, onLike, onEdit, onDelete }) {
+export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) {
    const { t } = useTranslation();
    const [user, setUser] = useState({});
    const [isEditing, setIsEditing] = useState(false);
    const [editedContent, setEditedContent] = useState(comment.content);
+   const [isReplying, setIsReplying] = useState(false);
+   const [replyContent, setReplyContent] = useState("");
    const { currentUser } = useSelector((state) => state.user);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    
@@ -59,8 +61,40 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
       }
    };
 
+   const handleReply = () => {
+      setIsReplying(!isReplying);
+   };
+
+   const submitReply = async () => {
+      if (!replyContent.trim()) return;
+      try {
+         const token = localStorage.getItem('token');
+         const res = await fetch(`${SERVER_URL}/api/comment/reply/${comment._id}`, {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+               content: replyContent,
+            }),
+         });
+         
+         if (res.ok) {
+            const newReply = await res.json();
+            onReply(newReply);
+            setIsReplying(false);
+            setReplyContent("");
+         } else {
+            console.log(`Failed to reply: ${res.statusText}`);
+         }
+      } catch (error) {
+         console.log(error.message);
+      }
+   };
+
    return (
-      <div className="flex p-4 border-b dark:border-gray-600 text-sm">
+      <div className="flex py-4 text-sm">
          <div className="flex-shrink-0 mr-3">
             <img
                className="w-10 h-10 rounded-full bg-gray-200"
@@ -73,7 +107,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                <span className="font-bold mr-1 text-xs truncate">
                   {user ? `@${user.username}` : "anonymous user"}
                </span>
-               <span className="text-gray-500 text-xs">
+               <span className="text-gray-400 text-xs">
                   {moment(comment.createdAt).fromNow()}
                </span>
             </div>
@@ -85,28 +119,17 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                      onChange={(e) => setEditedContent(e.target.value)}
                   />
                   <div className="flex justify-end gap-2 text-xs">
-                     <Button
-                        type="button"
-                        size="sm"
-                        gradientDuoTone="purpleToBlue"
-                        onClick={handleSave}
-                     >
+                     <Button type="button" size="sm" gradientDuoTone="purpleToBlue" onClick={handleSave}>
                         Save
                      </Button>
-                     <Button
-                        type="button"
-                        size="sm"
-                        gradientDuoTone="purpleToBlue"
-                        outline
-                        onClick={() => setIsEditing(false)}
-                     >
+                     <Button type="button" size="sm" gradientDuoTone="purpleToBlue" outline onClick={() => setIsEditing(false)}>
                         Cancel
                      </Button>
                   </div>
                </>
             ) : (
                <>
-                  <p className="text-gray-500 pb-2">{comment.content}</p>
+                  <p className="text-gray-400 pb-2">{comment.content}</p>
                   <div className="flex items-center pt-2 text-xs border-t  dark:border-gray-700 max-w-fit gap-2">
                      <button
                         type="button"
@@ -117,12 +140,11 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                            "!text-blue-500"
                         }`}
                      >
-                        <FaThumbsUp className="text-sm" />
+                        <FaThumbsUp className="text-sm text-teal-500" />
                      </button>
                      <p className="text-gray-400">
                         {comment.numberOfLikes > 0 &&
-                           comment.numberOfLikes +
-                           " " +
+                           comment.numberOfLikes + " " +
                            (comment.numberOfLikes === 1 ? t("comments:like") : t("comments:likes"))
                         }
                      </p>
@@ -131,8 +153,15 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                            <>
                               <button
                                  type="button"
+                                 onClick={handleReply}
+                                 className="text-gray-400 hover:text-teal-500" 
+                              >
+                                 Ответить
+                              </button>
+                              <button
+                                 type="button"
                                  onClick={handleEdit}
-                                 className="text-gray-400 hover:text-blue-500" 
+                                 className="text-gray-400 hover:text-teal-500" 
                               >
                                  {t("comments:edit")}
                               </button>
@@ -146,6 +175,36 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                            </>
                         )}
                   </div>
+                  {isReplying && (
+                     <div className="mt-2">
+                        <textarea
+                           value={replyContent}
+                           onChange={(e) => setReplyContent(e.target.value)}
+                           placeholder={t("posts:write_reply")}
+                           className="w-full border border-gray-600 rounded-md bg-white dark:bg-gray-700 focus:outline-none focus:ring-0 focus:border-teal-500 resize-none overflow-hidden"
+                           rows="2"
+                        />
+                        <div className="flex justify-end gap-2 text-xs mt-2">
+                           <Button
+                              type="button"
+                              size="sm"
+                              gradientDuoTone="purpleToBlue"
+                              onClick={submitReply}
+                           >
+                              {t("posts:reply")}
+                           </Button>
+                           <Button
+                              type="button"
+                              size="sm"
+                              gradientDuoTone="purpleToBlue"
+                              outline
+                              onClick={() => setIsReplying(false)}
+                           >
+                              {t("posts:cancel")}
+                           </Button>
+                        </div>
+                     </div>
+                  )}
                </>
             )}
          </div>
@@ -165,4 +224,5 @@ Comment.propTypes = {
    onLike: PropTypes.func.isRequired,
    onEdit: PropTypes.func.isRequired,
    onDelete: PropTypes.func.isRequired,
+   onReply: PropTypes.func.isRequired,
 };

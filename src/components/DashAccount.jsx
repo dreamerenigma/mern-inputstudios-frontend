@@ -10,6 +10,10 @@ import { FaRegCreditCard } from "react-icons/fa6";
 import { MdManageAccounts } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import DeleteUserModal from "../components/modals/DeleteUserModal";
+import { CiLock } from "react-icons/ci";
+import { GoPasskeyFill } from "react-icons/go";
+import { IoIosArrowForward } from "react-icons/io";
+import { IoSettingsOutline } from "react-icons/io5";
 
 export default function DashProfile() {
    const { t } = useTranslation();
@@ -79,9 +83,9 @@ export default function DashProfile() {
          description: t("profile:tools_help_keep"),
          content: (
             <>
-               <p className="font-semibold text-xl mb-4">{t("profile:privacy_dashboard")}</p>
+               <p className="font-semibold text-xl mb-4">{t("profile:account_protection")}</p>
                <p className="mb-4">
-                  {t("profile:privacy_dashboard_you_can_manage")}
+                  {t("profile:confirm_two_factor_verification")}
                </p>
                <Button
                   className="text-xs sm:text-sm font-bold focus:outline-none mb-10"
@@ -89,6 +93,7 @@ export default function DashProfile() {
                >
                   {t("profile:security_dashboard")}
                </Button>
+               
             </>
          ),
          relatedLinks: [
@@ -104,21 +109,14 @@ export default function DashProfile() {
          description: t("profile:manage_pay_purchases"),
          content: (
             <>
-               <p className="font-semibold text-xl mb-4">{t("profile:privacy_dashboard")}</p>
-               <p className="mb-4">
-                  {t("profile:you_can_manage_data")}
-               </p>
-               <Button
-                  className="text-xs sm:text-sm font-bold focus:outline-none mb-10"
-                  onClick={() => alert("Privacy button clicked")}
-               >
-                  {t("profile:privacy_dashboard")}
-               </Button>
+               <p className="text-base mb-4">{t("profile:payment_methods_not_available")}</p>
+               <p className="text-base mb-4">{t("profile:adding_payment_method")}</p>
             </>
          ),
          relatedLinks: [
             { text: t("profile:view_transactions"), url: "/billing/payments" },
-            { text: t("profile:view_notifications"), url: "/billing/payments" }
+            { text: t("profile:view_notifications"), url: "/billing/payments" },
+            { text: t("profile:research_expenses"), url: "/billing/payments" }
          ],
       },
       {
@@ -188,19 +186,17 @@ export default function DashProfile() {
                {accountData.map((container, index) => (
                   <div key={container.id} className={`w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 ${visibleContainers[index] ? 'rounded-lg' : 'rounded-t-lg'}`}>
                      <div
-                        className={`flex flex-row items-center justify-between w-full px-4 py-2 space-x-4 cursor-pointer ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'} ${visibleContainers[index] ? 'rounded-t-lg' : 'rounded-lg'}`}
+                        className={`flex items-center justify-between w-full px-4 py-2 space-x-4 cursor-pointer ${theme === 'dark' ? 'hover:bg-gray-700/60 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'} ${visibleContainers[index] ? 'rounded-t-lg' : 'rounded-lg'}`}
                         onClick={() => handleContainerClick(index)}
                      >
-                        <div className="flex flex-col">
+                        <div className="flex-1 flex flex-col">
                            <div className="flex items-center space-x-2">
                               {container.icon}
                               <span className="pl-2">{container.title}</span>
                            </div>
-                           <span className="pl-9 text-xs">{container.description}</span>
+                           <span className="pl-9 text-xs truncate max-w-[200px] sm:max-w-sm lg:max-w-none whitespace-nowrap overflow-hidden">{container.description}</span>
                         </div>
-                        <div className="flex items-center space-x-2">
-                           <IoIosArrowDown className={`transform transition-transform duration-300 ${visibleContainers[index] ? 'rotate-180' : 'rotate-0'}`} />
-                        </div>
+                        <IoIosArrowDown className={`transform transition-transform duration-300 ${visibleContainers[index] ? 'rotate-180' : 'rotate-0'}`} />
                      </div>
                      {visibleContainers[index] && (
                         <>
@@ -221,6 +217,44 @@ export default function DashProfile() {
                                  </div>
                               </div>
                            </div>
+                           {index === 2 && (
+                              <>
+                                 <hr className="border-t border-gray-300 dark:border-gray-600"/>
+                                 <div className="flex items-center justify-between px-4 py-4 hover:bg-gray-700/60 cursor-pointer">
+                                    <div className="flex items-center">
+                                       <span className="mr-4">
+                                          <CiLock size={20} />
+                                       </span>
+                                       <span className="">Изменить пароль</span>
+                                    </div>
+                                    <span className="text-gray-500">
+                                       <IoIosArrowForward size={20} />
+                                    </span>
+                                 </div>
+                                 <div className="flex items-center justify-between px-4 py-4 hover:bg-gray-700/60 cursor-pointer">
+                                    <div className="flex items-center">
+                                       <span className="mr-4">
+                                          <GoPasskeyFill size={20} />
+                                       </span>
+                                       <span className="">Просмотреть сеансы входа в систему</span>
+                                    </div>
+                                    <span className="text-gray-500">
+                                       <IoIosArrowForward size={20} />
+                                    </span>
+                                 </div>
+                                 <div className="flex items-center justify-between px-4 py-4 hover:bg-gray-700/60 cursor-pointer">
+                                    <div className="flex items-center ">
+                                       <span className="mr-4">
+                                          <IoSettingsOutline size={20} />
+                                       </span>
+                                       <span className="">Дополнительные параметры безопасности</span>
+                                    </div>
+                                    <span className="text-gray-500">
+                                       <IoIosArrowForward size={20} />
+                                    </span>
+                                 </div>
+                              </>
+                           )}
                            <hr className="border-t border-gray-300 dark:border-gray-600" />
                            <div className="flex flex-row items-center justify-between w-full px-4 py-4">
                               <div className="flex flex-col">

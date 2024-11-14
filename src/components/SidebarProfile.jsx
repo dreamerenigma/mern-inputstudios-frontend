@@ -495,7 +495,7 @@ export default function SidebarProfile() {
                   </div>
                </div>
             )}
-         <span className="px-6 py-2 text-xs">{t("version_app")}</span>
+         {/* <span className="px-6 py-2 text-xs">{t("version_app")}</span> */}
       </div>
    );
 }

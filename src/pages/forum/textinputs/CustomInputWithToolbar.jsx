@@ -16,8 +16,9 @@ import { IoLinkSharp, IoUnlink } from "react-icons/io5";
 import { AiFillPicture } from "react-icons/ai";
 import ImageUploadModal from "../dialogs/ImageUploadDialog";
 import InsertLinkDialog from "../dialogs/InsertLinkDialog";
+import PropTypes from "prop-types";
 
-const CustomInputWithToolbar = () => {
+export default function CustomInputWithToolbar ({ value, onChange }) {
    const dropdownRef = useRef(null);
    const dropdownFontRef = useRef(null);
    const editableRef = useRef(null);
@@ -84,6 +85,13 @@ const CustomInputWithToolbar = () => {
       };
    }, []);
 
+   useEffect(() => {
+      if (editableRef.current && editableRef.current.innerText !== value) {
+      editableRef.current.innerText = value;
+      setContent(value);
+      }
+   }, [value]);
+
    const toggleDropdown = () => {
       setDropdownOpen(!isDropdownOpen);
    };
@@ -148,7 +156,10 @@ const CustomInputWithToolbar = () => {
       setHasIndent(indentExists);
       const listExists = e.target.querySelector('ul') !== null || e.target.querySelector('ol') !== null;
       setHasList(listExists);
-  };
+      if (onChange) {
+         onChange(currentText);
+      }
+   };
 
    const adjustHeight = () => {
       const container = editableRef.current;
@@ -290,7 +301,7 @@ const CustomInputWithToolbar = () => {
    };
 
    return (
-      <div className="w-full mt-4 border border-gray-600 rounded-md">
+      <div className="w-full border border-gray-600 rounded-md">
          <div className="bg-gray-200 dark:bg-gray-700 rounded-t-md flex flex-wrap items-center border border-gray-600 p-2">
             <div className="flex flex-wrap gap-3">
                <div className="flex items-stretch border-button rounded-lg border-gray-500">
@@ -494,7 +505,7 @@ const CustomInputWithToolbar = () => {
             <div
                ref={editableRef}
                id="editableContainer"
-               className="w-full p-4 bg-gray-200 dark:bg-gray-700 rounded-b-md outline-none border-none ring-0 focus:outline-none resize-none"
+               className="editableField w-full p-4 bg-gray-200 dark:bg-gray-700 rounded-b-md outline-none border-none ring-0 focus:outline-none resize-none"
                contentEditable
                suppressContentEditableWarning
                onInput={handleInput}
@@ -515,6 +526,9 @@ const CustomInputWithToolbar = () => {
          </div>
       </div>
    );
-};
+}
 
-export default CustomInputWithToolbar;
+CustomInputWithToolbar.propTypes = {
+   value: PropTypes.string.isRequired,
+   onChange: PropTypes.func.isRequired,
+};

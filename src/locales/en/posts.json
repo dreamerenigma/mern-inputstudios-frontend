@@ -1,5 +1,6 @@
 {
-  "mins_reed": " mins reed",
+  "title_post": "Update post",
+  "mins_reed": "mins",
   "error_occurred_post": "An error occurred while fetching the post.",
   "recent_articles": "Recent articles",
   "read_articles": "Read article",
@@ -14,5 +15,17 @@
   "apply_filters": "Apply Filters",
   "no_posts_found": "No posts found.",
   "loading": "Loading...",
-  "show_more": "Show More"
+  "show_more": "Show More",
+  "please_select_image": "Please select an image",
+  "update_instructions": "You can change the title, category and text of the post. Don't forget to upload a new image if needed.",
+  "update_post": "Update post",
+  "title": "Title",
+  "select_category": "Select a category",
+  "upload_image": "Upload Image",
+  "write_something": "Write something...",
+  "add_tags": "Add tags",
+  "tags_placeholder": "Tags",
+  "write_reply": "Write reply",
+  "reply": "Reply",
+  "cancel": "Cancel"
 }

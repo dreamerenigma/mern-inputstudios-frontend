@@ -1,5 +1,4 @@
-import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
-import ReactQuill from 'react-quill';
+import { Alert, Button, FileInput } from "flowbite-react";
 import 'react-quill/dist/quill.snow.css';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../firebase";
@@ -8,22 +7,25 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
+import CustomInputWithToolbar from "./forum/textinputs/CustomInputWithToolbar";
+import ReactQuill from 'react-quill';
 
 export default function UpdatePost() {
+   const { t } = useTranslation();
    const [file, setFile] = useState(null);
    const [imageUploadProgress, setImageUploadProgress] = useState(null);
    const [imageUploadError, setImageUploadError] = useState(null); 
-   const [formData, setFormData] = useState({
-      title: '',
-      category: 'uncategorized',
-      content: ''
-   });
+   const [formData, setFormData] = useState({ title: '', category: 'uncategorized', content: '' });
    const [publishError, setPublishError] = useState(null);
    const navigate = useNavigate();
    const { postId } = useParams();
    const { currentUser } = useSelector((state) => state.user);
    const imageRef = useRef(formData.image);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    useEffect(() => {
       const controller = new AbortController();
@@ -32,9 +34,7 @@ export default function UpdatePost() {
       const fetchPost = async () => {
          try {
             console.log("Fetching post with ID:", postId);
-
             const res = await fetch(`${SERVER_URL}/api/post/getposts?postId=${postId}`, { signal });
-
             if (!res.ok) {
                   const errorData = await res.json();
                   console.log(errorData.message);
@@ -48,7 +48,6 @@ export default function UpdatePost() {
             if (data.posts && data.posts.length > 0) {
                   const post = data.posts[0];
                   console.log("Fetched post object:", post);
-
                   setFormData({
                      ...post,
                      _id: post._id,
@@ -78,7 +77,7 @@ export default function UpdatePost() {
    const handleUploadImage = async () => {
       try {
          if (!file) {
-            setImageUploadError("Please select an image");
+            setImageUploadError(t("posts:please_select_image"));
             return;
          }
          setImageUploadError(null);
@@ -105,7 +104,6 @@ export default function UpdatePost() {
                });
             }
          );
-
       } catch (error) {
          setImageUploadError(`Image upload failed: ${error.message}`);
          setImageUploadProgress(null);
@@ -116,12 +114,10 @@ export default function UpdatePost() {
    const handleSubmit = async (e) => {
       e.preventDefault();
       console.log("Form Data: ", formData);
-
       if (!formData._id) {
          setPublishError("Post ID is missing");
          return;
       }
-
       try {
          const token = localStorage.getItem('token');
          const res = await fetch(`${SERVER_URL}/api/post/updatepost/${formData._id}/${currentUser._id}`, {
@@ -132,7 +128,6 @@ export default function UpdatePost() {
             },
             body: JSON.stringify(formData),
          });
-
          const data = await res.json();
          if (!res.ok) {
             console.log("Update error:", data.message);
@@ -147,32 +142,46 @@ export default function UpdatePost() {
       }
    };
 
+   const handlePreviewClick = () => {
+      navigate(`${languagePrefix}/preview-post`);
+   };
+
    return (
-      <div className="p-3 max-w-3xl mx-auto min-h-screen">
-         <h1 className="text-center text-3xl my-7 font-semibold">Update post</h1>
+      <div className="p-3 max-w-3xl mx-auto min-h-screen mt-[60px] mb-20">
+         <Helmet>
+            <title>{t("posts:title_post")}</title>
+         </Helmet>
+         <h1 className="text-center text-3xl my-7 font-semibold">{t("posts:update_post")}</h1>
+         <div className="text-center text-lg mx-12 mb-8">
+            <p>{t("posts:update_instructions")}</p>
+         </div>
          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4 sm:flex-row justify-between">
-               <TextInput
+               <input
                   type="text"
-                  placeholder="Title"
+                  placeholder={t("posts:title")}
                   required id="title"
-                  className="flex-1"
+                  className="border border-gray-600 rounded-md w-full bg-white dark:bg-gray-700 focus:outline-none focus:ring-0 focus:border-teal-500"
                   onChange={(e) =>
                      setFormData({ ...formData, title: e.target.value })
                   }
                   value={formData.title}
                />
-               <Select
+               <select
                   onChange={(e) => 
                      setFormData({ ...formData, category: e.target.value })
                   }
                   value={formData.category}
+                  className="rounded-md border border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-0 focus:border-teal-500"
                >
-                  <option value="uncategorized">Select a category</option>
+                  <option value="uncategorized">{t("posts:select_category")}</option>
+                  <option value="android">Android</option>
+                  <option value="database">Database</option>
                   <option value="javascript">JavaScript</option>
                   <option value="reactjs">React.js</option>
                   <option value="nextjs">Next.js</option>
-               </Select>
+                  <option value="unrealengine">Unreal Engine</option>
+               </select>
             </div>
             <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
                <FileInput
@@ -196,9 +205,20 @@ export default function UpdatePost() {
                         />
                      </div>
                   ) : (
-                     "Upload Image"
+                     t("posts:upload_image")
                   )}
                </Button>
+            </div>
+            <div>
+               <label htmlFor="tags" className="text-sm font-medium">{t("posts:add_tags")}</label>
+               <input
+                  type="text"
+                  id="tags"
+                  className="mt-2 p-2 border border-gray-600 rounded-md w-full bg-white dark:bg-gray-700 focus:outline-none focus:ring-0 focus:border-teal-500 "
+                  placeholder={t("posts:tags_placeholder")}
+                  onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+                  value={formData.tags}
+               />
             </div>
             {imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
             {formData.image && (
@@ -208,6 +228,15 @@ export default function UpdatePost() {
                   className="w-full h-72 object-cover"
                />
             )}
+            {/* <div>
+               <CustomInputWithToolbar
+                  value={formData.content}
+                  className="h-72 mb-12"
+                  onChange={(value) => {
+                     setFormData({ ...formData, content: value });
+                  }} 
+               />
+            </div> */}
             <ReactQuill
                theme="snow"
                value={formData.content}
@@ -219,7 +248,15 @@ export default function UpdatePost() {
                }}
             />
             <Button type="submit" gradientDuoTone="purpleToPink">
-               Update post
+               {t("posts:update_post")}
+            </Button>
+            <Button 
+               type="submit"
+               gradientDuoTone="purpleToPink"
+               className="text-xl px-6"
+               onClick={handlePreviewClick}
+            >
+               Показать превью поста
             </Button>
             {publishError && (
                <Alert className="mt-5" color="failure">

@@ -13,6 +13,8 @@ export default function DashPosts() {
    const [showModal, setShowModal] = useState(false);
    const [postIdToDelete, setPostIdToDelete] = useState("");
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
    
    useEffect(() => {
       const fetchPosts = async () => {
@@ -107,7 +109,7 @@ export default function DashPosts() {
                               {new Date(post.updatedAt).toLocaleDateString()}
                            </Table.Cell>
                            <Table.Cell>
-                              <Link to={`/post/${post.slug}`}>
+                              <Link to={`${languagePrefix}/post/${post.slug}`}>
                                  <img
                                     src={post.image}
                                     alt={post.title}
@@ -118,7 +120,7 @@ export default function DashPosts() {
                            <Table.Cell>
                               <Link
                                  className="font-medium text-gray-900 dark:text-white"
-                                 to={`/post/${post.slug}`}
+                                 to={`${languagePrefix}/post/${post.slug}`}
                               >
                                  {post.title}
                               </Link>
@@ -138,7 +140,7 @@ export default function DashPosts() {
                            <Table.Cell>
                               <Link
                                  className="text-teal-500 hover:underline"
-                                 to={`/update-post/${post._id}`}
+                                 to={`${languagePrefix}/update-post/${post._id}`}
                               >
                                  <span>{t("edit")}</span>
                               </Link>

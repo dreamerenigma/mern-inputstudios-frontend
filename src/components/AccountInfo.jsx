@@ -42,21 +42,23 @@ export default function AccountInfo() {
                <span className="ml-auto pr-2 text-teal-500 hover:text-teal-700 hover:underline cursor-pointer">Настройки общения</span>
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
-            <div className="grid grid-cols-[250px_auto_1fr] items-center w-full pl-4 py-2">
+            <div className="grid grid-cols-[250px_auto_1fr] items-start w-full pl-4 py-2 responsive-grid">
                <span className="inline-block text-left">Номер телефона</span>
                <span className="text-left">Нет</span>
-               <div className="flex items-center justify-end w-full">
-                  <span className="whitespace-normal text-left w-[300px]">Ваш номер телефона используется для входа в учетную запись Input Studios</span>
+               <div className="flex items-center justify-end w-full hide-below-1030px">
+                  <span className="whitespace-normal text-left w-[300px]">
+                     Ваш номер телефона используется для входа в учетную запись Input Studios
+                  </span>
                </div>
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
             <div>
-               <div className="grid grid-cols-[250px_auto_1fr] items-center w-full pl-4 py-2">
+               <div className="grid grid-cols-[250px_auto_1fr] items-center w-full pl-4 py-2 responsive-grid">
                   <span className="inline-block text-left">Телефон подключен к компьютеру</span>
                   <span className="text-left font-semibold">+7 999 194-03-98</span>
                   <span className="mx-4 flex items-center justify-end text-left cursor-pointer" onClick={handleOpenDialog}>
                      <RiDeleteBin5Line size={24} className="mr-2 text-teal-500 " />
-                     <span className="text-teal-500 ">&quot;Удалить&quot;</span>
+                     <span className="text-teal-500 hide-below-1030px">&quot;Удалить&quot;</span>
                   </span>
                </div>
                <DeletePhoneDialog
