@@ -3,24 +3,11 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { FaMessage } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa";
+import { formatDate } from "../utils/dateUtils";
 
 export default function NewsCard({ post }) {
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
-
-   const formatDate = (date) => {
-      const formattedDate = new Intl.DateTimeFormat(currentLanguage, {
-         day: '2-digit',
-         month: 'short',
-         hour: '2-digit',
-         minute: '2-digit',
-      }).format(new Date(date));
-      const dateParts = formattedDate.split(', ');
-      const dateWithoutDot = dateParts[0].replace(/(\w{3})\./, '$1');
-      const cleanDate = dateWithoutDot.replace(/(\s[а-я]{3})\./, '$1');
-      const time = dateParts[1];
-      return `${cleanDate} в ${time}`;
-   };
 
    return (
       <div className="group relative w-full h-auto overflow-hidden transition-all">

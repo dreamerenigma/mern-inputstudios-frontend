@@ -258,10 +258,10 @@ export default function CommentSection({ postId }) {
                   className="w-full border border-gray-600 rounded-md bg-white dark:bg-gray-700 focus:outline-none focus:ring-0 focus:border-teal-500 resize-none overflow-hidden"
                   rows="2"
                />
-               <div className="flex justify-between items-center mt-5">
-                  <p className="text-gray-500 text-xs">
-                     {200 - comment.length} {t("comments:characters_remaining")}
-                  </p>
+               <p className="text-gray-500 text-xs mt-2">
+                  {200 - comment.length} {t("comments:characters_remaining")}
+               </p>
+               <div className="flex justify-end items-center">
                   <Button outline gradientDuoTone="purpleToBlue" type="submit">
                      {t("comments:submit")}
                   </Button>

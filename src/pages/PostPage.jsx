@@ -17,6 +17,7 @@ import { FaRegEye, FaMessage } from "react-icons/fa6";
 import { Helmet } from "react-helmet";
 import { IoIosShareAlt } from "react-icons/io";
 import NewsCard from "../components/NewsCard";
+import { formatDate } from "../utils/dateUtils";
 
 export default function PostPage() {
    const { t } = useTranslation();
@@ -26,6 +27,7 @@ export default function PostPage() {
    const [error, setError] = useState(false);
    const [post, setPost] = useState(null);
    const [recentPosts, setRecentPosts] = useState(null);
+   const [views, setViews] = useState(0);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
@@ -68,6 +70,30 @@ export default function PostPage() {
          console.log(error.message);
       }
    }, [SERVER_URL])
+
+   useEffect(() => {
+      if (post && post._id) {
+         const incrementViews = async () => {
+            try {
+               const response = await fetch(`${SERVER_URL}/api/posts/${post._id}/incrementViews`, {
+                  method: "PUT",
+                  headers: {
+                     "Content-Type": "application/json",
+                  },
+               });
+   
+               if (response.ok) {
+                  const data = await response.json();
+                  setViews(data.views);
+               }
+            } catch (error) {
+               console.error("Failed to increment views:", error.message);
+            }
+         };
+   
+         incrementViews();
+      }
+   }, [post, SERVER_URL]);
 
    if (loading) {
       return (
@@ -133,17 +159,17 @@ export default function PostPage() {
                      className="mt-4 py-3 w-full h-auto object-contain"
                   />
                   <div className="flex justify-between py-2 border-b border-slate-500 text-md">
-                     <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
+                     <span>{post && formatDate(post.createdAt)}</span>
                      <div className="flex gap-4 items-center">
                         <div className="flex items-center gap-1">
-                           <FaRegClock size={20} className="text-gray-400" />
-                           <span className="text-gray-400">
+                           <FaRegClock size={18} className="text-gray-400" />
+                           <span className="text-gray-400 pl-1">
                               {post && (post.content.length / 1000).toFixed(0)} {t("posts:mins_read")}
                            </span>
                         </div>
                         <div className="flex items-center gap-1">
-                           <FaRegEye size={20} className="text-gray-400" />
-                           <span className="text-gray-400">235</span>
+                           <FaRegEye size={18} className="text-gray-400" />
+                           <span className="text-gray-400 pl-1">{views}</span>
                         </div>
                      </div>
                   </div>
