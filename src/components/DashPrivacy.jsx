@@ -27,7 +27,7 @@ export default function DashProfile() {
                {t("privacy:privacy_starts_with_putting")}
             </p>
             <Link
-               to={`${languagePrefix}/search`}
+               to={`${languagePrefix}/privacy`}
                className=" text-teal-500 underline hover:underline mt-4 hover:text-teal-700" 
             >
                {t("privacy:learn_more_about")}
@@ -37,7 +37,7 @@ export default function DashProfile() {
                   <div className="col-span-2 p-10 justify-between">
                      <p className="font-semibold text-xl mt-4 mb-4">{t("privacy:make_sure_you")}</p>
                      <p className="mb-4">{t("privacy:review_your_account")}</p>
-                     <Button className="text-sm sm:text-sm focus:outline-none">
+                     <Button className="text-sm sm:text-sm focus:outline-none shadow-md">
                         {t("privacy:get_started")}
                      </Button>
                   </div>
@@ -50,9 +50,9 @@ export default function DashProfile() {
                <h1 className="mt-14 py-2 text-left font-semibold text-2xl">{t("privacy:empower_your_productivity")}</h1>
                <p>
                   {t("privacy:your_personal_data")}
-                  <a href="/concern/privacy" className="text-teal-500 underline hover:text-teal-700">
+                  <Link to={`${languagePrefix}/privacy/privacy-support-requests`} className="text-teal-500 underline hover:text-teal-700">
                      {t("privacy:contact_privacy_team")}
-                  </a>
+                  </Link>
                   <a>.</a>
                </p>
             </div>

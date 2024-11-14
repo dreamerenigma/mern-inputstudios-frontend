@@ -152,9 +152,9 @@ export default function DashUsers() {
          ) : (
             <div className="flex flex-col items-center justify-center h-screen">
                <img
-               src="/images/profile/no_users.png"
-               alt="No comments"
-               className="mb-4 w-56 h-52"
+                  src="/images/profile/no_users.png"
+                  alt="No users"
+                  className="mb-4 w-56 h-52"
                />
                <p>{t("you_have_no_users")}</p>
             </div>

@@ -82,251 +82,419 @@ export default function SidebarProfile() {
 
    return ( 
       <div className="flex flex-col h-full md:w-64">
-      <div 
-         className={`flex items-center justify-between pl-6 p-2 xl:hidden ${isClicked ? 'bg-gray-300 dark:bg-gray-800' : 'bg-gray-100 dark:bg-gray-900'}`}
-         onClick={toggleSidebar}
-      >
-         <button>
-            {isMenuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
-         </button>
-      </div>
-      <div className={`h-full overflow-y-auto overflow-x-hidden pl-3 py-4 rounded bg-gray-100 dark:bg-[rgb(16,23,42)] flex flex-col justify-between transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 ${!isMenuOpen ? 'w-full md:w-auto' : 'md:w-56'}`}>
-         <div className="flex items-center mb-5 ml-2">
-            <Avatar alt='user' img={currentUser.profilePicture} rounded />
-            <div className="ml-4 hidden xl:block">
-               <span className="block text-sm">{currentUser.username}</span>
-               <span className="block text-sm font-medium truncate">{currentUser.email}</span>
-            </div>
+         <div 
+            className={`flex items-center justify-between pl-6 p-2 xl:hidden ${isClicked ? 'bg-gray-300 dark:bg-gray-800' : 'bg-gray-100 dark:bg-gray-900'}`}
+            onClick={toggleSidebar}
+         >
+            <button>
+               {isMenuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
+            </button>
          </div>
-            <div className="flex-grow">
-               <Link to={`${languagePrefix}/dashboard?tab=account`}>
-                  <div className="py-1">
-                     <div className={`py-2 px-3 ${tab === "account" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center justify-between rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "account" ? 'shadow-md' : ''}`}>                        
-                        <div className="flex items-center">
-                           {tab === "account" ? (
-                              <HiHome
-                                 size={28}
-                                 className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
-                              />
-                           ) : (
-                              <HiOutlineHome
-                                 size={28}
-                                 className={`text-${tab === "account" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                              />
-                           )}
-                           <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("sidebar_account")}</span>
-                        </div>
-                        {currentUser.isAdmin && (
-                           <div className={`ml-9 bg-gray-700 px-2 py-0.2 rounded ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>
-                              <span className="text-xs text-white xl:inline">{t("admin")}</span>
-                           </div>
-                        )}
-                     </div>
-                  </div>
-               </Link>
-               {currentUser && currentUser.isAdmin && (
-                  <Link to={`${languagePrefix}/dashboard?tab=dash`}>
-                     <div className="py-1">
-                        <div className={`py-2 px-3 ${tab === "dash" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "dash" ? 'shadow-md' : ''}`}>
-                           {tab === "dash" ? (
-                              <HiChartPie
-                                 size={28}
-                                 className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
-                              />
-                           ) : (
-                              <HiOutlineChartPie 
-                                 size={28}
-                                 className={`text-${tab === "dash" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                              />
-                           )}
-                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("dashboard")}</span> 
-                        </div>
-                     </div>
-                  </Link>
-               )}
-               <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                  <div className="py-1">
-                     <div className={`py-2 px-3 ${tab === "profile" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "profile" ? 'shadow-md' : ''}`}>
-                        {tab === "profile" ? (
-                           <HiUser
-                              size={28}
-                              className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
-                           />
-                        ) : (
-                           <HiOutlineUser
-                              size={28}
-                              className={`text-${tab === "profile" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                           />
-                        )}
-                           <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("profile")}</span>
-                     </div>
-                  </div>
-               </Link>
-               <Link to={`${languagePrefix}/dashboard?tab=privacy`}>
-                  <div className="py-1">
-                     <div className={`py-2 px-3 ${tab === "privacy" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "privacy" ? 'shadow-md' : ''}`}>
-                        {tab === "privacy" ? (
-                           <HiShieldCheck
-                              size={28}
-                              className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
-                           />
-                        ) : (
-                           <HiOutlineShieldCheck
-                              size={28}
-                              className={`text-${tab === "privacy" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                           />
-                        )}
-                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("privacy")}</span>
-                     </div>
-                  </div>
-               </Link>
-               <Link to={`${languagePrefix}/dashboard?tab=security`}>
-                  <div className="py-1">
-                     <div className={`py-2 px-3 ${tab === "security" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "security" ? 'shadow-md' : ''}`}>
-                        {tab === "security" ? (
-                           <HiLockClosed
-                              size={28}
-                              className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
-                           />
-                        ) : (
-                           <HiOutlineLockClosed
-                              size={28}
-                              className={`text-${theme === 'dark' ? 'gray-400' : 'gray-500'}`}
-                           />
-                        )}
-                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("security")}</span>
-                     </div>
-                  </div>
-               </Link>
-               {currentUser.isAdmin && (
-                  <Link to={`${languagePrefix}/dashboard?tab=posts`}>
-                     <div className="py-1">
-                        <div className={`py-2 px-3 ${tab === "posts" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "posts" ? 'shadow-md' : ''}`}>
-                           {tab === "posts" ? (
-                              <HiDocumentText
-                                 size={28}
-                                 className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
-                              />
-                           ) : (
-                              <HiOutlineDocumentText 
-                                 size={28}
-                                 className={`text-${tab === "posts" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                              />
-                           )}
-                           <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("posts")}</span>
-                        </div>
-                     </div>
-                  </Link>
-               )}
-               {currentUser.isAdmin && (
-                  <>
-                     <Link to={`${languagePrefix}/dashboard?tab=users`}>
-                        <div className="py-1">
-                           <div className={`py-2 px-3 ${tab === "users" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "users" ? 'shadow-md' : ''}`}>
-                              {tab === "users" ? (
-                                 <HiUserGroup
-                                    size={28}
-                                    className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
-                                 />
-                              ) : (
-                                 <HiOutlineUserGroup 
-                                    size={28}
-                                    className={`text-${tab === "users" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                                 />
-                              )}
-                              <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("users")}</span>
-                           </div>
-                        </div>
-                     </Link>
-                     <Link to={`${languagePrefix}/dashboard?tab=comments`}>
-                        <div className="py-1">
-                           <div className={`py-2 px-3 ${tab === "comments" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "comments" ? 'shadow-md' : ''}`}>
-                              {tab === "comments" ? (
-                                 <HiAnnotation
-                                    size={28}
-                                    className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
-                                 />
-                              ) : (
-                                 <HiOutlineAnnotation 
-                                    size={28}
-                                    className={`text-${tab === "comments" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                                 />
-                              )}
-                              <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("comments")}</span>
-                           </div>
-                        </div>
-                     </Link>
-                  </>
-               )}
-               <Link to={`${languagePrefix}/dashboard?tab=addresses`}>
-                  <div className="py-1">
-                     <div className={`py-2 px-3 ${tab === "addresses" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "addresses" ? 'shadow-md' : ''}`}>
-                        {tab === "addresses" ? (
-                           <IoLocationSharp
-                              size={28}
-                              className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
-                           />
-                        ) : (
-                           <IoLocationOutline 
-                              size={28}
-                              className={`text-${tab === "addresses" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                           />
-                        )}
-                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("address_book")}</span>
-                     </div>
-                  </div>
-               </Link>
-               <Link to={`${languagePrefix}/dashboard?tab=signout`}>
-                  <div 
-                     className={`py-2 px-3 ${tab === "signout" || !tab ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200') : ''} flex items-center rounded-xl ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} ${isMenuOpen ? 'w-14' : 'w-full'} xl:w-full ${!isMenuOpen && 'xl:w-28'} ${tab === "signout" ? 'shadow-md' : ''}`} 
-                     onClick={handleSignoutClick}
-                  >
-                     {tab === "signout" ? (
-                        <IoExit
-                        size={28}
-                        className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
-                        />
-                     ) : (
-                        <IoExitOutline 
-                        size={28}
-                        className={`text-${tab === "signout" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                        />
-                     )}
-                     <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("sign_out")}</span>
-                  </div>
-               </Link>
-            </div>
-         </div>
-         {isDialogOpen && (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-               <div className="bg-white dark:bg-gray-800 border border-gray-700 p-6 rounded-lg w-full max-w-sm md:max-w-md lg:max-w-md h-auto relative flex flex-col mx-4">
-                  <button
-                     onClick={() => setDialogOpen(false)}
-                     className="absolute top-4 right-4 p-[2px] text-gray-600 dark:text-white hover:bg-gray-600 rounded hover:translate-y-[-3px] transition-transform duration-200"
-                  >
-                     <AiOutlineClose size={20} />
-                  </button>
-                  <p className="text-lg md:text-xl mb-2 md:mb-4">{t("profile:are_you_sure_signout")}</p>
-                  <p className="text-sm md:text-md text-gray-500 mb-4">
-                     {t("profile:all_unsaved_data")}
-                  </p>
-                  <div className="mt-6 flex flex-col md:flex-row justify-between w-full space-y-2 md:space-y-0">
-                     <button
-                        onClick={() => setDialogOpen(false)}
-                        className="px-4 py-2 bg-gray-600 hover:bg-gray-700 shadow-md rounded-lg flex-grow md:mr-2"
-                     >
-                        {t("profile:cancel")}
-                     </button>
-                     <button
-                        onClick={handleSignout}
-                        className="px-4 py-2 bg-red-600 hover:bg-red-800 shadow-md text-white rounded-lg flex-grow md:ml-2"
-                     >
-                        {t("profile:sign_out")}
-                     </button>
-                  </div>
+         <div className={`h-full overflow-y-auto overflow-x-hidden pl-3 py-4 rounded bg-gray-100 dark:bg-[rgb(16,23,42)] flex flex-col justify-between transition-transform duration-300 ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 ${!isMenuOpen ? 'w-full md:w-auto' : 'md:w-56'}`}>
+            <div className="flex items-center mb-5 ml-2">
+               <Avatar alt='user' img={currentUser.profilePicture} rounded />
+               <div className="ml-4 hidden xl:block">
+                  <span className="block text-sm">{currentUser.username}</span>
+                  <span className="block text-sm font-medium truncate">{currentUser.email}</span>
                </div>
             </div>
-         )}
+               <div className="flex-grow">
+                  <Link to={`${languagePrefix}/dashboard?tab=account`}>
+                     <div className="py-1">
+                        <div
+                           className={`py-2 px-3 flex items-center justify-between rounded-xl relative ${
+                              tab === "account" || !tab
+                                 ? theme === "dark"
+                                    ? "bg-gray-800"
+                                    : "bg-gray-200"
+                                 : ""
+                              } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                                 isMenuOpen ? "w-14" : "w-full"
+                              } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                                 tab === "account" ? "shadow-md" : ""
+                              }`}
+                        >
+                           {tab === "account" && (
+                              <div
+                                 className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                              </div>
+                           )}
+                           <div className="flex items-center">
+                              {tab === "account" ? (
+                                 <HiHome
+                                    size={28}
+                                    className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                                 />
+                              ) : (
+                                 <HiOutlineHome
+                                    size={28}
+                                    className={`text-${tab === "account" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                                 />
+                              )}
+                              <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("sidebar_account")}</span>
+                           </div>
+                           {currentUser.isAdmin && (
+                              <div className={`ml-9 bg-gray-700 px-2 py-0.2 rounded ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>
+                                 <span className="text-xs text-white xl:inline">{t("admin")}</span>
+                              </div>
+                           )}
+                        </div>
+                     </div>
+                  </Link>
+                  {currentUser && currentUser.isAdmin && (
+                     <Link to={`${languagePrefix}/dashboard?tab=dash`}>
+                        <div className="py-1">
+                           <div 
+                              className={`py-2 px-3 flex items-center rounded-xl relative ${
+                                 tab === "dash" || !tab
+                                    ? theme === "dark"
+                                       ? "bg-gray-800"
+                                       : "bg-gray-200"
+                                    : ""
+                                 } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                                    isMenuOpen ? "w-14" : "w-full"
+                                 } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                                    tab === "dash" ? "shadow-md" : ""
+                                 }`}
+                           >
+                              {tab === "dash" && (
+                                 <div
+                                    className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                                 </div>
+                              )}
+                              {tab === "dash" ? (
+                                 <HiChartPie
+                                    size={28}
+                                    className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                                 />
+                              ) : (
+                                 <HiOutlineChartPie 
+                                    size={28}
+                                    className={`text-${tab === "dash" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                                 />
+                              )}
+                           <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("dashboard")}</span> 
+                           </div>
+                        </div>
+                     </Link>
+                  )}
+                  <Link to={`${languagePrefix}/dashboard?tab=profile`}>
+                     <div className="py-1">
+                        <div 
+                           className={`py-2 px-3 flex items-center rounded-xl relative ${
+                              tab === "profile" || !tab
+                                 ? theme === "dark"
+                                    ? "bg-gray-800"
+                                    : "bg-gray-200"
+                                 : ""
+                              } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                                 isMenuOpen ? "w-14" : "w-full"
+                              } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                                 tab === "profile" ? "shadow-md" : ""
+                              }`}
+                        >
+                           {tab === "profile" && (
+                              <div
+                                 className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                              </div>
+                           )}
+                           {tab === "profile" ? (
+                              <HiUser
+                                 size={28}
+                                 className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                              />
+                           ) : (
+                              <HiOutlineUser
+                                 size={28}
+                                 className={`text-${tab === "profile" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                              />
+                           )}
+                              <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("profile")}</span>
+                        </div>
+                     </div>
+                  </Link>
+                  <Link to={`${languagePrefix}/dashboard?tab=privacy`}>
+                     <div className="py-1">
+                        <div 
+                           className={`py-2 px-3 flex items-center rounded-xl relative ${
+                              tab === "privacy" || !tab
+                                 ? theme === "dark"
+                                    ? "bg-gray-800"
+                                    : "bg-gray-200"
+                                 : ""
+                              } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                                 isMenuOpen ? "w-14" : "w-full"
+                              } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                                 tab === "privacy" ? "shadow-md" : ""
+                              }`}
+                        >
+                           {tab === "privacy" && (
+                              <div
+                                 className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                              </div>
+                           )}
+                           {tab === "privacy" ? (
+                              <HiShieldCheck
+                                 size={28}
+                                 className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                              />
+                           ) : (
+                              <HiOutlineShieldCheck
+                                 size={28}
+                                 className={`text-${tab === "privacy" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                              />
+                           )}
+                           <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("privacy")}</span>
+                        </div>
+                     </div>
+                  </Link>
+                  <Link to={`${languagePrefix}/dashboard?tab=security`}>
+                     <div className="py-1">
+                        <div 
+                           className={`py-2 px-3 flex items-center rounded-xl relative ${
+                              tab === "security" || !tab
+                                 ? theme === "dark"
+                                    ? "bg-gray-800"
+                                    : "bg-gray-200"
+                                 : ""
+                              } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                                 isMenuOpen ? "w-14" : "w-full"
+                              } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                                 tab === "security" ? "shadow-md" : ""
+                              }`}
+                        >
+                           {tab === "security" && (
+                              <div
+                                 className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                              </div>
+                           )}
+                           {tab === "security" ? (
+                              <HiLockClosed
+                                 size={28}
+                                 className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                              />
+                           ) : (
+                              <HiOutlineLockClosed
+                                 size={28}
+                                 className={`text-${theme === 'dark' ? 'gray-400' : 'gray-500'}`}
+                              />
+                           )}
+                           <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("security")}</span>
+                        </div>
+                     </div>
+                  </Link>
+                  {currentUser.isAdmin && (
+                     <Link to={`${languagePrefix}/dashboard?tab=posts`}>
+                        <div className="py-1">
+                           <div 
+                              className={`py-2 px-3 flex items-center rounded-xl relative ${
+                                 tab === "posts" || !tab
+                                    ? theme === "dark"
+                                       ? "bg-gray-800"
+                                       : "bg-gray-200"
+                                    : ""
+                                 } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                                    isMenuOpen ? "w-14" : "w-full"
+                                 } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                                    tab === "posts" ? "shadow-md" : ""
+                                 }`}
+                           >
+                              {tab === "posts" && (
+                                 <div
+                                    className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                                 </div>
+                              )}
+                              {tab === "posts" ? (
+                                 <HiDocumentText
+                                    size={28}
+                                    className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                                 />
+                              ) : (
+                                 <HiOutlineDocumentText 
+                                    size={28}
+                                    className={`text-${tab === "posts" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                                 />
+                              )}
+                              <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("posts")}</span>
+                           </div>
+                        </div>
+                     </Link>
+                  )}
+                  {currentUser.isAdmin && (
+                     <>
+                        <Link to={`${languagePrefix}/dashboard?tab=users`}>
+                           <div className="py-1">
+                              <div 
+                                 className={`py-2 px-3 flex items-center rounded-xl relative ${
+                                    tab === "users" || !tab
+                                       ? theme === "dark"
+                                          ? "bg-gray-800"
+                                          : "bg-gray-200"
+                                       : ""
+                                    } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                                       isMenuOpen ? "w-14" : "w-full"
+                                    } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                                       tab === "users" ? "shadow-md" : ""
+                                    }`}
+                              >
+                                 {tab === "users" && (
+                                    <div
+                                       className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                                    </div>
+                                 )}
+                                 {tab === "users" ? (
+                                    <HiUserGroup
+                                       size={28}
+                                       className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                                    />
+                                 ) : (
+                                    <HiOutlineUserGroup 
+                                       size={28}
+                                       className={`text-${tab === "users" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                                    />
+                                 )}
+                                 <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("users")}</span>
+                              </div>
+                           </div>
+                        </Link>
+                        <Link to={`${languagePrefix}/dashboard?tab=comments`}>
+                           <div className="py-1">
+                              <div 
+                                 className={`py-2 px-3 flex items-center rounded-xl relative ${
+                                    tab === "comments" || !tab
+                                       ? theme === "dark"
+                                          ? "bg-gray-800"
+                                          : "bg-gray-200"
+                                       : ""
+                                    } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                                       isMenuOpen ? "w-14" : "w-full"
+                                    } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                                       tab === "comments" ? "shadow-md" : ""
+                                    }`}
+                              >
+                                 {tab === "comments" && (
+                                    <div
+                                       className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                                    </div>
+                                 )}
+                                 {tab === "comments" ? (
+                                    <HiAnnotation
+                                       size={28}
+                                       className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                                    />
+                                 ) : (
+                                    <HiOutlineAnnotation 
+                                       size={28}
+                                       className={`text-${tab === "comments" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                                    />
+                                 )}
+                                 <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("comments")}</span>
+                              </div>
+                           </div>
+                        </Link>
+                     </>
+                  )}
+                  <Link to={`${languagePrefix}/dashboard?tab=addresses`}>
+                     <div className="py-1">
+                        <div 
+                           className={`py-2 px-3 flex items-center rounded-xl relative ${
+                              tab === "addresses" || !tab
+                                 ? theme === "dark"
+                                    ? "bg-gray-800"
+                                    : "bg-gray-200"
+                                 : ""
+                              } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                                 isMenuOpen ? "w-14" : "w-full"
+                              } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                                 tab === "addresses" ? "shadow-md" : ""
+                              }`}
+                        >
+                           {tab === "addresses" && (
+                              <div
+                                 className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                              </div>
+                           )}
+                           {tab === "addresses" ? (
+                              <IoLocationSharp
+                                 size={28}
+                                 className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                              />
+                           ) : (
+                              <IoLocationOutline 
+                                 size={28}
+                                 className={`text-${tab === "addresses" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                              />
+                           )}
+                           <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("address_book")}</span>
+                        </div>
+                     </div>
+                  </Link>
+                  <Link to={`${languagePrefix}/dashboard?tab=signout`}>
+                     <div 
+                        onClick={handleSignoutClick}
+                        className={`py-2 px-3 flex items-center rounded-xl relative ${
+                           tab === "signout" || !tab
+                              ? theme === "dark"
+                                 ? "bg-gray-800"
+                                 : "bg-gray-200"
+                              : ""
+                           } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                              isMenuOpen ? "w-14" : "w-full"
+                           } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                              tab === "signout" ? "shadow-md" : ""
+                           }`}
+                     >
+                        {tab === "signout" && (
+                           <div
+                              className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                           </div>
+                        )}
+                        {tab === "signout" ? (
+                           <IoExit
+                           size={28}
+                           className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                           />
+                        ) : (
+                           <IoExitOutline 
+                           size={28}
+                           className={`text-${tab === "signout" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                           />
+                        )}
+                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("sign_out")}</span>
+                     </div>
+                  </Link>
+               </div>
+            </div>
+            {isDialogOpen && (
+               <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+                  <div className="bg-white dark:bg-gray-800 border border-gray-700 p-6 rounded-lg w-full max-w-sm md:max-w-md lg:max-w-md h-auto relative flex flex-col mx-4">
+                     <button
+                        onClick={() => setDialogOpen(false)}
+                        className="absolute top-4 right-4 p-[2px] text-gray-600 dark:text-white hover:bg-gray-600 rounded hover:translate-y-[-3px] transition-transform duration-200"
+                     >
+                        <AiOutlineClose size={20} />
+                     </button>
+                     <p className="text-lg md:text-xl mb-2 md:mb-4">{t("profile:are_you_sure_signout")}</p>
+                     <p className="text-sm md:text-md text-gray-500 mb-4">
+                        {t("profile:all_unsaved_data")}
+                     </p>
+                     <div className="mt-6 flex flex-col md:flex-row justify-between w-full space-y-2 md:space-y-0">
+                        <button
+                           onClick={() => setDialogOpen(false)}
+                           className="px-4 py-2 bg-gray-600 hover:bg-gray-700 shadow-md rounded-lg flex-grow md:mr-2"
+                        >
+                           {t("profile:cancel")}
+                        </button>
+                        <button
+                           onClick={handleSignout}
+                           className="px-4 py-2 bg-red-600 hover:bg-red-800 shadow-md text-white rounded-lg flex-grow md:ml-2"
+                        >
+                           {t("profile:sign_out")}
+                        </button>
+                     </div>
+                  </div>
+               </div>
+            )}
          <span className="px-6 py-2 text-xs">{t("version_app")}</span>
       </div>
    );

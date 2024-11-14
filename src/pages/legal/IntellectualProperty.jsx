@@ -20,31 +20,31 @@ export default function IntellectualProperty() {
       {
          image: "/images/legal/legal_trademarks_1.avif",
          title: "Patents",
-         subtitle: "Microsoft is committed to responsible intellectual property management, including the creation of a healthy patent ecosystem around the world that promotes and encourages innovation.",
+         subtitle: "Input Studios is committed to responsible intellectual property management, including the creation of a healthy patent ecosystem around the world that promotes and encourages innovation.",
          link: "Learn about our patent portfolio",
       },
       {
          image: "/images/legal/legal_trademarks_2.avif",
          title: "Copyrights",
-         subtitle: "Microsoft products and services—including images, text, and software downloads (the 'content')—are owned either by Microsoft Corporation or by third parties who have granted Microsoft permission to use the content.",
+         subtitle: "Input Studios products and services—including images, text, and software downloads (the 'content')—are owned either by Input Studios Company or by third parties who have granted Input Studios permission to use the content.",
          link: "Read our copyright requirements",
       },
       {
          image: "/images/legal/legal_trademarks_3.avif",
          title: "Trademarks",
-         subtitle: "Microsoft is grateful for the trust that people place in our products, services, and experiences. Our Trademark and Brand Guidelines detail how you can help us protect Microsoft’s brand assets, including logos, names, and app and product icons, and the trust that they represent.",
+         subtitle: "Input Studios is grateful for the trust that people place in our products, services, and experiences. Our Trademark and Brand Guidelines detail how you can help us protect Input Studios brand assets, including logos, names, and app and product icons, and the trust that they represent.",
          link: "Review our guidelines",
       },
       {
          image: "/images/legal/legal_trademarks_4.avif",
          title: "Open source",
-         subtitle: "Microsoft is all in on open source. We believe that collaborative development through the open source process accelerates innovation. As one of the largest open source collaborators in the world, Microsoft shares innovation in open ecosystems for everyone to improve and build upon with us.",
+         subtitle: "Input Studios is all in on open source. We believe that collaborative development through the open source process accelerates innovation. As one of the largest open source collaborators in the world, Input Studios shares innovation in open ecosystems for everyone to improve and build upon with us.",
          link: "Learn more about open source",
       },
       {
          image: "/images/legal/legal_trademarks_5.avif",
          title: "IP licensing",
-         subtitle: "Our investments in research and development help create new and better Microsoft products, services, and experiences for the benefit of our customers. We offer several technology transfer programs that accelerate product development.",
+         subtitle: "Our investments in research and development help create new and better Input Studios products, services, and experiences for the benefit of our customers. We offer several technology transfer programs that accelerate product development.",
          link: "Explore our programs",
       },
       {
@@ -75,7 +75,7 @@ export default function IntellectualProperty() {
                Investing in innovation worldwide
             </h1>
             <p className="text-md flex flex-col gap-6 mx-auto leading-7">
-               Microsoft is among the top investors in innovation worldwide. Innovation is at the heart of Microsoft as a company, and it is a driving force behind our mission to empower every person and every organization on the planet to achieve more. This investment is most successful not just when it benefits Microsoft, but when it creates more opportunity for our customers and partners. We must ensure that our policy of innovation supports both our ability to produce cutting edge technology and the ability of our customers, partners, and developers to build on that technology to achieve more. As a result, Microsoft relies on, and participates in, multiple modes of intellectual property and open innovation systems, including patents, copyrights, trademarks, trade secrets, open data, open source, and standards.
+               Input Studios is among the top investors in innovation worldwide. Innovation is at the heart of Input Studios as a company, and it is a driving force behind our mission to empower every person and every organization on the planet to achieve more. This investment is most successful not just when it benefits Input Studios, but when it creates more opportunity for our customers and partners. We must ensure that our policy of innovation supports both our ability to produce cutting edge technology and the ability of our customers, partners, and developers to build on that technology to achieve more. As a result, Input Studios relies on, and participates in, multiple modes of intellectual property and open innovation systems, including patents, copyrights, trademarks, trade secrets, open data, open source, and standards.
             </p>
          </div>
          <div className="mx-4 my-8 md:mx-16">

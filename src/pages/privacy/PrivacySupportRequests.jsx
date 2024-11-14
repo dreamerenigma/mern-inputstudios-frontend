@@ -99,7 +99,7 @@ export default function PrivacySupportRequests() {
                   </li>
                   <li className="py-2">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Посетите страницу Microsoft Family Safety
+                        Посетите страницу Input Studios Family Safety
                      </Link>
                      {" "}, чтобы отфильтровать определенное содержимое, установить ограничения на использование устройств и управлять общим доступом.</li>
                   <li className="py-2 mb-6">

@@ -219,9 +219,9 @@ export default function About() {
                <p className="text-md flex flex-col gap-6  max-w-4xl mx-auto leading-7">
                   <p>
                      {t("privacy:privacy_concerns")}{" "}
-                     <a href="/concern/privacy" className="text-teal-500 underline hover:text-teal-700">
+                     <Link to={`${languagePrefix}/privacy/privacy-support-requests`} className="text-teal-500 underline hover:text-teal-700">
                         {t("privacy:contact_us")}
-                     </a>
+                     </Link>
                   </p>
                </p>
             </div>

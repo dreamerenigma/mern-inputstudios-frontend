@@ -164,26 +164,28 @@ export default function DashboardComponent() {
                      <Link to={`${languagePrefix}/dashboard?tab=users`}>{t("profile:see_all")}</Link>
                   </Button>
                </div>
-               <Table hoverable>
-                  <Table.Head>
-                     <Table.HeadCell>{t("profile:user_image")}</Table.HeadCell>
-                     <Table.HeadCell>{t("profile:username")}</Table.HeadCell>
-                  </Table.Head>
-                  {users && users.map((user) => (
-                     <Table.Body key={user._id} className="divide-y">
-                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                           <Table.Cell>
-                              <img
-                                 src={user.profilePicture}
-                                 alt="user"
-                                 className="w-10 h-10 rounded-full bg-gray-500"
-                              />
-                           </Table.Cell>
-                           <Table.Cell>{user.username}</Table.Cell>
-                        </Table.Row>
-                     </Table.Body>
-                  ))}
-               </Table>
+               <div className="overflow-x-auto w-full">
+                  <Table hoverable>
+                     <Table.Head>
+                        <Table.HeadCell>{t("profile:user_image")}</Table.HeadCell>
+                        <Table.HeadCell>{t("profile:username")}</Table.HeadCell>
+                     </Table.Head>
+                     {users && users.map((user) => (
+                        <Table.Body key={user._id} className="divide-y">
+                           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                              <Table.Cell>
+                                 <img
+                                    src={user.profilePicture}
+                                    alt="user"
+                                    className="w-10 h-10 rounded-full bg-gray-500"
+                                 />
+                              </Table.Cell>
+                              <Table.Cell>{user.username}</Table.Cell>
+                           </Table.Row>
+                        </Table.Body>
+                     ))}
+                  </Table>
+               </div>
             </div>
             <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
                <div className="flex justify-between p-3 text-sm font-semibold">
@@ -219,28 +221,30 @@ export default function DashboardComponent() {
                      <Link to={`${languagePrefix}/dashboard?tab=posts`}>{t("profile:see_all")}</Link>
                   </Button>
                </div>
-               <Table hoverable>
-                  <Table.Head>
-                     <Table.HeadCell>{t("profile:post_image")}</Table.HeadCell>
-                     <Table.HeadCell>{t("profile:post_title")}</Table.HeadCell>
-                     <Table.HeadCell>{t("profile:category")}</Table.HeadCell>
-                  </Table.Head>
-                  {posts && posts.map((post) => (
-                     <Table.Body key={post._id} className="divide-y">
-                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                           <Table.Cell>
-                              <img
-                                 src={post.image}
-                                 alt="user"
-                                 className="w-14 h-10 rounded-md bg-gray-500"
-                              />
-                           </Table.Cell>
-                           <Table.Cell className="w-96">{post.title}</Table.Cell>
-                           <Table.Cell className="w-5">{post.category}</Table.Cell>
-                        </Table.Row>
-                     </Table.Body>
-                  ))}
-               </Table>
+               <div className="overflow-x-auto w-full">
+                  <Table hoverable>
+                     <Table.Head>
+                        <Table.HeadCell>{t("profile:post_image")}</Table.HeadCell>
+                        <Table.HeadCell>{t("profile:post_title")}</Table.HeadCell>
+                        <Table.HeadCell>{t("profile:category")}</Table.HeadCell>
+                     </Table.Head>
+                     {posts && posts.map((post) => (
+                        <Table.Body key={post._id} className="divide-y">
+                           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                              <Table.Cell>
+                                 <img
+                                    src={post.image}
+                                    alt="user"
+                                    className="w-14 h-10 rounded-md bg-gray-500"
+                                 />
+                              </Table.Cell>
+                              <Table.Cell className="w-96">{post.title}</Table.Cell>
+                              <Table.Cell className="w-5">{post.category}</Table.Cell>
+                           </Table.Row>
+                        </Table.Body>
+                     ))}
+                  </Table>
+               </div>
             </div>
          </div>
       </div>

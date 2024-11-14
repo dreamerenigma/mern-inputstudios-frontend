@@ -1,10 +1,36 @@
+import { useState } from "react";
 import { HiPlus } from "react-icons/hi2";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import SelectEmailDialog from "./dialogs/SelectEmailDialog";
+import AddAddressDialog from "./dialogs/AddAddressDialog";
 
 export default function DashAddressBook() {
+   const [isSelectEmailDialogOpen, setIsSelectEmailDialogOpen] = useState(false);
+   const [isAddAddressDialogOpen, setIsAddAddressDialogOpen] = useState(false);
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
+   const handleOpenSelectEmailDialog = () => {
+      setIsSelectEmailDialogOpen(true);
+   };
+
+   const handleCloseSelectEmailDialog = () => {
+      setIsSelectEmailDialogOpen(false);
+   };
+
+   const handleOpenAddAddressDialog = () => {
+      setIsAddAddressDialogOpen(true);
+   };
+
+   const handleCloseAddAddressDialog = () => {
+      setIsAddAddressDialogOpen(false);
+   };
+
+   const handleSaveAddress = () => {
+      console.log("Адрес сохранен");
+      handleCloseAddAddressDialog();
+   };
 
    return (
       <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)]">
@@ -35,7 +61,14 @@ export default function DashAddressBook() {
                         <div className="flex flex-col space-y-1 w-1/2 px-6 py-4">
                            <div className="text-base font-bold">Электронный адрес</div>
                            <div className="text-sm">Hitmanki@yandex.ru</div>
-                           <div className="text-sm text-teal-500 hover:underline cursor-pointer">Смена электронной почты</div>
+                           <div className="text-sm text-teal-500 hover:underline cursor-pointer" onClick={handleOpenSelectEmailDialog}>
+                              Смена электронной почты
+                           </div>
+                           <SelectEmailDialog
+                              isOpen={isSelectEmailDialogOpen}
+                              onClose={handleCloseSelectEmailDialog}
+                              onSave={handleSaveAddress}
+                           />
                         </div>
                      </div>
                      <div className="mt-6 border-t border-gray-700"></div>
@@ -76,10 +109,15 @@ export default function DashAddressBook() {
                <h1 className="font-semibold text-xl">Все адреса</h1>
                <div className="flex items-center text-teal-500">
                   <HiPlus size={22} />
-                  <p className="text-xl ml-2 cursor-pointer hover:underline">
+                  <p className="text-xl ml-2 hover:underline cursor-pointer" onClick={handleOpenAddAddressDialog}>
                      Добавить новый адрес
                   </p>
                </div>
+               <AddAddressDialog
+                  isOpen={isAddAddressDialogOpen}
+                  onClose={handleCloseAddAddressDialog}
+                  onSave={handleSaveAddress}
+               />
             </div>
             <div className="mt-6 border-t border-gray-800"></div>
             <div className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md max-w-lg mb-20">

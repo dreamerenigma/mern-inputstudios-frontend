@@ -28,7 +28,7 @@ const links = [
    },
    {
       textUrl: 'Input Studios Service Trust Portal',
-      text: " — сведения о безопасности, нормативах, соответствии требованиям & конфиденциальности, связанные с Microsoft Cloud.",
+      text: " — сведения о безопасности, нормативах, соответствии требованиям & конфиденциальности, связанные с Input Studios Cloud.",
       url: `${languagePrefix}/privacy/privacystatement`
    },
    {

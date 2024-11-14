@@ -16,6 +16,8 @@ export default function DashProfile() {
    const { theme } = useSelector((state) => state.theme);
    const [showDeleteModal, setShowDeleteModal] = useState(false);
    const { currentUser, error } = useSelector((state) => state.user);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    const handleContainerClick = (index) => {
       setVisibleContainers(prevState => {
@@ -40,32 +42,32 @@ export default function DashProfile() {
             </>
          ),
          relatedLinks: [
-            { text: t("profile:device"), url: "/devices" },
-            { text: t("profile:device"), url: "/find-my-device" },
-            { text: t("profile:device"), url: "/online-support" },
+            { text: t("profile:schedule_repair"), url: "/devices" },
+            { text: t("profile:find_my_device"), url: "/find-my-device" },
+            { text: t("profile:online_support"), url: "/online-support" },
          ]
       },
       {
          id: 1,
          icon: <BsShieldLockFill className="text-xl" />,
-         title: t("profile:device"),
+         title: t("profile:privacy"),
          description: t("profile:manage_your_privacy"),
          content: (
             <>
-               <p className="font-semibold text-xl mb-4">{t("profile:privacy_dashboard")}</p>
+               <p className="font-semibold text-xl mb-4">{t("profile:control_your_privacy")}</p>
                <p className="mb-4">
                   {t("profile:privacy_dashboard_you_can_manage")}
                </p>
                <Button
                   className="text-xs sm:text-sm font-bold focus:outline-none mb-10"
-                  onClick={() => alert("Privacy button clicked")}
+                  onClick={() => (window.location.href = `${languagePrefix}/dashboard?tab=privacy`)}
                >
                   {t("profile:privacy_dashboard")}
                </Button>
             </>
          ),
          relatedLinks: [
-            { text: t("profile:privacy_statement"), url: "/privacystatement" },
+            { text: t("profile:privacy_statement"), url: `${languagePrefix}/dashboard?tab=privacy` },
             { text: t("profile:apps_and_services"), url: "/consent/manage" }
          ],
          imageSrc: "/images/privacy.svg"
