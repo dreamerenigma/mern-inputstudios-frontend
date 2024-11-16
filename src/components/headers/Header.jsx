@@ -288,9 +288,9 @@ export default function Header() {
                         </div>
                         {showBlogs && (
                            <div className="group">
-                              <div className={`pb-0.2 border-b-2 group ${path === `${languagePrefix}/blogs` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]`}>
+                              <div className={`pb-0.2 border-b-2 group ${path === `${languagePrefix}/feed` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]`}>
                                  <Link
-                                    to={`${languagePrefix}/blogs`}
+                                    to={`${languagePrefix}/feed`}
                                     onClick={() => setMenuOpen(false)}
                                     className="text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]"
                                  >
@@ -519,8 +519,8 @@ export default function Header() {
                      </Link>
                   </div>
                   <hr className="border-t border-gray-700" />
-                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-gray-800"}`}>
-                     <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
+                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/feed` ? "border-current" : "border-gray-800"}`}>
+                     <Link to={`${languagePrefix}/feed`} onClick={() => setMenuOpen(false)}>
                         {t("headers:header_blogs")}
                      </Link>
                   </div>

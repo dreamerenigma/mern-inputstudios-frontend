@@ -25,7 +25,6 @@ import ConcernPrivacy from "../pages/ConcernPrivacy";
 import PrivacyAdSettings from "../pages/PrivacyAdSettings";
 import PrivacyStatement from "../pages/PrivacyStatement";
 import ConcentManage from "../pages/ConcentManage";
-import Blogs from "../pages/Blogs";
 import WaveFeatures from "../pages/browser/WaveFeatures";
 import DownloadBrowserWave from "../pages/browser/DownloadBrowserWave";
 import Trademarks from "../pages/Trademarks";
@@ -45,6 +44,7 @@ import PrivacyUpdates from "../pages/privacy/PrivacyUpdates";
 import PrivacySupportRequests from "../pages/privacy/PrivacySupportRequests";
 import ManageSignInService from "../pages/profile/ManageSignInService";
 import CompanyNews from "../pages/news/CompanyNews";
+import Feeds from "../pages/Feeds";
 
 const languages = ['ru-ru', 'en-us'];
 
@@ -91,7 +91,7 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/e-commerce-apps`} element={<ECommerceApps />} />
                <Route path={`/${lang}/business`} element={<Business />} />
                <Route path={`/${lang}/small-business`} element={<SmallBusiness />} />
-               <Route path={`/${lang}/blogs`} element={<Blogs />} />
+               <Route path={`/${lang}/feed`} element={<Feeds />} />
                <Route path={`/${lang}/post/:postSlug`} element={<PostPage />} />
                <Route path={`/${lang}/contactus`} element={<Contacts />} />
                <Route path={`/${lang}/password/change`} element={<ChangePassword />} />

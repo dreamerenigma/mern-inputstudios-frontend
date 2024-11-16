@@ -175,6 +175,7 @@ export default function UpdatePost() {
                   className="rounded-md border border-gray-600 bg-white dark:bg-gray-700 focus:outline-none focus:ring-0 focus:border-teal-500"
                >
                   <option value="uncategorized">{t("posts:select_category")}</option>
+                  <option value="android">AI</option>
                   <option value="android">Android</option>
                   <option value="database">Database</option>
                   <option value="javascript">JavaScript</option>
@@ -256,7 +257,7 @@ export default function UpdatePost() {
                className="text-xl px-6"
                onClick={handlePreviewClick}
             >
-               Показать превью поста
+               {t("posts:create_post")}
             </Button>
             {publishError && (
                <Alert className="mt-5" color="failure">

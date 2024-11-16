@@ -134,7 +134,7 @@ export default function ProfileHeader() {
                </div>
                {currentUser.isAdmin && isPostsTab && (
                   <div className="flex justify-end w-full mr-4">
-                     <Link to="/create-post">
+                     <Link to={`${languagePrefix}/create-post`}>
                         <Button
                            type="button"
                            gradientDuoTone="purpleToPink"

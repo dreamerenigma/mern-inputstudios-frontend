@@ -1,28 +1,20 @@
-import { Button, Spinner, Footer } from "flowbite-react";
+import { Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import CallToAction from "../components/CallToAction";
-import CommentSection from "../components/CommentSection";
-import PostCard from "../components/PostCard";
 import VideoPlayer from '../components/VideoPlayer';
 import { useSelector } from "react-redux";
-import { SlSocialVkontakte } from "react-icons/sl";
-import { BsDribbble } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
-import { RxDiscordLogo } from "react-icons/rx";
-import { AiOutlineYoutube } from "react-icons/ai";
-import { FaFigma, FaRegClock, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
-import { FiGithub } from "react-icons/fi";
+import { FaRegClock, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import { FaRegEye, FaMessage } from "react-icons/fa6";
 import { Helmet } from "react-helmet";
 import { IoIosShareAlt } from "react-icons/io";
 import NewsCard from "../components/NewsCard";
 import { formatDate } from "../utils/dateUtils";
 
-export default function PostPage() {
+export default function Feeds() {
    const { t } = useTranslation();
    const { currentUser } = useSelector(state => state.user);
-   const { postSlug } = useParams();
+   const { feedSlug } = useParams();
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState(false);
    const [post, setPost] = useState(null);
@@ -34,12 +26,14 @@ export default function PostPage() {
 
    useEffect(() => {
       const fetchPost = async () => {
-         if (!postSlug) return;
+         if (!feedSlug) return;
 
          try {
             setLoading(true);
-            const res = await fetch(`${SERVER_URL}/api/post/getposts/?slug=${postSlug}`);
+            const res = await fetch(`${SERVER_URL}/api/feed/getfeeds/?slug=${feedSlug}`);
             const data = await res.json();
+
+            console.log(data);
 
             if (!res.ok) {
                setError(true);
@@ -60,12 +54,12 @@ export default function PostPage() {
       };
 
       fetchPost();
-   }, [postSlug, SERVER_URL]);
+   }, [feedSlug, SERVER_URL]);
 
    useEffect(() => {
       try {
          const fetchRecentPosts = async () => {
-            const res = await fetch(`${SERVER_URL}/api/post/getposts?limit=10`);
+            const res = await fetch(`${SERVER_URL}/api/feed/getfeeds?limit=10`);
             const data = await res.json();
             if (res.ok) {
                setRecentPosts(data.posts);
@@ -231,43 +225,6 @@ export default function PostPage() {
                      </div>
                   ))
                }
-            </div>
-         </div>
-         <div className="flex flex-col lg:flex-row gap-4 max-w-6xl mx-auto">
-            <div className="flex-1">
-               <div className="max-w-5xl mx-auto w-full">
-                  <CallToAction />
-               </div>
-               <CommentSection postId={post._id} />
-            </div>
-            <div className="w-full lg:w-1/4 mt-8 lg:mt-0">
-               <div className="border border-gray-700 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg h-full">
-                  <p className="font-semibold text-lg">ДРУГИЕ НОВОСТИ</p>
-                  <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
-               </div>
-            </div>
-         </div>
-         <div className="flex flex-col justify-center items-center mb-5">
-            <h1 className="text-xl mt-12">{t("posts:recent_articles")}</h1>
-            <div className="flex flex-wrap justify-center">
-               {recentPosts && 
-                  recentPosts.slice(0, 3).map((post) => (
-                     <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-10">
-                        <PostCard post={post} />
-                     </div>
-                  ))
-               }
-            </div>
-         </div>
-         <div className="flex flex-wrap gap-4 mt-10 mb-10 mx-4">
-            <p>{t("home_subscribe_news")}</p>
-            <div className="flex flex-wrap gap-4">
-               <Footer.Icon href="https://vk.com/inputstudios" target="_blank" icon={SlSocialVkontakte} />
-               <Footer.Icon href="https://discord.com/inputstudios" target="_blank" icon={RxDiscordLogo} />
-               <Footer.Icon href="https://www.youtube.com/@input.studios" target="_blank" icon={AiOutlineYoutube} />
-               <Footer.Icon href="https://www.figma.com/team_invite/redeem/IHhVbYADhWDiftybuzpjBl" target="_blank" icon={FaFigma} />
-               <Footer.Icon href="https://github.com/inputstudios" target="_blank" icon={FiGithub} />
-               <Footer.Icon href="https://dribbble.com/inputstudios" target="_blank" icon={BsDribbble} />
             </div>
          </div>
       </main>

@@ -18,14 +18,14 @@ import ImageUploadModal from "../dialogs/ImageUploadDialog";
 import InsertLinkDialog from "../dialogs/InsertLinkDialog";
 import PropTypes from "prop-types";
 
-export default function CustomInputWithToolbar ({ value, onChange }) {
+export default function CustomInputWithToolbar ({ value = '', onChange }) {
    const dropdownRef = useRef(null);
    const dropdownFontRef = useRef(null);
    const editableRef = useRef(null);
    const [isDropdownOpen, setDropdownOpen] = useState(false);
    const [isFontDropdownOpen, setFontDropdownOpen] = useState(false);
    const [isModalOpen, setIsModalOpen] = useState(false);
-   const [content, setContent] = useState('');
+   const [content, setContent] = useState("");
    const [isBold, setIsBold] = useState(false);
    const [isItalic, setIsItalic] = useState(false);
    const [isUnderline, setIsUnderline] = useState(false);
@@ -149,12 +149,13 @@ export default function CustomInputWithToolbar ({ value, onChange }) {
    };
 
    const handleInput = (e) => {
-      const currentText = e.target.innerText;
+      const editableElement = e.target;
+      const currentText = editableElement.innerText;
       setContent(currentText);
-      setContainerHeight(e.target.scrollHeight);
+      setContainerHeight(editableElement.scrollHeight);
       const indentExists = checkIndent();
       setHasIndent(indentExists);
-      const listExists = e.target.querySelector('ul') !== null || e.target.querySelector('ol') !== null;
+      const listExists = editableElement.querySelector('ul') !== null || editableElement.querySelector('ol') !== null;
       setHasList(listExists);
       if (onChange) {
          onChange(currentText);
@@ -275,6 +276,12 @@ export default function CustomInputWithToolbar ({ value, onChange }) {
          document.execCommand("unlink");
          setIsLinkSelected(false);
       }
+   };
+
+   const handlePaste = (event) => {
+      event.preventDefault();
+      const text = event.clipboardData.getData('text');
+      document.execCommand('insertText', false, text);
    };
 
    const addListItem = () => {
@@ -509,6 +516,7 @@ export default function CustomInputWithToolbar ({ value, onChange }) {
                contentEditable
                suppressContentEditableWarning
                onInput={handleInput}
+               onPaste={handlePaste}
                style={{
                   height: 'auto',
                   minHeight: containerHeight,

@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { useTranslation } from "react-i18next";
+import { formatDate } from "../utils/dateUtils";
+import { FaRegClock, FaRegEye } from "react-icons/fa";
 
 export default function PostCard({ post }) {
    const { t } = useTranslation();
@@ -15,7 +17,24 @@ export default function PostCard({ post }) {
          </Link>
          <div className="p-3 flex flex-col gap-2">
             <p className="text-lg font-semibold line-clamp-2">{post.title}</p>
-            <span className="italic text-sm">{post.category}</span>
+            <span className="italic text-sm border border-teal-500 rounded-lg px-2 py-1 inline-block max-w-max">
+               {post.category}
+            </span>
+            <div className="flex justify-between items-center">
+               <span>{post && formatDate(post.createdAt)}</span>
+               <div className="flex gap-4 items-center">
+                  <div className="flex items-center gap-1">
+                     <FaRegClock size={16} className="text-gray-400" />
+                     <span className="text-gray-400 pl-1">
+                        {post && (post.content.length / 1000).toFixed(0)} {t("posts:mins_read")}
+                     </span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                     <FaRegEye size={16} className="text-gray-400" />
+                     <span className="text-gray-400 pl-1">{post.views}</span>
+                  </div>
+               </div>
+            </div>
             <Link to={`${languagePrefix}/post/${post.slug}`} className="z-10 group-hover:bottom-0 absolute bottom-[-50%] left-0 right-0 border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white transition-all duration-300 text-center py-2 rounded-md m-2">
                {t("posts:read_articles")}
             </Link>
@@ -30,5 +49,8 @@ PostCard.propTypes = {
       image: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       category: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      views: PropTypes.number.isRequired,
    }).isRequired,
 };

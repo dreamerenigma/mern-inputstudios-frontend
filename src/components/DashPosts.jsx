@@ -93,6 +93,7 @@ export default function DashPosts() {
             <>
                <Table hoverable className="shadow-md">
                   <Table.Head>
+                     <Table.HeadCell>{t("post_id")}</Table.HeadCell>
                      <Table.HeadCell>{t("date_updated")}</Table.HeadCell>
                      <Table.HeadCell>{t("post_image")}</Table.HeadCell>
                      <Table.HeadCell>{t("post_title")}</Table.HeadCell>
@@ -105,6 +106,7 @@ export default function DashPosts() {
                   {userPosts.map((post) => (
                      <Table.Body className="divide-y" key={post._id}>
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                           <Table.Cell>{post._id}</Table.Cell>
                            <Table.Cell>
                               {new Date(post.updatedAt).toLocaleDateString()}
                            </Table.Cell>

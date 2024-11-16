@@ -1,4 +1,5 @@
 {
+  "title_create_post": "Create post",
   "title_post": "Update post",
   "mins_reed": "mins",
   "error_occurred_post": "An error occurred while fetching the post.",
@@ -18,6 +19,9 @@
   "show_more": "Show More",
   "please_select_image": "Please select an image",
   "update_instructions": "You can change the title, category and text of the post. Don't forget to upload a new image if needed.",
+  "create_post": "Create a post",
+  "create_instructions": "Using this form you can add a title, images, tags, description and preview of the post.",
+  "publish": "Publish",
   "update_post": "Update post",
   "title": "Title",
   "select_category": "Select a category",
@@ -27,5 +31,6 @@
   "tags_placeholder": "Tags",
   "write_reply": "Write reply",
   "reply": "Reply",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "show_post_preview": "Show post preview"
 }

@@ -172,13 +172,23 @@ export default function CommentSection({ postId }) {
                   <div className="flex flex-col gap-1 text-left">
                      <Link
                         to={`${languagePrefix}/dashboard?tab=profile`}
-                        className="cursor-pointer"
+                        className="cursor-pointer flex items-center space-x-4"
                      >
                         <img
-                           className="h-10 w-10 object-cover rounded-full"
+                           className="h-12 w-12 object-cover rounded-full"
                            src={currentUser.profilePicture}
                            alt="Profile picture"
                         />
+                        <div className="flex flex-row gap-4">
+                           <div className="flex flex-col items-center">
+                              <p className="text-lg text-green-500 font-semibold">233</p>
+                              <p className="text-sm text-gray-400">Карма</p>
+                           </div>
+                           <div className="flex flex-col items-center">
+                              <p className="text-lg text-purple-500 font-semibold">9999</p>
+                              <p className="text-sm text-gray-400">Рейтинг</p>
+                           </div>
+                        </div>
                      </Link>
                      <Link
                         to={`${languagePrefix}/dashboard?tab=profile`}

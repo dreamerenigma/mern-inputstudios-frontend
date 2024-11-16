@@ -1,12 +1,7 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import {
-   getDownloadURL, 
-   getStorage,
-   ref,
-   uploadBytesResumable,
-} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../firebase";
 import { useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -14,16 +9,22 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from "react-router-dom";
 import VideoPlayer from "../components/VideoPlayer";
 import { useSelector } from 'react-redux'; 
+import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
+import CustomInputWithToolbar from "./forum/textinputs/CustomInputWithToolbar";
 
 export default function CreatePost() {
+   const { t } = useTranslation();
    const [file, setFile] = useState(null);
    const [fileUploadProgress, setFileUploadProgress] = useState(null);
    const [fileUploadError, setFileUploadError] = useState(null); 
-   const [formData, setFormData] = useState({});
+   const [formData, setFormData] = useState({ content: "" });
    const [publishError, setPublishError] = useState(null);
    const navigate = useNavigate();
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
-   const { theme } = useSelector((state) => state.theme); 
+   const { theme } = useSelector((state) => state.theme);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    const handleUploadFile = async () => {
    try {
@@ -69,11 +70,16 @@ export default function CreatePost() {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
+
+      const token = localStorage.getItem('token');
+      console.log("Token being sent:", token);
+
       try {
          const res = await fetch(`${SERVER_URL}/api/post/create`, {
             method: "POST",
             headers: {
                "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(formData),
          });
@@ -84,7 +90,7 @@ export default function CreatePost() {
          }
          if (res.ok) {
             setPublishError(null);
-            navigate(`/post/${data.slug}`);
+            navigate(`${languagePrefix}/post/${data.slug}`);
          }
       } catch {
          setPublishError("Something went wrong");
@@ -95,14 +101,25 @@ export default function CreatePost() {
       const lastSlashIndex = url.lastIndexOf('/');
       return url.substring(lastSlashIndex + 1);
    };
+
+   const handlePreviewClick = () => {
+      navigate(`${languagePrefix}/preview-post`);
+   };
+
    return (
-      <div className="p-3 max-w-3xl mx-auto min-h-screen mt-[60px]">
-         <h1 className="text-center text-3xl my-7 font-semibold">Create a post</h1>
+      <div className="p-3 max-w-3xl mx-auto min-h-screen mt-[60px] mb-20">
+         <Helmet>
+            <title>{t("posts:title_create_post")}</title>
+         </Helmet>
+         <h1 className="text-center text-3xl my-7 font-semibold">{t("posts:create_post")}</h1>
+         <div className="text-center text-lg mx-12 mb-8">
+            <p>{t("posts:update_instructions")}</p>
+         </div>
          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4 sm:flex-row justify-between">
                <TextInput
                   type="text"
-                  placeholder="Title"
+                  placeholder={t("posts:title")}
                   required id="title"
                   className="flex-1"
                   onChange={(e) =>
@@ -114,11 +131,14 @@ export default function CreatePost() {
                      setFormData({ ...formData, category: e.target.value })
                   }
                >
-                  <option value="uncategorized">Select a category</option>
+                  <option value="uncategorized">{t("posts:select_category")}</option>
+                  <option value="android">AI</option>
+                  <option value="android">Android</option>
+                  <option value="database">Database</option>
                   <option value="javascript">JavaScript</option>
                   <option value="reactjs">React.js</option>
                   <option value="nextjs">Next.js</option>
-                  <option value="nextjs">Unreal Engine</option>
+                  <option value="unrealengine">Unreal Engine</option>
                </Select>
             </div>
             <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
@@ -143,7 +163,7 @@ export default function CreatePost() {
                         />
                      </div>
                   ) : (
-                     "Upload Files"
+                     t("posts:upload_image")
                   )}
                </Button>
             </div>
@@ -157,6 +177,18 @@ export default function CreatePost() {
                   />
                </div>
             )}
+            <div>
+               <label htmlFor="tags" className="text-sm font-medium">{t("posts:add_tags")}</label>
+               <input
+                  type="text"
+                  id="tags"
+                  className="mt-2 p-2 border border-gray-600 rounded-md w-full bg-white dark:bg-gray-700 focus:outline-none focus:ring-0 focus:border-teal-500 "
+                  placeholder={t("posts:tags_placeholder")}
+                  onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+                  value={formData.tags}
+                  autoComplete="off"
+               />
+            </div>
             {formData.video && (
                <div className="w-full h-72 mb-4">
                   <VideoPlayer
@@ -166,19 +198,36 @@ export default function CreatePost() {
                   />
                </div>
             )}
-            <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
+            <div>
+               <CustomInputWithToolbar
+                  value={formData.content || ''}
+                  className="h-72 mb-12"
+                  onChange={(value) => {
+                     setFormData({ ...formData, content: value });
+                  }} 
+               />
+            </div>
+            {/* <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
                <ReactQuill
                   theme="snow"
-                  placeholder="Write something..."
+                  placeholder={t("posts:write_something")}
                   className="h-72 mb-12"
                   required
                   onChange={(value) => {
                      setFormData({ ...formData, content: value });
                   }}
                />
-            </div>
+            </div> */}
             <Button type="submit" gradientDuoTone="purpleToPink">
-               Publish
+               {t("posts:publish")}
+            </Button>
+            <Button 
+               type="submit"
+               gradientDuoTone="purpleToPink"
+               className="rounded-tl-xl rounded-lg bg-gradient-to-l border-none from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-l hover:from-blue-500 hover:via-green-500 hover:to-teal-700 transition-colors duration-300"
+               onClick={handlePreviewClick}
+            >
+               {t("posts:show_post_preview")}
             </Button>
             {publishError && (
                <Alert className="mt-5" color="failure">

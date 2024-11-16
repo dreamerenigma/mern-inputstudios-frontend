@@ -152,9 +152,9 @@ export default function Header() {
                <Link to={`${languagePrefix}/wave/features`} onClick={() => setMenuOpen(false)}>Возможности и советы</Link>
             </Navbar.Link>
             <Navbar.Link 
-               active={path === `${languagePrefix}/blogs`} 
+               active={path === `${languagePrefix}/feed`} 
                as={"div"}
-               className={`pb-1 border-b-2 ${path === `${languagePrefix}/blogs`} ? "border-current" : "border-transparent"} hover:border-current`}>
+               className={`pb-1 border-b-2 ${path === `${languagePrefix}/feed`} ? "border-current" : "border-transparent"} hover:border-current`}>
                <Link className="flex flex-row items-center">Ресурсы
                   <IoIosArrowDown className="ml-2"/>
                </Link>

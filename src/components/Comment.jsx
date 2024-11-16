@@ -135,12 +135,12 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
                         type="button"
                         onClick={() => onLike(comment._id)}
                         className={`text-gray-400 hover:text-blue-500 ${
-                           currentUser &&
-                           comment.likes.includes(currentUser._id) &&
-                           "!text-blue-500"
+                           currentUser && comment.likes.includes(currentUser._id) ? "!text-teal-500" : "text-gray-500"
                         }`}
                      >
-                        <FaThumbsUp className="text-sm text-teal-500" />
+                        <FaThumbsUp
+                           className={`text-sm ${currentUser && comment.likes.includes(currentUser._id) ? "text-teal-500" : "text-gray-500"} hover:text-teal-500`}
+                        />
                      </button>
                      <p className="text-gray-400">
                         {comment.numberOfLikes > 0 &&

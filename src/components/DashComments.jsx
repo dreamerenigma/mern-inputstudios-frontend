@@ -101,22 +101,22 @@ export default function DashComments() {
             <>
                <Table hoverable className="shadow-md">
                   <Table.Head>
+                     <Table.HeadCell>{t("comment_id")}</Table.HeadCell>
                      <Table.HeadCell>{t("date_updated")}</Table.HeadCell>
                      <Table.HeadCell>{t("comment_content")}</Table.HeadCell>
                      <Table.HeadCell>{t("number_of_likes")}</Table.HeadCell>
-                     <Table.HeadCell>{t("post_id")}</Table.HeadCell>
                      <Table.HeadCell>{t("user_id")}</Table.HeadCell>
                      <Table.HeadCell>{t("delete")}</Table.HeadCell>
                   </Table.Head>
                   {comments.map((comment) => (
                      <Table.Body className="divide-y" key={comment._id}>
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                           <Table.Cell>{comment.postId}</Table.Cell>
                            <Table.Cell>
                               {new Date(comment.updatedAt).toLocaleDateString()}
                            </Table.Cell>
                            <Table.Cell>{comment.content}</Table.Cell>
                            <Table.Cell>{comment.numberOfLikes}</Table.Cell>
-                           <Table.Cell>{comment.postId}</Table.Cell>
                            <Table.Cell>{comment.userId}</Table.Cell>
                            <Table.Cell>
                               <span

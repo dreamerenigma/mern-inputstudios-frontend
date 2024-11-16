@@ -509,8 +509,8 @@ export default function CommunityHeader() {
                      </Link>
                   </div>
                   <hr className="border-t border-gray-700" />
-                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/blogs` ? "border-current" : "border-gray-800"}`}>
-                     <Link to={`${languagePrefix}/blogs`} onClick={() => setMenuOpen(false)}>
+                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/feed` ? "border-current" : "border-gray-800"}`}>
+                     <Link to={`${languagePrefix}/feed`} onClick={() => setMenuOpen(false)}>
                         {t("headers:header_blogs")}
                      </Link>
                   </div>
