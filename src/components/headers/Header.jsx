@@ -20,6 +20,7 @@ export default function Header() {
    const dispatch = useDispatch();
    const dropdownRef = useRef(null);
    const dropdownProducts = useRef(null);
+   const dropdownTools = useRef(null);
    const theme = useSelector((state) => state.theme.theme);
    const isDarkMode = theme === "dark";
    const { currentUser } = useSelector(state => state.user);
@@ -29,9 +30,11 @@ export default function Header() {
    const [searchVisible, setSearchVisible] = useState(false);
    const [isOpenAbout, setIsOpenAbout] = useState(false);
    const [isOpenProducts, setIsOpenProducts] = useState(false);
+   const [isOpenTools, setIsOpenTools] = useState(false);
+   const [showTools, setShowTools] = useState(true);
    const [showAbout, setShowAbout] = useState(true);
    const [showForum, setShowForum] = useState(true);
-   const [showBlogs, setShowBlogs] = useState(true);
+   const [showNews, setShowNews] = useState(true);
    const isAdmin = currentUser && currentUser.isAdmin;
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
@@ -80,19 +83,22 @@ export default function Header() {
 
    useEffect(() => {
       if (windowWidth < 880) {
-         setShowBlogs(false);
+         setShowNews(false);
+      } else if (windowWidth < 1005) {
+         setShowTools(false);
          setShowForum(false);
          setShowAbout(false);
-      } else if (windowWidth < 960) {
-         setShowBlogs(true);
+      } else if (windowWidth < 1170) {
+         setShowNews(true);
          setShowForum(false);
          setShowAbout(false);
-      } else if (windowWidth < 1140) {
-         setShowBlogs(true);
+      } else if (windowWidth < 1250) {
+         setShowNews(true);
          setShowForum(true);
          setShowAbout(false);
       } else {
-         setShowBlogs(true);
+         setShowTools(true);
+         setShowNews(true);
          setShowForum(true);
          setShowAbout(true);
       }
@@ -110,15 +116,17 @@ export default function Header() {
       if (
          (menuOpen && !event.target.closest(".menu") && !event.target.closest(".search-button")) ||
          (searchVisible && !event.target.closest(".search-wrapper") && !event.target.closest(".search-button") && !event.target.closest(".search-button-text")) ||
+         (isOpenTools && !event.target.closest(".dropdown-tools") && !event.target.closest(".menu-link-tools")) ||
          (isOpenAbout && !event.target.closest(".dropdown") && !event.target.closest(".menu-link")) ||
          (isOpenProducts && !event.target.closest(".dropdown-products") && !event.target.closest(".menu-link-products"))
       ) {
          setMenuOpen(false);
          setSearchVisible(false);
+         setIsOpenTools(false);
          setIsOpenAbout(false);
          setIsOpenProducts(false);
       }
-   }, [menuOpen, searchVisible, isOpenAbout, isOpenProducts]);
+   }, [menuOpen, searchVisible, isOpenTools, isOpenAbout, isOpenProducts]);
 
    const handleToggle = () => {
       if (isOpenAbout) {
@@ -132,6 +140,13 @@ export default function Header() {
          setIsOpenProducts(false);
       }
       setIsOpenProducts(!isOpenProducts);
+   };
+
+   const handleToggleTools = () => {
+      if (isOpenTools) {
+         setIsOpenTools(false);
+      }
+      setIsOpenTools(!isOpenTools);
    };
    
    useEffect(() => {
@@ -191,6 +206,26 @@ export default function Header() {
             { label: "Лицензирование", link: "/about-company" }
          ]
       }
+   ];
+
+   const toolsData = [
+      {
+         title: "Конвертер",
+         items: [
+            { label: "Конвертер архивных файлов", link: "/about-company" },
+            { label: "Аудио-конвертер", link: "/about-company" },
+            { label: "Конвертер документов", link: "/about-company" },
+            { label: "Конвертер эл. книг", link: "/about-company" },
+         ]
+      },
+      {
+         title: "Сжатие изображений",
+         items: [
+            { label: "Приложения для Windows", link: "/about-company" },
+            { label: "ИИ", link: "/about-company" },
+            { label: "Chatify", link: "/about-company" }
+         ]
+      },
    ];
 
    return (
@@ -286,7 +321,47 @@ export default function Header() {
                               </Link>
                            </div>
                         </div>
-                        {showBlogs && (
+                        {showTools && (
+                           <div className="group">
+                              <div
+                                 onClick={handleToggleTools}
+                                 ref={dropdownTools}
+                                 className="relative hover:border-current"
+                              >
+                                 <Link className="flex flex-row items-center menu-link-tools group relative" onClick={handleToggleTools}>
+                                    <span 
+                                       className={`pb-0.2 border-b-2 group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF] ${path === `/${languagePrefix}/tools` ? "border-current" : "border-transparent"}  group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF] transition duration-200`}
+                                    >
+                                       Инструменты
+                                    </span>
+                                    <IoIosArrowDown 
+                                       className={`ml-2 transform transition-transform duration-500  ${isOpenTools ? "rotate-180" : "rotate-0"} group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]`}
+                                    />
+                                 </Link>
+                                 {isOpenTools && (
+                                    <ul className="absolute w-[900px] left-0 top-full mt-[18px] bg-white dark:bg-gray-600 shadow-md rounded-md z-10 grid grid-cols-4 gap-6 p-4">
+                                       {toolsData.map((section) => (
+                                          <div key={section.title} className="space-y-2">
+                                             <p className="py-2 px-2 mb-2 font-bold">{section.title}</p>
+                                             {section.items.map((item) => (
+                                                <li key={item.label} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                                   <Link
+                                                      to={`${languagePrefix}${item.link}`}
+                                                      onClick={() => setMenuOpen(false)}
+                                                      className="text-left block text-sm"
+                                                   >
+                                                      {item.label}
+                                                   </Link>
+                                                </li>
+                                             ))}
+                                          </div>
+                                       ))}
+                                    </ul>
+                                 )}
+                              </div>
+                           </div>
+                        )}
+                        {showNews && (
                            <div className="group">
                               <div className={`pb-0.2 border-b-2 group ${path === `${languagePrefix}/feed` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]`}>
                                  <Link
@@ -301,16 +376,16 @@ export default function Header() {
                         )}
                         {showForum && (
                            <div className="group">
-                           <div className={`pb-0.2 border-b-2 group ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]`}>
-                              <Link
-                                 to={`${languagePrefix}/forum`}
-                                 onClick={() => setMenuOpen(false)}
-                                 className="text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]"
-                              >
-                                 {t("headers:header_forum")}
-                              </Link>
+                              <div className={`pb-0.2 border-b-2 group ${path === `${languagePrefix}/forum` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]`}>
+                                 <Link
+                                    to={`${languagePrefix}/forum`}
+                                    onClick={() => setMenuOpen(false)}
+                                    className="text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]"
+                                 >
+                                    {t("headers:header_forum")}
+                                 </Link>
+                              </div>
                            </div>
-                        </div>
                         )}
                         {showAbout && (
                            <div
@@ -509,26 +584,32 @@ export default function Header() {
             </div>
             <div className={`flex flex-col md:hidden ${menuOpen ? 'flex' : 'hidden'}`}>
                <div className={`border-b-2 ${path === "/" ? "border-current" : "border-gray-800"}`}></div>
-                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === "/" ? "border-current" : "border-gray-800"}`}>
-                     <Link to="/" onClick={() => setMenuOpen(false)}>{t("headers:header_home")}</Link>
-                  </div>
-                  <hr className="border-t border-gray-700" />
-                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/projects` ? "border-current" : "border-gray-800"}`}>
-                     <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
-                        {t("headers:header_projects")}
-                     </Link>
-                  </div>
-                  <hr className="border-t border-gray-700" />
-                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/feed` ? "border-current" : "border-gray-800"}`}>
-                     <Link to={`${languagePrefix}/feed`} onClick={() => setMenuOpen(false)}>
-                        {t("headers:header_blogs")}
-                     </Link>
-                  </div>
-                  <hr className="border-t border-gray-700" />
-                  <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/forum` ? "border-current" : "border-gray-800"}`}>
-                     <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
-                        {t("headers:header_forum")}
-                     </Link>
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === "/" ? "border-current" : "border-gray-800"}`}>
+                  <Link to="/" onClick={() => setMenuOpen(false)}>{t("headers:header_home")}</Link>
+               </div>
+               <hr className="border-t border-gray-700" />
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/projects` ? "border-current" : "border-gray-800"}`}>
+                  <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
+                     {t("headers:header_projects")}
+                  </Link>
+               </div>
+               <hr className="border-t border-gray-700" />
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/tools` ? "border-current" : "border-gray-800"}`}>
+                  <Link to={`${languagePrefix}/tools`} onClick={() => setMenuOpen(false)}>
+                     {t("headers:header_tools")}
+                  </Link>
+               </div>
+               <hr className="border-t border-gray-700" />
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/feed` ? "border-current" : "border-gray-800"}`}>
+                  <Link to={`${languagePrefix}/feed`} onClick={() => setMenuOpen(false)}>
+                     {t("headers:header_blogs")}
+                  </Link>
+               </div>
+               <hr className="border-t border-gray-700" />
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/forum` ? "border-current" : "border-gray-800"}`}>
+                  <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
+                     {t("headers:header_forum")}
+                  </Link>
                </div>
                <hr className="border-t border-gray-700" />
                <div

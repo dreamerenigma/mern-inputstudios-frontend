@@ -35,7 +35,7 @@ export default function DashAddressBook() {
    return (
       <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)]">
          <div className="overview flex flex-col max-w-5xl w-full h-auto mt-8 mx-auto">
-            <div className="flex justify-between items-center my-7">
+            <div className="flex justify-between items-center mb-7">
                <h1 className="font-semibold text-2xl">Адресная книга</h1>
             </div>
             <div className="flex space-x-6">
@@ -46,7 +46,7 @@ export default function DashAddressBook() {
                   <p className="text-sm">
                      Лучший вариант для связи с вами по вопросам выставления счетов
                   </p>
-                  <div className="mt-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md">
+                  <div className="mt-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md border border-gray-700">
                      <div className="flex space-x-6">
                         <div className="flex flex-col space-y-1 w-1/2 px-6 py-4">
                            <div className="text-base font-bold mb-2">Адрес</div>
@@ -85,7 +85,7 @@ export default function DashAddressBook() {
                   <p className="text-sm">
                      Мы будем использовать этот адрес, если вы не выберете другой
                   </p>
-                  <div className="mt-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md">
+                  <div className="mt-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md border border-gray-700">
                      <div className="flex space-x-6">
                         <div className="flex flex-col space-y-1 w-1/2 px-6 py-4">
                            <div className="text-base font-bold mb-2">Адрес</div>
@@ -120,7 +120,7 @@ export default function DashAddressBook() {
                />
             </div>
             <div className="mt-6 border-t border-gray-800"></div>
-            <div className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md max-w-lg mb-20">
+            <div className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md max-w-lg mb-20 border border-gray-700">
                <div className="flex space-x-6">
                   <div className="flex flex-col space-y-1 w-1/2 px-6 py-4">
                      <div className="text-base font-bold mb-2">Адрес</div>

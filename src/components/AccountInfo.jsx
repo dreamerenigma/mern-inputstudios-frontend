@@ -35,10 +35,10 @@ export default function AccountInfo() {
                </div>
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
-            <div className="flex flex-row items-center justify-between w-full pl-4 pr-2 space-x-4">
+            <div className="flex flex-col md:flex-row items-start justify-between w-full pl-4 pr-2 space-y-2 md:space-y-0 md:space-x-4">
                <span>Адрес электронной почты</span>
                <span className="font-semibold">Hitmanki@yandex.ru</span>
-               <span className="mx-2 w-[300px]">Адрес электронной почты, используемый для входа в учетную запись Майкрософт</span>
+               <span className="w-full md:w-[300px]">Адрес электронной почты, используемый для входа в учетную запись Input Studios</span>
                <span className="ml-auto pr-2 text-teal-500 hover:text-teal-700 hover:underline cursor-pointer">Настройки общения</span>
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />

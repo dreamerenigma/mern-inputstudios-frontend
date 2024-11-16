@@ -32,7 +32,7 @@ export default function PrivacySupportRequests() {
             {t("privacy:")}Поддержка и запросы, связанные с конфиденциальностью
          </p>
          <p className="mt-8 mb-14">
-            Мы предлагаем вам различные варианты управления вашими персональными данными, полученными корпорацией Майкрософт, и осуществления ваших прав на защиту данных. Обратите внимание, что такое содержимое, как сообщения электронной почты, контакты и чаты, доступно через интерфейс продукта. Дополнительные сведения о данных, которыми вы можете управлять в продуктах Майкрософт, можно найти в разделе{" "}
+            Мы предлагаем вам различные варианты управления вашими персональными данными, полученными корпорацией Input Studios, и осуществления ваших прав на защиту данных. Обратите внимание, что такое содержимое, как сообщения электронной почты, контакты и чаты, доступно через интерфейс продукта. Дополнительные сведения о данных, которыми вы можете управлять в продуктах Input Studios, можно найти в разделе{" "}
             <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
                {t("privacy:")}Часто задаваемые вопросы о конфиденциальности (FAQ)
             </Link>
@@ -53,7 +53,7 @@ export default function PrivacySupportRequests() {
                   <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">заявления о конфиденциальности компании Input Studios.</Link>
                </li>
                <li className="mt-6">
-                  Если вы являетесь ИТ-администратором организации, у которой есть контракт на поддержку Premier или Единую поддержку с корпорацией Майкрософт, обратитесь к менеджеру по работе с клиентами Майкрософт или торговому посреднику партнера, чтобы обсудить все соответствующие положения вашего контракта. Если у вас нет менеджера по работе с клиентами или торгового посредника,{" "}
+                  Если вы являетесь ИТ-администратором организации, у которой есть контракт на поддержку Premier или Единую поддержку с корпорацией Input Studios, обратитесь к менеджеру по работе с клиентами Input Studios или торговому посреднику партнера, чтобы обсудить все соответствующие положения вашего контракта. Если у вас нет менеджера по работе с клиентами или торгового посредника,{" "}
                   <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">отправьте запрос в службу поддержки</Link>
                   {" "}на портале администрирования Input Studios для получения дополнительной помощи.
                </li>
@@ -71,7 +71,7 @@ export default function PrivacySupportRequests() {
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">     
                         отправьте запрос
                      </Link>
-                     {" "}о ваших персональных данных, которые могли быть собраны для предоставления поддержки и других предложений Профессиональных услуг, где корпорация Майкрософт является управляющим данными.
+                     {" "}о ваших персональных данных, которые могли быть собраны для предоставления поддержки и других предложений Профессиональных услуг, где компания Input Studios является управляющим данными.
                   </li>
                </ul>
             </ul>
@@ -89,12 +89,12 @@ export default function PrivacySupportRequests() {
                <ul className="pl-6 ml-8">
                   <li className="py-2">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Узнайте о методах Майкрософт по обеспечению конфиденциальности
+                        Узнайте о методах Input Studios по обеспечению конфиденциальности
                      </Link>
                      {" "}, а также ознакомьтесь с использованием наших продуктов способами, которые защищают конфиденциальность.</li>
                   <li className="py-2">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Управление согласием родителей и учетными записями Майкрософт для детей
+                        Управление согласием родителей и учетными записями Input Studios для детей
                      </Link>
                   </li>
                   <li className="py-2">
@@ -104,7 +104,7 @@ export default function PrivacySupportRequests() {
                      {" "}, чтобы отфильтровать определенное содержимое, установить ограничения на использование устройств и управлять общим доступом.</li>
                   <li className="py-2 mb-6">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Войдите в учетную запись Майкрософт
+                        Войдите в учетную запись Input Studios
                      </Link>, чтобы управлять данными и параметрами конфиденциальности.</li>
                </ul>
             )}
@@ -162,19 +162,19 @@ export default function PrivacySupportRequests() {
                   </p>
                   <ul className="list-disc pl-6 ml-8">
                      <li className="">
-                        <strong>Журнал поиска Bing. Просматривайте и экспортируйте журнал поиска на{" "}</strong>
+                        <strong>Журнал поиска Clever. Просматривайте и экспортируйте журнал поиска на{" "}</strong>
                         <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
                            панели мониторинга конфиденциальности
                         </Link>
                         {" "}или в {" "}
                         <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                           настройках Bing
+                           настройках Clever
                         </Link>
                      </li>
                      <li className="py-2">
-                        <strong>OneDrive</strong>. Просматривайте и скачивайте файлы в {" "}
+                        <strong>FlareDrive</strong>. Просматривайте и скачивайте файлы в {" "}
                         <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                           OneDrive
+                           FlareDrive
                         </Link>
                      </li>
                      <li className="py-2">

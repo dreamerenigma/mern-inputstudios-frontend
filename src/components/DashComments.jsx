@@ -147,7 +147,7 @@ export default function DashComments() {
                <img 
                   src="/images/profile/no_data.png"
                   alt="No comments"
-                  className="mb-4 w-56 h-52"
+                  className="mb-4 w-56"
                />
                <p>{t("you_have_no_comments")}</p>
             </div>

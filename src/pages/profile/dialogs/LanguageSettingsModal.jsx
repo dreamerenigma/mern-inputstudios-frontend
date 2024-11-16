@@ -111,7 +111,7 @@ export default function LanguageSettingsModal({ isOpen, onClose }) {
             <div className="px-6">
                {showLanguageInterface ? (
                   <p className="text-base">
-                     Этот веб-сайт, OneDrive и некоторые веб-приложения Input Studios Workspace будут отображаться на выбранном вами языке.
+                     Этот веб-сайт, FlareDrive и некоторые веб-приложения Input Studios Workspace будут отображаться на выбранном вами языке.
                   </p>
                ) : showPreferredLanguages ? (
                   <p className="text-base">

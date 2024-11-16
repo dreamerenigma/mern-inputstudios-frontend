@@ -7,13 +7,14 @@ import { BsCart4, BsShieldLockFill } from "react-icons/bs";
 import { RiComputerFill, RiDeleteBin5Line } from "react-icons/ri";
 import { TbShieldCheckeredFilled } from "react-icons/tb";
 import { FaRegCreditCard } from "react-icons/fa6";
-import { MdManageAccounts } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import DeleteUserModal from "../components/modals/DeleteUserModal";
 import { CiLock } from "react-icons/ci";
 import { GoPasskeyFill } from "react-icons/go";
 import { IoIosArrowForward } from "react-icons/io";
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoKeyOutline, IoSettingsOutline } from "react-icons/io5";
+import { BsWindowDesktop } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 export default function DashProfile() {
    const { t } = useTranslation();
@@ -38,6 +39,31 @@ export default function DashProfile() {
    const accountData = [
       {
          id: 0,
+         icon: <BsWindowDesktop className="text-xl" />,
+         title: t("profile:services"),
+         description: t("profile:premium_productivity_apps"),
+         content: (
+            <>
+               <p className="font-semibold text-xl mb-4">{t("profile:need_card_or_code")}</p>
+               <p className="mb-4">
+                  {t("profile:prepaid_card_code")}
+               </p>
+               <Button
+                  className="text-xs sm:text-sm font-bold focus:outline-none mb-10"
+                  onClick={() => (window.location.href = `${languagePrefix}/dashboard?tab=privacy`)}
+               >
+                  {t("profile:use")}
+               </Button>
+            </>
+         ),
+         relatedLinks: [
+            { text: t("profile:get_billing_help"), url: "/account" },
+            { text: t("profile:view_order_history"), url: "/billing/orders" }
+         ],
+         imageSrc: theme === "dark" ? "/images/apps_365_dark.png" : "/images/apps_365_light.png"
+      },
+      {
+         id: 1,
          icon: <RiComputerFill className="text-xl" />,
          title: t("profile:device"),
          description: t("profile:find_repair_devices"),
@@ -52,7 +78,7 @@ export default function DashProfile() {
          ]
       },
       {
-         id: 1,
+         id: 2,
          icon: <BsShieldLockFill className="text-xl" />,
          title: t("profile:privacy"),
          description: t("profile:manage_your_privacy"),
@@ -77,7 +103,7 @@ export default function DashProfile() {
          imageSrc: "/images/privacy.svg"
       },
       {
-         id: 2,
+         id: 3,
          icon: <TbShieldCheckeredFilled className="text-xl" />,
          title: t("profile:security"),
          description: t("profile:tools_help_keep"),
@@ -103,14 +129,18 @@ export default function DashProfile() {
          imageSrc: "/images/security.svg"
       },
       {
-         id: 3,
+         id: 4,
          icon: <FaRegCreditCard className="text-xl" />,
          title: t("profile:payment_options"),
          description: t("profile:manage_pay_purchases"),
          content: (
             <>
-               <p className="text-base mb-4">{t("profile:payment_methods_not_available")}</p>
-               <p className="text-base mb-4">{t("profile:adding_payment_method")}</p>
+               <div className="flex justify-between items-center">
+                  <p className="text-base text-gray-400 mb-4">{t("profile:payment_methods_not_available")}</p>
+                  <a href="/your-link" className="text-base mb-4 text-right hover:underline text-teal-500">
+                     {t("profile:adding_payment_method")}
+                  </a>
+               </div>
             </>
          ),
          relatedLinks: [
@@ -120,27 +150,15 @@ export default function DashProfile() {
          ],
       },
       {
-         id: 4,
-         icon: <BsCart4 className="text-xl" />,
-         title: t("profile:privacy_dashboard"),
-         description: t("profile:view_recent_purchases"),
-         content: (
-            <>
-               <p className="mb-4">{t("profile:no_purchases_made")}</p>
-            </>
-         ),
-         relatedLinks: [
-            { text: t("profile:get_billing_help"), url: "/account" },
-            { text: t("profile:view_order_history"), url: "/billing/orders" }
-         ],
-      },
-      {
          id: 5,
-         icon: <MdManageAccounts className="text-xl" />,
-         title: t("profile:manage_account"),
+         icon: <BsCart4 className="text-xl" />,
+         title: t("profile:order_log"),
          description: t("profile:view_recent_purchases"),
          content: (
             <>
+               <div className="flex justify-between items-center">
+                  <p className="text-base text-gray-400 mb-4">{t("profile:no_purchases_made")}</p>
+               </div>
             </>
          ),
          relatedLinks: [
@@ -178,9 +196,20 @@ export default function DashProfile() {
 
    return (
       <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)] mb-20">
-         <div className="gap-4 overview flex flex-col max-w-5xl w-full h-auto mt-8 mx-auto px-4">
-            <div className="flex justify-between items-center my-7">
+         <div className="gap-4 overview flex flex-col max-w-5xl w-full h-auto md:mt-8 mx-auto px-4">
+            <div className="flex justify-between items-center my-7 custom-flex-1030">
                <h1 className="font-semibold text-3xl">{t("profile:account")}</h1>
+               <Link
+                  to={`${languagePrefix}/password/change`}
+                  className="whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white group mt-4 sm:mt-0"
+               >
+                  <div className="flex items-center gap-2">
+                     <div className="flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 w-10 h-10 group-hover:bg-[#0E7490] transition-colors duration-200">
+                        <IoKeyOutline className="text-center font-semibold text-2xl group-hover:text-white dark:group-hover:text-gray-300"/>
+                     </div>
+                     <span className="text-sm font-semibold group-hover:text-[#0E7490] transition-colors duration-200">{t("profile:change_password")}</span>
+                  </div>
+               </Link>
             </div>
             <div className="w-full md:w-3/2 mx-auto max-w-5xl flex flex-col space-y-4 items-center">
                {accountData.map((container, index) => (
@@ -202,12 +231,14 @@ export default function DashProfile() {
                         <>
                            <hr className="border-t border-gray-300 dark:border-gray-600" />
                            <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center mt-8">
-                              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full transition-colors duration-300 bg-white dark:bg-gray-800">
+                              <div 
+                                 className={`grid gap-4 w-full transition-colors duration-300 bg-white dark:bg-gray-800 
+                                    ${container.id === 4 ? 'md:grid-cols-2' : container.id === 5 ? 'md:grid-cols-1' : 'md:grid-cols-3'} rounded-b-lg`}
+                              >
                                  <div className="col-span-2 pl-12 pr-10 justify-between">
                                     {container.content}
                                     {container.id === 6 && (
-                                       <div className="flex flex-col items-start space-y-2">
-                                       </div>
+                                       <div className="flex flex-col items-start space-y-2"></div>
                                     )}
                                  </div>
                                  <div className="items-center justify-center">
@@ -255,19 +286,23 @@ export default function DashProfile() {
                                  </div>
                               </>
                            )}
-                           <hr className="border-t border-gray-300 dark:border-gray-600" />
-                           <div className="flex flex-row items-center justify-between w-full px-4 py-4">
-                              <div className="flex flex-col">
-                                 <div className="flex items-center space-x-2">
-                                    <span className="pl-2 text-sm">{t("profile:related")}</span>
-                                    {container.relatedLinks.map((link, index) => (
-                                       <a key={index} href={link.url} className="pl-5 text-sm text-teal-500 hover:underline hover:text-teal-700">
-                                          {link.text}
-                                       </a>
-                                    ))}
+                           {container.id !== 0 && (
+                              <>
+                                 <hr className="border-t border-gray-300 dark:border-gray-600" />
+                                 <div className="flex flex-row items-center justify-between w-full px-4 py-4">
+                                    <div className="flex flex-col">
+                                       <div className="flex items-center space-x-2">
+                                          <span className="pl-2 text-sm">{t("profile:related")}</span>
+                                          {container.relatedLinks.map((link, index) => (
+                                             <a key={index} href={link.url} className="pl-5 text-sm text-teal-500 hover:underline hover:text-teal-700">
+                                                {link.text}
+                                             </a>
+                                          ))}
+                                       </div>
+                                    </div>
                                  </div>
-                              </div>
-                           </div>
+                              </>
+                           )}
                         </>
                      )}
                   </div>

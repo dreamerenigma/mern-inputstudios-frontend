@@ -5,7 +5,7 @@ import { FaMessage } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa";
 import { formatDate } from "../utils/dateUtils";
 
-export default function NewsCard({ post }) {
+export default function NewsCard({ post, isLast }) {
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
@@ -29,7 +29,7 @@ export default function NewsCard({ post }) {
                </div>
             </div>
          </div>
-         <hr className="mt-2 border-t border-gray-300 dark:border-gray-600" />
+         {!isLast && <hr className="mt-2 border-t border-gray-300 dark:border-gray-600" />}
       </div>
    );
 }
@@ -40,4 +40,9 @@ NewsCard.propTypes = {
       title: PropTypes.string.isRequired,
       createdAt: PropTypes.string.isRequired,
    }).isRequired,
+   isLast: PropTypes.bool,
+};
+
+NewsCard.defaultProps = {
+   isLast: false,
 };

@@ -22,7 +22,6 @@ import Contacts from "../pages/Contacts";
 import ChangePassword from "../pages/ChangePassword";
 import ResetPassword from "../pages/ResetPassword";
 import ConcernPrivacy from "../pages/ConcernPrivacy";
-import PrivacyAdSettings from "../pages/PrivacyAdSettings";
 import PrivacyStatement from "../pages/PrivacyStatement";
 import ConcentManage from "../pages/ConcentManage";
 import WaveFeatures from "../pages/browser/WaveFeatures";
@@ -45,6 +44,7 @@ import PrivacySupportRequests from "../pages/privacy/PrivacySupportRequests";
 import ManageSignInService from "../pages/profile/ManageSignInService";
 import CompanyNews from "../pages/news/CompanyNews";
 import Feeds from "../pages/Feeds";
+import Tools from "../pages/Tools";
 
 const languages = ['ru-ru', 'en-us'];
 
@@ -70,10 +70,8 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/account/privacy`} element={<AccountPrivacy />} />
                <Route path={`/${lang}/privacy`} element={<PrivacyPolicy />} />
                <Route path={`/${lang}/privacy-report`} element={<PrivacyReport />} />
-               <Route path={`/${lang}/privacy/ad-settings`} element={<PrivacyAdSettings />} />
                <Route path={`/${lang}/privacy/updates`} element={<PrivacyUpdates />} />
                <Route path={`/${lang}/privacy/privacy-support-requests`} element={<PrivacySupportRequests />} />
-               <Route path={`/${lang}/dashboard?tab=/privacy/ad-settings`} element={<PrivacyAdSettings />} />
                <Route path={`/${lang}/privacy/privacystatement`} element={<PrivacyStatement />} />
                <Route path={`/${lang}/concern/privacy`} element={<ConcernPrivacy />} />
                <Route path={`/${lang}/consent/manage`} element={<ConcentManage />} />
@@ -85,6 +83,7 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/workspace`} element={<Workspace />} />
                <Route path={`/${lang}/chat-sam`} element={<ChatSam />} />
                <Route path={`/${lang}/projects`} element={<Projects />} />
+               <Route path={`/${lang}/tools`} element={<Tools />} />
                <Route path={`/${lang}/forum`} element={<Forum />} />
                <Route path={`/${lang}/cloud`} element={<Cloud />} />
                <Route path={`/${lang}/weather-api`} element={<WeatherAPI />} />

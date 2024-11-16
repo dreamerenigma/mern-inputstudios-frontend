@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
-import PostCard from "../components/PostCard";
 import VideoPlayer from '../components/VideoPlayer';
 import { useSelector } from "react-redux";
 import { SlSocialVkontakte } from "react-icons/sl";
@@ -15,9 +14,10 @@ import { FaFigma, FaRegClock, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
 import { FaRegEye, FaMessage } from "react-icons/fa6";
 import { Helmet } from "react-helmet";
-import { IoIosShareAlt } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward, IoIosShareAlt } from "react-icons/io";
 import NewsCard from "../components/NewsCard";
 import { formatDate } from "../utils/dateUtils";
+import RecentPostCard from "../components/RecentPostCard";
 
 export default function PostPage() {
    const { t } = useTranslation();
@@ -225,9 +225,9 @@ export default function PostPage() {
                <p>НОВОСТИ</p>
                <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                {recentPosts && 
-                  recentPosts.slice(0, 7).map((post) => (
+                  recentPosts.slice(0, 10).map((post, index, arr) => (
                      <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
-                        <NewsCard post={post} />
+                        <NewsCard post={post} isLast={index === arr.length - 1} />
                      </div>
                   ))
                }
@@ -247,18 +247,69 @@ export default function PostPage() {
                </div>
             </div>
          </div>
-         <div className="flex flex-col justify-center items-center mb-5">
-            <h1 className="text-xl mt-12">{t("posts:recent_articles")}</h1>
-            <div className="flex flex-wrap justify-center">
-               {recentPosts && 
-                  recentPosts.slice(0, 3).map((post) => (
-                     <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-10">
-                        <PostCard post={post} />
+         <div className="flex flex-col lg:flex-row gap-4 max-w-6xl mx-auto mt-3">
+            <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg lg:w-3/4 overflow-hidden pb-5">
+               <h1 className="text-xl mt-2 text-left px-6">{t("posts:recent_articles")}</h1>
+               <div className="flex flex-wrap justify-center w-[940px] px-6">
+                  {recentPosts && 
+                  recentPosts.slice(0, 4).map((post) => (
+                     <div key={post._id} className="w-full mt-4">
+                        <RecentPostCard post={post} />
                      </div>
                   ))
-               }
+                  }
+               </div>
+            </div>
+            <div className="flex flex-col gap-4 lg:w-1/4 self-start">
+               <div className="border border-gray-700 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                  <p>СОБЫТИЯ</p>
+                  <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
+                  {recentPosts && 
+                  recentPosts.slice(0, 3).map((post, index, arr) => (
+                     <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
+                        <NewsCard post={post} isLast={index === arr.length - 1} />
+                     </div>
+                  ))
+                  }
+               </div>
+               <div className="border border-gray-700 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                  <p>ДОПОЛНИТЕЛЬНЫЙ БЛОК</p>
+                  <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
+                  {recentPosts && 
+                     recentPosts.slice(0, 3).map((post, index, arr) => (
+                        <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
+                           <NewsCard post={post} isLast={index === arr.length - 1} />
+                        </div>
+                     ))
+                  }
+               </div>
             </div>
          </div>
+         {/* <div className="flex flex-col lg:flex-row gap-4 max-w-3xl">
+            <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg w-full overflow-hidden py-3 px-4">
+               <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                  <span className="text-teal-500">
+                     <IoIosArrowBack />
+                  </span>
+                  <p className="text-gray-800 dark:text-gray-200">Сюда</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                     <span className="text-gray-800 dark:text-gray-200">1</span>
+                     <span className="text-gray-800 dark:text-gray-200">2</span>
+                     <span className="text-gray-800 dark:text-gray-200">3</span>
+                     <span className="text-gray-800 dark:text-gray-200">...</span>
+                     <span className="text-gray-800 dark:text-gray-200">50</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                  <p className="text-gray-800 dark:text-gray-200">Туда</p>
+                  <span className="text-teal-500">
+                     <IoIosArrowForward />
+                  </span>
+                  </div>
+               </div>
+            </div>
+         </div> */}
          <div className="flex flex-wrap gap-4 mt-10 mb-10 mx-4">
             <p>{t("home_subscribe_news")}</p>
             <div className="flex flex-wrap gap-4">

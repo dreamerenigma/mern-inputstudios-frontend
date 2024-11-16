@@ -13,11 +13,11 @@ const links = [
    },
    {
       textUrl: 'Условия продукта',
-      text: " — условия продукта для программного обеспечения и веб-служб в рамках программ коммерческого лицензирования Майкрософт.",
+      text: " — условия продукта для программного обеспечения и веб-служб в рамках программ коммерческого лицензирования Input Studios.",
       url: `${languagePrefix}/privacy/privacystatement`
    },
    {
-      textUrl: 'Соответствие требованиям Майкрософт',
+      textUrl: 'Соответствие требованиям Input Studios',
       text: " — документация и ресурсы для начала работы с соответствием требованиям.",
       url: `${languagePrefix}/privacy/privacystatement`
    },
@@ -32,8 +32,8 @@ const links = [
       url: `${languagePrefix}/privacy/privacystatement`
    },
    {
-      textUrl: 'Центр Майкрософт по реагированию на угрозы',
-      text: " — сообщение об уязвимости в продукте или службе Майкрософт.",
+      textUrl: 'Центр Input Studios по реагированию на угрозы',
+      text: " — сообщение об уязвимости в продукте или службе Input Studios.",
       url: `${languagePrefix}/privacy/privacystatement`
    },
 ];

@@ -11,10 +11,10 @@ export default function CallToAction() {
                <h2 className="text-2xl">
                   {t("call_to_action")}
                </h2>
-               <p className="text-gray-500 my-2">
+               <p className="text-gray-400 my-2">
                   {t("call_to_action_description")}
                </p>
-               <Button className="rounded-tl-xl rounded-lg bg-gradient-to-r border-none from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-l hover:from-blue-700 hover:via-green-700 hover:to-teal-700 transition-colors duration-300">
+               <Button className="rounded-tl-xl rounded-lg bg-gradient-to-l border-none from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-l hover:from-blue-600 hover:via-green-600 hover:to-teal-600 transition-colors duration-300">
                   {t("call_to_action_button")}
                </Button>
             </div>

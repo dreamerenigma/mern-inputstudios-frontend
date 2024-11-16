@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { FaThumbsUp } from "react-icons/fa";
+import { FaEllipsisV, FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Button, Textarea } from "flowbite-react";
 import PropTypes from "prop-types";
@@ -130,7 +130,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
             ) : (
                <>
                   <p className="text-gray-400 pb-2">{comment.content}</p>
-                  <div className="flex items-center pt-2 text-xs border-t  dark:border-gray-700 max-w-fit gap-2">
+                  <div className="flex items-center pt-2 text-xs border-t dark:border-gray-700 max-w-fit gap-2">
                      <button
                         type="button"
                         onClick={() => onLike(comment._id)}
@@ -151,29 +151,39 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
                      {currentUser &&
                         (currentUser._id === comment.userId || currentUser.isAdmin) && (
                            <>
-                              <button
-                                 type="button"
-                                 onClick={handleReply}
-                                 className="text-gray-400 hover:text-teal-500" 
-                              >
-                                 Ответить
-                              </button>
-                              <button
-                                 type="button"
-                                 onClick={handleEdit}
-                                 className="text-gray-400 hover:text-teal-500" 
-                              >
-                                 {t("comments:edit")}
-                              </button>
-                              <button
-                                 type="button"
-                                 onClick={() => onDelete(comment._id)}
-                                 className="text-gray-400 hover:text-red-500" 
-                              >
-                                 {t("comments:delete")}
-                              </button>
+                           <button
+                              type="button"
+                              onClick={handleReply}
+                              className="text-gray-400 hover:text-teal-500"
+                           >
+                              Ответить
+                           </button>
+                           <button
+                              type="button"
+                              onClick={handleEdit}
+                              className="text-gray-400 hover:text-teal-500"
+                           >
+                              {t("comments:edit")}
+                           </button>
+                           <button
+                              type="button"
+                              onClick={() => onDelete(comment._id)}
+                              className="text-gray-400 hover:text-red-500"
+                           >
+                              {t("comments:delete")}
+                           </button>
                            </>
                         )}
+                     
+                     {currentUser && currentUser._id !== comment.userId && !currentUser.isAdmin && (
+                        <button
+                           type="button"
+                           onClick={() => onMoreOptions(comment._id)}
+                           className="text-gray-400 hover:text-teal-500"
+                        >
+                           <FaEllipsisV className="text-sm" />
+                        </button>
+                     )}
                   </div>
                   {isReplying && (
                      <div className="mt-2">
