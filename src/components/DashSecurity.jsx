@@ -144,7 +144,7 @@ const securityData = [
             </div>
             <div className="w-full md:w-3/2 mx-auto max-w-5xl flex flex-col space-y-4 items-center">
                {securityData.map((container, index) => (
-                  <div key={container.id} className={`w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 ${visibleContainers[index] ? 'rounded-lg' : 'rounded-t-lg'}`}>
+                  <div key={container.id} className={`w-full rounded-lg shadow-md transition-colors duration-300 border border-gray-700 bg-white dark:bg-gray-800 ${visibleContainers[index] ? 'rounded-lg' : 'rounded-t-lg'}`}>
                      <div
                         className={`flex items-center justify-between w-full px-4 py-2 space-x-4 cursor-pointer ${theme === 'dark' ? 'hover:bg-gray-700/60 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'} ${visibleContainers[index] ? 'rounded-t-lg' : 'rounded-lg'}`}
                         onClick={() => handleContainerClick(index)}

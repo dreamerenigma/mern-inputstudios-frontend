@@ -4,7 +4,7 @@ export default function ProfileServices() {
 
    return (
       <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center">
-         <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 mb-20">
+         <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 border border-gray-700 mb-20">
             <div className="flex items-center">
                <div className="flex flex-row items-center justify-between w-full pl-4 pt-3">
                   <div>

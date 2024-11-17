@@ -488,7 +488,7 @@ export default function SidebarProfile() {
                      <AiOutlineClose size={20} />
                   </button>
                   <p className="text-lg md:text-xl mb-2 md:mb-4">{t("profile:are_you_sure_signout")}</p>
-                  <p className="text-sm md:text-md text-gray-500 mb-4">
+                  <p className="text-md md:text-md text-gray-400 mb-4">
                      {t("profile:all_unsaved_data")}
                   </p>
                   <div className="mt-6 flex flex-col md:flex-row justify-between w-full space-y-2 md:space-y-0">

@@ -60,7 +60,7 @@ export default function DashProfile() {
             { text: t("profile:get_billing_help"), url: "/account" },
             { text: t("profile:view_order_history"), url: "/billing/orders" }
          ],
-         imageSrc: theme === "dark" ? "/images/apps_365_dark.png" : "/images/apps_365_light.png"
+         imageSrc: theme === "dark" ? "/images/profile/apps_365_dark.png" : "/images/profile/apps_365_light.png"
       },
       {
          id: 1,
@@ -100,7 +100,7 @@ export default function DashProfile() {
             { text: t("profile:privacy_statement"), url: `${languagePrefix}/dashboard?tab=privacy` },
             { text: t("profile:apps_and_services"), url: "/consent/manage" }
          ],
-         imageSrc: "/images/privacy.svg"
+         imageSrc: "/images/privacy/privacy.svg"
       },
       {
          id: 3,
@@ -126,7 +126,7 @@ export default function DashProfile() {
             { text: t("profile:stay_secure"), url: "/proofs/manage/additional" },
             { text: t("profile:about_digital_security"), url: "/security" }
          ],
-         imageSrc: "/images/security.svg"
+         imageSrc: "/images/privacy/security.svg"
       },
       {
          id: 4,
@@ -175,7 +175,7 @@ export default function DashProfile() {
             <>
                <p className="font-semibold text-xl mb-4">Удалить аккаунт и все данные</p>
                <p className="mb-4">
-                  При удалении аккаунта все ваши данные удаляються
+               При удалении аккаунта будут удалены все ваши данные, включая личную информацию, созданные записи, загруженные файлы и настройки. Этот процесс необратим, и восстановить удалённые данные будет невозможно. Если вы хотите сохранить важную информацию, убедитесь, что сделали резервную копию перед удалением аккаунта.
                </p>
                <button
                   className="ml-0 text-white flex justify-between mb-6 bg-red-600 hover:bg-red-800 rounded-md p-2"
@@ -189,6 +189,7 @@ export default function DashProfile() {
             { text: "Помощь при удалении аккаунта", url: "/account" },
             { text: "Сохранить данные", url: "/billing/orders" }
          ],
+         imageSrc: "/images/profile/delete_account.svg"
       },
    ];
 
@@ -197,7 +198,7 @@ export default function DashProfile() {
    return (
       <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)] mb-20">
          <div className="gap-4 overview flex flex-col max-w-5xl w-full h-auto md:mt-8 mx-auto px-4">
-            <div className="flex justify-between items-center my-7 custom-flex-1030">
+            <div className="flex justify-between items-center mb-4 custom-flex-1030">
                <h1 className="font-semibold text-3xl">{t("profile:account")}</h1>
                <Link
                   to={`${languagePrefix}/password/change`}
@@ -213,7 +214,7 @@ export default function DashProfile() {
             </div>
             <div className="w-full md:w-3/2 mx-auto max-w-5xl flex flex-col space-y-4 items-center">
                {accountData.map((container, index) => (
-                  <div key={container.id} className={`w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 ${visibleContainers[index] ? 'rounded-lg' : 'rounded-t-lg'}`}>
+                  <div key={container.id} className={`w-full rounded-lg shadow-md transition-colors duration-300 border border-gray-700 bg-white dark:bg-gray-800 ${visibleContainers[index] ? 'rounded-lg' : 'rounded-t-lg'}`}>
                      <div
                         className={`flex items-center justify-between w-full px-4 py-2 space-x-4 cursor-pointer ${theme === 'dark' ? 'hover:bg-gray-700/60 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'} ${visibleContainers[index] ? 'rounded-t-lg' : 'rounded-lg'}`}
                         onClick={() => handleContainerClick(index)}

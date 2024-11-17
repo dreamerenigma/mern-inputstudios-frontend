@@ -201,7 +201,7 @@ export default function DashProfile() {
                   hidden
                />
                <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center"> 
-                  <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800">
+                  <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 border border-gray-700">
                      <div className="flex custom-flex-500 items-start">
                         <div
                            className="p-4 relative w-40 h-50 cursor-pointer overflow-hidden rounded-full"

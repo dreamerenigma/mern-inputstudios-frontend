@@ -42,7 +42,7 @@ export default function DashPrivacy() {
                      </Button>
                   </div>
                   <div className="p-10 flex items-center justify-center">
-                     <img src="/images/img_safety_checker.webp" alt="JavaScript Image" className="w-full h-auto max-w-md" />
+                     <img src="/images/profile/img_safety_checker.webp" alt="JavaScript Image" className="w-full h-auto max-w-md" />
                   </div>
                </div>
             </div>

@@ -99,40 +99,42 @@ export default function DashComments() {
       <div className="table-auto md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 overflow-x-auto">
          {currentUser.isAdmin && comments.length > 0 ? (
             <>
-               <Table hoverable className="shadow-md">
-                  <Table.Head>
-                     <Table.HeadCell>{t("comment_id")}</Table.HeadCell>
-                     <Table.HeadCell>{t("date_updated")}</Table.HeadCell>
-                     <Table.HeadCell>{t("comment_content")}</Table.HeadCell>
-                     <Table.HeadCell>{t("number_of_likes")}</Table.HeadCell>
-                     <Table.HeadCell>{t("user_id")}</Table.HeadCell>
-                     <Table.HeadCell>{t("delete")}</Table.HeadCell>
-                  </Table.Head>
-                  {comments.map((comment) => (
-                     <Table.Body className="divide-y" key={comment._id}>
-                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                           <Table.Cell>{comment.postId}</Table.Cell>
-                           <Table.Cell>
-                              {new Date(comment.updatedAt).toLocaleDateString()}
-                           </Table.Cell>
-                           <Table.Cell>{comment.content}</Table.Cell>
-                           <Table.Cell>{comment.numberOfLikes}</Table.Cell>
-                           <Table.Cell>{comment.userId}</Table.Cell>
-                           <Table.Cell>
-                              <span
-                                 onClick={() => {
-                                    setShowModal(true);
-                                    setCommentIdToDelete(comment._id);
-                                 }}
-                                 className="font-medium text-red-500 hover:underline cursor-pointer"
-                              >
-                                 {t("delete")}
-                              </span>
-                           </Table.Cell>
-                        </Table.Row>
-                     </Table.Body>
-                  ))}
-               </Table>
+               <div className="overflow-hidden border border-gray-700 rounded-lg">
+                     <Table hoverable className="shadow-md">
+                     <Table.Head>
+                        <Table.HeadCell>{t("comment_id")}</Table.HeadCell>
+                        <Table.HeadCell>{t("date_updated")}</Table.HeadCell>
+                        <Table.HeadCell>{t("comment_content")}</Table.HeadCell>
+                        <Table.HeadCell>{t("number_of_likes")}</Table.HeadCell>
+                        <Table.HeadCell>{t("user_id")}</Table.HeadCell>
+                        <Table.HeadCell>{t("delete")}</Table.HeadCell>
+                     </Table.Head>
+                     {comments.map((comment) => (
+                        <Table.Body className="divide-y" key={comment._id}>
+                           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80">
+                              <Table.Cell>{comment.postId}</Table.Cell>
+                              <Table.Cell>
+                                 {new Date(comment.updatedAt).toLocaleDateString()}
+                              </Table.Cell>
+                              <Table.Cell>{comment.content}</Table.Cell>
+                              <Table.Cell>{comment.numberOfLikes}</Table.Cell>
+                              <Table.Cell>{comment.userId}</Table.Cell>
+                              <Table.Cell>
+                                 <span
+                                    onClick={() => {
+                                       setShowModal(true);
+                                       setCommentIdToDelete(comment._id);
+                                    }}
+                                    className="font-medium text-red-500 hover:underline cursor-pointer"
+                                 >
+                                    {t("delete")}
+                                 </span>
+                              </Table.Cell>
+                           </Table.Row>
+                        </Table.Body>
+                     ))}
+                  </Table>
+               </div>
                {showMore && (
                   <button
                      onClick={handleShowMore}

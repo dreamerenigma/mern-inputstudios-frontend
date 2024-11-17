@@ -16,7 +16,7 @@ export default function CallToDownload() {
                </Button>
             </div>
             <div className="p-7 flex-1">
-               <img src="/images/bg_programmer.jpg" alt="JavaScript Image" />
+               <img src="/images/home/bg_programmer.jpg" alt="JavaScript Image" />
             </div>
          </div>
       </a>

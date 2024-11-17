@@ -199,7 +199,7 @@ export default function FooterCom() {
                   </div>
                </div>
             </div>
-            <Footer.Divider />
+            <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
             <div className="w-full flex flex-wrap items-center justify-between xl:flex-nowrap">
                <div className="flex items-center mb-4 xl:mb-0 px-2">
                   <LanguageSwitcher />
@@ -207,7 +207,7 @@ export default function FooterCom() {
                <div className="w-full px-4">
                   <Link to={`${languagePrefix}/dashboard?tab=privacy`} className="dark:text-gray-400 hover:underline">
                      <div className="flex items-center xl:ml-10">
-                        <img src="/images/ic_privacy.webp" alt="Privacy icon" className="w-10" />
+                        <img src="/images/privacy/ic_privacy.webp" alt="Privacy icon" className="w-10" />
                         <span className="text-xs ml-3">{t("footer:custom_footer_privacy_choice")}</span>
                      </div>
                   </Link>

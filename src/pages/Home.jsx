@@ -59,7 +59,7 @@ export default function Home() {
                <title>{t("home_title")}</title>
             </Helmet>
             <Link to={`${languagePrefix}/search`} className="block w-full max-h-[450px] h-auto">
-               <img src="/images/home.jpg" alt="welcome" className="w-full max-h-[450px] h-auto" />
+               <img src="/images/home/home.jpg" alt="welcome" className="w-full max-h-[450px] h-auto" />
             </Link>
             {windowWidth >= 1080 ? (
                <Link to={`${languagePrefix}/search`}>

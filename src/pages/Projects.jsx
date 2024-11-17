@@ -30,7 +30,7 @@ export default function Projects() {
                   <p className="text-lg font-semibold mt-5">Все проекты компании</p>
                </div>
                <Link to={`${languagePrefix}/search`} className="block w-full mx-auto mb-8">
-                  <img className="w-full h-auto" src="/images/projects.avif" alt="privacy" />
+                  <img className="w-full h-auto" src="/images/projects/projects.avif" alt="privacy" />
                </Link>
             </div>
             <div ref={refEngine} className="pt-8 px-4 md:px-8 lg:px-16 text-center text-left-860">

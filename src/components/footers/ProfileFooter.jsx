@@ -40,7 +40,7 @@ export default function ProfileFooter() {
                   <div className="w-full px-4">
                      <Link to={`${languagePrefix}/dashboard?tab=privacy`} className="dark:text-gray-400 hover:underline">
                         <div className="flex items-center xl:ml-10">
-                           <img src="/images/ic_privacy.webp" alt="Privacy icon" className="w-10" />
+                           <img src="/images/privacy/ic_privacy.webp" alt="Privacy icon" className="w-10" />
                            <span className="text-xs ml-3">{t("footer:custom_footer_privacy_choice")}</span>
                         </div>
                      </Link>

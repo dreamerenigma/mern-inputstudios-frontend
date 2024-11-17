@@ -95,7 +95,7 @@ export default function DashPrivacyAdSettings() {
                >
                   <div className="flex items-center gap-2 ml-48">
                      <div className="flex items-center justify-center rounded-full bg-teal-100 w-9 h-9 group-hover:bg-[#0E7490] transition-colors duration-200 mb-2">
-                        <img src="/images/mail.svg" alt="Icon" className="w-4 h-4" />
+                        <img src="/images/privacy/mail.svg" alt="Icon" className="w-4 h-4" />
                      </div>
                      <div className="flex flex-col text-left w-[280px] flex-shrink-0 hover:text-teal-500">
                         <p className="font-semibold text-sm">

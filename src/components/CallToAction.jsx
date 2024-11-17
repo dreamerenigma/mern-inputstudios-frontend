@@ -19,7 +19,7 @@ export default function CallToAction() {
                </Button>
             </div>
             <div className="p-7 flex-1">
-               <img src="/images/bg_programmer.jpg" alt="JavaScript Image" className="rounded-tl-3xl rounded-br-3xl"/>
+               <img src="/images/home/bg_programmer.jpg" alt="JavaScript Image" className="rounded-tl-3xl rounded-br-3xl"/>
             </div>
          </div>
       </a>

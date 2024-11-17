@@ -146,7 +146,7 @@ export default function Chatify() {
             </div>
             <div className="flex-shrink-0 hidden md:block">
                <img 
-                  src="/images/chatify.png" 
+                  src="/images/apps/chatify/chatify_notebook_app.png" 
                   alt="WhatsApp" 
                   className="h-auto max-h-72 md:max-h-64 lg:max-h-72 w-full object-contain image-chatify mx-4" 
                />
