@@ -570,7 +570,7 @@ export default function Header() {
                                  <span className="text-sm text-[#111827] dark:text-white">{t("headers:header_sign_in")}</span>
                                  <div className="w-9 h-9 flex items-center justify-center border border-white rounded-full">
                                     <img
-                                       src={isDarkMode ? "/images/sign_in_light.svg" : "/images/header/sign_in_dark.svg"}
+                                       src={isDarkMode ? "/images/header/sign_in_light.svg" : "/images/header/sign_in_dark.svg"}
                                        alt="user"
                                        className="w-5 h-5"
                                     />

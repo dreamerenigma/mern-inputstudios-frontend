@@ -78,6 +78,33 @@ export default function PostPage() {
    }, [SERVER_URL])
 
    useEffect(() => {
+      const fetchComments = async (postId) => {
+         if (!postId) return;
+   
+         try {
+            const res = await fetch(`${SERVER_URL}/api/comments?postId=${postId}`);
+            const data = await res.json();
+   
+            if (res.ok) {
+               // Если сервер возвращает список комментариев
+               setPost((prevPost) => ({
+                  ...prevPost,
+                  commentsCount: data.comments?.length || 0,
+               }));
+            } else {
+               console.error('Error fetching comments:', res.status);
+            }
+         } catch (error) {
+            console.error("Failed to fetch comments:", error.message);
+         }
+      };
+   
+      if (post && post._id) {
+         fetchComments(post._id); // Вызов функции
+      }
+   }, [post, SERVER_URL]);
+
+   useEffect(() => {
       const incrementViews = async () => {
          if (post && post._id) {
             const token = localStorage.getItem('token');
@@ -216,7 +243,7 @@ export default function PostPage() {
                      </div>
                      <div className="flex items-center gap-2 text-teal-500">
                         <FaMessage size={16} />
-                        <span>1</span>
+                        <span>{post?.commentsCount || 2}</span>
                      </div>
                   </div>
                </div>

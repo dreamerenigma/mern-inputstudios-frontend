@@ -13,15 +13,18 @@ import PostTooltip from "./tooltips/PostTooltip";
 
 export default function CommentSection({ postId }) {
    const { t } = useTranslation();
+   const [post, setPost] = useState(null);
    const { currentUser } = useSelector(state => state.user);
    const [comment, setComment] = useState("");
    const [commentError, setCommentError] = useState(null);
    const [comments, setComments] = useState([]);
    const [showModal, setShowModal] = useState(false);
+   const [showDialog, setShowDialog] = useState(false);
    const [commentToDelete, setCommentToDelete] = useState(null);
    const navigate = useNavigate();
    const [showTooltip, setShowTooltip] = useState(false);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const FRONTEND_URL = import.meta.env.VITE_VERCEL_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
@@ -124,6 +127,16 @@ export default function CommentSection({ postId }) {
       }
    };
 
+   useEffect(() => {
+      const fetchPosts = async () => {
+         const res = await fetch(`${SERVER_URL}/api/post/getPosts`);
+         const data = await res.json();
+         const foundPost = data.posts.find(post => post._id === postId);
+         setPost(foundPost);
+      };
+      fetchPosts();
+   }, [postId, SERVER_URL]);
+
    const handleEdit = async (comment, editedContent) => {
       setComments(
          comments.map((c) =>
@@ -159,64 +172,78 @@ export default function CommentSection({ postId }) {
    };
 
    const handleCopy = () => {
-      navigator.clipboard.writeText("Ссылка скопирована в буфер обмена");
-      setShowTooltip(true);
-      setTimeout(() => setShowTooltip(false), 8000);
+      if (post) {
+         const rssURL = `${FRONTEND_URL}${languagePrefix}/rss/post/${post.slug}`;
+   
+         navigator.clipboard.writeText(rssURL);
+         setShowTooltip(true);
+         setTimeout(() => setShowTooltip(false), 8000);
+      }
+   };
+
+   const handleClick = () => {
+      if (!currentUser) {
+         setShowDialog(true);
+      } else {
+         navigate(`${languagePrefix}/conversations/${currentUser._id}`);
+      }
    };
 
    return (
       <div className="max-w-4xl mx-auto w-full pt-3">
          <div className="border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-3">
-            {currentUser ? (
-               <div className="relative flex items-center justify-between my-1 text-gray-500 text-sm">
-                  <div className="flex flex-col gap-1 text-left">
-                     <Link
-                        to={`${languagePrefix}/dashboard?tab=profile`}
-                        className="cursor-pointer flex items-center space-x-4"
-                     >
-                        <img
-                           className="h-12 w-12 object-cover rounded-full"
-                           src={currentUser.profilePicture}
-                           alt="Profile picture"
-                        />
-                        <div className="flex flex-row gap-4">
-                           <div className="flex flex-col items-center">
-                              <p className="text-lg text-green-500 font-semibold">233</p>
-                              <p className="text-sm text-gray-400">Карма</p>
-                           </div>
-                           <div className="flex flex-col items-center">
-                              <p className="text-lg text-purple-500 font-semibold">9999</p>
-                              <p className="text-sm text-gray-400">Рейтинг</p>
-                           </div>
-                        </div>
-                     </Link>
-                     <Link
-                        to={`${languagePrefix}/dashboard?tab=profile`}
-                        className="text-base text-cyan-600 hover:underline"
-                     >
-                        @{currentUser.username}
-                     </Link>
-                     <p className="text-base text-gray-400">
-                        {currentUser.isAdmin ? "Админ" : "Пользователь"}
-                     </p>
+            <div className="relative flex items-center justify-between my-1 text-gray-500 text-sm">
+               <div className="flex flex-col gap-1 text-left">
+                  <Link
+                     to={`${languagePrefix}/dashboard?tab=profile`}
+                     className="cursor-pointer flex items-center space-x-4"
+                  >
+                  <img
+                     className="h-12 w-12 object-cover rounded-full"
+                     src={currentUser ? currentUser.profilePicture : "/path/to/default-avatar.png"}
+                     alt="Profile picture"
+                  />
+                  <div className="flex flex-row gap-4">
+                     <div className="flex flex-col items-center">
+                        <p className="text-lg text-green-500 font-semibold">
+                           {currentUser ? 233 : "0"}
+                        </p>
+                        <p className="text-sm text-gray-400">Карма</p>
+                     </div>
+                     <div className="flex flex-col items-center">
+                        <p className="text-lg text-purple-500 font-semibold">
+                           {currentUser ? 9999 : "0"}
+                        </p>
+                        <p className="text-sm text-gray-400">Рейтинг</p>
+                     </div>
                   </div>
-                  <div className="absolute top-0 right-0 flex items-center gap-2">
-                     <button
-                        className="rounded-lg bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-r hover:from-blue-700 hover:via-green-700 hover:to-teal-700 transition-colors duration-300 p-2"
-                     >
-                        <IoIosMail size={24} className="text-white" />
-                     </button>
-                     <Button outline gradientDuoTone="purpleToBlue" type="submit">
-                        Подписаться
-                     </Button>
-                  </div>
-               </div>
-            ) : (
-               <div className="text-sm text-teal-500 my-5 flex gap-1">
-                  {t("comments:signed_in_comment")}
-                  <Link className="text-blue-500 hover:underline" to={`${languagePrefix}/sign-in`}>
-                     {t("comments:sign_in")}
                   </Link>
+                  <Link
+                     to={`${languagePrefix}/dashboard?tab=profile`}
+                     className="text-base text-cyan-600 hover:underline"
+                  >
+                     @{currentUser ? currentUser.username : "Гость"}
+                  </Link>
+                  <p className="text-base text-gray-400">
+                     {currentUser ? (currentUser.isAdmin ? "Админ" : "Пользователь") : "Гость"}
+                  </p>
+               </div>
+               <div className="absolute top-0 right-0 flex items-center gap-2">
+                  <button
+                     className="rounded-lg bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-r hover:from-blue-700 hover:via-green-700 hover:to-teal-700 transition-colors duration-300 p-2"
+                     onClick={handleClick}
+                  >
+                     <IoIosMail size={24} className="text-white" />
+                  </button>
+                  <Button outline gradientDuoTone="purpleToBlue" type="submit">
+                     Подписаться
+                  </Button>
+               </div>
+            </div>
+            {showDialog && !currentUser && (
+               <div className="absolute top-0 left-1/2 transform -translate-x-1/2 mt-12 p-6 bg-white rounded-lg shadow-lg max-w-xs text-center">
+                  <p className="text-lg font-semibold mb-4">Войдите в Input Studios,</p>
+                  <p className="text-gray-500">чтобы отправить сообщение</p>
                </div>
             )}
          </div>
@@ -258,6 +285,16 @@ export default function CommentSection({ postId }) {
             )}
             {showTooltip && ReactDOM.createPortal(<PostTooltip showTooltip={showTooltip} />, document.body)}
          </div>
+         {!currentUser && (
+            <div className="mt-3 border border-gray-700 bg-white dark:bg-gray-800 p-4 rounded-lg">
+               <div className="text-sm my-5 flex">
+                  <Link className="text-blue-500 hover:underline" to={`${languagePrefix}/sign-in`}>
+                     Войдите
+                  </Link>
+                  , чтобы оставить комментарий
+               </div>
+            </div>
+         )}
          {currentUser && (
             <form onSubmit={handleSubmit} className="border border-teal-500 rounded-md p-3 mt-3">
                <textarea
