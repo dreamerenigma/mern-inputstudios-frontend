@@ -1,5 +1,5 @@
 import { Avatar, Button, Dropdown } from "flowbite-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { CgMenuGridR } from "react-icons/cg";
 import { AiOutlineQuestion, AiOutlineClose } from "react-icons/ai";
@@ -17,6 +17,7 @@ export default function ProfileHeader() {
    const { t } = useTranslation();
    const dispatch = useDispatch();
    const location = useLocation();
+   const navigate = useNavigate();
    const [menuOpen, setMenuOpen] = useState(false);
    const [questionMenuOpen, setQuestionMenuOpen] = useState(false);
    const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -50,6 +51,7 @@ export default function ProfileHeader() {
             console.log(data.message);
          } else {
             dispatch(signoutSuccess());
+            navigate("/");
          }
       } catch (error) {
          console.log(error.message);
@@ -132,7 +134,7 @@ export default function ProfileHeader() {
                      </span>
                   </Link>
                </div>
-               {currentUser.isAdmin && isPostsTab && (
+               {(currentUser.isAdmin && isPostsTab) || !currentUser.isAdmin ? (
                   <div className="flex justify-end w-full mr-4">
                      <Link to={`${languagePrefix}/create-post`}>
                         <Button
@@ -144,7 +146,7 @@ export default function ProfileHeader() {
                         </Button>
                      </Link>
                   </div>
-               )}
+               ) : null}
                {currentUser ? (
                   <div className="flex items-center">
                      <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-4 mr-2 rounded cursor-pointer" onClick={handleQuestionIconClick}>
@@ -176,7 +178,7 @@ export default function ProfileHeader() {
                               />
                               <span
                                  onClick={handleSignout}
-                                 className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
+                                 className="hover:bg-gray-200 dark:hover:bg-gray-600 rounded-tr-md cursor-pointer text-xs p-2.5 mb-3"
                               >
                                  {t("headers:header_sign_out")}
                               </span>

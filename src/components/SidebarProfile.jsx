@@ -464,13 +464,13 @@ export default function SidebarProfile() {
                      )}
                      {tab === "signout" ? (
                         <IoExit
-                        size={28}
-                        className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                           size={28}
+                           className={`ml-1 text-${theme === 'dark' ? 'white' : 'gray-700'}`}
                         />
                      ) : (
                         <IoExitOutline 
-                        size={28}
-                        className={`text-${tab === "signout" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                           size={28}
+                           className={`ml-1 text-${tab === "signout" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
                         />
                      )}
                      <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("sign_out")}</span>
