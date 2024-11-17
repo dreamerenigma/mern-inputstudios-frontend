@@ -195,8 +195,14 @@ export default function CommentSection({ postId }) {
             <div className="relative flex items-center justify-between my-1 text-gray-500 text-sm">
                <div className="flex flex-col gap-1 text-left">
                   <Link
-                     to={`${languagePrefix}/dashboard?tab=profile`}
-                     className="cursor-pointer flex items-center space-x-4"
+                  to={
+                     currentUser
+                        ? currentUser.isAdmin
+                        ? `${languagePrefix}/dashboard?tab=profile`
+                        : `${languagePrefix}/users/${currentUser.username}`
+                        : `${languagePrefix}/users/Гость`
+                  }
+                  className="cursor-pointer flex items-center space-x-4"
                   >
                   <img
                      className="h-12 w-12 object-cover rounded-full"
@@ -206,37 +212,43 @@ export default function CommentSection({ postId }) {
                   <div className="flex flex-row gap-4">
                      <div className="flex flex-col items-center">
                         <p className="text-lg text-green-500 font-semibold">
-                           {currentUser ? 233 : "0"}
+                        {currentUser ? 233 : "0"}
                         </p>
                         <p className="text-sm text-gray-400">Карма</p>
                      </div>
                      <div className="flex flex-col items-center">
                         <p className="text-lg text-purple-500 font-semibold">
-                           {currentUser ? 9999 : "0"}
+                        {currentUser ? 9999 : "0"}
                         </p>
                         <p className="text-sm text-gray-400">Рейтинг</p>
                      </div>
                   </div>
                   </Link>
                   <Link
-                     to={`${languagePrefix}/dashboard?tab=profile`}
-                     className="text-base text-cyan-600 hover:underline"
+                  to={
+                     currentUser
+                        ? currentUser.isAdmin
+                        ? `${languagePrefix}/dashboard?tab=profile`
+                        : `${languagePrefix}/users/${currentUser.username}`
+                        : "#"
+                  }
+                  className="text-base text-cyan-600 hover:underline"
                   >
-                     @{currentUser ? currentUser.username : "Гость"}
+                  @{currentUser ? currentUser.username : "Гость"}
                   </Link>
                   <p className="text-base text-gray-400">
-                     {currentUser ? (currentUser.isAdmin ? "Админ" : "Пользователь") : "Гость"}
+                  {currentUser ? (currentUser.isAdmin ? "Админ" : "Пользователь") : "Гость"}
                   </p>
                </div>
                <div className="absolute top-0 right-0 flex items-center gap-2">
                   <button
-                     className="rounded-lg bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-r hover:from-blue-700 hover:via-green-700 hover:to-teal-700 transition-colors duration-300 p-2"
-                     onClick={handleClick}
+                  className="rounded-lg bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-r hover:from-blue-700 hover:via-green-700 hover:to-teal-700 transition-colors duration-300 p-2"
+                  onClick={handleClick}
                   >
-                     <IoIosMail size={24} className="text-white" />
+                  <IoIosMail size={24} className="text-white" />
                   </button>
                   <Button outline gradientDuoTone="purpleToBlue" type="submit">
-                     Подписаться
+                  Подписаться
                   </Button>
                </div>
             </div>

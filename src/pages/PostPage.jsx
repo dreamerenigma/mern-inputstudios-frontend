@@ -21,6 +21,7 @@ import RecentPostCard from "../components/RecentPostCard";
 
 export default function PostPage() {
    const { t } = useTranslation();
+   const [user, setUser] = useState({});
    const { currentUser } = useSelector(state => state.user);
    const { postSlug } = useParams();
    const [loading, setLoading] = useState(true);
@@ -31,6 +32,21 @@ export default function PostPage() {
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
+   useEffect(() => {
+      const getUser = async () => {
+         try {
+            const res = await fetch(`${SERVER_URL}/api/user/${post.userId}`);
+            const data = await res.json();
+            if (res.ok) {
+               setUser(data);
+            }
+         } catch (error) {
+            console.log(error.message);
+         }
+      }
+      getUser();
+   }, [SERVER_URL, post]);
 
    useEffect(() => {
       const fetchPost = async () => {
@@ -86,7 +102,6 @@ export default function PostPage() {
             const data = await res.json();
    
             if (res.ok) {
-               // Если сервер возвращает список комментариев
                setPost((prevPost) => ({
                   ...prevPost,
                   commentsCount: data.comments?.length || 0,
@@ -100,7 +115,7 @@ export default function PostPage() {
       };
    
       if (post && post._id) {
-         fetchComments(post._id); // Вызов функции
+         fetchComments(post._id);
       }
    }, [post, SERVER_URL]);
 
@@ -166,10 +181,10 @@ export default function PostPage() {
                      >
                         <img
                            className="h-8 w-8 object-cover rounded-full"
-                           src={currentUser.profilePicture}
+                           src={user.profilePicture}
                            alt="Profile picture"
                         />
-                        <span className="text-sm text-teal-500 hover:underline">@{currentUser.username}</span>
+                        <span className="text-sm text-teal-500 hover:underline">@{user.username}</span>
                      </Link> 
                   ) : (
                      <div className="text-sm text-teal-500 my-5 flex gap-1 max-w-max">

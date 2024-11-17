@@ -75,11 +75,11 @@ const ScrollToTopButton = ({ languageChanged, setLanguageChanged, scrollPosition
          style={{ bottom: buttonBottom, zIndex: 1000 }}
       >
          <div
-            className="flex items-center cursor-pointer bg-gray-300 px-3 py-2 rounded shadow-lg hover:bg-white"
+            className="flex items-center cursor-pointer bg-gray-200 dark:bg-gray-700 px-3 py-2 rounded-md shadow-lg hover:bg-gray-300 dark:hover:bg-gray-800"
             onClick={scrollTop}
          >
-            <HiArrowUp className="text-black mr-2 animate-bounce" size={18}/>
-            <span className="text-black animate-bounce">{t("scroll_up_button")}</span>
+            <HiArrowUp className="text-black dark:text-white mr-2 animate-bounce" size={18}/>
+            <span className="text-black dark:text-white animate-bounce">{t("scroll_up_button")}</span>
          </div>
       </div>
    );

@@ -4,12 +4,30 @@ import PropTypes from 'prop-types';
 import { useTranslation } from "react-i18next";
 import { formatDate } from "../utils/dateUtils";
 import { FaRegClock, FaRegEye } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 export default function RecentPostCard({ post }) {
    const { t } = useTranslation();
+   const [user, setUser] = useState({});
    const { currentUser } = useSelector(state => state.user);
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
+   useEffect(() => {
+      const getUser = async () => {
+         try {
+            const res = await fetch(`${SERVER_URL}/api/user/${post.userId}`);
+            const data = await res.json();
+            if (res.ok) {
+               setUser(data);
+            }
+         } catch (error) {
+            console.log(error.message);
+         }
+      }
+      getUser();
+   }, [SERVER_URL, post]);
 
    return (
       <div className="group relative w-full border border-teal-500 overflow-hidden rounded-lg sm:w-[90%] transition-all shadow-md">
@@ -21,10 +39,10 @@ export default function RecentPostCard({ post }) {
                >
                   <img
                      className="h-8 w-8 object-cover rounded-full"
-                     src={currentUser.profilePicture}
+                     src={user.profilePicture}
                      alt="Profile picture"
                   />
-                  <span className="text-sm text-teal-500 hover:underline">@{currentUser.username}</span>
+                  <span className="text-sm text-teal-500 hover:underline">@{user.username}</span>
                </Link> 
             ) : (
                <div className="text-sm text-teal-500 my-5 flex gap-1 max-w-max">
@@ -73,6 +91,7 @@ export default function RecentPostCard({ post }) {
 
 RecentPostCard.propTypes = {
    post: PropTypes.shape({
+      userId: PropTypes.string.isRequired,
       slug: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
