@@ -1,6 +1,6 @@
 import { Button, Spinner, Footer } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
 import VideoPlayer from '../components/VideoPlayer';
@@ -14,13 +14,14 @@ import { FaFigma, FaRegClock, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
 import { FaRegEye, FaMessage } from "react-icons/fa6";
 import { Helmet } from "react-helmet";
-import { IoIosArrowBack, IoIosArrowForward, IoIosShareAlt } from "react-icons/io";
+import { IoIosShareAlt } from "react-icons/io";
 import NewsCard from "../components/NewsCard";
 import { formatDate } from "../utils/dateUtils";
 import RecentPostCard from "../components/RecentPostCard";
 
 export default function PostPage() {
    const { t } = useTranslation();
+   const navigate = useNavigate();
    const [user, setUser] = useState({});
    const { currentUser } = useSelector(state => state.user);
    const { postSlug } = useParams();
@@ -29,14 +30,17 @@ export default function PostPage() {
    const [post, setPost] = useState(null);
    const [recentPosts, setRecentPosts] = useState(null);
    const [views, setViews] = useState(0);
+   const [visiblePosts, setVisiblePosts] = useState(8);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    useEffect(() => {
-      const getUser = async () => {
+   const getUser = async () => {
+      const userId = post?.userId;
+      if (userId) {
          try {
-            const res = await fetch(`${SERVER_URL}/api/user/${post.userId}`);
+            const res = await fetch(`${SERVER_URL}/api/user/${userId}`);
             const data = await res.json();
             if (res.ok) {
                setUser(data);
@@ -45,8 +49,9 @@ export default function PostPage() {
             console.log(error.message);
          }
       }
-      getUser();
-   }, [SERVER_URL, post]);
+   };
+   getUser();
+}, [SERVER_URL, post]);
 
    useEffect(() => {
       const fetchPost = async () => {
@@ -81,7 +86,7 @@ export default function PostPage() {
    useEffect(() => {
       try {
          const fetchRecentPosts = async () => {
-            const res = await fetch(`${SERVER_URL}/api/post/getposts?limit=10`);
+            const res = await fetch(`${SERVER_URL}/api/post/getposts`);
             const data = await res.json();
             if (res.ok) {
                setRecentPosts(data.posts);
@@ -94,62 +99,76 @@ export default function PostPage() {
    }, [SERVER_URL])
 
    useEffect(() => {
-      const fetchComments = async (postId) => {
+      const incrementViews = async (postId) => {
          if (!postId) return;
    
          try {
-            const res = await fetch(`${SERVER_URL}/api/comments?postId=${postId}`);
-            const data = await res.json();
+            const token = localStorage.getItem('token');
+   
+            const res = await fetch(`${SERVER_URL}/api/post/${postId}/incrementViews`, {
+               method: "PUT",
+               headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`
+               },
+            });
    
             if (res.ok) {
-               setPost((prevPost) => ({
-                  ...prevPost,
-                  commentsCount: data.comments?.length || 0,
-               }));
+               const data = await res.json();
+               setViews(data.views);
             } else {
-               console.error('Error fetching comments:', res.status);
+               console.error('Error incrementing views:', res.status);
             }
          } catch (error) {
-            console.error("Failed to fetch comments:", error.message);
+            console.error("Failed to increment views:", error.message);
          }
       };
    
       if (post && post._id) {
-         fetchComments(post._id);
+         incrementViews(post._id);
       }
    }, [post, SERVER_URL]);
 
-   useEffect(() => {
-      const incrementViews = async () => {
-         if (post && post._id) {
-            const token = localStorage.getItem('token');
-            console.log("Token being sent:", token);
-            console.log("Post ID being sent:", post._id);
+   const handleShowMore = () => {
+      setVisiblePosts((prev) => Math.min(prev + 4, recentPosts.length));
+   };
 
-            try {
-               const response = await fetch(`${SERVER_URL}/api/posts/${post._id}/incrementViews`, {
-                  method: "PUT",
-                  headers: {
-                     "Content-Type": "application/json",
-                     "Authorization": `Bearer ${token}`
-                  },
-               });
-               if (response.ok) {
-                  const data = await response.json();
-                  setViews(data.views);
-               } else {
-                  console.error('Error incrementing views:', response.status);
-               }
-            } catch (error) {
-               console.error("Failed to increment views:", error.message);
-            }
+   const handleLike = async (postId) => {
+      try {
+         if (!currentUser) {
+            navigate("/sign-in");
+            return;
          }
-      };
-      if (post) {
-         incrementViews();
+   
+         const token = localStorage.getItem('token');
+   
+         const res = await fetch(`${SERVER_URL}/api/post/likePost/${postId}`, {
+            method: "PUT",
+            headers: {
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`,
+            },
+         });
+   
+         if (res.ok) {
+            const data = await res.json();
+   
+            setPost(
+               post.map((item) =>
+                  item._id === postId
+                     ? { ...item, likes: data.likes, numberOfLikes: data.numberOfLikes }
+                     : item
+               )
+            );
+         } else {
+            const errorData = await res.json();
+            console.error("Error liking post:", errorData.message);
+         }
+      } catch (error) {
+         console.error("Error liking post:", error.message);
       }
-   }, [post, SERVER_URL]);
-
+   };
+   
    if (loading) {
       return (
          <div className="flex justify-center items-center min-h-screen">
@@ -167,154 +186,186 @@ export default function PostPage() {
    }
 
    return (
-      <main className="p-3 flex flex-col max-w-7xl mx-auto min-h-screen mt-[60px]">
+      <div className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen mt-[60px]">
          <Helmet>
             <title>{post?.title || "Новости IT - Главные новости технологий"}</title>
          </Helmet>
-         <div className="flex flex-col lg:flex-row gap-4 max-w-6xl mx-auto">
-            <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg lg:w-3/4 overflow-hidden">
-               <div className="p-4">
-                  {currentUser ? (
-                     <Link
-                        to={`${languagePrefix}/dashboard?tab=profile`}
-                        className="flex items-center gap-2 text-gray-500 text-sm max-w-max"
-                     >
-                        <img
-                           className="h-8 w-8 object-cover rounded-full"
-                           src={user.profilePicture}
-                           alt="Profile picture"
-                        />
-                        <span className="text-sm text-teal-500 hover:underline">@{user.username}</span>
-                     </Link> 
-                  ) : (
-                     <div className="text-sm text-teal-500 my-5 flex gap-1 max-w-max">
-                        {t("comments:signed_in_comment")}
-                        <Link className="text-blue-500 hover:underline" to={`${languagePrefix}/sign-in`}>
-                           {t("comments:sign_in")}
-                        </Link>
-                     </div>
-                  )}
-                  <h1 className="text-xl mt-2 font-semibold lg:text-2xl">
-                     {post && post.title}
-                  </h1>
-                  <Link to={`${languagePrefix}/search?category=${post && post.category}`} className="self-center mt-5">
-                     <Button color="gray" pill size="xs" className="mt-6">
-                        {post && post.category}
-                     </Button>
-                  </Link>
-                  <VideoPlayer
-                     url={post && post.video}
-                     previewImage={post && post.image}
-                     alt={post && post.title}
-                     className="mt-10 p-3 max-h-[300px] w-full object-cover"
-                  />
-                  <img
-                     src={post && post.image}
-                     alt={post && post.title}
-                     className="mt-4 py-3 w-full h-auto object-contain"
-                  />
-                  <div className="flex justify-between py-2 border-b border-slate-500 text-md">
-                     <span>{post && formatDate(post.createdAt)}</span>
-                     <div className="flex gap-4 items-center">
-                        <div className="flex items-center gap-1">
-                           <FaRegClock size={18} className="text-gray-400" />
-                           <span className="text-gray-400 pl-1">
-                              {post && (post.content.length / 1000).toFixed(0)} {t("posts:mins_read")}
-                           </span>
+         <div className="flex gap-4">
+            {/* Левая колонка */}
+            <div className="w-[1100px] flex flex-col">
+               <div className="border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg mb-3 shadow-md">
+                  <div className="p-4">
+                     {currentUser ? (
+                        <Link
+                           to={`${languagePrefix}/user/${user.username}`}
+                           className="flex items-center gap-2 text-gray-500 text-sm max-w-max"
+                        >
+                           <img
+                              className="h-8 w-8 object-cover rounded-full"
+                              src={user.profilePicture}
+                              alt="Profile picture"
+                           />
+                           <span className="text-sm text-teal-500 hover:underline">@{user.username}</span>
+                        </Link> 
+                     ) : (
+                        <div className="text-sm text-teal-500 my-5 flex gap-1 max-w-max">
+                           {t("comments:signed_in_comment")}
+                           <Link className="text-blue-500 hover:underline" to={`${languagePrefix}/sign-in`}>
+                              {t("comments:sign_in")}
+                           </Link>
                         </div>
-                        <div className="flex items-center gap-1">
-                           <FaRegEye size={18} className="text-gray-400" />
-                           <span className="text-gray-400 pl-1">{views}</span>
+                     )}
+                     <h1 className="text-xl mt-2 font-semibold lg:text-2xl">
+                        {post && post.title}
+                     </h1>
+                     <Link to={`${languagePrefix}/search?category=${post && post.category}`} className="self-center mt-5">
+                        <Button color="gray" pill size="xs" className="mt-6">
+                           {post && post.category}
+                        </Button>
+                     </Link>
+                     <VideoPlayer
+                        url={post && post.video}
+                        previewImage={post && post.image}
+                        alt={post && post.title}
+                        className="mt-10 p-3 max-h-[300px] w-full object-cover"
+                     />
+                     <img
+                        src={post && post.image}
+                        alt={post && post.title}
+                        className="mt-4 py-3 w-full h-auto object-contain"
+                     />
+                     <div className="flex justify-between py-2 border-b border-slate-500 text-md">
+                        <span>{post && formatDate(post.createdAt)}</span>
+                        <div className="flex gap-4 items-center">
+                           <div className="flex items-center gap-1">
+                              <FaRegClock size={18} className="text-gray-400" />
+                              <span className="text-gray-400 pl-1">
+                                 {post && (post.content.length / 1000).toFixed(0)} {t("posts:mins_read")}
+                              </span>
+                           </div>
+                           <div className="flex items-center gap-1">
+                              <FaRegEye size={18} className="text-gray-400" />
+                              <span className="text-gray-400 pl-1">{views}</span>
+                           </div>
+                        </div>
+                     </div>
+                     <div
+                        className="py-3 post-content break-words text-left"
+                        dangerouslySetInnerHTML={{ __html: post && post.content }}>
+                     </div>
+                     <div>
+                        <p>Теги:</p>
+                     </div>
+                  </div>
+                  <div className="mb-3">
+                     <hr className="border-t border-gray-300 dark:border-gray-600" />
+                     <div className="flex gap-6 mt-4 px-5">
+                        <div className="flex items-center gap-2 text-teal-500">
+                           <button
+                              type="button"
+                              onClick={() => handleLike(post?._id)}
+                              className={`text-gray-400 hover:text-blue-500 ${
+                                 currentUser && post?.likes?.includes(currentUser._id) ? "!text-teal-500" : "text-gray-500"
+                              }`}
+                           >
+                              <FaThumbsUp
+                                 className={`text-sm ${
+                                    currentUser && post?.likes?.includes(currentUser._id) ? "text-teal-500" : "text-gray-500"
+                                 } hover:text-teal-500`}
+                              />
+                           </button>
+                           <p className="text-gray-400">
+                              {post.numberOfLikes > 0 &&
+                                 post.numberOfLikes +
+                                    " " +
+                                    (post.numberOfLikes === 1 ? t("post:like") : t("post:likes")
+                                 )
+                              }
+                           </p>
+                        </div>
+                        <div className="flex items-center gap-2 text-teal-500">
+                           <FaThumbsDown size={16} />
+                           <span>0</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-teal-500">
+                           <IoIosShareAlt size={24} />
+                           <span>2</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-teal-500">
+                           <FaMessage size={16} />
+                           <span>{post?.commentsCount || 2}</span>
                         </div>
                      </div>
                   </div>
-                  <div
-                     className="py-3 post-content break-words text-left"
-                     dangerouslySetInnerHTML={{ __html: post && post.content }}>
-                  </div>
-                  <div>
-                     <button className="px-4 py-1 my-4 border border-teal-500 text-teal-500 rounded-md hover:bg-teal-800">
-                        Источник
-                     </button>
-                  </div>
-                  <div>
-                     <p>Теги:</p>
+               </div>
+               {/* Нижний контент */}
+               <div className="flex flex-col lg:flex-row gap-4 max-w-6xl mx-auto">
+                  <div className="flex-1">
+                     <div className="max-w-5xl mx-auto w-full">
+                        <CallToAction />
+                     </div>
+                     <CommentSection postId={post._id} />
                   </div>
                </div>
-               <div className="mb-3">
-                  <hr className="border-t border-gray-300 dark:border-gray-600" />
-                  <div className="flex gap-6 mt-4 px-5">
-                     <div className="flex items-center gap-2 text-teal-500">
-                        <FaThumbsUp size={16} />
-                        <span>1</span>
+               <div className="flex flex-col lg:flex-row gap-4 mx-auto mt-3">
+                  <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden pb-5">
+                     <h1 className="text-xl mt-2 text-left px-6">Recent Articles</h1>
+                     <div className="flex flex-wrap justify-center px-6">
+                        {recentPosts &&
+                           recentPosts.slice(0, visiblePosts).map((post) => (
+                           <div key={post._id} className="w-full mt-4">
+                              <RecentPostCard post={post} />
+                           </div>
+                           ))}
                      </div>
-                     <div className="flex items-center gap-2 text-teal-500">
-                        <FaThumbsDown size={16} />
-                        <span>0</span>
-                     </div>
-                     <div className="flex items-center gap-2 text-teal-500">
-                        <IoIosShareAlt size={24} />
-                        <span>2</span>
-                     </div>
-                     <div className="flex items-center gap-2 text-teal-500">
-                        <FaMessage size={16} />
-                        <span>{post?.commentsCount || 2}</span>
-                     </div>
+                     {recentPosts && visiblePosts < recentPosts.length && (
+                        <div className="flex justify-center mt-4">
+                           <Button outline gradientDuoTone="purpleToBlue" type="submit" onClick={handleShowMore}>
+                              Показать ещё
+                           </Button>
+                        </div>
+                     )}
                   </div>
                </div>
             </div>
-            <div className="border border-gray-700 p-4 mb-3 bg-gray-100 dark:bg-gray-800 rounded-lg lg:w-1/4 overflow-hidden">
-               <p>НОВОСТИ</p>
-               <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
-               {recentPosts && 
-                  recentPosts.slice(0, 10).map((post, index, arr) => (
-                     <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
-                        <NewsCard post={post} isLast={index === arr.length - 1} />
-                     </div>
-                  ))
-               }
-            </div>
-         </div>
-         <div className="flex flex-col lg:flex-row gap-4 max-w-6xl mx-auto">
-            <div className="flex-1">
-               <div className="max-w-5xl mx-auto w-full">
-                  <CallToAction />
-               </div>
-               <CommentSection postId={post._id} />
-            </div>
-            <div className="w-full lg:w-1/4 mt-8 lg:mt-0">
-               <div className="border border-gray-700 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg h-full">
-                  <p className="font-semibold text-lg">ДРУГИЕ НОВОСТИ</p>
-                  <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
-               </div>
-            </div>
-         </div>
-         <div className="flex flex-col lg:flex-row gap-4 max-w-6xl mx-auto mt-3">
-            <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg lg:w-3/4 overflow-hidden pb-5">
-               <h1 className="text-xl mt-2 text-left px-6">{t("posts:recent_articles")}</h1>
-               <div className="flex flex-wrap justify-center w-[940px] px-6">
+            {/* Правая колонка */}
+            <div className="flex flex-col">
+               <div className="border border-gray-700 p-4 mb-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                  <p>НОВОСТИ</p>
+                  <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
-                  recentPosts.slice(0, 4).map((post) => (
-                     <div key={post._id} className="w-full mt-4">
-                        <RecentPostCard post={post} />
-                     </div>
-                  ))
+                     recentPosts.slice(0, 10).map((post, index, arr) => (
+                        <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
+                           <NewsCard post={post} isLast={index === arr.length - 1} />
+                        </div>
+                     ))
                   }
                </div>
-            </div>
-            <div className="flex flex-col gap-4 lg:w-1/4 self-start">
-               <div className="border border-gray-700 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+               <div className="w-full mt-8 lg:mt-0">
+                  <div className="border border-gray-700 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg h-full">
+                     <p className="font-semibold text-lg">ДРУГИЕ НОВОСТИ</p>
+                     <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
+                     {recentPosts && 
+                        recentPosts.slice(0, 3).map((post, index, arr) => (
+                           <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
+                              <NewsCard post={post} isLast={index === arr.length - 1} />
+                           </div>
+                        ))
+                     }
+                  </div>
+               </div>
+               <div className="border border-gray-700 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg mt-3">
                   <p>СОБЫТИЯ</p>
                   <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
-                  recentPosts.slice(0, 3).map((post, index, arr) => (
-                     <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
-                        <NewsCard post={post} isLast={index === arr.length - 1} />
-                     </div>
-                  ))
+                     recentPosts.slice(0, 3).map((post, index, arr) => (
+                        <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
+                           <NewsCard post={post} isLast={index === arr.length - 1} />
+                        </div>
+                     ))
                   }
                </div>
-               <div className="border border-gray-700 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+               <div className="border border-gray-700 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg mt-3">
                   <p>ДОПОЛНИТЕЛЬНЫЙ БЛОК</p>
                   <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
@@ -327,31 +378,6 @@ export default function PostPage() {
                </div>
             </div>
          </div>
-         {/* <div className="flex flex-col lg:flex-row gap-4 max-w-3xl">
-            <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg w-full overflow-hidden py-3 px-4">
-               <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                  <span className="text-teal-500">
-                     <IoIosArrowBack />
-                  </span>
-                  <p className="text-gray-800 dark:text-gray-200">Сюда</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                     <span className="text-gray-800 dark:text-gray-200">1</span>
-                     <span className="text-gray-800 dark:text-gray-200">2</span>
-                     <span className="text-gray-800 dark:text-gray-200">3</span>
-                     <span className="text-gray-800 dark:text-gray-200">...</span>
-                     <span className="text-gray-800 dark:text-gray-200">50</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                  <p className="text-gray-800 dark:text-gray-200">Туда</p>
-                  <span className="text-teal-500">
-                     <IoIosArrowForward />
-                  </span>
-                  </div>
-               </div>
-            </div>
-         </div> */}
          <div className="flex flex-wrap gap-4 mt-10 mb-10 mx-4">
             <p>{t("home_subscribe_news")}</p>
             <div className="flex flex-wrap gap-4">
@@ -363,6 +389,6 @@ export default function PostPage() {
                <Footer.Icon href="https://dribbble.com/inputstudios" target="_blank" icon={BsDribbble} />
             </div>
          </div>
-      </main>
+      </div>
    );
 }
