@@ -1,7 +1,7 @@
 
 export default function ChatSam() {
   return (
-    <div>
+    <div className="mt-[60px]">
       <p>Chat Sam</p>
     </div>
   );
