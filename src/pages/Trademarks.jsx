@@ -1,5 +1,4 @@
 import colors from "../utils/colors";
-import Divider from "../components/Divider";
 import ListItem from "../components/lists/listItem";
 import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
 import { faCircle as faCircleOutline } from '@fortawesome/free-regular-svg-icons';
@@ -15,6 +14,7 @@ import { RxDiscordLogo } from "react-icons/rx";
 import { AiOutlineYoutube } from "react-icons/ai";
 import { FaFigma } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
+import Divider from "../components/dividers/Divider";
 
 export default function Trademarks() {
    const { t } = useTranslation();
