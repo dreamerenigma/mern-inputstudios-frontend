@@ -1,5 +1,4 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../firebase";
@@ -22,7 +21,6 @@ export default function CreatePost() {
    const [publishError, setPublishError] = useState(null);
    const navigate = useNavigate();
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
-   const { theme } = useSelector((state) => state.theme);
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
@@ -132,12 +130,14 @@ export default function CreatePost() {
                   }
                >
                   <option value="uncategorized">{t("posts:select_category")}</option>
-                  <option value="android">AI</option>
+                  <option value="ai">AI</option>
                   <option value="android">Android</option>
+                  <option value="science">Science</option>
                   <option value="database">Database</option>
+                  <option value="gamedev">Game Development</option>
                   <option value="javascript">JavaScript</option>
-                  <option value="reactjs">React.js</option>
                   <option value="nextjs">Next.js</option>
+                  <option value="reactjs">React.js</option>
                   <option value="unrealengine">Unreal Engine</option>
                </Select>
             </div>
@@ -207,17 +207,6 @@ export default function CreatePost() {
                   }} 
                />
             </div>
-            {/* <div className={theme === 'dark' ? 'dark-theme' : 'light-theme'}>
-               <ReactQuill
-                  theme="snow"
-                  placeholder={t("posts:write_something")}
-                  className="h-72 mb-12"
-                  required
-                  onChange={(value) => {
-                     setFormData({ ...formData, content: value });
-                  }}
-               />
-            </div> */}
             <Button type="submit" gradientDuoTone="purpleToPink">
                {t("posts:publish")}
             </Button>

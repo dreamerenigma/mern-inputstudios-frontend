@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 export default function RecentPostCard({ post }) {
    const { t } = useTranslation();
    const [user, setUser] = useState({});
+   const [views, setViews] = useState(0);
    const { currentUser } = useSelector(state => state.user);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
@@ -29,26 +30,62 @@ export default function RecentPostCard({ post }) {
       getUser();
    }, [SERVER_URL, post]);
 
+   useEffect(() => {
+      const getPostViews = async (postId) => {
+         try {
+            if (!postId || postId.length !== 24) {
+               console.error("Invalid postId format", postId);
+               return;
+            }
+   
+            const token = localStorage.getItem('token');
+            
+            const res = await fetch(`${SERVER_URL}/api/post/${postId}/incrementViews`, {
+               method: "PUT",
+               headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`
+               },
+            });
+            const data = await res.json();
+            if (res.ok) {
+               setViews(data.views);
+            }
+         } catch (error) {
+            console.log(error.message);
+         }
+      };
+   
+      if (post._id) {
+         getPostViews(post._id);
+      }
+   }, [SERVER_URL, post._id]);
+   
+   
    return (
-      <div className="group relative w-full border border-teal-500 overflow-hidden rounded-lg sm:w-[90%] transition-all shadow-md">
+      <div className="group relative w-full border border-teal-500 overflow-hidden rounded-lg transition-all shadow-md">
          <div className="px-4 pt-4">
             {currentUser ? (
                <Link
-                  to={`${languagePrefix}/dashboard?tab=profile`}
+                  to={
+                     currentUser.username === user.username
+                        ? `${languagePrefix}/dashboard?tab=profile`
+                        : `${languagePrefix}/user/${user.username}`
+                  }
                   className="flex items-center gap-2 text-gray-500 text-sm max-w-max"
                >
                   <img
-                     className="h-8 w-8 object-cover rounded-full"
-                     src={user.profilePicture}
-                     alt="Profile picture"
+                  className="h-8 w-8 object-cover rounded-full"
+                  src={user.profilePicture}
+                  alt="Profile picture"
                   />
                   <span className="text-sm text-teal-500 hover:underline">@{user.username}</span>
-               </Link> 
+               </Link>
             ) : (
                <div className="text-sm text-teal-500 my-5 flex gap-1 max-w-max">
                   {t("comments:signed_in_comment")}
                   <Link className="text-blue-500 hover:underline" to={`${languagePrefix}/sign-in`}>
-                     {t("comments:sign_in")}
+                  {t("comments:sign_in")}
                   </Link>
                </div>
             )}
@@ -78,7 +115,7 @@ export default function RecentPostCard({ post }) {
                         </div>
                         <div className="flex items-center gap-1">
                            <FaRegEye size={16} className="text-gray-400" />
-                           <span className="text-gray-400 pl-1">{post.views}</span>
+                           <span className="text-gray-400 pl-1">{post.views || 0}</span>
                         </div>
                      </div>
                   </div>
@@ -91,6 +128,7 @@ export default function RecentPostCard({ post }) {
 
 RecentPostCard.propTypes = {
    post: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
       userId: PropTypes.string.isRequired,
       slug: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,
@@ -98,6 +136,6 @@ RecentPostCard.propTypes = {
       category: PropTypes.string.isRequired,
       createdAt: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
-      views: PropTypes.number.isRequired,
+      views: PropTypes.number,
    }).isRequired,
 };

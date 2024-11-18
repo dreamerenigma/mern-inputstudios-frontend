@@ -6,7 +6,7 @@ import Comment from './Comment';
 import PropTypes from 'prop-types';
 import DeleteCommentDialog from './dialogs/DeleteCommentDialog';
 import { useTranslation } from "react-i18next";
-import { IoIosMail } from "react-icons/io";
+import { IoIosMail, IoIosSettings } from "react-icons/io";
 import { FaRss } from "react-icons/fa";
 import ReactDOM from 'react-dom';
 import PostTooltip from "./tooltips/PostTooltip";
@@ -14,6 +14,7 @@ import PostTooltip from "./tooltips/PostTooltip";
 export default function CommentSection({ postId }) {
    const { t } = useTranslation();
    const [post, setPost] = useState(null);
+   const [user, setUser] = useState({});
    const { currentUser } = useSelector(state => state.user);
    const [comment, setComment] = useState("");
    const [commentError, setCommentError] = useState(null);
@@ -27,6 +28,24 @@ export default function CommentSection({ postId }) {
    const FRONTEND_URL = import.meta.env.VITE_VERCEL_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
+   useEffect(() => {
+      const getUser = async () => {
+         const userId = post?.userId;
+         if (userId) {
+            try {
+               const res = await fetch(`${SERVER_URL}/api/user/${userId}`);
+               const data = await res.json();
+               if (res.ok) {
+                  setUser(data);
+               }
+            } catch (error) {
+               console.log(error.message);
+            }
+         }
+      };
+      getUser();
+   }, [SERVER_URL, post]);
 
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -185,70 +204,82 @@ export default function CommentSection({ postId }) {
       if (!currentUser) {
          setShowDialog(true);
       } else {
-         navigate(`${languagePrefix}/conversations/${currentUser._id}`);
+         navigate(`${languagePrefix}/conversations/${user.username}`);
       }
    };
 
+   const handleSettings = async () => {
+
+   };
+
+   const handleReply = (commentId) => {
+      console.log('Replying to comment', commentId);
+   };
+
    return (
-      <div className="max-w-4xl mx-auto w-full pt-3">
+      <div className="mx-auto w-full pt-3">
          <div className="border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-3">
             <div className="relative flex items-center justify-between my-1 text-gray-500 text-sm">
                <div className="flex flex-col gap-1 text-left">
                   <Link
-                  to={
-                     currentUser
-                        ? currentUser.isAdmin
-                        ? `${languagePrefix}/dashboard?tab=profile`
-                        : `${languagePrefix}/users/${currentUser.username}`
-                        : `${languagePrefix}/users/Гость`
-                  }
-                  className="cursor-pointer flex items-center space-x-4"
+                     to={
+                        currentUser
+                           ? currentUser.username === user.username
+                           ? `${languagePrefix}/dashboard?tab=profile`
+                           : `${languagePrefix}/user/${user.username}`
+                           : `${languagePrefix}/user/Гость`
+                     }
+                     className="cursor-pointer flex items-center space-x-4"
                   >
-                  <img
-                     className="h-12 w-12 object-cover rounded-full"
-                     src={currentUser ? currentUser.profilePicture : "/path/to/default-avatar.png"}
-                     alt="Profile picture"
-                  />
-                  <div className="flex flex-row gap-4">
-                     <div className="flex flex-col items-center">
-                        <p className="text-lg text-green-500 font-semibold">
-                        {currentUser ? 233 : "0"}
-                        </p>
-                        <p className="text-sm text-gray-400">Карма</p>
+                     <img
+                        className="h-12 w-12 object-cover rounded-full"
+                        src={currentUser ? user.profilePicture : "/path/to/default-avatar.png"}
+                        alt="Profile picture"
+                     />
+                     <div className="flex flex-row gap-4">
+                        <div className="flex flex-col items-center">
+                           <p className="text-lg text-green-500 font-semibold">
+                           {currentUser ? 233 : "0"}
+                           </p>
+                           <p className="text-sm text-gray-400">Карма</p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                           <p className="text-lg text-purple-500 font-semibold">
+                           {currentUser ? 9999 : "0"}
+                           </p>
+                           <p className="text-sm text-gray-400">Рейтинг</p>
+                        </div>
                      </div>
-                     <div className="flex flex-col items-center">
-                        <p className="text-lg text-purple-500 font-semibold">
-                        {currentUser ? 9999 : "0"}
-                        </p>
-                        <p className="text-sm text-gray-400">Рейтинг</p>
-                     </div>
-                  </div>
                   </Link>
                   <Link
-                  to={
-                     currentUser
-                        ? currentUser.isAdmin
-                        ? `${languagePrefix}/dashboard?tab=profile`
-                        : `${languagePrefix}/users/${currentUser.username}`
-                        : "#"
-                  }
-                  className="text-base text-cyan-600 hover:underline"
+                     to={
+                        currentUser && currentUser.username === user.username
+                           ? `${languagePrefix}/dashboard?tab=profile`
+                           : `${languagePrefix}/user/${user.username}`
+                     }
+                     className="text-base text-cyan-600 hover:underline"
                   >
-                  @{currentUser ? currentUser.username : "Гость"}
+                     @{user ? user.username : "Гость"}
                   </Link>
                   <p className="text-base text-gray-400">
-                  {currentUser ? (currentUser.isAdmin ? "Админ" : "Пользователь") : "Гость"}
+                     {currentUser ? (user.isAdmin ? "Админ" : "Пользователь") : "Гость"}
                   </p>
                </div>
                <div className="absolute top-0 right-0 flex items-center gap-2">
                   <button
-                  className="rounded-lg bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-r hover:from-blue-700 hover:via-green-700 hover:to-teal-700 transition-colors duration-300 p-2"
-                  onClick={handleClick}
+                     className="rounded-lg bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:bg-gradient-to-r hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 transition-colors duration-300 p-2"
+                     onClick={handleSettings}
                   >
-                  <IoIosMail size={24} className="text-white" />
+                     <IoIosSettings size={24} className="text-white" />
+                  </button>
+                  <button
+                     className="rounded-lg bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-r hover:from-blue-700 hover:via-green-700 hover:to-teal-700 transition-colors duration-300 p-2"
+                     onClick={handleClick}
+                  >
+                     <IoIosMail size={24} className="text-white" />
                   </button>
                   <Button outline gradientDuoTone="purpleToBlue" type="submit">
-                  Подписаться
+                     Подписаться
                   </Button>
                </div>
             </div>
@@ -283,6 +314,7 @@ export default function CommentSection({ postId }) {
                   </div>
                   {comments.map(comment => (
                      <Comment
+                        onReply={handleReply}
                         key={comment._id}
                         comment={comment}
                         onLike={handleLike}

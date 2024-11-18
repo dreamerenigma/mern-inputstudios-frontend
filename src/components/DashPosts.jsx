@@ -20,7 +20,8 @@ export default function DashPosts() {
       const fetchPosts = async () => {
          try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`${SERVER_URL}/api/post/getposts?userId=${currentUser._id}`, {
+            const userIdQuery = currentUser.isAdmin ? '' : `userId=${currentUser._id}`;
+            const res = await fetch(`${SERVER_URL}/api/post/getposts?${userIdQuery}&limit=9`, {
                headers: {
                   "Authorization": `Bearer ${token}`
                }
@@ -38,16 +39,16 @@ export default function DashPosts() {
             console.log(error.message);
          }
       };
-      if (currentUser.isAdmin) {
-         fetchPosts();
-      }
+
+      fetchPosts();
    }, [SERVER_URL, currentUser._id, currentUser.isAdmin]);
 
    const handleShowMore = async () => {
       const startIndex = userPosts.length;
       try {
          const token = localStorage.getItem('token');
-         const res = await fetch(`${SERVER_URL}/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`, {
+         const userIdQuery = currentUser.isAdmin ? '' : `userId=${currentUser._id}`;
+         const res = await fetch(`${SERVER_URL}/api/post/getposts?userId=${userIdQuery}&startIndex=${startIndex}&limit=9`, {
             headers: {
                "Authorization": `Bearer ${token}`
             }
@@ -88,7 +89,11 @@ export default function DashPosts() {
    };
 
    return (
-      <div className="table-auto md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+      <div
+         className={`table-auto md:mx-auto pt-3 px-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 ${
+            !showMore ? 'mb-2' : ''
+         }`}
+      >
          {currentUser.isAdmin && userPosts.length > 0 ? (
             <>
                <div className="overflow-hidden border border-gray-700 rounded-lg">
@@ -151,12 +156,14 @@ export default function DashPosts() {
                   </Table>
                </div>
                {showMore && (
-                  <button
-                     onClick={handleShowMore}
-                     className="w-full text-teal-500 self-center text-sm py-7"
-                  >
-                     {t("show_more")}
-                  </button>
+                  <div className="flex justify-center my-6">
+                     <button
+                        onClick={handleShowMore}
+                        className="text-teal-500 text-sm py-2 px-4 border border-teal-500 rounded hover:bg-teal-100 dark:hover:bg-teal-800"
+                     >
+                        {t("show_more")}
+                     </button>
+                  </div>
                )}
             </>
          ) : (

@@ -532,7 +532,7 @@ export default function Header() {
                                           className="mt-2 ml-2 mb-5" />
                                        <span
                                           onClick={handleSignout}
-                                          className="hover:bg-gray-200 hover:text-gray-700 cursor-pointer text-xs p-2.5 mb-3"
+                                          className="hover:bg-gray-200 dark:hover:bg-gray-600 rounded-tr-md cursor-pointer text-xs p-2.5 mb-3"
                                        >
                                           {t("headers:header_sign_out")}
                                        </span>

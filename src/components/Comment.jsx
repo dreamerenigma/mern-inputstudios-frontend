@@ -93,6 +93,10 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
       }
    };
 
+   const onMoreOptions = async () => {
+
+   };
+
    return (
       <div className="flex py-4 text-sm">
          <div className="flex-shrink-0 mr-3">

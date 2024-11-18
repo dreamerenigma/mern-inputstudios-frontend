@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 
-export default function PreviewPost({ postId }) {
+export default function PreviewPost() {
    const { t } = useTranslation();
+   const { postId } = useParams();
    const [formData, setFormData] = useState({ title: '', category: 'uncategorized', content: '', image: '' });
    const [publishError, setPublishError] = useState(null);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;

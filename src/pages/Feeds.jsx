@@ -20,6 +20,8 @@ export default function Feeds() {
    const [post, setPost] = useState(null);
    const [recentPosts, setRecentPosts] = useState(null);
    const [views, setViews] = useState(0);
+   // const totalPages = 50;
+   // const firstPages = 3;
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
@@ -101,6 +103,46 @@ export default function Feeds() {
          incrementViews();
       }
    }, [post, SERVER_URL]);
+
+   // const renderPageNumbers = () => {
+   //    let pages = [];
+
+   //    // Добавляем первые страницы
+   //    for (let i = 1; i <= firstPages; i++) {
+   //       pages.push(
+   //          <span
+   //          key={i}
+   //          className="cursor-pointer px-3 py-1 rounded-md text-gray-800 dark:text-gray-200"
+   //          >
+   //          {i}
+   //          </span>
+   //       );
+   //    }
+
+   //    // Добавляем многоточие, если больше чем 3 страницы
+   //    if (totalPages > firstPages + 1) {
+   //       pages.push(
+   //          <span
+   //          key="dots"
+   //          className="cursor-pointer px-3 py-1 rounded-md text-gray-800 dark:text-gray-200"
+   //          >
+   //          ...
+   //          </span>
+   //       );
+   //    }
+
+   //    // Добавляем последнюю страницу
+   //    pages.push(
+   //       <span
+   //          key={totalPages}
+   //          className="cursor-pointer px-3 py-1 rounded-md text-gray-800 dark:text-gray-200"
+   //       >
+   //          {totalPages}
+   //       </span>
+   //    );
+
+   //    return pages;
+   // };
 
    if (loading) {
       return (
@@ -226,6 +268,27 @@ export default function Feeds() {
                   ))
                }
             </div>
+            {/* <div className="flex flex-col lg:flex-row gap-4">
+               <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg w-full overflow-hidden py-3 px-4">
+                  <div className="flex items-center justify-between">
+                     <div className="flex items-center gap-2">
+                     <span className="text-teal-500">
+                        <IoIosArrowBack />
+                     </span>
+                     <p className="text-gray-800 dark:text-gray-200">Сюда</p>
+                     </div>
+                     <div className="flex items-center">
+                        {renderPageNumbers()}
+                     </div>
+                     <div className="flex items-center gap-2">
+                     <p className="text-gray-800 dark:text-gray-200">Туда</p>
+                     <span className="text-teal-500">
+                        <IoIosArrowForward />
+                     </span>
+                     </div>
+                  </div>
+               </div>
+            </div> */}
          </div>
       </main>
    );
