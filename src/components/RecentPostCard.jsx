@@ -115,7 +115,7 @@ export default function RecentPostCard({ post }) {
                         </div>
                         <div className="flex items-center gap-1">
                            <FaRegEye size={16} className="text-gray-400" />
-                           <span className="text-gray-400 pl-1">{post.views || 0}</span>
+                           <span className="text-gray-400 pl-1">{views}</span>
                         </div>
                      </div>
                   </div>
