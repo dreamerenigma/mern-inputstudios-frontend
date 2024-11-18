@@ -1,22 +1,40 @@
 import { Button } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { IoIosMail, IoIosSettings } from "react-icons/io";
 import { useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function UserView() {
+   const [user, setUser] = useState({});
    const { currentUser } = useSelector(state => state.user);
    const [showDialog, setShowDialog] = useState(false);
    const [activeTab, setActiveTab] = useState(0);
+   const navigate = useNavigate();
+   const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
+   useEffect(() => {
+      const getUser = async () => {
+         try {
+            const res = await fetch(`${SERVER_URL}/api/user/${user.userId}`);
+            const data = await res.json();
+            if (res.ok) {
+               setUser(data);
+            }
+         } catch (error) {
+            console.log(error.message);
+         }
+      }
+      getUser();
+   }, [SERVER_URL, user.userId]);
 
    const handleClick = () => {
       if (!currentUser) {
          setShowDialog(true);
       } else {
-         Navigate(`${languagePrefix}/conversations/${currentUser._id}`);
+         navigate(`${languagePrefix}/conversations/${user.username}`);
       }
    };
 
@@ -60,7 +78,7 @@ export default function UserView() {
    return (
       <div className="max-w-[1100px] mx-auto w-full min-h-screen mt-[60px] pt-4 mb-20">
          <Helmet>
-            <title>{`${currentUser.username} - Пользователь Input Studios`}</title>
+            <title>{`${user.username} - Пользователь Input Studios`}</title>
          </Helmet>
          <div className="flex gap-4">
           {/* Левая колонка */}
@@ -108,7 +126,7 @@ export default function UserView() {
                            }
                            className="text-base text-cyan-600 hover:underline"
                         >
-                        @{currentUser ? currentUser.username : "Гость"}
+                           @{currentUser ? user.username : "Гость"}
                         </Link>
                         <p className="text-base text-gray-400">
                            {currentUser ? (currentUser.isAdmin ? "Админ" : "Пользователь") : "Гость"}

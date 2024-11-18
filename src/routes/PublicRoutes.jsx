@@ -104,7 +104,7 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/profile`} element={<IntellectualProperty />} />
                <Route path={`/${lang}/names/manage`} element={<ManageSignInService />} />
                <Route path={`/${lang}/news`} element={<CompanyNews />} />
-               <Route path={`/${lang}/users/:userId`} element={<UserView />} />
+               <Route path={`/${lang}/user/:userId`} element={<UserView />} />
             </React.Fragment>
          ))}
       </Routes>
