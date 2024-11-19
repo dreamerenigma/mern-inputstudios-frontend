@@ -26,12 +26,19 @@ export default function SignUp() {
       if (!formData.username || !formData.email || !formData.password) {
          return setErrorMessage("Please fill out all fields.");
       }
+
+      const token = localStorage.getItem('token');
+      console.log("Token being sent:", token);
+
       try {
          setLoading(true);
          setErrorMessage(null);
-         const res = await fetch(`${SERVER_URL}/auth/signup`, {
+         const res = await fetch(`${SERVER_URL}/api/auth/signup`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`
+            },
             body: JSON.stringify(formData),
          });
          const data = await res.json();
@@ -40,7 +47,7 @@ export default function SignUp() {
          }
          setLoading(false);
          if (res.ok) {
-            navigate("/sign-in");
+            navigate(`${languagePrefix}/sign-in`);
          }
       } catch (error) {
          setErrorMessage(error.message);

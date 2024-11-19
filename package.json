@@ -24,7 +24,7 @@
     "emailjs-com": "^3.2.0",
     "firebase": "^10.10.0",
     "flowbite-react": "^0.7.8",
-    "framer-motion": "^11.11.10",
+    "framer-motion": "^11.11.17",
     "i18next": "^23.11.2",
     "i18next-browser-languagedetector": "^7.2.1",
     "i18next-http-backend": "^2.5.0",

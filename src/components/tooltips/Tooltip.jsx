@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { motion } from "framer-motion";
 
-export default function PostTooltip({ showTooltip }) {
+export default function Tooltip ({ showTooltip, text }) {
+   console.log("Tooltip Props - showTooltip:", showTooltip, "text:", text);
    return (
       showTooltip && (
          <motion.div
-            className="fixed top-[72px] left-[41.5%] bg-gray-200/60 dark:bg-gray-600/60 text-black dark:text-white text-sm p-5 rounded-lg shadow-lg backdrop-blur-sm inline-block"
+            className="fixed top-[76px] left-[41.5%] bg-green-600/60  text-black dark:text-white text-sm p-5 rounded-lg shadow-lg backdrop-blur-sm inline-block"
             style={{ zIndex: 1000 }}
             initial={{ opacity: 0, y: -50, scale: 0.8 }}
             animate={{
@@ -41,12 +42,13 @@ export default function PostTooltip({ showTooltip }) {
                },
             }}
          >
-            Ссылка скопирована в буфер обмена
+            {text}
          </motion.div>
       )
    );
 }
 
-PostTooltip.propTypes = {
+Tooltip.propTypes = {
    showTooltip: PropTypes.bool.isRequired,
+   text: PropTypes.string.isRequired,
 };
