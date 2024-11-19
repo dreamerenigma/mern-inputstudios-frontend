@@ -1,4 +1,4 @@
-import { Avatar, Button, Dropdown } from "flowbite-react";
+import { Avatar, Dropdown } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { FaMoon, FaSun } from 'react-icons/fa';
@@ -35,6 +35,7 @@ export default function Header() {
    const [showAbout, setShowAbout] = useState(true);
    const [showForum, setShowForum] = useState(true);
    const [showNews, setShowNews] = useState(true);
+   const [showProjects, setShowProjects] = useState(true);
    const isAdmin = currentUser && currentUser.isAdmin;
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
@@ -85,18 +86,24 @@ export default function Header() {
       if (windowWidth < 880) {
          setShowNews(false);
       } else if (windowWidth < 1005) {
-         setShowTools(false);
+         setShowTools(true);
+         setShowNews(false);
          setShowForum(false);
          setShowAbout(false);
-      } else if (windowWidth < 1170) {
+      } else if (windowWidth < 1120) {
+         setShowProjects(false);
+         setShowTools(true);
+         setShowForum(false);
+      } else if (windowWidth < 1190) {
          setShowNews(true);
          setShowForum(false);
          setShowAbout(false);
-      } else if (windowWidth < 1250) {
+      } else if (windowWidth < 1270) {
          setShowNews(true);
          setShowForum(true);
          setShowAbout(false);
       } else {
+         setShowProjects(true);
          setShowTools(true);
          setShowNews(true);
          setShowForum(true);
@@ -236,22 +243,21 @@ export default function Header() {
                   <>
                      <div className="home-menu-icon mx-4">
                         {menuOpen ? (
-                        <AiOutlineClose className="text-3xl cursor-pointer" onClick={toggleMenu} />
+                        <AiOutlineClose className="text-[26px] cursor-pointer" onClick={toggleMenu} />
                      ) : (
-                        <AiOutlineMenu className="text-3xl cursor-pointer" onClick={toggleMenu} />
+                        <AiOutlineMenu className="text-[26px] cursor-pointer" onClick={toggleMenu} />
                         )}
                      </div>
-                     <Button
-                        className="w-12 h-10 flex items-center justify-center search-button-text border-none focus:outline-none focus:ring-0 mr-3"
+                     <button
+                        className="w-10 h-10 flex items-center justify-center search-button-text border-none focus:outline-none focus:ring-0 pr-4"
                         color="gray"
-                        pill
                         onClick={() => setSearchVisible((prevVisible) => !prevVisible)}
                      >
                         <div className="flex items-center search-button-content">
                            <span className="mr-2">{t("headers:header_search")}</span>
                            <AiOutlineSearch size={28} className="text-black dark:text-white transform rotate-90" />
                         </div>
-                     </Button>
+                     </button>
                   </>
                )}
                {(windowWidth >= 860 || !searchVisible) && (
@@ -310,17 +316,19 @@ export default function Header() {
                               </Link>
                            </div>
                         </div>
-                        <div className="group">
-                           <div className={`pb-0.2 border-b-2 group ${path === `${languagePrefix}/projects` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]`}>
-                              <Link
-                                 to={`${languagePrefix}/projects`}
-                                 onClick={() => setMenuOpen(false)}
-                                 className="text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]"
-                              >
-                                 {t("headers:header_projects")}
-                              </Link>
+                        {showProjects && (
+                           <div className="group">
+                              <div className={`pb-0.2 border-b-2 group ${path === `${languagePrefix}/projects` ? "border-current" : "border-transparent"} group-hover:border-[#0E7490] dark:group-hover:border-[#9CA3AF]`}>
+                                 <Link
+                                    to={`${languagePrefix}/projects`}
+                                    onClick={() => setMenuOpen(false)}
+                                    className="text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]"
+                                 >
+                                    {t("headers:header_projects")}
+                                 </Link>
+                              </div>
                            </div>
-                        </div>
+                        )}
                         {showTools && (
                            <div className="group">
                               <div
@@ -428,7 +436,7 @@ export default function Header() {
                   </>
                )}
                {(windowWidth < 860 || !searchVisible) && (
-                  <div className="ml-auto flex items-center gap-5">
+                  <div className="ml-auto flex items-center gap-5 gap-390">
                      {!searchVisible && windowWidth > 860 && (
                         <>
                            <div
@@ -488,7 +496,7 @@ export default function Header() {
                         <>
                            <div className="flex items-center ml-2-350" onClick={() => dispatch(toggleTheme())}>
                               <button
-                                 className="flex items-center justify-center border-none focus:outline-none focus:ring-0"
+                                 className="flex items-center justify-center border-none focus:outline-none focus:ring-0 padding-390"
                                  color="gray"
                                  style={{ backgroundColor: 'transparent' }}
                               >
@@ -498,7 +506,8 @@ export default function Header() {
                                     </span>
                                     {theme === "light" ?
                                        <FaMoon size={20} className="group-hover:text-[#0E7490]" /> :
-                                       <FaSun size={20} className="group-hover:text-white" style={{ color: '#ffc600' }} />}
+                                       <FaSun size={20} className="group-hover:text-white" style={{ color: '#ffc600' }} />
+                                    }
                                  </div>
                               </button>
                            </div>

@@ -31,6 +31,12 @@
   .card-height {
     height: 450px;
   }
+  .padding-390 {
+    padding: 0.5rem;
+  }
+  .gap-390 {
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 400px) {
