@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- icon666.com - MILLIONS vector ICONS FREE -->
+
+<svg
+   id="Capa_1"
+   enable-background="new 0 0 512 512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   sodipodi:docname="control_panel.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs7" />
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.79394531"
+     inkscape:cx="335.66544"
+     inkscape:cy="200.89545"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g4" />
+  <linearGradient
+     id="SVGID_1_"
+     gradientUnits="userSpaceOnUse"
+     x1="256"
+     x2="256"
+     y1="512"
+     y2="0">
+    <stop
+       offset="0"
+       stop-color="#ffbef9"
+       id="stop1" />
+    <stop
+       offset="1"
+       stop-color="#fff1ff"
+       id="stop2" />
+  </linearGradient>
+  <linearGradient
+     id="SVGID_2_"
+     gradientUnits="userSpaceOnUse"
+     x1="256"
+     x2="256"
+     y1="105"
+     y2="407">
+    <stop
+       offset="0"
+       stop-color="#a93aff"
+       id="stop3" />
+    <stop
+       offset="1"
+       stop-color="#ff81ff"
+       id="stop4" />
+  </linearGradient>
+  <g
+     id="g7">
+    <g
+       id="g4"
+       style="fill:#a954c1;fill-opacity:1">
+      <circle
+         cx="256"
+         cy="256"
+         fill="url(#SVGID_1_)"
+         r="256"
+         id="circle4"
+         style="fill:#e7e7e7;fill-opacity:1" />
+    </g>
+    <g
+       id="g6">
+      <g
+         id="g5">
+        <path
+           d="m167.177 300.412h-8.882v-186.53c0-4.91-3.973-8.882-8.883-8.882-4.909 0-8.882 3.973-8.882 8.882v186.529h-8.882c-4.909 0-8.882 3.973-8.882 8.882v53.294c0 4.91 3.973 8.882 8.882 8.882h8.882v26.647c0 4.91 3.973 8.882 8.882 8.882 4.91 0 8.883-3.973 8.883-8.882v-26.647h8.882c4.909 0 8.882-3.973 8.882-8.882v-53.294c0-4.908-3.973-8.881-8.882-8.881zm71.058-53.294h-8.882v-133.236c0-4.91-3.973-8.882-8.882-8.882-4.91 0-8.882 3.973-8.882 8.882v133.235h-8.883c-4.909 0-8.882 3.973-8.882 8.882v53.294c0 4.91 3.973 8.882 8.882 8.882h8.883v79.941c0 4.91 3.973 8.882 8.882 8.882s8.882-3.973 8.882-8.882v-79.941h8.882c4.91 0 8.882-3.973 8.882-8.882v-53.293c.001-4.91-3.972-8.882-8.882-8.882zm71.059-53.295h-8.883v-79.941c0-4.91-3.973-8.882-8.882-8.882s-8.882 3.973-8.882 8.882v79.941h-8.882c-4.91 0-8.882 3.973-8.882 8.882v53.295c0 4.91 3.973 8.882 8.882 8.882h8.882v133.235c0 4.91 3.973 8.882 8.882 8.882 4.91 0 8.882-3.973 8.882-8.882v-133.235h8.883c4.909 0 8.882-3.973 8.882-8.882v-53.294c.001-4.91-3.972-8.883-8.882-8.883zm71.059-53.294h-8.882v-26.647c0-4.91-3.973-8.882-8.882-8.882-4.91 0-8.883 3.973-8.883 8.882v26.647h-8.882c-4.909 0-8.882 3.973-8.882 8.882v53.294c0 4.91 3.973 8.882 8.882 8.882h8.882v186.529c0 4.91 3.973 8.882 8.883 8.882 4.909 0 8.882-3.973 8.882-8.882v-186.528h8.882c4.909 0 8.882-3.973 8.882-8.882v-53.294c0-4.91-3.973-8.883-8.882-8.883z"
+           fill="url(#SVGID_2_)"
+           id="path4" />
+      </g>
+    </g>
+  </g>
+</svg>

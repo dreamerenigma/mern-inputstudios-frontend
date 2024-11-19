@@ -130,3 +130,10 @@ input[type="password"]::-webkit-textfield-decoration-container {
 input::placeholder {
    color: #a0aec0;
 }
+
+.custom-dropdown {
+   border: 1px solid #4B5563 !important; /* Пример обводки серым */
+   border-radius: 0.5rem; /* Закругление углов */
+   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+   background-color: #ffffff; /* Белый фон */
+}

@@ -522,6 +522,7 @@ export default function Header() {
                                           </div>
                                        </div>
                                     }
+                                    className="border border-gray-600 rounded-lg shadow-xl custom-dropdown"
                                  >
                                     <div className="flex items-center justify-between">
                                        <img
@@ -555,13 +556,26 @@ export default function Header() {
                                     {isAdmin && (
                                        <>
                                           <Link to={`${languagePrefix}/dashboard?tab=dash`}>
-                                             <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("headers:header_dashboard")}</Dropdown.Item>
+                                             <Dropdown.Item className={`flex items-center py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>
+                                                <img src="/images/header/control_panel.svg" alt="Control panel" className="w-6 h-6 mr-3" />
+                                                {t("headers:header_dashboard")}
+                                             </Dropdown.Item>
                                           </Link>
                                           <Dropdown.Divider className="m-0 p-0" />
                                        </>
                                     )}
                                     <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                                       <Dropdown.Item className={`py-3 rounded-dropdown-bottom-only ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>{t("headers:header_profile")}</Dropdown.Item>
+                                       <Dropdown.Item className={`flex items-center py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>
+                                          <img src="/images/header/profile.svg" alt="Profile" className="w-6 h-6 mr-3" />
+                                          {t("headers:header_profile")}
+                                       </Dropdown.Item>
+                                    </Link>
+                                    <Dropdown.Divider className="m-0 p-0" />
+                                    <Link to={`${languagePrefix}/settings`}>
+                                       <Dropdown.Item className={`flex items-center py-3 rounded-b-lg ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>
+                                          <img src="/images/header/settings.svg" alt="Settings" className="w-6 h-6 mr-3" />
+                                          {t("headers:header_settings")}
+                                       </Dropdown.Item>
                                     </Link>
                                  </Dropdown>
                               </div>
