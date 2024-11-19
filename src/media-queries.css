@@ -107,6 +107,21 @@
     margin-left: 1.5rem;
     margin-right: 1.5rem;
   }
+  .adaptive-height {
+    height: 400px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px), (min-width: 768px) and (max-width: 1080px) {
+  .flex-column-640 {
+    flex-direction: column;
+  }
+  .padding-top-640 {
+    padding-top: 0.4rem;
+  }
+  .adaptive-height {
+    height: 450px;
+  }
 }
 
 @media (max-width: 767px) and (max-width: 859px) {

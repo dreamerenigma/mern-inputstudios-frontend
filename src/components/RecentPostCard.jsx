@@ -99,18 +99,18 @@ export default function RecentPostCard({ post }) {
                />
                <div className="flex flex-col gap-2 w-full">
                   <div className="px-2">
-                  <p className="text-lg font-semibold line-clamp-2 pb-2">{post.title}</p>
-                  <span className="italic text-sm border border-teal-500 rounded-lg px-2 py-1 inline-block max-w-max">
-                     {post.category}
-                  </span>
+                     <p className="text-lg font-semibold line-clamp-2 pb-2">{post.title}</p>
+                     <span className="italic text-sm border border-teal-500 rounded-lg px-2 py-1 inline-block max-w-max">
+                        {post.category}
+                     </span>
                   </div>
-                  <div className="px-2 flex justify-between flex-column-440">
+                  <div className="flex justify-between flex-column-440 px-2">
                      <span>{post && formatDate(post.createdAt)}</span>
                      <div className="flex gap-4 items-center padding-top-440">
                         <div className="flex items-center gap-1">
                            <FaRegClock size={16} className="text-gray-400" />
                            <span className="text-gray-400 pl-1">
-                           {post && (post.content.length / 1000).toFixed(0)} {t("posts:mins_read")}
+                              {post && (post.content.length / 1000).toFixed(0)} {t("posts:mins_read")}
                            </span>
                         </div>
                         <div className="flex items-center gap-1">

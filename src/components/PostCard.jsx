@@ -11,18 +11,20 @@ export default function PostCard({ post }) {
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    return (
-      <div className="group relative w-full border border-teal-500 hover:border-2 h-[400px] overflow-hidden rounded-lg sm:w-[90%] transition-all shadow-md">
+      <div className="group relative w-full border border-teal-500 hover:border-2 h-[400px] adaptive-height overflow-hidden rounded-lg sm:w-[90%] transition-all shadow-md">
          <Link to={`${languagePrefix}/post/${post.slug}`}>
             <img src={post.image} alt="post cover" className="h-[60%] w-full object-cover group-hover:h-[50%] transition-all duration-300 z-20" />
          </Link>
          <div className="p-3 flex flex-col gap-2">
-            <p className="text-lg font-semibold line-clamp-2">{post.title}</p>
-            <span className="italic text-sm border border-teal-500 rounded-lg px-2 py-1 inline-block max-w-max">
-               {post.category}
-            </span>
-            <div className="flex justify-between items-center">
+            <div className="px-2">
+               <p className="text-lg font-semibold line-clamp-2 pb-2">{post.title}</p>
+               <span className="italic text-sm border border-teal-500 rounded-lg px-2 py-1 inline-block max-w-max">
+                  {post.category}
+               </span>
+            </div>
+            <div className="flex justify-between flex-column-440 flex-column-640 px-2">
                <span>{post && formatDate(post.createdAt)}</span>
-               <div className="flex gap-4 items-center">
+               <div className="flex gap-3 items-center padding-top-440 padding-top-640">
                   <div className="flex items-center gap-1">
                      <FaRegClock size={16} className="text-gray-400" />
                      <span className="text-gray-400 pl-1">
