@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { RiCloseLine } from "react-icons/ri";
 
-export default function DeletePostModal({ setShowModal, handleDeletePost }) {
+export default function DeleteCommentModal({ setShowModal, handleDeleteComment }) {
    const { t } = useTranslation();
 
    return (
@@ -24,12 +24,12 @@ export default function DeletePostModal({ setShowModal, handleDeletePost }) {
             <div className="text-center">
                <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
                <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
-                  {t("sure_you_delete_post")}
+                  {t("sure_you_delete_comment")}
                </h3>
                <div className="mt-6 flex flex-col md:flex-row justify-between w-full space-y-2 md:space-y-0">
                   <button
                      className="px-4 py-2 bg-red-600 hover:bg-red-800 shadow-md rounded-lg flex-grow md:mr-2"
-                     onClick={() => handleDeletePost(false)}
+                     onClick={() => handleDeleteComment(false)}
                   >
                      {t("yes_sure")}
                   </button>
@@ -46,7 +46,7 @@ export default function DeletePostModal({ setShowModal, handleDeletePost }) {
    );
 }
 
-DeletePostModal.propTypes = {
+DeleteCommentModal.propTypes = {
    setShowModal: PropTypes.bool.isRequired,
-   handleDeletePost: PropTypes.func.isRequired,
+   handleDeleteComment: PropTypes.func.isRequired,
 };

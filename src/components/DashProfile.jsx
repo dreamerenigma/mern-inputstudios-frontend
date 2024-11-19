@@ -14,6 +14,8 @@ import AccountInfo from './AccountInfo'
 import { useTranslation } from "react-i18next";
 import { RiCloseLine } from "react-icons/ri";
 import ProfileServices from "./ProfileServices";
+import ReactDOM from 'react-dom';
+import Tooltip from "./tooltips/Tooltip";
 
 export default function DashProfile() {
    const { t } = useTranslation();
@@ -29,6 +31,8 @@ export default function DashProfile() {
    const [formData, setFormData] = useState({});
    const filePickerRef = useRef();
    const dispatch = useDispatch();
+   const [showTooltip, setShowTooltip] = useState(false);
+   const [tooltipText, setTooltipText] = useState('');
    const [hasChanges, setHasChanges] = useState(false);
    const [captchaValue, setCaptchaValue] = useState(null);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
@@ -36,12 +40,16 @@ export default function DashProfile() {
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    const handleSubmitWithImage = useCallback(async (imageUrl) => {
+      const token = localStorage.getItem('token');
+      console.log("Token being sent:", token);
+
       try {
          dispatch(updateStart());
          const res = await fetch(`${SERVER_URL}/api/user/update/${currentUser._id}`, {
             method: "PUT",
             headers: {
                "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({ ...formData, profilePicture: imageUrl }),
          });
@@ -51,7 +59,9 @@ export default function DashProfile() {
             setUpdateUserError(data.message);
          } else {
             dispatch(updateSuccess(data));
-            setUpdateUserSuccess("User's profile updated successfully");
+            setTooltipText("Изображение профиля обновлено");
+            setShowTooltip(true);
+            setTimeout(() => setShowTooltip(false), 5000);
          }
       } catch (error) {
          dispatch(updateFailure(error.message));
@@ -357,6 +367,7 @@ export default function DashProfile() {
                      </div>
                   </div>
                </div>
+               {showTooltip && ReactDOM.createPortal(<Tooltip showTooltip={showTooltip} text={tooltipText} />, document.body)}
                {imageFileUploadError && (
                   <Alert color="failure">{imageFileUploadError}</Alert>
                )}

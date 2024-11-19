@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
-import { Modal, Table, Button } from "flowbite-react";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Table } from "flowbite-react";
 import { useTranslation } from "react-i18next";
+import DeleteCommentModal from "./modals/DeleteCommentModal";
 
 export default function DashComments() {
    const { t } = useTranslation();
    const { currentUser } = useSelector((state) => state.user);
    const [comments, setComments] = useState([]);
    const [showMore, setShowMore] = useState(true);
-   const [showModal, setShowModal] = useState(false);
+   const [showDeleteCommentModal, setShowDeleteCommentModal] = useState(false);
    const [commentIdToDelete, setCommentIdToDelete] = useState("");
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
 
@@ -71,7 +71,7 @@ export default function DashComments() {
    };
 
    const handleDeleteComment = async () => {
-      setShowModal(false);
+      setShowDeleteCommentModal(false);
       try {
          const token = localStorage.getItem('token');
    
@@ -86,7 +86,7 @@ export default function DashComments() {
          const data = await res.json();
          if (res.ok) {
             setComments((prev) => prev.filter((comment) => comment._id !== commentIdToDelete));
-            setShowModal(false);
+            setShowDeleteCommentModal(false);
          } else {
             console.log(data.message);
          }
@@ -126,7 +126,7 @@ export default function DashComments() {
                               <Table.Cell>
                                  <span
                                     onClick={() => {
-                                       setShowModal(true);
+                                       setShowDeleteCommentModal(true);
                                        setCommentIdToDelete(comment._id);
                                     }}
                                     className="font-medium text-red-500 hover:underline cursor-pointer"
@@ -160,30 +160,12 @@ export default function DashComments() {
                <p>{t("you_have_no_comments")}</p>
             </div>
          )}
-         <Modal
-            show={showModal}
-            onClose={() => setShowModal(false)}
-            popup
-            size="md"
-         >
-            <Modal.Header />
-            <Modal.Body>
-               <div className="text-center">
-                  <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
-                  <h3 className="mb-5 text-lg text-gray-500 dark:text-fray-400">
-                     {t("sure_you_delete_comment")}
-                  </h3>
-                  <div className="flex justify-center gap-4">
-                     <Button color="failure" onClick={handleDeleteComment}>
-                        {t("yes_sure")}
-                     </Button>
-                     <Button color="gray" onClick={() => setShowModal(false)}>
-                        {t("no_cancel")}
-                     </Button>
-                  </div>
-               </div>
-            </Modal.Body>
-         </Modal>
+         {showDeleteCommentModal && (
+            <DeleteCommentModal 
+               setShowModal={setShowDeleteCommentModal}
+               handleDeleteComment={handleDeleteComment}
+            />
+         )}
       </div>
    );
 }

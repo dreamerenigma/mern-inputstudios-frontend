@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
-import { Modal, Table, Button } from "flowbite-react";
+import { Table } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { FaCheck, FaTimes }  from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { RiCloseLine } from "react-icons/ri";
+import { deleteUser } from "../../../api/src/utils/userApi";
 
 export default function DashUsers() {
    const { t } = useTranslation();
@@ -74,19 +76,12 @@ export default function DashUsers() {
    };
 
    const handleDeleteUser = async () => {
-      try {
-         const res = await fetch(`${SERVER_URL}/api/user/delete/${userIdToDelete}`, {
-            method: "DELETE",
-         });
-         const data = await res.json();
-         if (res.ok) {
-            setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
-            setShowModal(false);
-         } else {
-            console.log(data.message);
-         }
-      } catch (error) {
-         console.log(error.message);
+      const { success, data, error } = await deleteUser(userIdToDelete);
+      if (success) {
+         setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+         setShowModal(false);
+      } else {
+         console.log(data?.message || error);
       }
    };
 
@@ -169,30 +164,44 @@ export default function DashUsers() {
                <p>{t("you_have_no_users")}</p>
             </div>
          )}
-         <Modal
-            show={showModal}
-            onClose={() => setShowModal(false)}
-            popup
-            size="md"
-         >
-            <Modal.Header />
-            <Modal.Body>
-               <div className="text-center">
-               <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
-               <h3 className="mb-5 text-lg text-gray-500 dark:text-fray-400">
-                  {t("sure_you_delete_user")}
-               </h3>
-               <div className="flex justify-center gap-4">
-                  <Button color="failure" onClick={handleDeleteUser}>
-                     {t("yes_sure")}
-                  </Button>
-                  <Button color="gray" onClick={() => setShowModal(false)}>
-                     {t("no_cancel")}
-                  </Button>
+         {showModal && (
+            <div
+               className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+               onClick={() => setShowModal(false)}
+            >
+               <div
+                  className="relative bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full"
+                  onClick={(e) => e.stopPropagation()}
+               >
+                  <button
+                     className="absolute top-3 right-3 text-3xl hover:bg-gray-500 rounded text-gray-500 dark:text-gray-300 transition-transform transform hover:translate-y-[-4px]"
+                     onClick={() => setShowModal(false)}
+                  >
+                     <RiCloseLine className="h-6 w-6" />
+                  </button>
+                  <div className="text-center">
+                     <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+                     <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+                        {t("sure_you_delete_user")}
+                     </h3>
+                     <div className="flex flex-col sm:flex-row gap-4">
+                        <button
+                           className="px-4 py-2 bg-red-600 hover:bg-red-800 text-white rounded-lg flex-grow"
+                           onClick={handleDeleteUser}
+                        >
+                           {t("yes_sure")}
+                        </button>
+                        <button
+                           className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg flex-grow"
+                           onClick={() => setShowModal(false)}
+                        >
+                           {t("no_cancel")}
+                        </button>
+                     </div>
+                  </div>
                </div>
-               </div>
-            </Modal.Body>
-         </Modal>
+            </div>
+         )}
       </div>
    );
 }

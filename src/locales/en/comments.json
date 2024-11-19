@@ -10,5 +10,8 @@
   "like": "like",
   "likes": "likes",
   "edit": "Edit",
-  "delete": "Delete"
+  "delete": "Delete",
+  "save": "Save",
+  "cancel": "Cancel",
+  "reply": "Reply"
 }

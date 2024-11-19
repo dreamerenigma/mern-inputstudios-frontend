@@ -14,6 +14,8 @@ import ProfileFooter from './components/footers/ProfileFooter';
 import PrivacyHeader from './components/headers/PrivacyHeader';
 import { useEffect, useState } from 'react';
 import ScrollToTop from './components/ScrollToTop';
+import Tooltip from './components/tooltips/Tooltip';
+import { useSelector } from 'react-redux';
 
 function getQueryParams(search) {
    return new URLSearchParams(search);
@@ -25,10 +27,12 @@ function Layout() {
    const location = useLocation();
    const [isLoading, setIsLoading] = useState(true);
    const queryParams = getQueryParams(location.search);
+   const tooltip = useSelector((state) => state.ui.tooltip);
 
    useEffect(() => {
+      console.log("Current Tooltip state:", tooltip);
       setIsLoading(false);
-   }, []);
+   }, [tooltip]);
 
    function getLanguagePrefixedPages(pages) {
       return languages.flatMap(lang => pages.map(page => `/${lang}/dashboard?tab=${page}`));
@@ -85,6 +89,7 @@ function Layout() {
          <ScrollToTop />
          {isLoading ? null : (
          <>
+            <Tooltip showTooltip={tooltip.show} text={tooltip.text} />
             {isPrivacyPage ? (
                <PrivacyHeader />
             ) : isProfileHeader ? (
