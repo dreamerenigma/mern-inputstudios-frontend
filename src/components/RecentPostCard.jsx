@@ -91,22 +91,22 @@ export default function RecentPostCard({ post }) {
             )}
          </div>
          <div className="p-4">
-            <Link to={`${languagePrefix}/post/${post.slug}`} className="flex">
+            <Link to={`${languagePrefix}/post/${post.slug}`} className="flex flex-col sm:flex-row">
                <img
                   src={post.image}
                   alt="post cover"
-                  className="h-[150px] w-[200px] object-cover rounded-lg duration-300 z-20"
+                  className="h-[150px] w-full object-cover rounded-lg duration-300 z-20 sm:w-[200px] sm:h-[150px] sm:mr-4 sm:mb-0 mb-4"
                />
-               <div className="p-3 flex flex-col gap-2 w-full">
+               <div className="flex flex-col gap-2 w-full">
                   <div className="px-2">
-                     <p className="text-lg font-semibold line-clamp-2 pb-2">{post.title}</p>
-                     <span className="italic text-sm border border-teal-500 rounded-lg px-2 py-1 inline-block max-w-max">
-                        {post.category}
-                     </span>
+                  <p className="text-lg font-semibold line-clamp-2 pb-2">{post.title}</p>
+                  <span className="italic text-sm border border-teal-500 rounded-lg px-2 py-1 inline-block max-w-max">
+                     {post.category}
+                  </span>
                   </div>
-                  <div className="px-2 flex justify-between items-center">
+                  <div className="px-2 flex justify-between flex-column-440">
                      <span>{post && formatDate(post.createdAt)}</span>
-                     <div className="flex gap-4 items-center">
+                     <div className="flex gap-4 items-center padding-top-440">
                         <div className="flex items-center gap-1">
                            <FaRegClock size={16} className="text-gray-400" />
                            <span className="text-gray-400 pl-1">

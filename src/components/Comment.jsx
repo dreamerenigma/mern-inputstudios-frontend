@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { FaEllipsisV, FaThumbsUp } from "react-icons/fa";
+import { FaEllipsisH, FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Button, Textarea } from "flowbite-react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
+import CustomBottomSheetDialog from "./dialogs/CustomBottomSheetDialog";
 
 export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) {
    const { t } = useTranslation();
@@ -15,6 +16,9 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
    const [replyContent, setReplyContent] = useState("");
    const { currentUser } = useSelector((state) => state.user);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+   const handleOpenBottomSheet = () => setIsBottomSheetOpen(true);
    
    useEffect(() => {
       const getUser = async () => {
@@ -93,10 +97,6 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
       }
    };
 
-   const onMoreOptions = async () => {
-
-   };
-
    return (
       <div className="flex py-4 text-sm">
          <div className="flex-shrink-0 mr-3">
@@ -124,10 +124,10 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
                   />
                   <div className="flex justify-end gap-2 text-xs">
                      <Button type="button" size="sm" gradientDuoTone="purpleToBlue" onClick={handleSave}>
-                        Save
+                        {t("comments:save")}
                      </Button>
                      <Button type="button" size="sm" gradientDuoTone="purpleToBlue" outline onClick={() => setIsEditing(false)}>
-                        Cancel
+                        {t("comments:cancel")}
                      </Button>
                   </div>
                </>
@@ -152,41 +152,31 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
                            (comment.numberOfLikes === 1 ? t("comments:like") : t("comments:likes"))
                         }
                      </p>
-                     {currentUser &&
-                        (currentUser._id === comment.userId || currentUser.isAdmin) && (
-                           <>
+                     {currentUser && (currentUser._id === comment.userId || currentUser.isAdmin) && (
+                        <>
                            <button
                               type="button"
                               onClick={handleReply}
                               className="text-gray-400 hover:text-teal-500"
                            >
-                              Ответить
+                              {t("comments:reply")}
                            </button>
                            <button
                               type="button"
-                              onClick={handleEdit}
-                              className="text-gray-400 hover:text-teal-500"
+                              onClick={handleOpenBottomSheet}
+                              className="text-gray-400 hover:text-teal-500 mr-2"
                            >
-                              {t("comments:edit")}
+                              <FaEllipsisH className="text-base" />
                            </button>
-                           <button
-                              type="button"
-                              onClick={() => onDelete(comment._id)}
-                              className="text-gray-400 hover:text-red-500"
-                           >
-                              {t("comments:delete")}
-                           </button>
-                           </>
-                        )}
-                     
-                     {currentUser && currentUser._id !== comment.userId && !currentUser.isAdmin && (
-                        <button
-                           type="button"
-                           onClick={() => onMoreOptions(comment._id)}
-                           className="text-gray-400 hover:text-teal-500"
-                        >
-                           <FaEllipsisV className="text-sm" />
-                        </button>
+                           <CustomBottomSheetDialog
+                              isOpen={isBottomSheetOpen}
+                              onClose={() => setIsBottomSheetOpen(false)}
+                              handleEdit={handleEdit}
+                              onDelete={onDelete}
+                              t={t}
+                              comment={comment}
+                           />
+                        </>
                      )}
                   </div>
                   {isReplying && (

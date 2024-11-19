@@ -39,6 +39,15 @@
   }
 }
 
+@media (max-width: 440px) {
+  .flex-column-440 {
+    flex-direction: column;
+  }
+  .padding-top-440 {
+    padding-top: 0.4rem;
+  }
+}
+
 @media (max-width: 500px) {
   .custom-flex-500 {
     flex-direction: column;
@@ -54,6 +63,10 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 16px;
+  }
+  .responsive-container {
+    max-width: 750px;
+    width: 100%;
   }
 }
 
@@ -107,6 +120,9 @@
     margin-left: 7vw;
     margin-right: 7vw;
   }
+  .hide-on-small {
+    display: none;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 859px), (min-width: 768px) and (max-width: 1340px) {
@@ -119,12 +135,6 @@
   .mx-responsive {
     margin-left: 7vw;
     margin-right: 7vw;
-  }
-}
-
-@media (min-width: 1080px) {
-  .mr-20-768-1080 {
-    margin-right: 5rem;
   }
 }
 
@@ -320,21 +330,38 @@
   .custom-flex-1030 h1 {
     font-size: 2rem;
   }
-
   .custom-flex-1030 .group {
     text-align: left;
   }
-
   .custom-flex-1030 .gap-2 {
     gap: 1rem;
   }
-
   .custom-flex-1030 .text-sm {
     font-size: 0.875rem
   }
-
   .custom-flex-1030 .mt-4 {
     margin-top: 16px;
+  }
+  .custom-hide {
+    display: none;
+  }
+  .md\:flex-row {
+    flex-direction: column;
+  }
+  .md\:items-center {
+      align-items: flex-start;
+  }
+  .md\:absolute {
+      position: relative;
+  }
+  .md\:top-0 {
+      top: auto;
+  }
+  .md\:right-0 {
+      right: auto;
+  }
+  .md\:mt-0 {
+      margin-top: 16px;
   }
 }
 
@@ -378,6 +405,9 @@
   .custom-mx-32 {
     margin-left: 8rem;
     margin-right: 8rem;
+  }
+  .mr-20-768-1080 {
+    margin-right: 5rem;
   }
 }
 

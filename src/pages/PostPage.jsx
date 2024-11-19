@@ -190,9 +190,9 @@ export default function PostPage() {
          <Helmet>
             <title>{post?.title || "Новости IT - Главные новости технологий"}</title>
          </Helmet>
-         <div className="flex gap-4">
+         <div className="flex gap-4 justify-center">
             {/* Левая колонка */}
-            <div className="w-[1100px] flex flex-col">
+            <div className="w-[1200px] flex flex-col max-w-[750px] responsive-container">
                <div className="border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg mb-3 shadow-md">
                   <div className="p-4">
                      {currentUser ? (
@@ -301,13 +301,13 @@ export default function PostPage() {
                {/* Нижний контент */}
                <div className="flex flex-col lg:flex-row gap-4 max-w-6xl mx-auto">
                   <div className="flex-1">
-                     <div className="max-w-5xl mx-auto w-full">
+                     <div className="max-w-5xl mx-auto w-full ">
                         <CallToAction />
                      </div>
                      <CommentSection postId={post._id} />
                   </div>
                </div>
-               <div className="flex flex-col lg:flex-row gap-4 mx-auto mt-3">
+               <div className="flex flex-col lg:flex-row gap-4 mx-auto mt-3 responsive-container">
                   <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden pb-5">
                      <h1 className="text-xl mt-2 text-left px-6">Recent Articles</h1>
                      <div className="flex flex-wrap justify-center px-6">
@@ -329,13 +329,13 @@ export default function PostPage() {
                </div>
             </div>
             {/* Правая колонка */}
-            <div className="flex flex-col">
+            <div className="custom-hide flex flex-col">
                <div className="border border-gray-700 p-4 mb-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
                   <p>НОВОСТИ</p>
                   <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
                      recentPosts.slice(0, 10).map((post, index, arr) => (
-                        <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
+                        <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[280px] mt-5">
                            <NewsCard post={post} isLast={index === arr.length - 1} />
                         </div>
                      ))
@@ -347,7 +347,7 @@ export default function PostPage() {
                      <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
                      {recentPosts && 
                         recentPosts.slice(0, 3).map((post, index, arr) => (
-                           <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
+                           <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[280px] mt-5">
                               <NewsCard post={post} isLast={index === arr.length - 1} />
                            </div>
                         ))
@@ -359,7 +359,7 @@ export default function PostPage() {
                   <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
                      recentPosts.slice(0, 3).map((post, index, arr) => (
-                        <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
+                        <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[280px] mt-5">
                            <NewsCard post={post} isLast={index === arr.length - 1} />
                         </div>
                      ))
@@ -370,7 +370,7 @@ export default function PostPage() {
                   <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
                      recentPosts.slice(0, 3).map((post, index, arr) => (
-                        <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[330px] mt-5">
+                        <div key={post._id} className="max-w-[300px] w-full md:max-w-[400px] lg:max-w-[280px] mt-5">
                            <NewsCard post={post} isLast={index === arr.length - 1} />
                         </div>
                      ))

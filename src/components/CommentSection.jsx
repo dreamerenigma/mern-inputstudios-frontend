@@ -219,14 +219,14 @@ export default function CommentSection({ postId }) {
    return (
       <div className="mx-auto w-full pt-3">
          <div className="border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-3">
-            <div className="relative flex items-center justify-between my-1 text-gray-500 text-sm">
+            <div className="relative flex flex-col md:flex-row md:items-center md:justify-between my-1 text-gray-500 text-sm">
                <div className="flex flex-col gap-1 text-left">
                   <Link
                      to={
                         currentUser
                            ? currentUser.username === user.username
-                           ? `${languagePrefix}/dashboard?tab=profile`
-                           : `${languagePrefix}/user/${user.username}`
+                              ? `${languagePrefix}/dashboard?tab=profile`
+                              : `${languagePrefix}/user/${user.username}`
                            : `${languagePrefix}/user/Гость`
                      }
                      className="cursor-pointer flex items-center space-x-4"
@@ -236,17 +236,13 @@ export default function CommentSection({ postId }) {
                         src={currentUser ? user.profilePicture : "/path/to/default-avatar.png"}
                         alt="Profile picture"
                      />
-                     <div className="flex flex-row gap-4">
+                     <div className="flex gap-4">
                         <div className="flex flex-col items-center">
-                           <p className="text-lg text-green-500 font-semibold">
-                           {currentUser ? 233 : "0"}
-                           </p>
+                           <p className="text-lg text-green-500 font-semibold">{currentUser ? 233 : "0"}</p>
                            <p className="text-sm text-gray-400">Карма</p>
                         </div>
                         <div className="flex flex-col items-center">
-                           <p className="text-lg text-purple-500 font-semibold">
-                           {currentUser ? 9999 : "0"}
-                           </p>
+                           <p className="text-lg text-purple-500 font-semibold">{currentUser ? 9999 : "0"}</p>
                            <p className="text-sm text-gray-400">Рейтинг</p>
                         </div>
                      </div>
@@ -265,7 +261,7 @@ export default function CommentSection({ postId }) {
                      {currentUser ? (user.isAdmin ? "Админ" : "Пользователь") : "Гость"}
                   </p>
                </div>
-               <div className="absolute top-0 right-0 flex items-center gap-2">
+               <div className="flex gap-2 md:absolute md:top-0 md:right-0 mt-4 md:mt-0">
                   <button
                      className="rounded-lg bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:bg-gradient-to-r hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 transition-colors duration-300 p-2"
                      onClick={handleSettings}
