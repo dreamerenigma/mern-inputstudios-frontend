@@ -29,7 +29,7 @@ export default function SignIn() {
    const handleSubmit = async (e) => {
       e.preventDefault();
       if (!formData.email || !formData.password) {
-         return dispatch(signInFailure(t("please_fill_all_fields")));
+         return dispatch(signInFailure(t("auth:please_fill_all_fields")));
       }
       try {
          dispatch(signInStart());
@@ -54,7 +54,7 @@ export default function SignIn() {
    return (
       <div className="min-h-screen flex flex-col justify-between">
          <Helmet>
-            <title>{t("sign_in_title")}</title>
+            <title>{t("auth:sign_in_title")}</title>
          </Helmet>
          <div className="flex-grow flex justify-center items-center">
             <div className="mx-4 w-full p-6 max-w-full md:max-w-3xl flex flex-col md:flex-row items-center gap-5 bg-white dark:bg-gray-800 rounded-3xl shadow-lg border-dialog border-gray-700">
@@ -65,13 +65,13 @@ export default function SignIn() {
                      </span>
                   </Link>
                   <p className="text-sm mt-5">
-                     {t("sign_in_account")}
+                     {t("auth:sign_in_account")}
                   </p>
                </div>
                <div className="flex-1 w-full">
                   <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                      <div>
-                        <Label value={t("your_email")} />
+                        <Label value={t("auth:your_email")} />
                         <TextInput
                            type="email"
                            placeholder="name@company.ru"
@@ -80,7 +80,7 @@ export default function SignIn() {
                         />
                      </div>
                      <div>
-                        <Label value={t("your_password")} />
+                        <Label value={t("auth:your_password")} />
                         <PasswordTextInput
                            isPassword={true}
                            type="password"
@@ -99,15 +99,15 @@ export default function SignIn() {
                         {loading ? (
                            <>
                               <Spinner size="sm" />
-                              <span className="pl-3">{t("loading")}</span>
+                              <span className="pl-3">{t("auth:loading")}</span>
                            </>
                         ) : (
-                           t("sign_in")
+                           t("auth:sign_in")
                         )}
                      </Button>
                      <OAuth />
                      <div>
-                        <p className="text-base">Или войдите с помощью других сервисов</p>
+                        <p className="text-base">{t("auth:or_sign_in_other_services")}</p>
                         <div className="flex gap-2 mt-2">
                            <FaSquareGithub 
                               className="text-5xl text-gray-600 hover:text-black transition-colors duration-300 ease-in-out" 
@@ -132,9 +132,9 @@ export default function SignIn() {
                      </div>
                   </form>
                   <div className="flex gap-2 text-sm mt-5">
-                     <span>{t("dont_have_an_account")}</span>
+                     <span>{t("auth:dont_have_an_account")}</span>
                      <Link to={`${languagePrefix}/sign-up`} className="text-teal-500">
-                        {t("sign_in_sign_up")}
+                        {t("auth:sign_in_sign_up")}
                      </Link>
                   </div>
                   {errorMessage && (
@@ -147,9 +147,9 @@ export default function SignIn() {
          </div>
          <div className="mt-4 w-full flex justify-end px-4 pb-2 text-sm">
             <div className="flex flex-wrap gap-x-4 gap-y-2">
-               <Link to={`${languagePrefix}/terms-of-use`} className="underline text-teal-500 hover:text-teal-700">Условия использования</Link>
-               <Link to={`${languagePrefix}/privacy`} className="underline text-teal-500 hover:text-teal-70">Конфиденциальность и cookie</Link>
-               <Link to={`${languagePrefix}/help`} className="underline text-teal-500 hover:text-teal-700">Справка</Link>
+               <Link to={`${languagePrefix}/terms-of-use`} className="underline text-teal-500 hover:text-teal-700">{t("auth:terms_of_use")}</Link>
+               <Link to={`${languagePrefix}/privacy`} className="underline text-teal-500 hover:text-teal-70">{t("auth:privacy_and_cookies")}</Link>
+               <Link to={`${languagePrefix}/help`} className="underline text-teal-500 hover:text-teal-700">{t("auth:help")}</Link>
             </div>
          </div>
       </div>

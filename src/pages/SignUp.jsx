@@ -25,11 +25,11 @@ export default function SignUp() {
       e.preventDefault();
 
       if (!formData.username || !formData.email || !formData.password) {
-         return setErrorMessage("Please fill out all fields.");
+         return setErrorMessage(t("auth:please_fill_all_fields"));
       }
 
       if (formData.password !== formData.confirmPassword) {
-         return setErrorMessage("Passwords do not match.");
+         return setErrorMessage(t("auth:passwords_do_not_match"));
       }
 
       const token = localStorage.getItem('token');
@@ -63,7 +63,7 @@ export default function SignUp() {
    return (
       <div className="min-h-screen flex flex-col justify-between">
          <Helmet>
-            <title>{t("sign_up_title")}</title>
+            <title>{t("auth:sign_up_title")}</title>
          </Helmet>
          <div className="flex-grow flex justify-center items-center">
             <div className="mx-4 w-full p-6 max-w-full md:max-w-3xl flex flex-col md:flex-row items-center gap-5 bg-white dark:bg-gray-800 rounded-3xl shadow-lg border-dialog border-gray-700">
@@ -74,22 +74,22 @@ export default function SignUp() {
                      </span>
                   </Link>
                   <p className="text-sm mt-5">
-                     {t("sign_up_account")}
+                     {t("auth:sign_up_account")}
                   </p>
                </div>
                <div className="flex-1 w-full">
                   <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                      <div>
-                        <Label value={t("your_username")} />
+                        <Label value={t("auth:your_username")} />
                         <TextInput
                            type="text"
-                           placeholder={t("username")}
+                           placeholder={t("auth:username")}
                            id="username"
                            onChange={handleChange}
                         />
                      </div>
                      <div>
-                        <Label value={t("your_email")} />
+                        <Label value={t("auth:your_email")} />
                         <TextInput
                            type="email"
                            placeholder="name@company.ru"
@@ -98,7 +98,7 @@ export default function SignUp() {
                         />
                      </div>
                      <div>
-                        <Label value={t("your_password")} />
+                        <Label value={t("auth:your_password")} />
                         <PasswordTextInput
                            isPassword={true}
                            type="password"
@@ -109,7 +109,7 @@ export default function SignUp() {
                         />
                      </div>
                      <div>
-                        <Label value={t("enter_your_password_again")} />
+                        <Label value={t("auth:enter_your_password_again")} />
                         <PasswordTextInput
                            isPassword={true}
                            type="password"
@@ -123,18 +123,18 @@ export default function SignUp() {
                         {loading ? (
                            <>
                               <Spinner size="sm" />
-                              <span className="pl-3">{t("loading")}</span>
+                              <span className="pl-3">{t("auth:loading")}</span>
                            </>
                         ) : (
-                           t("sign_up")
+                           t("auth:sign_up")
                         )}
                      </Button>
                      <OAuth />
                   </form>
                   <div className="flex gap-2 text-sm mt-5">
-                     <span>{t("have_an_account")}</span>
+                     <span>{t("auth:have_an_account")}</span>
                      <Link to={`${languagePrefix}/sign-in`} className="text-teal-500">
-                        {t("sign_up_sign_in")}
+                        {t("auth:sign_up_sign_in")}
                      </Link>
                   </div>
                   {errorMessage && (
@@ -147,9 +147,9 @@ export default function SignUp() {
          </div>
          <div className="mt-4 w-full flex justify-end px-4 pb-2 text-sm">
             <div className="flex flex-wrap gap-x-4 gap-y-2">
-               <Link to={`${languagePrefix}/terms-of-use`} className="underline text-teal-500 hover:text-teal-700">Условия использования</Link>
-               <Link to={`${languagePrefix}/privacy`} className="underline text-teal-500 hover:text-teal-70">Конфиденциальность и cookie</Link>
-               <Link to={`${languagePrefix}/help`} className="underline text-teal-500 hover:text-teal-700">Справка</Link>
+               <Link to={`${languagePrefix}/terms-of-use`} className="underline text-teal-500 hover:text-teal-700">{t("auth:terms_of_use")}</Link>
+               <Link to={`${languagePrefix}/privacy`} className="underline text-teal-500 hover:text-teal-70">{t("auth:privacy_and_cookies")}</Link>
+               <Link to={`${languagePrefix}/help`} className="underline text-teal-500 hover:text-teal-700">{t("auth:help")}</Link>
             </div>
          </div>
       </div>

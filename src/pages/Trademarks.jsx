@@ -315,8 +315,8 @@ export default function Trademarks() {
          </div>
          <p className="mt-12 sm:px-6 lg:px-6">{t("trademarks:brand_assets_manner")}</p>
          <Divider className="mt-8 mb-10" style={{ opacity: 0.5 }} lightColor={colors.black} darkColor={colors.white} />
-         <h1 className="mt-8 text-4xl font-bold sm:px-6 lg:px-6">Specific Brand and Product Guidelines</h1>
-         <p className="mt-6 sm:px-6 lg:px-6">Certain Brand Assets have Specific Brand and Product Guidelines providing guidance on how to use them. Several of these Specific Brand and Product Guidelines are published below and others may be provided to you by your relevant Input Studios contact in the context of your relationship with Input Studios. All Input Studios Specific Brand and Product Guidelines are incorporated in these Trademark Guidelines. If you are a partner integrating your product, service, or solution with a Input Studios technology including but not limited to Input Studios 365, Input Studios Office, Input Studios Power Platform, Input Studios Azure, Input Studios Teams, and Input Studios Dynamics 365, visit the guidelines for partner-led marketing for more detailed information.</p>
+         <h1 className="mt-8 text-4xl font-bold sm:px-6 lg:px-6">{t("trademarks:specific_brand_product_guidelines")}</h1>
+         <p className="mt-6 sm:px-6 lg:px-6">{t("trademarks:certain_brand_assets_specific_brand")}</p>
          <div className={`grid my-12 mx-12 gap-32 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 ${products.length === 5 ? 'xl:grid-cols-4 2xl:grid-cols-5' : 'xl:grid-cols-5 2xl:grid-cols-6'}`}>
             {products.map(product => (
                <Link 
@@ -359,10 +359,10 @@ export default function Trademarks() {
                />
             </div>
             <div className="bg-blue-600 p-8 flex flex-col justify-center h-auto md:h-84 w-full md:w-auto md:mx-2">
-               <h2 className="text-2xl font-bold mb-4 text-white">Intellectual Property</h2>
-               <p className="mb-4 text-white">Innovation is at the heart of Input Studios as a company.</p>
+               <h2 className="text-2xl font-bold mb-4 text-white">{t("trademarks:intellectual_property")}</h2>
+               <p className="mb-4 text-white">{t("trademarks:innovation_at_heart_company")}</p>
                <Link to={`${languagePrefix}/legal/intellectualproperty`} className="text-white font-semibold flex items-center group">
-                  <span className="group-hover:underline">Explore Input Studios IP</span>
+                  <span className="group-hover:underline">{t("trademarks:explore_company_ip")}</span>
                   <IoIosArrowForward
                      className="ml-1 transition-transform duration-200 transform group-hover:translate-x-1"
                   />

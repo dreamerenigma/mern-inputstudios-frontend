@@ -21,13 +21,13 @@ export default function Projects() {
    return (
       <div className="min-h-screen items-center justify-center mt-[60px] pt-16 pb-16">
          <Helmet>
-            <title>{t("projects_company_title")}</title>
+            <title>{t("projects:projects_company_title")}</title>
          </Helmet>
          <div className="mx-auto">
             <div className="px-4 padding-card lg:px-16">
                <div className="mx-auto w-full lg:max-w-4xl text-center mb-8 text-left-860">
-                  <h1 className="text-3xl font-semibold md:text-5xl lg:text-5xl">Проекты компании Input Studios</h1>
-                  <p className="text-lg font-semibold mt-5">Все проекты компании</p>
+                  <h1 className="text-3xl font-semibold md:text-5xl lg:text-5xl">{t("projects:projects_company_title")}</h1>
+                  <p className="text-lg font-semibold mt-5">{t("auth:all_company_projects")}</p>
                </div>
                <Link to={`${languagePrefix}/search`} className="block w-full mx-auto mb-8">
                   <img className="w-full h-auto" src="/images/projects/projects.avif" alt="privacy" />
@@ -40,7 +40,7 @@ export default function Projects() {
                   animate={inViewEngine ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.9 }}
                >
-                  Разрабатывайте собственные игры в Quantum Engine
+                  {t("projects:develop_your_own_games")}
                </motion.h1>
                <motion.p
                   className="text-md flex flex-col gap-6 max-width mx-auto leading-7"
@@ -48,7 +48,7 @@ export default function Projects() {
                   animate={inViewEngine ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.9, delay: 0.2 }}
                >
-                  Создавайте уникальные игры в Quantum Engine — в самой мощной платформе для разработки игр, позволяющая вам и вашей команде создавать развлекательные проекты мирового уровня.
+                  {t("projects:create_unique_games")}
                </motion.p>
             </div>
             <motion.div
@@ -59,20 +59,16 @@ export default function Projects() {
                transition={{ duration: 0.9 }}
             >
                <div className="w-full md:w-1/2 mb-6 md:mb-0">
-               <img
-                  src="/images/apps/quantum-engine/bg_quantum_engine.png"
-                  alt="Description"
-                  className="w-full h-auto rounded-xl shadow-md"
-               />
+               <img src="/images/apps/quantum-engine/bg_quantum_engine.png" alt="Quantum Engine" className="w-full h-auto rounded-xl shadow-md" />
                </div>
                <div className="w-full md:w-1/2 flex flex-col justify-center md:ml-12">
-                  <h2 className="text-3xl font-semibold mb-4">Игровой движок Quantum Engine</h2>
+                  <h2 className="text-3xl font-semibold mb-4">{t("projects:quantum_engine_game_engine")}</h2>
                   <p className="text-md mb-4">
-                     Quantum Engine — современный игровой движок, предоставляющий разработчикам полный набор инструментов для создания уникальных и высококачественных игр. Движок оптимизирован для высокой производительности и поддерживает передовые технологии графики и физики, что позволяет создавать реалистичные игровые миры и захватывающий геймплей. Quantum Engine включает в себя инструменты для работы с 2D и 3D графикой, систему анимации, обработку звука и поддержку сетевой игры. С его помощью можно реализовать как небольшие инди-проекты, так и крупные коммерческие игры с высокой степенью интерактивности.
+                     {t("projects:modern_game_engine")}
                   </p>
                   <Link to={`${languagePrefix}/quantum-engine`}>
                      <button className="w-[60%] md:w-[200px] mt-2 px-4 py-2 bg-teal-500 text-white shadow-md rounded-lg hover:bg-teal-600 text-left md:text-center">
-                        Узнать подробнее
+                        {t("projects:learn_more")}
                      </button>
                   </Link>
                </div>
@@ -84,7 +80,7 @@ export default function Projects() {
                   animate={inViewChatify ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.9 }}
                >
-                  Общайтесь в современном мессенджере Chatify
+                  {t("projects:chat_in_modern_messenger_chatify")}
                </motion.h1>
                <motion.p
                   className="text-md flex flex-col gap-6 max-width mx-auto leading-7"
@@ -92,7 +88,7 @@ export default function Projects() {
                   animate={inViewChatify ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.9, delay: 0.2 }}
                >
-                  Общайтесь быстро и удобно в современном мессенджере Chatify — обмен сообщениями, видеозвонки и многое другое в одном приложении!
+                  {t("projects:chat_quickly_and_conveniently")}
                </motion.p>
             </div>
             <motion.div
@@ -103,18 +99,18 @@ export default function Projects() {
                transition={{ duration: 0.9 }}
             >
                <div className="w-full md:w-1/2 flex flex-col justify-center md:mr-12 order-2 md:order-1">
-                  <h2 className="text-3xl font-semibold mb-4">Мессенджер Chatify</h2>
+                  <h2 className="text-3xl font-semibold mb-4">{t("projects:chatify_messenger")}</h2>
                   <p className="text-md mb-4">
-                     Chatify — это современный мессенджер, который объединяет все необходимые функции для комфортного общения. С помощью Chatify вы можете обмениваться текстовыми сообщениями, совершать видеозвонки в высоком качестве и делиться мультимедиа файлами. Удобный интерфейс, быстрый доступ к контактам и поддержка групповых чатов делают общение еще проще и доступнее. Chatify также обеспечивает надежную защиту данных, чтобы каждый разговор оставался конфиденциальным.
+                     {t("projects:chatify_modern_messenger")}
                   </p>
                   <Link to={`${languagePrefix}/chatify`}>
                      <button className="w-[60%] md:w-[200px] mt-2 px-4 py-2 bg-teal-500 text-white shadow-md rounded-lg hover:bg-teal-600 text-left md:text-center">
-                        Узнать подробнее
+                        {t("projects:learn_more")}
                      </button>
                   </Link>
                </div>
                <div className="relative w-full md:w-1/2 mb-6 md:mb-0 order-1 md:order-2">
-                  <img src="/images/apps/chatify/chatify.png" alt="Description" className="w-full h-auto rounded-xl shadow-md" />
+                  <img src="/images/apps/chatify/chatify.png" alt="Chatify" className="w-full h-auto rounded-xl shadow-md" />
                   <div className="absolute top-0 left-0 flex flex-col gap-4 p-4 mt-8">
                      <motion.div
                         ref={refMessage}
@@ -158,7 +154,7 @@ export default function Projects() {
                   animate={inViewWave ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.9 }}
                >
-                  Поиск нужной информации в браузере Wave
+                  {t("projects:find_information_browser")}
                </motion.h1>
                <motion.p
                   className="text-md flex flex-col gap-6 max-width mx-auto leading-7"
@@ -166,7 +162,7 @@ export default function Projects() {
                   animate={inViewWave ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.9, delay: 0.5 }}
                >
-                  Wave быстрый и безопасный браузер для комфортного серфинга в интернете. Конфиденциальность ваших сведений гарантированна
+                  {t("projects:wave_fast_secure_browser")}
                </motion.p>
             </div>
             <motion.div
@@ -177,20 +173,16 @@ export default function Projects() {
                transition={{ duration: 0.9 }}
             >
                <div className="w-full md:w-1/2 mb-6 md:mb-0">
-               <img
-                  src="/images/apps/wave/wave_browser.png"
-                  alt="Description"
-                  className="w-full h-auto rounded-xl shadow-md"
-               />
+               <img src="/images/apps/wave/wave_browser.png" alt="Wave Browser" className="w-full h-auto rounded-xl shadow-md" />
                </div>
                <div className="w-full md:w-1/2 flex flex-col justify-center md:ml-12">
-                  <h2 className="text-3xl font-semibold mb-4">Браузер Wave</h2>
+                  <h2 className="text-3xl font-semibold mb-4">{t("projects:wave_browser")}</h2>
                   <p className="text-md mb-4">
-                     Браузер Wave предлагает уникальные функции, такие как встроенная защита от отслеживания, поддержка расширений и интуитивно понятный интерфейс. Благодаря оптимизированной работе с ресурсами, вы сможете наслаждаться стабильной работой даже на старых устройствах. Приложение доступно на всех популярных платформах и обеспечивает синхронизацию ваших данных между устройствами.
+                     {t("projects:wave_browser_offers_unique")}
                   </p>
                   <Link to={`${languagePrefix}/wave`}>
                      <button className="w-[60%] md:w-[200px] mt-2 px-4 py-2 bg-teal-500 text-white shadow-md rounded-lg hover:bg-teal-600 text-left md:text-center">
-                        Узнать подробнее
+                        {t("projects:learn_more")}
                      </button>
                   </Link>
                </div>
@@ -202,7 +194,7 @@ export default function Projects() {
                   animate={inViewWorkspace ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.9 }}
                >
-                  Инструменты для создания документа в пакете Workspace
+                  {t("projects:document_creation_tools")}
                </motion.h1>
                <motion.p
                   className="text-md flex flex-col gap-6 max-width mx-auto leading-7"
@@ -210,7 +202,7 @@ export default function Projects() {
                   animate={inViewWorkspace ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.9, delay: 0.5 }}
                >
-                  Пакет Workspace предлагает основные инструменты для создания и редактирования документов.
+                  {t("projects:suite_offers_essential_tools")}
                </motion.p>
             </div>
             <motion.div
@@ -221,20 +213,16 @@ export default function Projects() {
                transition={{ duration: 0.9 }}
             >
                <div className="w-full md:w-1/2 mb-6 md:mb-0">
-               <img
-                  src="/images/apps/workspace/workspace.avif"
-                  alt="Description"
-                  className="w-full h-auto rounded-xl shadow-md"
-               />
+               <img src="/images/apps/workspace/workspace.avif" alt="Workspace" className="w-full h-auto rounded-xl shadow-md" />
                </div>
                <div className="w-full md:w-1/2 flex flex-col justify-center md:ml-12">
-                  <h2 className="text-3xl font-semibold mb-4">Офисный пакет Workspace</h2>
+                  <h2 className="text-3xl font-semibold mb-4">{t("projects:workspace_office_suite")}</h2>
                   <p className="text-md mb-4">
-                     Пакет Workspace включает в себя приложения для создания документов, такие как Google Документы, Таблицы и Презентации. Эти инструменты позволяют пользователям создавать, редактировать и совместно работать с документами, таблицами и презентациями в режиме реального времени, с поддержкой облачного хранения и синхронизации данных. Workspace предоставляет интеграцию с другими сервисами и продвинутые функции для эффективной работы.
+                     {t("projects:suite_includes_document_creation")}
                   </p>
                   <Link to={`${languagePrefix}/workspace`}>
                      <button className="w-[60%] md:w-[200px] mt-2 px-4 py-2 bg-teal-500 text-white shadow-md rounded-lg hover:bg-teal-600 text-left md:text-center">
-                        Узнать подробнее
+                        {t("projects:learn_more")}
                      </button>
                   </Link>
                </div>

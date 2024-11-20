@@ -15,6 +15,8 @@ import enPrivacyTranslation from './locales/en/privacy.json';
 import enBrowserTranslation from './locales/en/browser.json';
 import enForumTranslation from './locales/en/forum.json';
 import enLegalTranslation from './locales/en/legal.json';
+import enAuthTranslation from './locales/ru/auth.json';
+import enProjectsTranslation from './locales/ru/projects.json';
 import ruTranslation from './locales/ru/translation.json';
 import ruTermsTranslation from './locales/ru/terms.json';
 import ruDialogsTranslation from './locales/ru/dialogs.json';
@@ -28,6 +30,8 @@ import ruPrivacyTranslation from './locales/ru/privacy.json';
 import ruBrowserTranslation from './locales/ru/browser.json';
 import ruForumTranslation from './locales/ru/forum.json';
 import ruLegalTranslation from './locales/ru/legal.json';
+import ruAuthTranslation from './locales/ru/auth.json';
+import ruProjectsTranslation from './locales/ru/projects.json';
 
 const resources = {
    en: { 
@@ -44,6 +48,8 @@ const resources = {
       browser: enBrowserTranslation,
       forum: enForumTranslation,
       legal: enLegalTranslation,
+      auth: enAuthTranslation,
+      projects: enProjectsTranslation,
    },
    ru: { 
       translation: ruTranslation, 
@@ -59,6 +65,8 @@ const resources = {
       browser: ruBrowserTranslation,
       forum: ruForumTranslation,
       legal: ruLegalTranslation,
+      auth: ruAuthTranslation,
+      projects: ruProjectsTranslation,
    },
 };
 

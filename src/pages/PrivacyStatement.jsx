@@ -112,15 +112,15 @@ export default function PrivacyStatement() {
                         {isDropdownOpen && (
                            <div className="mt-2 mx-2">
                               <ul>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Защита персональных данных</li>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Где мы храним и обрабатываем персональные данные</li>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Как мы храним персональные данные</li>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Конфиденциальность данных РФ</li>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Реклама</li>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Технологии распознавания речи</li>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Ознакомительные и бесплатные версии</li>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Изменения в заявлении о конфиденциальности</li>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Способы связи с нами</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:personal_data_protection")}</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:store_process_personal_data")}</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:how_we_store_personal_data")}</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:data_privacy")}</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:advertising")}</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:speech_recognition_technologies")}</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:trial_and_free_versions")}</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:changes_the_privacy_statement")}</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:methods_contacting_us")}</li>
                               </ul>
                            </div>
                         )}
@@ -146,8 +146,8 @@ export default function PrivacyStatement() {
                         {isProductsDropdownOpen && (
                            <div className="mt-2 mx-2">
                               <ul>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Input Studios Workspace и другие приложения для повышения производительности</li>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Семья учетных записей Input Studios</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:workspace_other_productivity_apps")}</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:account_family")}</li>
                               </ul>
                            </div>
                         )}
@@ -171,7 +171,7 @@ export default function PrivacyStatement() {
                            <div className="mt-2 mx-2">
                               <ul>
                                  <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Input Studios Clever</li>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Браузер Input Studios Wave</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">{t("privacy:wave_browser")}Браузер Input Studios Wave</li>
                                  <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Input Studios Translator</li>
                                  <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">SwiftKey</li>
                               </ul>
@@ -264,7 +264,7 @@ export default function PrivacyStatement() {
                         <li className="pl-1">{t("privacy:providing_our_products")}</li>
                         <li className="pl-1">{t("privacy:improving_developing_our_products")}</li>
                         <li className="pl-1">{t("privacy:personalizing_our_products")}</li>
-                        <li className="pl-1">{t("privacy:advertising")}</li>
+                        <li className="pl-1">{t("privacy:advertising_sending_promotional_messages")}</li>
                      </ul>
                      <p className="mt-5">
                         {t("privacy:data_operate")}

@@ -9,9 +9,7 @@ export default function Workspace() {
          <Helmet>
             <title>{t("projects_company_title")}</title>
          </Helmet>
-         <div className="mb-8">
-
-         </div>
+         <div className="mb-8"></div>
       </div>
    );
 }
