@@ -1,5 +1,4 @@
 import { Alert, Button, FileInput } from "flowbite-react";
-import 'react-quill/dist/quill.snow.css';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../firebase";
 import { useEffect, useState, useRef } from "react";
@@ -10,7 +9,6 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
 import CustomInputWithToolbar from "./forum/textinputs/CustomInputWithToolbar";
-import ReactQuill from 'react-quill';
 
 export default function UpdatePost() {
    const { t } = useTranslation();
@@ -229,7 +227,7 @@ export default function UpdatePost() {
                   className="w-full h-72 object-cover"
                />
             )}
-            {/* <div>
+            <div>
                <CustomInputWithToolbar
                   value={formData.content}
                   className="h-72 mb-12"
@@ -237,17 +235,7 @@ export default function UpdatePost() {
                      setFormData({ ...formData, content: value });
                   }} 
                />
-            </div> */}
-            <ReactQuill
-               theme="snow"
-               value={formData.content}
-               placeholder="Write something..."
-               className="h-72 mb-12"
-               required
-               onChange={(value) => {
-                  setFormData({ ...formData, content: value });
-               }}
-            />
+            </div>
             <Button type="submit" gradientDuoTone="purpleToPink">
                {t("posts:update_post")}
             </Button>
