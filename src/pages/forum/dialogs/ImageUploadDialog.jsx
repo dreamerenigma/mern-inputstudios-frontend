@@ -5,8 +5,10 @@ import { CiCircleInfo } from "react-icons/ci";
 import { FaSpinner } from 'react-icons/fa';
 import { BsFileEarmarkImage } from "react-icons/bs";
 import { RxReload } from "react-icons/rx";
+import { useTranslation } from "react-i18next";
 
 const ImageUploadDialog = ({ onClose, onImageUpload }) => {
+   const { t } = useTranslation();
    const fileInputRef = useRef(null);
    const [fileName, setFileName] = useState(null);
    const [uploadStatus, setUploadStatus] = useState('');
@@ -33,7 +35,7 @@ const ImageUploadDialog = ({ onClose, onImageUpload }) => {
    };
 
    const simulateUpload = () => {
-      setUploadStatus('Uploading...');
+      setUploadStatus(t("forum:uploading"));
       setProgress(0);
       setIsLoading(true);
       setUploadSuccess(false);
@@ -44,10 +46,10 @@ const ImageUploadDialog = ({ onClose, onImageUpload }) => {
                clearInterval(interval);
                const isSuccess = Math.random() > 0.3;
                if (isSuccess) {
-                  setUploadStatus('File(s) successfully uploaded.');
+                  setUploadStatus(t("forum:successfully_uploaded"));
                   setUploadSuccess(true);
                } else {
-                  setUploadStatus('File(s) failed to upload.');
+                  setUploadStatus(t("forum:failed_to_upload"));
                }
                setTimeout(() => {
                   setProgress(0);
@@ -99,7 +101,7 @@ const ImageUploadDialog = ({ onClose, onImageUpload }) => {
       >
          <div className="bg-gray-800 border border-gray-600 rounded-md w-[480px] p-4" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
-               <span className="text-gray-200">Вставить изображение</span>
+               <span className="text-gray-200">{t("forum:insert_image")}</span>
                <button onClick={onClose}>
                   <IoClose className="w-5 h-5 text-gray-200 hover:text-gray-100" />
                </button>
@@ -121,28 +123,27 @@ const ImageUploadDialog = ({ onClose, onImageUpload }) => {
                      className="border border-gray-600 bg-gray-700 text-gray-200 py-2 px-4 rounded-md"
                      onClick={() => fileInputRef.current.click()}
                   >
-                     Отправить
+                     {t("forum:submit")}
                   </button>
-                  
                   {fileName ? (
                      isLoading ? (
                         <div className="flex items-center ml-auto">
                            <FaSpinner className="w-5 h-5 mr-2 animate-spin" />
-                           <span>Отправка...</span>
+                           <span>{t("forum:submitting")}</span>
                         </div>
                      ) : uploadSuccess ? (
                         <div className="flex items-center ml-auto">
                            <IoCheckmarkSharp className="w-5 h-5 mr-2" />
-                           <span>Готово</span>
+                           <span>{t("forum:done")}</span>
                         </div>
                      ) : (
                         <div className="flex items-center ml-auto">
                            <CiCircleInfo className="w-5 h-5 mr-2" />
-                           <span>Не удалось загрузить</span>
+                           <span>{t("forum:unable_to_upload")}</span>
                         </div>
                      )
                   ) : (
-                     <span className="text-gray-400 ml-4">Перетащите сюда файл для отправки</span>
+                     <span className="text-gray-400 ml-4">{t("forum:drag_file_here_to_upload")}</span>
                   )}
                </div>
                {fileName && <div className="border-t border-gray-600 my-4"></div>}
@@ -179,14 +180,14 @@ const ImageUploadDialog = ({ onClose, onImageUpload }) => {
                   className="w-full bg-gray-600 text-gray-200 hover:bg-gray-700 py-2 rounded-md mr-2 shadow-md" 
                   onClick={onClose}
                >
-                  Отмена
+                  {t("forum:cancel")}
                </button>
                <button 
                   className="w-full bg-teal-500 text-gray-200 hover:bg-teal-700 py-2 rounded-md ml-2 shadow-md" 
                   onClick={handleImageUpload}
                   disabled={!uploadSuccess}
                >
-                  Вставить
+                  {t("forum:insert")}
                </button>
             </div>
          </div>

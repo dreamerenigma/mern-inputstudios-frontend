@@ -19,63 +19,63 @@ export default function IntellectualProperty() {
    const items = [
       {
          image: "/images/legal/legal_trademarks_1.avif",
-         title: "Patents",
-         subtitle: "Input Studios is committed to responsible intellectual property management, including the creation of a healthy patent ecosystem around the world that promotes and encourages innovation.",
-         link: "Learn about our patent portfolio",
+         title: t("legal:patents"),
+         subtitle: t("legal:intellectual_property_management"),
+         link: t("legal:learn_about_our_patent_portfolio"),
       },
       {
          image: "/images/legal/legal_trademarks_2.avif",
-         title: "Copyrights",
-         subtitle: "Input Studios products and services—including images, text, and software downloads (the 'content')—are owned either by Input Studios Company or by third parties who have granted Input Studios permission to use the content.",
-         link: "Read our copyright requirements",
+         title: t("legal:copyrights"),
+         subtitle: t("legal:products_and_services_including"),
+         link: t("legal:read_our_copyright_requirements"),
       },
       {
          image: "/images/legal/legal_trademarks_3.avif",
-         title: "Trademarks",
-         subtitle: "Input Studios is grateful for the trust that people place in our products, services, and experiences. Our Trademark and Brand Guidelines detail how you can help us protect Input Studios brand assets, including logos, names, and app and product icons, and the trust that they represent.",
-         link: "Review our guidelines",
+         title: t("legal:trademarks"),
+         subtitle: t("legal:grateful_for_trust"),
+         link: t("legal:review_our_guidelines"),
       },
       {
          image: "/images/legal/legal_trademarks_4.avif",
-         title: "Open source",
-         subtitle: "Input Studios is all in on open source. We believe that collaborative development through the open source process accelerates innovation. As one of the largest open source collaborators in the world, Input Studios shares innovation in open ecosystems for everyone to improve and build upon with us.",
-         link: "Learn more about open source",
+         title: t("legal:open_source"),
+         subtitle: t("legal:all_in_on_open_source"),
+         link: t("legal:learn_more_about_open_source"),
       },
       {
          image: "/images/legal/legal_trademarks_5.avif",
-         title: "IP licensing",
-         subtitle: "Our investments in research and development help create new and better Input Studios products, services, and experiences for the benefit of our customers. We offer several technology transfer programs that accelerate product development.",
-         link: "Explore our programs",
+         title: t("legal:ip_licensing"),
+         subtitle: t("legal:our_investments_research"),
+         link: t("legal:explore_our_programs"),
       },
       {
          image: "/images/legal/legal_trademarks_6.avif",
-         title: "Open Data Campaign",
-         subtitle: "Through our Open Data Campaign, we’re working to close the ‘data divide’ and help organizations of all sizes to realize the benefits of data and the new technologies it powers.",
-         link: "Learn about the campaign",
+         title: t("legal:open_data_campaign"),
+         subtitle: t("legal:through_our_open_data_campaign"),
+         link: t("legal:learn_about_campaign"),
       },
    ];
 
    return (
       <div className="relative mx-4 md:mx-8 lg:mx-12 mt-[60px]">
          <Helmet>
-            <title>{t("home_title")}</title>
+            <title>{t("legal:legal_title")}</title>
          </Helmet>
          <div className="relative sm:px-6 lg:px-6">
             <Link to={`${languagePrefix}/search`} className="block w-full mx-auto mb-0 md:mb-8">
                <img className="w-full h-auto" src="/images/brands/trademark_lawyers.avif_1600x600.avif" alt="privacy" />
             </Link>
-            <div className="md:absolute mx-20-1080 md:top-1/2 md:left-12 transform md:-translate-y-1/2 bg-white p-4 border border-black">
+            <div className="md:absolute mx-20-1080 md:top-1/2 md:left-12 transform md:-translate-y-1/2 bg-white p-4 border border-black w-full max-w-[650px] min-w-[300px]">
                <h2 className="py-2 px-4 md:p-10 text-2xl md:text-3xl font-bold text-black break-words">
-                  Intellectual property and open innovation
+                  {t("legal:intellectual_property_and_open_innovation")}
                </h2>
             </div>
          </div>
          <div className="pt-2 sm:px-6  md:px-8 lg:px-16 text-center text-left-860">
             <h1 className="text-2xl md:text-3xl lg:text-3xl font-semibold my-7 max-w-4xl mx-auto">
-               Investing in innovation worldwide
+               {t("legal:investing_innovation_worldwide")}
             </h1>
             <p className="text-md flex flex-col gap-6 mx-auto leading-7">
-               Input Studios is among the top investors in innovation worldwide. Innovation is at the heart of Input Studios as a company, and it is a driving force behind our mission to empower every person and every organization on the planet to achieve more. This investment is most successful not just when it benefits Input Studios, but when it creates more opportunity for our customers and partners. We must ensure that our policy of innovation supports both our ability to produce cutting edge technology and the ability of our customers, partners, and developers to build on that technology to achieve more. As a result, Input Studios relies on, and participates in, multiple modes of intellectual property and open innovation systems, including patents, copyrights, trademarks, trade secrets, open data, open source, and standards.
+               {t("legal:among_top_investors_innovation_worldwide")}
             </p>
          </div>
          <div className="mx-4 my-8 md:mx-16">

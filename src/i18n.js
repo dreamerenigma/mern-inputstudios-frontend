@@ -13,6 +13,8 @@ import enProfileTranslation from './locales/en/profile.json';
 import enTrademarksTranslation from './locales/en/trademarks.json';
 import enPrivacyTranslation from './locales/en/privacy.json';
 import enBrowserTranslation from './locales/en/browser.json';
+import enForumTranslation from './locales/en/forum.json';
+import enLegalTranslation from './locales/en/legal.json';
 import ruTranslation from './locales/ru/translation.json';
 import ruTermsTranslation from './locales/ru/terms.json';
 import ruDialogsTranslation from './locales/ru/dialogs.json';
@@ -24,6 +26,8 @@ import ruProfileTranslation from './locales/ru/profile.json';
 import ruTrademarksTranslation from './locales/ru/trademarks.json';
 import ruPrivacyTranslation from './locales/ru/privacy.json';
 import ruBrowserTranslation from './locales/ru/browser.json';
+import ruForumTranslation from './locales/ru/forum.json';
+import ruLegalTranslation from './locales/ru/legal.json';
 
 const resources = {
    en: { 
@@ -38,6 +42,8 @@ const resources = {
       trademarks: enTrademarksTranslation,
       privacy: enPrivacyTranslation,
       browser: enBrowserTranslation,
+      forum: enForumTranslation,
+      legal: enLegalTranslation,
    },
    ru: { 
       translation: ruTranslation, 
@@ -51,6 +57,8 @@ const resources = {
       trademarks: ruTrademarksTranslation,
       privacy: ruPrivacyTranslation,
       browser: ruBrowserTranslation,
+      forum: ruForumTranslation,
+      legal: ruLegalTranslation,
    },
 };
 

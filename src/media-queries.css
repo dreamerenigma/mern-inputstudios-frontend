@@ -52,6 +52,9 @@
   .padding-top-440 {
     padding-top: 0.4rem;
   }
+  .adaptive-height {
+    height: 450px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -112,9 +115,6 @@
   .custom-mx-10 {
     margin-left: 1.5rem;
     margin-right: 1.5rem;
-  }
-  .adaptive-height {
-    height: 400px;
   }
 }
 

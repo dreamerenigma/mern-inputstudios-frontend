@@ -76,7 +76,7 @@ export default function ChangeRegionalFormatModal({
                      className="w-full p-2 border border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                   >
                      <option>русский (Россия)</option>
-                     <option>английский (США)</option>
+                     <option>английский (РФ)</option>
                      <option>испанский (Испания)</option>
                   </select>
                </div>

@@ -115,7 +115,7 @@ export default function PrivacyStatement() {
                                  <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Защита персональных данных</li>
                                  <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Где мы храним и обрабатываем персональные данные</li>
                                  <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Как мы храним персональные данные</li>
-                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Конфиденциальность данных США</li>
+                                 <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Конфиденциальность данных РФ</li>
                                  <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Реклама</li>
                                  <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Технологии распознавания речи</li>
                                  <li className="px-4 py-2 hover:underline cursor-pointer text-teal-500">Ознакомительные и бесплатные версии</li>

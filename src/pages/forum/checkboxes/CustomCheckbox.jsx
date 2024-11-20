@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { FaCheck } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 
 const CustomCheckbox = () => {
+   const { t } = useTranslation();
    const [isChecked, setIsChecked] = useState(false);
    const [isHovered, setIsHovered] = useState(false);
 
@@ -31,7 +33,7 @@ const CustomCheckbox = () => {
             )}
          </span>
          <label htmlFor="exampleCheckbox" className="text-gray-700 dark:text-gray-300 ml-3">
-            Уведомлять меня при размещении ответов на публикацию
+            {t("forum:notify_me_when_replies")}
          </label>
       </div>
    );

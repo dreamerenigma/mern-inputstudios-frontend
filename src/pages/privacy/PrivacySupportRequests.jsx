@@ -26,15 +26,15 @@ export default function PrivacySupportRequests() {
    return (
       <div className="mx-28 mt-[60px] mb-20">
          <Helmet>
-            <title>{t("privacy:")}Поддержка и запросы, связанные с конфиденциальностью</title>
+            <title>{t("privacy:privacy_support_and_inquiries")}</title>
          </Helmet>
          <p className="text-4xl pt-14 font-semibold w-[850px]">
-            {t("privacy:")}Поддержка и запросы, связанные с конфиденциальностью
+            {t("privacy:privacy_support_and_inquiries")}
          </p>
          <p className="mt-8 mb-14">
-            Мы предлагаем вам различные варианты управления вашими персональными данными, полученными корпорацией Input Studios, и осуществления ваших прав на защиту данных. Обратите внимание, что такое содержимое, как сообщения электронной почты, контакты и чаты, доступно через интерфейс продукта. Дополнительные сведения о данных, которыми вы можете управлять в продуктах Input Studios, можно найти в разделе{" "}
+            {t("privacy:offer_you_various_options")}{" "}
             <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-               {t("privacy:")}Часто задаваемые вопросы о конфиденциальности (FAQ)
+               {t("privacy:privacy_faqs")}
             </Link>
             .
          </p>
@@ -44,18 +44,18 @@ export default function PrivacySupportRequests() {
                <span className={`transform transition-transform duration-300 ${isWorkStudyOpen ? 'rotate-90' : 'rotate-0'} hover:translate-x-1`}>
                <IoIosArrowForward className="mx-4 text-xl" />
             </span>
-            <p className="text-lg font-semibold">Рабочая или учебная запись</p>
+            <p className="text-lg font-semibold">{t("privacy:work_school_account")}</p>
          </div>
          {isWorkStudyOpen && (
             <ul className="ml-8 pl-6">
                <li>
-                  В большинстве случаев данными, собранными во время использования рабочей или учебной учетной записи, владеет и управляет ваша организация или учебное заведение. По вопросам, связанным с этими данными, следует обращаться к вашему ИТ-администратору. Дополнительные сведения можно найти в разделах &quot;Продукты, предоставляемые этой организацией — уведомление для конечных пользователей&quot; и &quot;Продукты для предприятий и разработчиков&quot;{" "}
-                  <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">заявления о конфиденциальности компании Input Studios.</Link>
+                  {t("privacy:in_most_cases")}{" "}
+                  <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">{t("privacy:privacy_statements")}</Link>
                </li>
                <li className="mt-6">
-                  Если вы являетесь ИТ-администратором организации, у которой есть контракт на поддержку Premier или Единую поддержку с корпорацией Input Studios, обратитесь к менеджеру по работе с клиентами Input Studios или торговому посреднику партнера, чтобы обсудить все соответствующие положения вашего контракта. Если у вас нет менеджера по работе с клиентами или торгового посредника,{" "}
-                  <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">отправьте запрос в службу поддержки</Link>
-                  {" "}на портале администрирования Input Studios для получения дополнительной помощи.
+                  {t("privacy:it_administrator_an_organization")}{" "}
+                  <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">{t("privacy:submit_support_request")}</Link>
+                  {" "}{t("privacy:admin_portal_for_further_assistance")}
                </li>
                <ul className="list-disc pl-12 mt-4 mb-6">
                   {links.map((link, index) => (
@@ -67,11 +67,11 @@ export default function PrivacySupportRequests() {
                      </li>
                   ))}
                   <li>
-                     Контактное лицо клиента или ИТ-администратор организации — {" "}
+                     {t("privacy:customer_contact_organizations")} {" "}
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">     
-                        отправьте запрос
+                        {t("privacy:submit_request")}
                      </Link>
-                     {" "}о ваших персональных данных, которые могли быть собраны для предоставления поддержки и других предложений Профессиональных услуг, где компания Input Studios является управляющим данными.
+                     {" "}{t("privacy:about_your_personal_data")}
                   </li>
                </ul>
             </ul>
@@ -83,29 +83,29 @@ export default function PrivacySupportRequests() {
             <span className={`transform transition-transform duration-300 ${isTeenPrivacyOpen ? 'rotate-90' : 'rotate-0'} hover:translate-x-1`}>
                <IoIosArrowForward className="mx-4 text-xl" />
                </span>
-               <p className="text-lg font-semibold">Обеспечение конфиденциальности подростков</p>
+               <p className="text-lg font-semibold">{t("privacy:protecting_teen_privacy")}</p>
             </div>
             {isTeenPrivacyOpen && (
                <ul className="pl-6 ml-8">
                   <li className="py-2">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Узнайте о методах Input Studios по обеспечению конфиденциальности
+                        {t("privacy:learn_about_privacy_practices")}
                      </Link>
-                     {" "}, а также ознакомьтесь с использованием наших продуктов способами, которые защищают конфиденциальность.</li>
+                     {t("privacy:and_learn_how_use_our_products")}</li>
                   <li className="py-2">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Управление согласием родителей и учетными записями Input Studios для детей
+                        {t("privacy:managing_parental_consent")}
                      </Link>
                   </li>
                   <li className="py-2">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Посетите страницу Input Studios Family Safety
+                     {t("privacy:family_safety_page")}
                      </Link>
-                     {" "}, чтобы отфильтровать определенное содержимое, установить ограничения на использование устройств и управлять общим доступом.</li>
+                     {t("privacy:filter_certain_content")}</li>
                   <li className="py-2 mb-6">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Войдите в учетную запись Input Studios
-                     </Link>, чтобы управлять данными и параметрами конфиденциальности.</li>
+                        {t("privacy:log_in_your_account")}
+                     </Link>, {t("privacy:manage_data_privacy_settings")}</li>
                </ul>
             )}
          </div>
@@ -115,20 +115,20 @@ export default function PrivacySupportRequests() {
             <span className={`transform transition-transform duration-300 ${isAdvertisementsOpen ? 'rotate-90' : 'rotate-0'} hover:translate-x-1`}>
                <IoIosArrowForward className="mx-4 text-xl" />
             </span>
-            <p className="text-lg font-semibold">Объявления и рекламные письма</p>
+            <p className="text-lg font-semibold">{t("privacy:advertisements_marketing_emails")}</p>
             </div>
             {isAdvertisementsOpen && (
                <ul className="pl-6 ml-8">
                   <li className="pt-8">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Управляйте своими разрешениями на коммуникацию для таких элементов
+                        {t("privacy:manage_your_communication_permissions")}
                      </Link>
-                     {" "}, как рекламные сообщения электронной почты и информационные бюллетени.</li>
+                     {t("privacy:marketing_emails_newsletters")}</li>
                   <li className="py-2 mb-6">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Персонализируйте рекламу
+                        {t("privacy:personalize_advertising")}
                      </Link>
-                     {" "}, которая вам демонстрируется, чтобы она отражала ваши интересы.
+                     {t("privacy:relevant_you")}
                   </li>
                </ul>
             )}
@@ -139,71 +139,71 @@ export default function PrivacySupportRequests() {
                <span className={`transform transition-transform duration-300 ${isRequestDataOpen ? 'rotate-90' : 'rotate-0'} hover:translate-x-1`}>
                   <IoIosArrowForward className="mx-4 text-xl" />
                </span>
-               <p className="text-lg font-semibold">Создание запроса о своих пресональных данных</p>
+               <p className="text-lg font-semibold">{t("privacy:request_your_personal_data")}</p>
             </div>
             {isRequestDataOpen && (
                <ul className="pl-6 ml-8">
                   <p className="mt-8">
-                     В компании Input Studios мы считаем, что в основе конфиденциальности лежит предоставление пользователям возможности управления их данными. {" "}
+                     {t("privacy:we_believe_that_privacy")}{" "}
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        {t("privacy:")}Панель мониторинга конфиденциальности {" "}
+                        {t("privacy:privacy_dashboard")}{" "}
                      </Link>
-                     — это место, где можно просматривать и удалять данные, которые Input Studios сохраняет в облаке. К этим данным относятся журнал браузера, журнал Поиска Clever, данные о местоположении, действия в приложениях и службах и многое другое.
+                     {t("privacy:view_and_delete_data")}
                   </p>
                   <p className="mt-6">
-                     Если вы хотите просмотреть и обновить профиль, контакты и сведения для защиты, вы можете войти в свою {" "}
+                     {t("privacy:want_view_and_update_your_profile")}{" "}
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        {t("privacy:")}учетную запись Input Studios
+                        {t("privacy:company_account")}
                      </Link>
                      .
                   </p>
                   <p className="mt-6 mb-4">
-                     Если у вас есть личное содержимое, которое нужно просмотреть или загрузить из продуктов Input Studios, соответствующие инструменты можно найти в этих продуктах.
+                     {t("privacy:you_have_personal_content")}
                   </p>
                   <ul className="list-disc pl-6 ml-8">
                      <li className="">
-                        <strong>Журнал поиска Clever. Просматривайте и экспортируйте журнал поиска на{" "}</strong>
+                        <strong>{t("privacy:search_history")}{" "}</strong>
                         <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                           панели мониторинга конфиденциальности
+                           {t("privacy:privacy_dashboards")}
                         </Link>
-                        {" "}или в {" "}
+                        {" "}{t("privacy:or_in")}{" "}
                         <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                           настройках Clever
+                           {t("privacy:clever_settings")}
                         </Link>
                      </li>
                      <li className="py-2">
-                        <strong>FlareDrive</strong>. Просматривайте и скачивайте файлы в {" "}
+                        <strong>FlareDrive</strong>. {t("privacy:view_and_download_files")}{" "}
                         <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
                            FlareDrive
                         </Link>
                      </li>
                      <li className="py-2">
-                        <strong>Outlook.com</strong>. Экспортируйте свои электронные письма, календарь и контакты в {" "}
+                        <strong>Outlook.com</strong>. {t("privacy:export_your_emails")}{" "}
                         <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
                            Outlook.com
                         </Link>
-                        {"\"Настройки\""}{" > "}{"\"Общие\""}{" > "}{"\"Конфиденциальность и данные\""}.
-                        Подробнее: {" "}
+                        {" "}{t("privacy:settings")} &gt; {t("privacy:general")} &gt; {t("privacy:privacy_data")}.
+                        {" "}{t("privacy:learn_more")}{" "}
                         <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                           Импорт и экспорт сообщений, контактов и календаря Outlook
+                           {t("privacy:import_and_export_email_client")}
                         </Link>
                      </li>
                      <li className="py-2">
                         <strong>Chatify</strong>.{" "} 
                         <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                           Экспортируйте журнал чата Chatify и файлы
+                           {t("privacy:export_you_chatify_chat_history")}
                         </Link>
                      </li>
                   </ul>
                   <p className="mt-6">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        {t("privacy:")}Создание запроса, связанного с личной учетной записью Input Studios
+                        {t("privacy:create_request_associated")}
                      </Link>
                      .
                   </p>
                   <p className="mt-6 mb-6">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        {t("privacy:")}Создание запроса, не связанного с личной учетной записью Input Studios
+                        {t("privacy:request_not_associated_with_personal")}
                      </Link>
                      .
                   </p>
@@ -216,18 +216,18 @@ export default function PrivacySupportRequests() {
             <span className={`transform transition-transform duration-300 ${isPrivacyTeamOpen ? 'rotate-90' : 'rotate-0'} hover:translate-x-1`}>
                <IoIosArrowForward className="mx-4 text-xl" />
             </span>
-            <p className="text-lg font-semibold">Обращение в команду по конфиденциальности Input Studios или к специалисту по защите данных Input Studios</p>
+            <p className="text-lg font-semibold">{t("privacy:contact_privacy_team_data_protection_officer")}</p>
             </div>
             {isPrivacyTeamOpen && (
                <ul className="pl-6 ml-8">
                   <li className="pt-8">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Создание запроса, связанного с личной учетной записью Input Studios
+                        {t("privacy:create_request_associated_personal_account")}
                      </Link>
                   </li>
                   <li className="py-2 mb-6">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Создание запроса, не связанного с личной учетной записью Input Studios
+                        {t("privacy:create_request_not_associated_personal_account")}
                      </Link>
                   </li>
                </ul>
@@ -239,15 +239,15 @@ export default function PrivacySupportRequests() {
             <span className={`transform transition-transform duration-300 ${isAccountHelpOpen ? 'rotate-90' : 'rotate-0'} hover:translate-x-1`}>
                <IoIosArrowForward className="mx-4 text-xl" />
             </span>
-            <p className="text-lg font-semibold">Справка по учетной записи Input Studios</p>
+            <p className="text-lg font-semibold">{t("privacy:get_help_with_your")}</p>
             </div>
             {isAccountHelpOpen && (
                <ul className="pl-6 ml-8">
                   <li className="pt-8">
                      <Link to={`${languagePrefix}/privacy/privacystatement`} className="text-teal-500 underline">
-                        Справка по учетной записи Input Studios 
+                        {t("privacy:get_help_with_your")}
                      </Link>
-                     {" "}— помощь со входом, заблокированными или скомпрометированными учетными записями, с восстановлением пароля и т. д.
+                     {" "}{t("privacy:help_with_sign_ins")}
                   </li>
                </ul>
             )}

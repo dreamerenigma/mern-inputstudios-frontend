@@ -21,9 +21,10 @@ export default function BrowserWave() {
                className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="relative z-10 flex flex-col items-center mt-[60px]">
-               <p className="text-white p-4 mt-8 rounded text-3xl sm:text-3xl md:text-4xl lg:text-4xl leading-normal font-semibold text-center">
-                  Input Studios Wave — браузер с более <br />
-                  эффективным способом поиска информации
+               <p 
+                  className="text-white p-4 mt-8 rounded text-3xl sm:text-3xl md:text-4xl lg:text-4xl leading-normal font-semibold text-center"
+                  dangerouslySetInnerHTML={{ __html: t("browser:browser_with_more")}}
+               >
                </p>
                <img
                   src="/images/apps/wave/WebBrowser.png"
@@ -35,16 +36,13 @@ export default function BrowserWave() {
          <div className="flex flex-col items-center justify-center px-4 browser">
             <div className="max-w-3xl text-center">
                <span className="text-3xl sm:text-3xl md:text-4xl lg:text-4xl block">
-                  Input Studios Wave имеет стильный дизайн
+                  {t("browser:has_stylish_design")}
                </span>
                <span className="text-lg sm:text-xl md:text-2xl lg:text-xl mt-8 block">
-                  Откройте для себя Интернет с новым внешним видом, который поможет вам легко
-                  ориентироваться, поддерживать возможности искусственного интеллекта и сводить к минимуму
-                  отвлекающие факторы при просмотре веб-страниц, сохраняя при этом производительность и
-                  безопасность.
+                  {t("browser:discover_web")}
                </span>
                <CustomButton className="text-lg font-bold focus:outline-none mt-10 px-8 py-3">
-                  Подробнее
+                  {t("browser:learn_more")}
                </CustomButton>
             </div>
          </div>
@@ -54,14 +52,13 @@ export default function BrowserWave() {
             <div className="flex flex-row items-center justify-between w-full">
                <div className="flex flex-col text-left">
                <span className="text-2xl sm:text-3xl md:text-3xl lg:text-3xl">
-                  Сделайте Wave своим собственным
+                  {t("browser:make_your_own")}
                </span>
                <span className="text-lg sm:text-xl md:text-2xl lg:text-xl mt-1">
-                  Добавляйте избранное, пароли, историю, файлы cookie и многое другое из других
-                  браузеров.
+                  {t("browser:add_favorites")}
                </span>
                </div>
-               <CustomButton className="ml-4 mr-20 px-8 custom-button">Импорт</CustomButton>
+               <CustomButton className="ml-4 mr-20 px-8 custom-button">{t("browser:import")}</CustomButton>
             </div>
          </div>
          </div>
@@ -69,18 +66,14 @@ export default function BrowserWave() {
          <div className="flex flex-row w-full">
             <div className="flex flex-col w-2/5 text-left text-container">
                <div className="text-sm bg-teal-500 rounded-md p-1 mb-4 inline-block max-w-max">
-               <p className="text-white">Новые функции</p>
+               <p className="text-white">{t("browser:new_features")}</p>
                </div>
-               <span className="text-3xl mt-2">Новые Темы для браузера</span>
+               <span className="text-3xl mt-2">{t("browser:new_browser_themes")}</span>
                <span className="text-xl mt-4">
-                  Погрузитесь в захватывающий мир космоса с нашей новой темой для браузера. Откройте для
-                  себя неизведанные уголки вселенной через яркие и увлекательные изображения планет,
-                  звезд и галактик, которые превратят ваш просмотр в увлекательное космическое
-                  путешествие. Насладитесь величественной красотой космоса, не покидая уют вашего
-                  экрана, и дайте своему просмотру новые горизонты с темой Космос.
+                  {t("browser:dive_into_exciting_world")}
                </span>
                <div className="inline-block mt-10">
-               <CustomButton>Посмотреть темы</CustomButton>
+               <CustomButton>{t("browser:explore_themes")}</CustomButton>
                </div>
             </div>
             <div className="flex flex-col justify-end items-end w-2/4 h-1/4 ml-auto image">
@@ -106,24 +99,19 @@ export default function BrowserWave() {
             <div className="flex flex-row justify-between w-full items-center">
                <div className="flex flex-col text-left my-2 flex-1 md:ml-0">
                <span className="text-2xl sm:text-3xl md:text-3xl lg:text-3xl">
-                  Повысьте безопасность в интернете
+                  {t("browser:become_safer_online")}
                </span>
-               <span className="text-lg sm:text-xl md:text-2xl lg:text-xl mt-1">
-                  Когда поднимается вопрос безопасности в Интернете, на Input Studios Wave можно
-                  положиться. Wave оснащен расширенными функциями безопасности и средствами управления
-                  безопасностью на основе ИИ, благодаря чему защищаться от угроз в Интернете
-                  значительно проще. Просматривайте сайты уверенно и более безопасно на Wave.
+               <span className="text-lg sm:text-xl md:text-2xl lg:text-xl mt-1">{t("browser:comes_online_safety")}
                </span>
                </div>
                <div className="flex flex-shrink-0 items-center">
-               <CustomButton className="px-8 custom-button items-center">Подробнее</CustomButton>
+               <CustomButton className="px-8 custom-button items-center">{t("browser:learn_more")}</CustomButton>
                </div>
             </div>
             <div className="flex flex-col text-left max-w-xl">
                <span className="font-bold my-2">___________</span>
                <span>
-               Input Studios Wave помогает оставаться защищенным во время просмотра веб-страниц,
-               блокируя фишинг и атаки вредоносных программ.
+                  {t("browser:helps_you_stay_protected")}
                </span>
             </div>
          </div>
@@ -132,21 +120,17 @@ export default function BrowserWave() {
          <div className="flex flex-row w-full">
             <div className="flex flex-col w-2/5 text-left text-container">
                <span className="text-3xl mt-2 sm:text-3xl md:text-3xl lg:text-4xl xl:text-4xl">
-                  Работайте продуктивнее
+                  {t("browser:be_more_productive")}
                </span>
                <span className="text-xl mt-4">
-                  Сосредоточьтесь, управляйте своим временем в Интернете с помощью Input Studios Wave.
-                  Оснащенный быстрым поиском на основе искусственного интеллекта, действиями браузера,
-                  организацией вкладок и расширенными функциями производительности, Wave создан, чтобы
-                  помочь вам делать больше с каждой минутой, проведенной в Интернете.
+                  {t("browser:stay_focused")}
                </span>
                <div className="inline-block mt-10">
-               <CustomButton>Подробнее</CustomButton>
+               <CustomButton>{t("browser:learn_more")}</CustomButton>
                </div>
                <div className="productivity-work flex flex-row bg-gray-200 dark:bg-gray-800 rounded-xl p-10 mt-16 items-center justify-center">
                   <span className="text-center">
-                     Получите в среднем на 25 минут больше времени автономной работы благодаря режиму
-                     эффективности. Только в Input Studios Wave.
+                     {t("browser:get_an_average")}
                   </span>
                </div>
             </div>
@@ -169,14 +153,12 @@ export default function BrowserWave() {
                />
             </div>
             <div className="flex flex-col w-2/5 text-left text-container order-last">
-               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2">Используйте лучший браузер для игр</span>
+               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2">{t("browser:browser_for_gaming")}</span>
                <span className="text-xl mt-4">
-               Благодаря оптимизации облачных игр, такой как Clarity Boost, режиму экономии памяти и
-               поддержке популярных тем и расширений, Input Studios Wave является лучшим браузером
-               для игр в Интернете, предоставляя вам доступ к бесплатным играм.
+                  {t("browser:cloud_gaming_optimizations")}
                </span>
                <div className="inline-block mt-10">
-               <CustomButton>Подробнее</CustomButton>
+               <CustomButton>{t("browser:learn_more")}</CustomButton>
                </div>
             </div>
          </div>
@@ -184,13 +166,12 @@ export default function BrowserWave() {
          <div className="mx-20 theme-container browser">
          <div className="flex flex-row w-full">
             <div className="flex flex-col w-2/5 text-left text-container">
-               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2">Ознакомьтесь с лучшим браузером для бизнеса</span>
+               <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2">{t("browser:explore_browser_for_business")}</span>
                <span className="text-xl mt-4">
-               Если вы ищете быстрый и безопасный браузер для бизнеса с наиболее эффективными
-               функциями от Input Studios, можете смело остановить свой выбор на Input Studios Wave.
+                  {t("browser:looking_for_fast")}
                </span>
                <div className="inline-block mt-10">
-               <CustomButton>Подробнее</CustomButton>
+               <CustomButton>{t("browser:learn_more")}</CustomButton>
                </div>
             </div>
             <div className="flex flex-col justify-end items-end w-2/4 h-1/4 ml-auto image">
@@ -206,14 +187,14 @@ export default function BrowserWave() {
             <div className="flex flex-col md:flex-row w-full">
                <div className="flex flex-col order-first md:order-first w-full md:w-2/5 text-left text-container">
                   <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2">
-                     Просматривайте веб-страницы с помощью Wave на любых устройствах
+                     {t("browser:browse_web_devices")}
                   </span>
                   <span className="text-xl mt-4">
-                     Легко синхронизируйте свои пароли, избранное и параметры на любых устройствах с Windows, macOS, iOS и Android.
+                     {t("browser:easily_sync_your_passwords")}
                   </span>
                   <div className="inline-block mt-10">
                      <Link to={`${languagePrefix}/wave/download`}>
-                        <CustomButton>Скачать для вашего устройства</CustomButton>
+                        <CustomButton>{t("browser:download_for_your_device")}</CustomButton>
                      </Link>
                   </div>
                </div>
@@ -241,22 +222,22 @@ export default function BrowserWave() {
          <div className="w-full bg-gray-700 px-20 py-6 text-left">
             <p className="text-base mb-2">
                <span className="align-text-top text-xs">1</span>
-                  {" "}Ознакомьтесь с {" "}
+                  {" "}{t("browser:view_the")} {" "}
                <Link to={`${languagePrefix}/privacy/privacystatement`} className="underline hover:text-gray-400">
-                  заявлением о конфиденциальности корпорации Input Studios
+                  {t("browser:company_privacy_statement")}
                </Link> 
             </p>
             <p className="text-base mb-2">
-               <span className="align-text-top text-xs pr-2">2</span>Время работы аккумулятора зависит от параметров, использования и других факторов.
+               <span className="align-text-top text-xs pr-2">2</span>{t("browser:battery_life_varies")}
             </p>
             <p className="text-base mb-2">
-               <span className="align-text-top text-xs pr-2">3</span>Требуется доступ к Интернету, за него может взиматься плата.
+               <span className="align-text-top text-xs pr-2">3</span>{t("browser:requires_internet_access")}
             </p>
             <p className="text-base">
-               <span className="align-text-top text-xs pr-2">*</span>Доступность и возможности функций зависят от типа устройства, рынка и версии браузера.
+               <span className="align-text-top text-xs pr-2">*</span>{t("browser:feature_availability")}
             </p>
             <p className="text-base">
-               <span className="align-text-top text-xs pr-2">*</span>Содержимое этой страницы, возможно, переведено с помощью искусственного интеллекта.
+               <span className="align-text-top text-xs pr-2">*</span>{t("browser:content_this_page")}
             </p>
          </div>
       </div>

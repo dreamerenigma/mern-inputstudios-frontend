@@ -24,25 +24,21 @@ export default function DownloadBrowserWave() {
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    const toggleDropdown = () => {
-      console.log("Toggle Dropdown called");
       setDropdownOpen(!dropdownOpen);
    };
 
    const closeDropdown = () => {
-      console.log("Close Dropdown called");
       setDropdownOpen(false);
    };
 
    const handleTextClick = (e) => {
       e.stopPropagation();
-      console.log("Text clicked!");
       setDownloadLink("/downloads/InputStudiosWaveSetup.exe");
       setModalOpen(true);
    };
 
    const handleTextLink = (link) => (e) => {
       e.stopPropagation();
-      console.log("Text clicked!");
       setDownloadLink(link);
       setModalOpen(true);
    }
@@ -82,7 +78,7 @@ export default function DownloadBrowserWave() {
             <img src="/images/apps/wave/wave_logo.png" alt="InputStudiosWave" className="w-24" />
          </div>
          <h1 className="text-center mb-4 w-[50%] text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl">
-            Просматривайте веб-страницы с помощью Input Studios Wave на ПК устройствах
+            {t("browser:browse_web_pc_devices")}
          </h1>
          <div className="flex flex-col lg:flex-row items-center justify-center mt-16">
             <img
@@ -92,9 +88,7 @@ export default function DownloadBrowserWave() {
             />
             <div className="ml-0 lg:ml-12 text-left mt-4 lg:mt-0 order-2 lg:order-2">
                <p className="text-3xl">Windows</p>
-               <p className="text-lg mb-4 overflow-wrap">
-                  Input Studios Wave— лучший <br />
-                  браузер для Windows
+               <p className="text-lg mb-4 overflow-wrap" dangerouslySetInnerHTML={{ __html: t("browser:best_browser_for_windows")}}>
                </p>
                <div className="relative inline-block z-50" ref={dropdownRef}>
                   <Button
@@ -104,10 +98,7 @@ export default function DownloadBrowserWave() {
                   >
                      <span className="flex items-center">
                      <>
-                        <span onClick={handleTextClick} className="cursor-pointer">
-                           Загрузки <br />
-                           для Windows 11 / 10
-                        </span>
+                        <span onClick={handleTextClick} className="cursor-pointer" dangerouslySetInnerHTML={{ __html: t("browser:downloads")}}></span>
                         {modalOpen && (
                            <DownloadModal showModal={modalOpen} setShowModal={setModalOpen} downloadLink={downloadLink} />
                         )}
@@ -136,14 +127,14 @@ export default function DownloadBrowserWave() {
                            theme ? 'bg-gray-700' : 'bg-gray-100'
                         }`}
                      >
-                        <span className="flex justify-center py-2">Также доступно для</span>
+                        <span className="flex justify-center py-2">{t("browser:also_available_for")}</span>
                         <li
                            tabIndex="0"
                            className="flex items-center px-4 py-2 hover:bg-gray-600 focus:bg-gray-600 cursor-pointer group"
                            onClick={closeDropdown}
                         >
                            <FaWindows className="mr-2" />
-                           Windows 8.1 / 8 / 7
+                              Windows 8.1 / 8 / 7
                            <HiArrowNarrowDown className="ml-3 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-200" />
                         </li>
                         <li
@@ -162,11 +153,11 @@ export default function DownloadBrowserWave() {
          </div>
          <div className="mt-20 px-4 text-center">
             <Link to={`${languagePrefix}/`} className="text-xl text-teal-500 hover:text-teal-700 hover:underline">
-               <span>Используете Windows Server? Скачайте Input Studios Wave здесь.</span>
+               <span>{t("browser:using_windows_server")}</span>
             </Link>
             <div>
                <p className="mt-8 text-xl">
-                  Input Studios Wave теперь доступен на Linux. Скачать для{" "}
+                  {t("browser:is_now_available_linux")}{" "}
                   <a
                      onClick={handleTextLink("/downloads/InputStudiosWaveSetup.deb")}
                      className="text-teal-500 hover:underline cursor-pointer"
@@ -196,14 +187,14 @@ export default function DownloadBrowserWave() {
                   <div className="flex flex-col lg:flex-row lg:items-center items-start justify-between w-full">
                      <div className="flex flex-col text-left w-full lg:w-[500px] px-12 md:px-0">
                         <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl">
-                           Разверните Input Studios Wave для бизнеса уже сегодня
+                           {t("browser:deploy_for_business_today")}
                         </span>
                         <span className="text-sm sm:text-base md:text-lg lg:text-xl mt-4">
-                           Получите Input Studios Wave с его новейшими функциями для всех основных платформ.
+                           {t("browser:with_latest_features")}
                         </span>
                      </div>
                      <CustomButton className="mt-4 lg:mt-0 sm:w-3/4 md:w-[260px] lg:w-auto mx-12 px-4">
-                        Скачать Wave для бизнеса
+                        {t("browser:download_business")}
                      </CustomButton>
                   </div>
                </div>
@@ -219,18 +210,18 @@ export default function DownloadBrowserWave() {
                <div className="flex flex-col w-full">
                   <div className="flex flex-col lg:flex-row lg:items-center items-start justify-between w-full">
                      <div className="flex flex-col text-left w-full lg:w-[500px] px-12 md:px-0">
-                        <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl">Будьте на переднем крае. <br />Загрузите предварительные сборки <br />Input Studios Wave.</span>
-                        <span className="text-sm sm:text-base md:text-lg lg:text-xl mt-4">Хотите первыми узнать, что нового в Wave? Инсайдерские каналы <br />постоянно обновляются новейшими функциями, поэтому загрузите сейчас <br />и станьте инсайдером.</span>
+                        <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl" dangerouslySetInnerHTML={{ __html: t("browser:be_on_cutting_edge")}}></span>
+                        <span className="text-sm sm:text-base md:text-lg lg:text-xl mt-4" dangerouslySetInnerHTML={{ __html: t("browser:want_be_first")}}></span>
                      </div>
                      <CustomButton className="mt-4 lg:mt-0 sm:w-3/4 md:w-[260px] lg:w-auto mx-12 px-4">
-                        Скачать инсайдерские каналы
+                        {t("browser:download_insider_channels")}
                      </CustomButton>
                   </div>
                </div>
             </div>
          </div>
          <div className="flex p-8 bg-gray-700 w-full">
-            <span className="ml-8 text-sm">* Доступность и возможности функций зависят от типа устройства, рынка и версии браузера.</span>
+            <span className="ml-8 text-sm">*{" "}{t("browser:feature_availability")}</span>
          </div>
          {showDialog && (
             <NextDownloadBrowserDialog show={showDialog} onClose={handleCloseDialog} />

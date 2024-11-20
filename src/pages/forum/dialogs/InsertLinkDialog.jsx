@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import PropTypes from "prop-types";
+import { useTranslation } from 'react-i18next';
 
 const InsertLinkDialog = ({ onClose, onInsert }) => {
+   const { t } = useTranslation();
    const [url, setUrl] = useState('');
    const [text, setText] = useState('');
 
@@ -15,9 +17,9 @@ const InsertLinkDialog = ({ onClose, onInsert }) => {
    return (
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
          <div className="bg-white dark:bg-gray-800 rounded-lg py-3 px-5 shadow-lg w-[500px]">
-            <h2 className="text-lg font-semibold mb-4">Вставить гиперссылку</h2>
+            <h2 className="text-lg font-semibold mb-4">{t("forum:insert_hyperlink")}</h2>
             <div className="mb-4 flex items-center">
-               <label className="block w-[120px] mb-1 ml-12 text-right pr-8">Веб-адрес</label>
+               <label className="block w-[120px] mb-1 ml-12 text-right pr-8">{t("forum:web_address")}</label>
                <input
                   type="text"
                   value={url}
@@ -26,7 +28,7 @@ const InsertLinkDialog = ({ onClose, onInsert }) => {
                />
             </div>
             <div className="mb-4 flex items-center">
-               <label className="block w-[120px] mb-1 ml-12 text-right pr-8">Текст</label>
+               <label className="block w-[120px] mb-1 ml-12 text-right pr-8">{t("forum:text")}</label>
                <input
                   type="text"
                   value={text}
@@ -39,13 +41,13 @@ const InsertLinkDialog = ({ onClose, onInsert }) => {
                   className="w-full bg-gray-600 text-gray-200 hover:bg-gray-700 py-2 rounded-md mr-2 shadow-md" 
                   onClick={onClose}
                >
-                  Отмена
+                  {t("forum:cancel")}
                </button>
                <button
                   onClick={handleInsert}
                   className="px-4 py-2 bg-teal-500 text-white hover:bg-teal-700 w-full ml-2 rounded-md shadow-md"
                >
-                  Вставить
+                  {t("forum:insert")}
                </button>
             </div>
          </div>

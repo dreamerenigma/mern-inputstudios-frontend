@@ -17,8 +17,10 @@ import { AiFillPicture } from "react-icons/ai";
 import ImageUploadModal from "../dialogs/ImageUploadDialog";
 import InsertLinkDialog from "../dialogs/InsertLinkDialog";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 export default function CustomInputWithToolbar ({ value = '', onChange }) {
+   const { t } = useTranslation();
    const dropdownRef = useRef(null);
    const dropdownFontRef = useRef(null);
    const editableRef = useRef(null);
@@ -423,19 +425,19 @@ export default function CustomInputWithToolbar ({ value = '', onChange }) {
                      <div className="absolute left-0 mt-1 w-full bg-gray-800 border border-gray-600 rounded-md shadow-lg z-50">
                         <div className="flex flex-col">
                            <span className="text-2xl text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2 rounded-t-md" onClick={() => handleFontSizeSelect('Заголовок 1')}>
-                              Заголовок 1
+                              {t("forum:heading_1")}
                            </span>
                            <span className="text-lg text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2" onClick={() => handleFontSizeSelect('Заголовок 2')}>
-                              Заголовок 2
+                              {t("forum:heading_2")}
                            </span>
                            <span className="text-base text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2" onClick={() => handleFontSizeSelect('Заголовок 3')}>
-                              Заголовок 3
+                              {t("forum:heading_3")}
                            </span>
                            <span className="text-base text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2" onClick={() => handleFontSizeSelect('Стандартный')}>
-                              Стандартный
+                              {t("forum:standard")}
                            </span>
                            <span className="text-base text-gray-200 cursor-pointer hover:bg-gray-700 hover:text-gray-100 px-4 py-2 rounded-b-md" onClick={() => handleFontSizeSelect('Блок кода')}>
-                              Блок кода
+                              {t("forum:code_block")}
                            </span>
                         </div>
                      </div>
@@ -528,7 +530,7 @@ export default function CustomInputWithToolbar ({ value = '', onChange }) {
             />
             {!editableRef.current?.innerText && !hasList && (
                <div className="absolute left-4 top-4 text-gray-500 pointer-events-none">
-                  Введите текст...
+                  {t("forum:enter_text")}
                </div>
             )}
          </div>
