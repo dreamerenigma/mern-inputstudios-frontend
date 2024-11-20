@@ -5,7 +5,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { FaCheck, FaTimes }  from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { RiCloseLine } from "react-icons/ri";
-import { deleteUser } from "../../../api/src/utils/userApi";
+import { deleteUser } from "../api/userApi";
 
 export default function DashUsers() {
    const { t } = useTranslation();

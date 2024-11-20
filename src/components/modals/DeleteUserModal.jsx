@@ -5,9 +5,9 @@ import { deleteUserStart, deleteUserSuccess, deleteUserFailure } from "../../red
 import PropTypes from 'prop-types';
 import { RiCloseLine } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
-import { deleteUser } from '../../../../api/src/utils/userApi';
 import { useNavigate } from 'react-router-dom';
 import { showTooltip, hideTooltip } from "../../redux/ui/uiSlice"; 
+import { deleteUser } from '../../api/userApi';
 
 export default function DeleteUserModal({ currentUser, error, setShowModal, showModal }) {
    const { t } = useTranslation();
