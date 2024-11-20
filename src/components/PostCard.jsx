@@ -11,7 +11,7 @@ export default function PostCard({ post }) {
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    return (
-      <div className="group relative w-full border border-teal-500 hover:border-2 h-[400px] adaptive-height overflow-hidden rounded-lg sm:w-[90%] transition-all shadow-md">
+      <div className="group relative w-full border border-teal-500 hover:border-2 h-[400px] adaptive-height overflow-hidden rounded-lg transition-all shadow-md">
          <Link to={`${languagePrefix}/post/${post.slug}`}>
             <img src={post.image} alt="post cover" className="h-[60%] w-full object-cover group-hover:h-[50%] transition-all duration-300 z-20" />
          </Link>

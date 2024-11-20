@@ -30,7 +30,6 @@ function Layout() {
    const tooltip = useSelector((state) => state.ui.tooltip);
 
    useEffect(() => {
-      console.log("Current Tooltip state:", tooltip);
       setIsLoading(false);
    }, [tooltip]);
 

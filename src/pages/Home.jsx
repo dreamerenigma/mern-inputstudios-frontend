@@ -53,7 +53,7 @@ export default function Home() {
    }, []);
 
    return (
-      <div>
+      <>
          <div className="relative mt-[60px]">
             <Helmet>
                <title>{t("home_title")}</title>
@@ -67,7 +67,7 @@ export default function Home() {
                      <h1 className="text-3xl font-bold lg:text-6xl xs:text-4xl sm:text-5xl md:text-5xl xl:text-6xl">
                         {t("home_welcome")}
                      </h1>
-                     <p className="text-xs w-[700px] sm:text-base mt-5">
+                     <p className="text-sm w-[700px] sm:text-base mt-5">
                         {t("home_welcome_description")}
                      </p>
                      <Button className="text-xs sm:text-sm mt-5 font-bold focus:outline-none shadow-md">
@@ -78,18 +78,18 @@ export default function Home() {
             ) : (
                <Link 
                   to={`${languagePrefix}/search`} 
-                  className="w-full h-[250px] bg-white dark:bg-[rgb(16,23,42)] shadow-md dark:shadow-lg flex flex-col justify-center items-center text-center text-black dark:text-white no-underline welcome welcome-height" 
+                  className="w-full h-[260px] bg-white dark:bg-[rgb(16,23,42)] shadow-md dark:shadow-lg flex flex-col justify-center items-center text-center text-black dark:text-white no-underline welcome welcome-height overflow-hidden"
                >
-                  <div>
-                     <h1 className="text-3xl font-bold xs:text-4xl sm:text-5xl md:text-5xl welcome-padding">
+                  <div className="w-full px-4">
+                     <h1 className="text-3xl font-bold xs:text-4xl sm:text-5xl md:text-5xl welcome-padding text-center">
                         {t("home_welcome")}
                      </h1>
-                     <p className="text-xs sm:text-sm mt-5 mx-4">
+                     <p className="text-sm sm:text-sm mt-5 mx-4 text-center">
                         {t("home_welcome_description")}
                      </p>
                      <div className="flex justify-center mt-5">
                         <Button className="text-xs sm:text-sm font-bold focus:outline-none">
-                           {t("home_view_all_posts")}
+                        {t("home_view_all_posts")}
                         </Button>
                      </div>
                   </div>
@@ -98,12 +98,12 @@ export default function Home() {
          </div>
          <DownloadCard />
          <div 
-            className={`p-3 mx-10 custom-margin mt-20 rounded-lg bg-gray-200 dark:bg-slate-700 shadow-md ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+            className={`p-3 mx-10 custom-margin custom-margin-top mt-20 rounded-lg bg-gray-200 dark:bg-slate-700 shadow-md ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
             style={{ display: isLoading ? 'none' : 'block' }}
          >
             <CallToAction />
          </div>
-         <div className="mx-auto px-6 flex flex-col gap-8 py-7">
+         <div className="mx-10 custom-margin flex flex-col gap-8 py-7">
             {posts && posts.length > 0 && (
                <div className="flex flex-col gap-6 items-center">
                   <h2 className="text-2xl font-semibold text-center">{t("home_recent_posts")}</h2>
@@ -145,6 +145,6 @@ export default function Home() {
             setLanguageChanged={setLanguageChanged} 
             scrollPositionRef={scrollPositionRef} 
          />
-      </div>
+      </>
    );
 }

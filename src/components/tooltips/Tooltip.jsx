@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { motion } from "framer-motion";
 
 export default function Tooltip ({ showTooltip, text }) {
-   console.log("Tooltip Props - showTooltip:", showTooltip, "text:", text);
    return (
       showTooltip && (
          <motion.div

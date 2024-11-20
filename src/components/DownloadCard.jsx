@@ -75,7 +75,7 @@ function CardsDownload() {
    }, [t]);
 
    return (
-      <div className="mx-10 margin-download-card mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="mx-10 margin-download-card custom-margin-top mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
          {cardsData.map(card => (
             <DownloadCard
                key={card.id}

@@ -327,8 +327,8 @@ export default function DashProfile() {
                                        </p>
                                        <div className="mt-4">
                                           <ReCAPTCHA
-                                          sitekey="6Lcn5uYpAAAAAM2rTG-jWtWRMeDoh6GT4xFcY0cS"
-                                          onChange={handleCaptchaChange}
+                                             sitekey="6Lcn5uYpAAAAAM2rTG-jWtWRMeDoh6GT4xFcY0cS"
+                                             onChange={handleCaptchaChange}
                                           />
                                        </div>
                                        {captchaValue && <p>{t("profile:captcha")}</p>}
