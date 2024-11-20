@@ -109,60 +109,66 @@ export default function DashboardComponent() {
             </h1>
             <div className="space-y-4">
                <div className="flex flex-wrap justify-between gap-4">
-                  <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 flex-1 min-w-[200px] rounded-md shadow-md border border-gray-700">
-                     <div className="flex justify-between">
-                        <div className="text-left">
-                           <h3 className="text-gray-500 text-md uppercase">
+                  <Link to={`${languagePrefix}/dashboard?tab=users`} className="flex-1 min-w-[200px]">
+                     <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 rounded-md shadow-md border border-gray-700 hover:bg-teal-100 dark:hover:bg-teal-700/30 transition-all">
+                        <div className="flex justify-between">
+                           <div className="text-left">
+                              <h3 className="text-gray-500 text-md uppercase">
                               {t("profile:total_users")}
-                           </h3>
-                           <p className="text-2xl">{totalUsers}</p>
+                              </h3>
+                              <p className="text-2xl">{totalUsers}</p>
+                           </div>
+                           <HiOutlineUserGroup className="bg-teal-600 text-white rounded-full text-5xl p-3 shadow-lg" />
                         </div>
-                        <HiOutlineUserGroup className="bg-teal-600 text-white rounded-full text-5xl p-3 shadow-lg" />
-                     </div>
-                     <div className="flex gap-2 text-sm">
-                        <span className="text-green-500 flex items-center">
-                           <HiArrowNarrowUp />
-                           {lastMonthUsers}
-                        </span>
-                        <div className="text-gray-500">{t("profile:last_month")}</div>
-                     </div>
-                  </div>
-                  <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 flex-1 min-w-[200px] rounded-md shadow-md border border-gray-700">
-                     <div className="flex justify-between">
-                        <div className="text-left">
-                           <h3 className="text-gray-500 text-md uppercase">
-                              {t("profile:total_comments")}
-                           </h3>
-                           <p className="text-2xl">{totalComments}</p>
+                        <div className="flex gap-2 text-sm">
+                           <span className="text-green-500 flex items-center">
+                              <HiArrowNarrowUp />
+                              {lastMonthUsers}
+                           </span>
+                           <div className="text-gray-500">{t("profile:last_month")}</div>
                         </div>
-                        <HiAnnotation className="bg-indigo-600 text-white rounded-full text-5xl p-3 shadow-lg" />
                      </div>
-                     <div className="flex gap-2 text-sm">
-                        <span className="text-green-500 flex items-center">
-                           <HiArrowNarrowUp />
-                           {lastMonthComments}
-                        </span>
-                        <div className="text-gray-500">{t("profile:last_month")}</div>
-                     </div>
-                  </div>
-                  <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 flex-1 min-w-[200px] rounded-md shadow-md border border-gray-700">
-                     <div className="flex justify-between">
-                        <div className="text-left">
-                           <h3 className="text-gray-500 text-md uppercase">
-                              {t("profile:total_posts")}
-                           </h3>
-                           <p className="text-2xl">{totalPosts}</p>
+                  </Link>
+                  <Link to={`${languagePrefix}/dashboard?tab=posts`} className="flex-1 min-w-[200px]">
+                     <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 rounded-md shadow-md border border-gray-700 hover:bg-teal-100 dark:hover:bg-green-700/30 transition-all">
+                        <div className="flex justify-between">
+                           <div className="text-left">
+                              <h3 className="text-gray-500 text-md uppercase">
+                                 {t("profile:total_posts")}
+                              </h3>
+                              <p className="text-2xl">{totalPosts}</p>
+                           </div>
+                           <HiDocumentText className="bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg" />
                         </div>
-                        <HiDocumentText className="bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+                        <div className="flex gap-2 text-sm">
+                           <span className="text-green-500 flex items-center">
+                              <HiArrowNarrowUp />
+                              {lastMonthPosts}
+                           </span>
+                           <div className="text-gray-500">{t("profile:last_month")}</div>
+                        </div>
                      </div>
-                     <div className="flex gap-2 text-sm">
-                        <span className="text-green-500 flex items-center">
-                           <HiArrowNarrowUp />
-                           {lastMonthPosts}
-                        </span>
-                        <div className="text-gray-500">{t("profile:last_month")}</div>
+                  </Link>
+                  <Link to={`${languagePrefix}/dashboard?tab=comments`} className="flex-1 min-w-[200px]">
+                     <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 rounded-md shadow-md border border-gray-700 hover:bg-teal-100 dark:hover:bg-purple-700/30 transition-all">
+                        <div className="flex justify-between">
+                           <div className="text-left">
+                              <h3 className="text-gray-500 text-md uppercase">
+                                 {t("profile:total_comments")}
+                              </h3>
+                              <p className="text-2xl">{totalComments}</p>
+                           </div>
+                           <HiAnnotation className="bg-indigo-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+                        </div>
+                        <div className="flex gap-2 text-sm">
+                           <span className="text-green-500 flex items-center">
+                              <HiArrowNarrowUp />
+                              {lastMonthComments}
+                           </span>
+                           <div className="text-gray-500">{t("profile:last_month")}</div>
+                        </div>
                      </div>
-                  </div>
+                  </Link>
                </div>
                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800 border border-gray-700">
@@ -184,14 +190,30 @@ export default function DashboardComponent() {
                            {users && users.map((user) => (
                               <Table.Body key={user._id} className="divide-y">
                                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700/60">
-                                    <Table.Cell>
+                                    <Table.Cell 
+                                       className="cursor-pointer"
+                                       onClick={(e) => {
+                                          if (!e.target.closest(".non-clickable")) {
+                                             window.location.href = `${languagePrefix}/user/${user.username}`;
+                                          }
+                                       }}
+                                    >
                                        <img
                                           src={user.profilePicture}
                                           alt="user"
                                           className="w-10 h-10 rounded-full bg-gray-500"
                                        />
                                     </Table.Cell>
-                                    <Table.Cell>{user.username}</Table.Cell>
+                                    <Table.Cell
+                                       className="cursor-pointer"
+                                       onClick={(e) => {
+                                          if (!e.target.closest(".non-clickable")) {
+                                             window.location.href = `${languagePrefix}/user/${user.username}`;
+                                          }
+                                       }}
+                                    >
+                                       {user.username}
+                                    </Table.Cell>
                                  </Table.Row>
                               </Table.Body>
                            ))}

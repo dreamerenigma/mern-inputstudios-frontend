@@ -3,12 +3,15 @@ import { useSelector } from "react-redux";
 import { Table } from "flowbite-react";
 import { useTranslation } from "react-i18next";
 import DeleteCommentModal from "./modals/DeleteCommentModal";
+import { FaCheck } from "react-icons/fa";
 
 export default function DashComments() {
    const { t } = useTranslation();
    const { currentUser } = useSelector((state) => state.user);
    const [comments, setComments] = useState([]);
    const [showMore, setShowMore] = useState(true);
+   const [isSelectionMode, setIsSelectionMode] = useState(false);
+   const [selectedComments, setSelectedComments] = useState([]);
    const [showDeleteCommentModal, setShowDeleteCommentModal] = useState(false);
    const [commentIdToDelete, setCommentIdToDelete] = useState("");
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
@@ -95,9 +98,46 @@ export default function DashComments() {
       }
    };
 
+   const handleLongPress = (commentId) => {
+      setIsSelectionMode(true);
+      setSelectedComments((prev) => [...prev, commentId]);
+   };
+
+   const toggleSelectAll = () => {
+      if (selectedComments.length === comments.length) {
+         setSelectedComments([]);
+      } else {
+         setSelectedComments(comments.map((comment) => comment._id));
+      }
+   };
+
+   const toggleSelectComment = (commentId) => {
+      setSelectedComments((prev) =>
+         prev.includes(commentId)
+            ? prev.filter((id) => id !== commentId)
+            : [...prev, commentId]
+      );
+   };
+
+   const [timer, setTimer] = useState(null);
+
+   const handlePointerDown = (commentId) => {
+      const newTimer = setTimeout(() => {
+         handleLongPress(commentId);
+      }, 500);
+      setTimer(newTimer);
+   };
+
+   const handlePointerUp = () => {
+      if (timer) {
+         clearTimeout(timer);
+         setTimer(null);
+      }
+   };
+
    return (
       <div
-         className={`table-auto md:mx-auto pt-3 px-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 overflow-x-auto ${
+         className={`min-h-screen w-full table-auto pt-3 px-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 overflow-x-auto ${
             !showMore ? 'mb-5' : ''
          }`}
       >
@@ -106,6 +146,16 @@ export default function DashComments() {
                <div className="border border-gray-700 rounded-lg overflow-x-auto">
                      <Table hoverable className="shadow-md">
                      <Table.Head>
+                        {isSelectionMode && (
+                           <Table.HeadCell>
+                              <input
+                                 type="checkbox"
+                                 className="appearance-none w-[18px] h-[18px] border border-white rounded-sm bg-white text-teal-500 checked:bg-teal-500 checked:border-teal-500 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 mr-4 cursor-pointer"
+                                 checked={selectedComments.length === comments.length}
+                                 onChange={toggleSelectAll}
+                              />
+                           </Table.HeadCell>
+                        )}
                         <Table.HeadCell>{t("comment_id")}</Table.HeadCell>
                         <Table.HeadCell>{t("date_updated")}</Table.HeadCell>
                         <Table.HeadCell>{t("comment_content")}</Table.HeadCell>
@@ -113,9 +163,31 @@ export default function DashComments() {
                         <Table.HeadCell>{t("user_id")}</Table.HeadCell>
                         <Table.HeadCell>{t("delete")}</Table.HeadCell>
                      </Table.Head>
-                     {comments.map((comment) => (
-                        <Table.Body className="divide-y" key={comment._id}>
-                           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80">
+                     {comments.map((comment, index) => (
+                        <Table.Body className={`divide-y ${index !== 0 ? 'border-t border-gray-700' : ''}`} key={comment._id}>
+                           <Table.Row 
+                              key={comment._id}
+                              onPointerDown={() => handlePointerDown(comment._id)}
+                              onPointerUp={handlePointerUp}
+                              onPointerLeave={handlePointerUp}
+                              className={`bg-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80 ${selectedComments.includes(comment._id) ? 'bg-teal-100 dark:bg-teal-800/20' : ''}`}
+                           >
+                              {isSelectionMode && (
+                                 <Table.Cell>
+                                    {selectedComments.includes(comment._id) ? (
+                                       <FaCheck
+                                          className="text-teal-500 cursor-pointer"
+                                          onClick={() => toggleSelectComment(comment._id)}
+                                       />
+                                    ) : (
+                                       <input
+                                          type="checkbox"
+                                          checked={selectedComments.includes(comment._id)}
+                                          onChange={() => toggleSelectComment(comment._id)}
+                                       />
+                                    )}
+                                 </Table.Cell>
+                              )}
                               <Table.Cell>{comment.postId}</Table.Cell>
                               <Table.Cell>
                                  {new Date(comment.updatedAt).toLocaleDateString()}

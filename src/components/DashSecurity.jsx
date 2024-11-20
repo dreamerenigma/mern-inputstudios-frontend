@@ -16,7 +16,7 @@ export default function DashSecurity() {
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
-const securityData = [
+   const securityData = [
       {
          id: 0,
          icon: <GoPasskeyFill  className="text-xl" />,

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Table} from "flowbite-react";
 import { useTranslation } from "react-i18next";
 import DeletePostModal from "./modals/DeletePostModal";
+import { FaCheck } from "react-icons/fa";
 
 export default function DashPosts() {
    const { t } = useTranslation();
@@ -11,6 +12,8 @@ export default function DashPosts() {
    const [userPosts, setUserPosts] = useState([]);
    const [showMore, setShowMore] = useState(true);
    const [showModal, setShowModal] = useState(false);
+   const [isSelectionMode, setIsSelectionMode] = useState(false);
+   const [selectedPosts, setSelectedPosts] = useState([]);
    const [postIdToDelete, setPostIdToDelete] = useState("");
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
@@ -88,9 +91,46 @@ export default function DashPosts() {
       }
    };
 
+   const handleLongPress = (postId) => {
+      setIsSelectionMode(true);
+      setSelectedPosts((prev) => [...prev, postId]);
+   };
+
+   const toggleSelectAll = () => {
+      if (selectedPosts.length === userPosts.length) {
+         setSelectedPosts([]);
+      } else {
+         setSelectedPosts(userPosts.map((post) => post._id));
+      }
+   };
+
+   const toggleSelectPost = (postId) => {
+      setSelectedPosts((prev) =>
+         prev.includes(postId)
+            ? prev.filter((id) => id !== postId)
+            : [...prev, postId]
+      );
+   };
+
+   const [timer, setTimer] = useState(null);
+
+   const handlePointerDown = (postId) => {
+      const newTimer = setTimeout(() => {
+         handleLongPress(postId);
+      }, 500);
+      setTimer(newTimer);
+   };
+
+   const handlePointerUp = () => {
+      if (timer) {
+         clearTimeout(timer);
+         setTimer(null);
+      }
+   };
+
    return (
       <div
-         className={`table-auto md:mx-auto pt-3 px-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 overflow-x-auto ${
+         className={`min-h-screen w-full table-auto pt-3 px-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 overflow-x-auto ${
             !showMore ? 'mb-5' : ''
          }`}
       >
@@ -99,6 +139,16 @@ export default function DashPosts() {
                <div className="border border-gray-700 rounded-lg overflow-x-auto">
                   <Table hoverable className="shadow-md">
                      <Table.Head>
+                        {isSelectionMode && (
+                           <Table.HeadCell>
+                              <input
+                                 type="checkbox"
+                                 className="appearance-none w-[18px] h-[18px] border border-white rounded-sm bg-white text-teal-500 checked:bg-teal-500 checked:border-teal-500 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 mr-4 cursor-pointer"
+                                 checked={selectedPosts.length === userPosts.length}
+                                 onChange={toggleSelectAll}
+                              />
+                           </Table.HeadCell>
+                        )}
                         <Table.HeadCell>{t("post_id")}</Table.HeadCell>
                         <Table.HeadCell>{t("date_updated")}</Table.HeadCell>
                         <Table.HeadCell>{t("post_image")}</Table.HeadCell>
@@ -109,9 +159,31 @@ export default function DashPosts() {
                            <span>{t("edit")}</span>
                         </Table.HeadCell>
                      </Table.Head>
-                     {userPosts.map((post) => (
-                        <Table.Body className="divide-y" key={post._id}>
-                           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80">
+                     {userPosts.map((post, index) => (
+                        <Table.Body className={`divide-y ${index !== 0 ? 'border-t border-gray-700' : ''}`} key={post._id}>
+                           <Table.Row 
+                              key={post._id}
+                              onPointerDown={() => handlePointerDown(post._id)}
+                              onPointerUp={handlePointerUp}
+                              onPointerLeave={handlePointerUp}
+                              className={`bg-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80 ${selectedPosts.includes(post._id) ? 'bg-teal-100 dark:bg-teal-800/20' : ''}`}
+                           >
+                              {isSelectionMode && (
+                                 <Table.Cell>
+                                    {selectedPosts.includes(post._id) ? (
+                                       <FaCheck
+                                          className="text-teal-500 cursor-pointer"
+                                          onClick={() => toggleSelectPost(post._id)}
+                                       />
+                                    ) : (
+                                       <input
+                                          type="checkbox"
+                                          checked={selectedPosts.includes(post._id)}
+                                          onChange={() => toggleSelectPost(post._id)}
+                                       />
+                                    )}
+                                 </Table.Cell>
+                              )}
                               <Table.Cell>{post._id}</Table.Cell>
                               <Table.Cell>
                                  {new Date(post.updatedAt).toLocaleDateString()}

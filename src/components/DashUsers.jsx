@@ -13,8 +13,12 @@ export default function DashUsers() {
    const [users, setUsers] = useState([]);
    const [showMore, setShowMore] = useState(true);
    const [showModal, setShowModal] = useState(false);
+   const [isSelectionMode, setIsSelectionMode] = useState(false);
+   const [selectedUsers, setSelectedUsers] = useState([]);
    const [userIdToDelete, setUserIdToDelete] = useState("");
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
    
    useEffect(() => {
       const fetchUsers = async () => {
@@ -85,9 +89,46 @@ export default function DashUsers() {
       }
    };
 
+   const handleLongPress = (userId) => {
+      setIsSelectionMode(true);
+      setSelectedUsers((prev) => [...prev, userId]);
+   };
+
+   const toggleSelectAll = () => {
+      if (selectedUsers.length === users.length) {
+         setSelectedUsers([]);
+      } else {
+         setSelectedUsers(users.map((user) => user._id));
+      }
+   };
+
+   const toggleSelectUser = (userId) => {
+      setSelectedUsers((prev) =>
+         prev.includes(userId)
+            ? prev.filter((id) => id !== userId)
+            : [...prev, userId]
+      );
+   };
+
+   const [timer, setTimer] = useState(null);
+
+   const handlePointerDown = (userId) => {
+      const newTimer = setTimeout(() => {
+         handleLongPress(userId);
+      }, 500);
+      setTimer(newTimer);
+   };
+
+   const handlePointerUp = () => {
+      if (timer) {
+         clearTimeout(timer);
+         setTimer(null);
+      }
+   };
+
    return (
       <div
-         className={`table-auto md:mx-auto pt-3 px-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 overflow-x-auto ${
+         className={`min-h-screen w-full table-auto pt-3 px-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 overflow-x-auto ${
             !showMore ? 'mb-5' : ''
          }`}
       >
@@ -96,6 +137,16 @@ export default function DashUsers() {
                <div className="border border-gray-700 rounded-lg overflow-x-auto">
                   <Table hoverable className="shadow-md">
                      <Table.Head>
+                        {isSelectionMode && (
+                           <Table.HeadCell>
+                              <input
+                                 type="checkbox"
+                                 className="appearance-none w-[18px] h-[18px] border border-white rounded-sm bg-white text-teal-500 checked:bg-teal-500 checked:border-teal-500 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 mr-4 cursor-pointer"
+                                 checked={selectedUsers.length === users.length}
+                                 onChange={toggleSelectAll}
+                              />
+                           </Table.HeadCell>
+                        )}
                         <Table.HeadCell>{t("user_id")}</Table.HeadCell>
                         <Table.HeadCell>{t("date_created")}</Table.HeadCell>
                         <Table.HeadCell>{t("user_image")}</Table.HeadCell>
@@ -104,21 +155,59 @@ export default function DashUsers() {
                         <Table.HeadCell>{t("admin")}</Table.HeadCell>
                         <Table.HeadCell>{t("delete")}</Table.HeadCell>
                      </Table.Head>
-                     {users.map((user) => (
-                        <Table.Body className="divide-y" key={user._id}>
-                           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80">
+                     {users.map((user, index) => (
+                        <Table.Body className={`divide-y ${index !== 0 ? 'border-t border-gray-700' : ''}`} key={user._id}>
+                           <Table.Row 
+                              key={user._id}
+                              onPointerDown={() => handlePointerDown(user._id)}
+                              onPointerUp={handlePointerUp}
+                              onPointerLeave={handlePointerUp}
+                              className={`bg-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80 ${selectedUsers.includes(user._id) ? 'bg-teal-100 dark:bg-teal-800/20' : ''}`}
+                           >
+                              {isSelectionMode && (
+                                 <Table.Cell>
+                                    {selectedUsers.includes(user._id) ? (
+                                       <FaCheck
+                                          className="text-teal-500 cursor-pointer"
+                                          onClick={() => toggleSelectUser(user._id)}
+                                       />
+                                    ) : (
+                                       <input
+                                          type="checkbox"
+                                          checked={selectedUsers.includes(user._id)}
+                                          onChange={() => toggleSelectUser(user._id)}
+                                       />
+                                    )}
+                                 </Table.Cell>
+                              )}
                               <Table.Cell>{user._id}</Table.Cell>
                               <Table.Cell>
                                  {new Date(user.createdAt).toLocaleDateString()}
                               </Table.Cell>
-                              <Table.Cell>
+                              <Table.Cell 
+                                 className="cursor-pointer"
+                                 onClick={(e) => {
+                                    if (!e.target.closest(".non-clickable")) {
+                                       window.location.href = `${languagePrefix}/user/${user.username}`;
+                                    }
+                                 }}
+                              >
                                  <img
                                     src={user.profilePicture}
                                     alt={user.username}
                                     className="w-10 h-10 object-cover bg-gray-500 rounded-full"
                                  />
                               </Table.Cell>
-                              <Table.Cell>{user.username}</Table.Cell>
+                              <Table.Cell 
+                                 className="cursor-pointer"
+                                 onClick={(e) => {
+                                    if (!e.target.closest(".non-clickable")) {
+                                       window.location.href = `${languagePrefix}/user/${user.username}`;
+                                    }
+                                 }}
+                              >
+                                 {user.username}
+                              </Table.Cell>
                               <Table.Cell>{user.email}</Table.Cell>
                               <Table.Cell>
                                  {user.isAdmin ? (
