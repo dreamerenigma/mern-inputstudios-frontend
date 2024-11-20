@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 export default function SignUp() {
    const { t } = useTranslation();
-   const [formData, setFormData] = useState({});
+   const [formData, setFormData] = useState({ password: '', confirmPassword: '' });
    const [errorMessage, setErrorMessage] = useState(null);
    const [loading, setLoading] = useState(false);
    const navigate = useNavigate();
@@ -23,8 +23,13 @@ export default function SignUp() {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
+
       if (!formData.username || !formData.email || !formData.password) {
          return setErrorMessage("Please fill out all fields.");
+      }
+
+      if (formData.password !== formData.confirmPassword) {
+         return setErrorMessage("Passwords do not match.");
       }
 
       const token = localStorage.getItem('token');
@@ -61,8 +66,8 @@ export default function SignUp() {
             <title>{t("sign_up_title")}</title>
          </Helmet>
          <div className="flex-grow flex justify-center items-center">
-            <div className="w-full p-6 max-w-3xl mx-auto flex flex-col md:flex-row md:items-center gap-5 bg-white dark:bg-gray-800 rounded-3xl shadow-lg border-dialog border-gray-700">
-               <div className="flex-1 text-center md:text-left mt-6">
+            <div className="mx-4 w-full p-6 max-w-full md:max-w-3xl flex flex-col md:flex-row items-center gap-5 bg-white dark:bg-gray-800 rounded-3xl shadow-lg border-dialog border-gray-700">
+               <div className="flex-1 text-center text-center-md text-left-lg mt-4">
                   <Link to="/" className="font-bold dark:text-white text-4xl">
                      <span className="px-2 py-1 bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 rounded-lg text-white">
                         Input Studios
@@ -72,7 +77,7 @@ export default function SignUp() {
                      {t("sign_up_account")}
                   </p>
                </div>
-               <div className="flex-1">
+               <div className="flex-1 w-full">
                   <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                      <div>
                         <Label value={t("your_username")} />
@@ -99,7 +104,18 @@ export default function SignUp() {
                            type="password"
                            placeholder="**********"
                            id="password"
-                           value={formData.password || ""}
+                           value={formData.password}
+                           onChange={handleChange}
+                        />
+                     </div>
+                     <div>
+                        <Label value={t("enter_your_password_again")} />
+                        <PasswordTextInput
+                           isPassword={true}
+                           type="password"
+                           placeholder="**********"
+                           id="confirmPassword"
+                           value={formData.confirmPassword}
                            onChange={handleChange}
                         />
                      </div>
@@ -129,10 +145,10 @@ export default function SignUp() {
                </div>
             </div>
          </div>
-         <div className="mt-4 w-full flex justify-end px-4 text-sm">
-            <div className="flex space-x-4">
+         <div className="mt-4 w-full flex justify-end px-4 pb-2 text-sm">
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
                <Link to={`${languagePrefix}/terms-of-use`} className="underline text-teal-500 hover:text-teal-700">Условия использования</Link>
-               <Link to={`${languagePrefix}/privacy`} className="underline text-teal-500 hover:text-teal-700">Конфиденциальность и cookie</Link>
+               <Link to={`${languagePrefix}/privacy`} className="underline text-teal-500 hover:text-teal-70">Конфиденциальность и cookie</Link>
                <Link to={`${languagePrefix}/help`} className="underline text-teal-500 hover:text-teal-700">Справка</Link>
             </div>
          </div>

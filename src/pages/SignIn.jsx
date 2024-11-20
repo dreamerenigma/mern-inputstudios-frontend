@@ -7,12 +7,16 @@ import OAuth from "../components/OAuth";
 import PasswordTextInput from "./../components/textinputs/PasswordTextInput";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
+import { FaSquareGithub } from "react-icons/fa6";
+import { IMVk } from '@icongo/im';
+import { FaYandex } from "react-icons/fa";
 
 export default function SignIn() {
    const { t } = useTranslation();
    const [formData, setFormData] = useState({});
    const { loading, error: errorMessage } = useSelector(state => state.user);
    const dispatch = useDispatch();
+   const [isHovered, setIsHovered] = useState(false);
    const navigate = useNavigate();
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
@@ -53,8 +57,8 @@ export default function SignIn() {
             <title>{t("sign_in_title")}</title>
          </Helmet>
          <div className="flex-grow flex justify-center items-center">
-            <div className="w-full p-6 max-w-3xl mx-auto flex flex-col md:flex-row md:items-center gap-5 bg-white dark:bg-gray-800 rounded-3xl shadow-lg border-dialog border-gray-700">
-               <div className="flex-1 text-center md:text-left mt-4">
+            <div className="mx-4 w-full p-6 max-w-full md:max-w-3xl flex flex-col md:flex-row items-center gap-5 bg-white dark:bg-gray-800 rounded-3xl shadow-lg border-dialog border-gray-700">
+               <div className="flex-1 text-center text-center-md text-left-lg mt-4">
                   <Link to="/" className="font-bold dark:text-white text-4xl">
                      <span className="px-2 py-1 bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 rounded-lg text-white">
                         Input Studios
@@ -64,7 +68,7 @@ export default function SignIn() {
                      {t("sign_in_account")}
                   </p>
                </div>
-               <div className="flex-1">
+               <div className="flex-1 w-full">
                   <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                      <div>
                         <Label value={t("your_email")} />
@@ -102,6 +106,30 @@ export default function SignIn() {
                         )}
                      </Button>
                      <OAuth />
+                     <div>
+                        <p className="text-base">Или войдите с помощью других сервисов</p>
+                        <div className="flex gap-2 mt-2">
+                           <FaSquareGithub 
+                              className="text-5xl text-gray-600 hover:text-black transition-colors duration-300 ease-in-out" 
+                           />
+                           <IMVk
+                              style={{
+                                 borderRadius: '6px',
+                                 fill: isHovered ? '#3b82f6' : '#4b5563',
+                                 fontSize: '42px',
+                                 marginTop: '3px',
+                                 transition: 'fill 0.3s ease',
+                              }}
+                              onMouseEnter={() => setIsHovered(true)}
+                              onMouseLeave={() => setIsHovered(false)}
+                           />
+                           <div 
+                              className="bg-gray-600 hover:bg-red-600 w-[42px] h-[42px] mt-[3px] rounded-md inline-flex items-center justify-center  transition-colors duration-300 ease-in-out"
+                           >
+                              <FaYandex className="text-2xl text-gray-800" />
+                           </div>
+                        </div>
+                     </div>
                   </form>
                   <div className="flex gap-2 text-sm mt-5">
                      <span>{t("dont_have_an_account")}</span>
@@ -117,10 +145,10 @@ export default function SignIn() {
                </div>
             </div>
          </div>
-         <div className="mt-4 w-full flex justify-end px-4 text-sm">
-            <div className="flex space-x-4">
+         <div className="mt-4 w-full flex justify-end px-4 pb-2 text-sm">
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
                <Link to={`${languagePrefix}/terms-of-use`} className="underline text-teal-500 hover:text-teal-700">Условия использования</Link>
-               <Link to={`${languagePrefix}/privacy`} className="underline text-teal-500 hover:text-teal-700">Конфиденциальность и cookie</Link>
+               <Link to={`${languagePrefix}/privacy`} className="underline text-teal-500 hover:text-teal-70">Конфиденциальность и cookie</Link>
                <Link to={`${languagePrefix}/help`} className="underline text-teal-500 hover:text-teal-700">Справка</Link>
             </div>
          </div>

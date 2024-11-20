@@ -132,8 +132,8 @@ input::placeholder {
 }
 
 .custom-dropdown {
-   border: 1px solid #4B5563 !important; /* Пример обводки серым */
-   border-radius: 0.5rem; /* Закругление углов */
-   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
-   background-color: #ffffff; /* Белый фон */
+   border: 1px solid #4B5563 !important;
+   border-radius: 0.5rem;
+   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+   background-color: #ffffff;
 }

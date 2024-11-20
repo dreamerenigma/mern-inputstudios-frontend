@@ -32,4 +32,7 @@ export default defineConfig({
       },
     },
   },
+  optimizeDeps: {
+    include: ['@icongo/im'],
+  },
 });
