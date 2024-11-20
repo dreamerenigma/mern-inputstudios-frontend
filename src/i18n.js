@@ -70,7 +70,7 @@ i18n
       lng: 'ru',
       fallbackLng: 'en',
       resources,
-      debug: true,
+      debug: false,
       detection: {
          order: ['queryString', 'cookie'],
          cache: ['cookie'],
