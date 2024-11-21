@@ -175,10 +175,13 @@ export default function UpdatePost() {
                   <option value="uncategorized">{t("posts:select_category")}</option>
                   <option value="android">AI</option>
                   <option value="android">Android</option>
+                  <option value="cosmos">Cosmos</option>
                   <option value="database">Database</option>
+                  <option value="gamedev">Game Development</option>
                   <option value="javascript">JavaScript</option>
                   <option value="reactjs">React.js</option>
                   <option value="nextjs">Next.js</option>
+                  <option value="science">Science</option>
                   <option value="unrealengine">Unreal Engine</option>
                </select>
             </div>
