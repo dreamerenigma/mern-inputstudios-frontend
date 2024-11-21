@@ -12,6 +12,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { FaSearch } from 'react-icons/fa';
 import { PiArrowSquareOutLight } from "react-icons/pi";
 import { Helmet } from "react-helmet";
+import { IoMdCreate } from "react-icons/io";
 
 export default function ProfileHeader() {
    const { t } = useTranslation();
@@ -28,6 +29,7 @@ export default function ProfileHeader() {
    const [searchVisible, setSearchVisible] = useState(false);
    const [isHelpful, setIsHelpful] = useState(false);
    const [feedbackText, setFeedbackText] = useState("");
+   const [showFeedback, setShowFeedback] = useState(true);
    const [inputValue, setInputValue] = useState('');
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
@@ -97,6 +99,11 @@ export default function ProfileHeader() {
       setInputValue('');
    };
 
+   const handleNoThanksClick = (event) => {
+      event.stopPropagation();
+      setShowFeedback(false);
+   };
+
    useEffect(() => {
       document.addEventListener("click", handleClickOutside);
       return () => {
@@ -110,40 +117,52 @@ export default function ProfileHeader() {
          element.classList.remove('container');
       }
    }, []);
-
+   
+   useEffect(() => {
+      if (!showFeedback) {
+         setIsHelpful(null);
+         setFeedbackText('');
+      }
+   }, [showFeedback]);
+   
    return (
       <div>
          <Helmet>
             <title>{t("title_account")}</title>
          </Helmet>
-         <div className="fixed top-0 left-0 right-0 z-10 shadow-lg bg-white dark:bg-gray-800">
+         <div className="fixed top-0 left-0 right-0 z-10 shadow-lg bg-white dark:bg-gray-800 ">
             <div className="flex items-center justify-between ">
                <div className="flex items-center">
                   <div 
-                     className="flex items-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 custom-header-padding rounded  menu-icon cursor-pointer" 
+                     className="flex items-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 custom-header-padding rounded menu-icon cursor-pointer" 
                      onClick={handleMenuIconClick}
                   >
-                     <CgMenuGridR className="text-lg sm:text-3xl menu-icon cursor-pointer"/>
+                     <CgMenuGridR className="text-3xl menu-icon cursor-pointer"/>
                   </div>
                   <Link
                      to={`${languagePrefix}/dashboard?tab=account`}
-                     className="flex items-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 p-3.5 ml-2 rounded cursor-pointer"
+                     className="flex items-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 px-0 sm:p-3.5 ml-2 rounded cursor-pointer"
                   >
-                     <span className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white">
-                        {t("account")}
+                     <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+                        <span className="hidden sm:inline">{t("account")}</span>
+                        <span className="inline sm:hidden">Учетная запись</span>
                      </span>
                   </Link>
                </div>
                {(currentUser.isAdmin && isPostsTab) || !currentUser.isAdmin ? (
-                  <div className="flex justify-end w-full mr-4">
+                  <div className="flex justify-end w-full ml-4 mr-0 md:mr-4">
                      <Link to={`${languagePrefix}/create-post`}>
-                        <Button
+                        <button
                            type="button"
-                           gradientDuoTone="purpleToPink"
-                           className="w-full md:w-[130px] max-w-lg"
+                           className="w-full md:w-[120px] max-w-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l text-white p-[6px] rounded-lg"
                         >
-                           {t("profile:create_post")}
-                        </Button>
+                           <span className="sm:hidden">
+                              <IoMdCreate size={24} />
+                           </span>
+                           <span className="hidden sm:inline font-semibold">
+                              {t("profile:create_post")}
+                           </span>
+                        </button>
                      </Link>
                   </div>
                ) : null}
@@ -152,7 +171,7 @@ export default function ProfileHeader() {
                      <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-4 mr-2 rounded cursor-pointer" onClick={handleQuestionIconClick}>
                         <AiOutlineQuestion className="text-lg sm:text-2xl cursor-pointer question-icon" />
                      </div>
-                     <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-2 rounded cursor-pointer">
+                     <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-2 rounded">
                         <Dropdown
                            arrowIcon={false}
                            inline
@@ -211,16 +230,23 @@ export default function ProfileHeader() {
                               </>
                            )}
                            <Link to={`${languagePrefix}/dashboard?tab=profile`}>
-                              <Dropdown.Item className={`py-3 rounded-b-lg ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>
+                              <Dropdown.Item className={`py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>
                                  <img src="/images/header/profile.svg" alt="Profile" className="w-6 h-6 mr-3" />
                                  {t("headers:header_profile")}
                               </Dropdown.Item>
                            </Link>
                            <Dropdown.Divider className="m-0 p-0" />
                            <Link to={`${languagePrefix}/settings`}>
-                              <Dropdown.Item className={`flex items-center py-3 rounded-b-lg ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>
+                              <Dropdown.Item className={`flex items-center py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>
                                  <img src="/images/header/settings.svg" alt="Settings" className="w-6 h-6 mr-3" />
                                  {t("headers:header_settings")}
+                              </Dropdown.Item>
+                           </Link>
+                           <Dropdown.Divider className="m-0 p-0" />
+                           <Link to={`${languagePrefix}/`}>
+                              <Dropdown.Item className={`flex items-center py-3 rounded-b-lg ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>
+                                 <img src="/images/header/home.svg" alt="Settings" className="w-6 h-6 mr-3" />
+                                 {t("headers:header_profile_home")}
                               </Dropdown.Item>
                            </Link>
                         </Dropdown>
@@ -247,7 +273,7 @@ export default function ProfileHeader() {
                <div className="flex items-center p-4">
                   <IoArrowBack className="mr-2 text-2xl text-teal-500" onClick={clearInput} />
                   <IoHomeOutline className="mr-2 text-2xl text-teal-500" onClick={clearInput} />
-                  <div className="flex items-center w-full bg-gray-200 dark:bg-gray-600 rounded">
+                  <div className="flex items-center w-full bg-gray-200 dark:bg-gray-700 rounded">
                      <FaSearch className="ml-3 text-gray-400" />
                      <input 
                         type="text" 
@@ -258,7 +284,7 @@ export default function ProfileHeader() {
                      />
                   </div>
                </div>
-               <div className="bg-gray-200 dark:bg-gray-600 p-4 min-h-screen">
+               <div className="bg-gray-200 dark:bg-gray-700 p-4 min-h-screen">
                   <span className="font-semibold">{t("feature_help")}</span>
                   <div className="my-4 max-w-xs">
                      <p>{t("select_category_popular_topics")}</p>
@@ -276,34 +302,36 @@ export default function ProfileHeader() {
                      <PiArrowSquareOutLight className="ml-2 text-teal-500" />
                   </Link>
                   <div>
-                     {!isHelpful ? (
+                     {showFeedback ? (
                         <>
-                           <p>{t("was_this_helpful")}</p>
-                           <div className="flex mt-2">
-                              <button
-                                 className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md mr-2 text-black"
-                                 onClick={() => handleFeedbackClick(true, event)}
-                              >
-                                 {t("yes")}
-                              </button>
-                              <button 
-                                 className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md text-black"
-                                 onClick={() => handleFeedbackClick(true, event)}
-                              >
-                                 {t("no")}
-                              </button>
-                           </div>
-                        </>
-                        ) : (
-                        <>
-                           <p>{t("great_any_other_feedback")}</p>
-                           <textarea
-                              className="w-full h-32 mt-2 p-2 border rounded text-black bg-gray-100 dark:bg-gray-400 focus:outline-none focus:border-teal-500"
-                              style={{ resize: 'vertical', minHeight: '80px' }}
-                              placeholder={t("type_feedback")}
-                              value={feedbackText}
-                              onChange={(e) => setFeedbackText(e.target.value)}
-                           />
+                           {!isHelpful ? (
+                              <>
+                                 <p>{t("was_this_helpful")}</p>
+                                 <div className="flex mt-2">
+                                    <button
+                                       className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md mr-2 text-black"
+                                       onClick={(event) => handleFeedbackClick(true, event)}
+                                    >
+                                       {t("yes")}
+                                    </button>
+                                    <button
+                                       className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md text-black"
+                                       onClick={(event) => handleFeedbackClick(false, event)}
+                                    >
+                                       {t("no")}
+                                    </button>
+                                 </div>
+                              </>
+                           ) : (
+                              <>
+                              <p>{t("great_any_other_feedback")}</p>
+                              <textarea
+                                 className="w-full h-32 mt-2 p-2 border rounded text-black bg-gray-100 dark:bg-gray-400 focus:outline-none focus:border-teal-500"
+                                 style={{ resize: 'vertical', minHeight: '80px' }}
+                                 placeholder={t("type_feedback")}
+                                 value={feedbackText}
+                                 onChange={(e) => setFeedbackText(e.target.value)}
+                              />
                               <p className="mt-1 max-w-xs">
                                  {t("protect_privacy")}{" "}
                                  <a href="/privacy-policy" className="text-teal-500 hover:underline">
@@ -317,10 +345,19 @@ export default function ProfileHeader() {
                                  >
                                     {t("send")}
                                  </button>
-                              <button className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md text-black">
-                                 {t("no_thanks")}
-                              </button>
-                           </div>
+                                 <button
+                                    className="bg-white hover:bg-gray-200 px-8 h-8 rounded shadow-md text-black"
+                                    onClick={handleNoThanksClick}
+                                 >
+                                    {t("no_thanks")}
+                                 </button>
+                              </div>
+                              </>
+                           )}
+                        </>
+                     ) : (
+                        <>
+                           <p>{t("thank_you_for_your_feedback")}</p>
                         </>
                      )}
                   </div>
@@ -354,7 +391,6 @@ export default function ProfileHeader() {
                </div>
             </div>
          )}
-         <div className="pt-16"></div>
       </div>
    );
 }
