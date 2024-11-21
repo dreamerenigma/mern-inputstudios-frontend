@@ -8,14 +8,13 @@ import 'react-circular-progressbar/dist/styles.css';
 import { updateStart,  updateSuccess, updateFailure } from "../redux/user/userSlice";
 import { Link } from 'react-router-dom';
 import { IoCameraOutline } from 'react-icons/io5';
-import ReCAPTCHA from 'react-google-recaptcha';
 import ProfileInfo from './ProfileInfo'
 import AccountInfo from './AccountInfo'
 import { useTranslation } from "react-i18next";
-import { RiCloseLine } from "react-icons/ri";
 import ProfileServices from "./ProfileServices";
 import ReactDOM from 'react-dom';
 import Tooltip from "./tooltips/Tooltip";
+import EditNameModal from "./modals/ChangeNameModal";
 
 export default function DashProfile() {
    const { t } = useTranslation();
@@ -211,7 +210,7 @@ export default function DashProfile() {
                   hidden
                />
                <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center"> 
-                  <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 border border-gray-700">
+                  <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
                      <div className="flex custom-flex-500 items-start">
                         <div
                            className="p-4 relative w-40 h-50 cursor-pointer overflow-hidden rounded-full"
@@ -253,7 +252,7 @@ export default function DashProfile() {
                               />
                            </div>
                         </div>
-                        <div className="ml-5 flex flex-col p-4 max-w-[300px]">
+                        <div className="flex flex-col p-4 max-w-[300px]">
                            <span className="text-base">
                               {t("profile:your_account_with_photo")}
                            </span>
@@ -266,9 +265,9 @@ export default function DashProfile() {
                         </div>
                      </div>
                      <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
-                     <div className="flex flex-row items-center justify-between">
-                        <p className="text-left px-4 mb-4 mr-4">{t("profile:full_name")}</p>
-                        <p className="text-left mb-4 mr-64">{currentUser.username}</p>
+                     <div className="flex px-4 flex-row items-center justify-between">
+                        <p className="text-left mb-4 mr-4">{t("profile:full_name")}</p>
+                        <p className="text-left mb-4 margin-left-812 ml-12 mr-64">{currentUser.username}</p>
                            <>
                            <p
                               className="text-right mb-4 mr-4 text-teal-500 hover:text-teal-700 cursor-pointer"
@@ -277,91 +276,17 @@ export default function DashProfile() {
                               {t("profile:edit_name")}
                            </p>
                            {showModalEditName && (
-                              <div 
-                                 className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-                                 onClick={(e) => {
-                                    if (e.target === e.currentTarget) {
-                                       handleShowModal(false);
-                                    }
-                                 }}
-                              >
-                                 <div className="bg-white dark:bg-gray-800 border border-gray-700 rounded-lg w-full md:w-[450px] p-6 relative">
-                                    <button
-                                       className="absolute text-3xl top-4 right-4 text-gray-600 dark:text-gray-200 hover:translate-y-[-4px] transition-all"
-                                       onClick={() => handleShowModal(false)}
-                                    >
-                                       <RiCloseLine size={24} className="rounded-md hover:translate-y-[-3px] transition-transform duration-200 hover:bg-gray-600"/>
-                                    </button>
-                                    <p className="absolute ml-6 mt-4 top-0 left-0 text-xl font-bold text-gray-700 dark:text-gray-200">
-                                       {t("profile:edit_name")}
-                                    </p>
-                                    <div className="text-left mb-5 mt-12">
-                                       <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">
-                                          {t("profile:first_name")}
-                                       </p>
-                                       <input
-                                          type="text"
-                                          placeholder={t("profile:first_name")}
-                                          className="border border-gray-600 rounded-md p-2 w-full mt-1 bg-white dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-teal-500"
-                                          autoComplete="off"
-                                          value={formData.firstName || ''}
-                                          onChange={handleFirstNameChange}
-                                       />
-                                    </div>
-                                    <div className="text-left mb-5 mt-8">
-                                       <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">
-                                          {t("profile:last_name")}
-                                       </p>
-                                       <input
-                                          type="text"
-                                          placeholder={t("profile:last_name")}
-                                          className="border border-gray-600 rounded-md p-2 w-full mt-1 bg-white dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-teal-500"
-                                          autoComplete="off"
-                                          value={formData.lastName || ''}
-                                          onChange={handleLastNameChange}
-                                       />
-                                    </div>
-                                    <div className="text-left mb-5 mt-6">
-                                       <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">
-                                          {t("profile:captcha")}
-                                       </p>
-                                       <div className="mt-4">
-                                          <ReCAPTCHA
-                                             sitekey="6Lcn5uYpAAAAAM2rTG-jWtWRMeDoh6GT4xFcY0cS"
-                                             onChange={handleCaptchaChange}
-                                          />
-                                       </div>
-                                       {captchaValue && <p>{t("profile:captcha")}</p>}
-                                       <input
-                                          type="text"
-                                          placeholder={t("profile:enter_characters_you_see")}
-                                          className="border border-gray-600 rounded-md p-2 w-full mt-1 bg-white dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-teal-500"
-                                          autoComplete="off"
-                                       />
-                                    </div>
-                                    <div className="text-center">
-                                       <div className="flex justify-end gap-4">
-                                          <button
-                                             className={`px-4 py-2 rounded-md border ${
-                                                hasChanges
-                                                   ? 'bg-transparent text-white hover:bg-gray-700 cursor-pointer border-gray-600'
-                                                   : 'bg-transparent text-gray-600 border-gray-600'
-                                             }`}
-                                             onClick={() => handleShowModal(false)}
-                                             disabled={!hasChanges}
-                                          >
-                                             {t("profile:save")}
-                                          </button>
-                                          <button
-                                             onClick={() => handleShowModal(false)}
-                                             className="border border-gray-600 bg-transparent text-white py-2 px-4 rounded-md hover:bg-gray-700"
-                                          >
-                                             {t("profile:cancel")}
-                                          </button>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
+                              <EditNameModal
+                                 showModal={showModalEditName}
+                                 handleShowModal={handleShowModal} 
+                                 t={t}
+                                 formData={formData}
+                                 handleFirstNameChange={handleFirstNameChange}
+                                 handleLastNameChange={handleLastNameChange}
+                                 handleCaptchaChange={handleCaptchaChange}
+                                 captchaValue={captchaValue}
+                                 hasChanges={hasChanges}
+                              />
                            )}
                         </>
                      </div>
