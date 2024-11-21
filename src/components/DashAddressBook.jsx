@@ -7,7 +7,8 @@ import AddAddressDialog from "./dialogs/AddAddressDialog";
 
 export default function DashAddressBook() {
    const [isSelectEmailDialogOpen, setIsSelectEmailDialogOpen] = useState(false);
-   const [isAddAddressDialogOpen, setIsAddAddressDialogOpen] = useState(false);
+   const [isDialogOpen, setDialogOpen] = useState(false);
+   const [dialogType, setDialogType] = useState('');
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
@@ -19,24 +20,26 @@ export default function DashAddressBook() {
       setIsSelectEmailDialogOpen(false);
    };
 
-   const handleOpenAddAddressDialog = () => {
-      setIsAddAddressDialogOpen(true);
+   const handleOpenAddAddressDialog = (type) => {
+      setDialogType(type);
+      setDialogOpen(true);
    };
 
-   const handleCloseAddAddressDialog = () => {
-      setIsAddAddressDialogOpen(false);
+   const handleCloseDialog = () => {
+      setDialogOpen(false);
+      setDialogType('');
    };
 
    const handleSaveAddress = () => {
       console.log("Адрес сохранен");
-      handleCloseAddAddressDialog();
+      handleCloseDialog();
    };
 
    return (
       <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)]">
          <div className="overview flex flex-col max-w-5xl w-full h-auto mt-8 mx-auto">
             <div className="flex justify-between items-center mb-7">
-               <h1 className="font-semibold text-2xl">Адресная книга</h1>
+               <h1 className="font-semibold text-3xl">Адресная книга</h1>
             </div>
             <div className="flex space-x-6">
                <div className="w-1/2">
@@ -73,7 +76,12 @@ export default function DashAddressBook() {
                      </div>
                      <div className="mt-6 border-t border-gray-700"></div>
                      <div className="flex justify-between px-6 py-4">
-                        <div className="text-sm text-teal-500 hover:underline cursor-pointer w-[200px]">Изменить адрес выставления счетов</div>
+                        <p 
+                           className="text-sm text-teal-500 hover:underline cursor-pointer w-[200px]"
+                           onClick={() => handleOpenAddAddressDialog('edit')}
+                        >
+                           Изменить адрес выставления счетов
+                        </p>
                         <Link to={`${languagePrefix}/dashboard?tab=profile`} className="text-sm text-teal-500 hover:underline cursor-pointer w-[200px]">Управление адресами электронной почты</Link>
                      </div>
                   </div>
@@ -109,13 +117,15 @@ export default function DashAddressBook() {
                <h1 className="font-semibold text-xl">Все адреса</h1>
                <div className="flex items-center text-teal-500">
                   <HiPlus size={22} />
-                  <p className="text-xl ml-2 hover:underline cursor-pointer" onClick={handleOpenAddAddressDialog}>
+                  <p className="text-xl ml-2 hover:underline cursor-pointer" onClick={() => handleOpenAddAddressDialog('add')}>
                      Добавить новый адрес
                   </p>
                </div>
                <AddAddressDialog
-                  isOpen={isAddAddressDialogOpen}
-                  onClose={handleCloseAddAddressDialog}
+                  dialogType={dialogType}
+                  setDialogType={setDialogType}
+                  isOpen={isDialogOpen}
+                  onClose={handleCloseDialog}
                   onSave={handleSaveAddress}
                />
             </div>
