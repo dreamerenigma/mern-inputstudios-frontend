@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { BiMessageRoundedDetail } from 'react-icons/bi';
 import { IoIosStarOutline, IoMdClose } from 'react-icons/io';
 import { MdOutlineStarPurple500 } from 'react-icons/md';
@@ -9,6 +9,7 @@ import { RiCloseLine } from 'react-icons/ri';
 
 export default function FeedbackButton() {
    const { t } = useTranslation();
+   const modalRef = useRef(null);
    const [showButton, setShowButton] = useState(true);
    const [lastScrollY, setLastScrollY] = useState(0);
    const location = useLocation();
@@ -21,6 +22,24 @@ export default function FeedbackButton() {
    const [file, setFile] = useState(null);
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
+   const handleClickOutside = useCallback((event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+         handleCloseModal();
+      }
+   }, []);
+
+   useEffect(() => {
+      if (showModal) {
+         document.addEventListener("mousedown", handleClickOutside);
+      } else {
+         document.removeEventListener("mousedown", handleClickOutside);
+      }
+
+      return () => {
+         document.removeEventListener("mousedown", handleClickOutside);
+      };
+   }, [showModal, handleClickOutside]);
 
    const handleScroll = useCallback(() => {
       if (window.scrollY < lastScrollY) {
@@ -117,8 +136,11 @@ export default function FeedbackButton() {
             </button>
          )}
          {showModal && (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-               <div className="bg-white dark:bg-gray-800 border border-gray-700 rounded-lg py-2 w-full max-w-xl mx-auto relative">
+            <div className="px-4 fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+               <div 
+                  ref={modalRef}
+                  className="bg-white dark:bg-gray-800 border border-gray-700 rounded-lg py-2 w-full max-w-xl mx-auto relative"
+               >
                   <div className="flex justify-between items-center mb-4">
                   <p className="px-6 text-xl font-bold text-gray-700 dark:text-gray-200">Отправить отзыв в Input Studios</p>
                      <button onClick={handleCloseModal} className="p-4">
@@ -160,7 +182,7 @@ export default function FeedbackButton() {
                         maxLength={maxLength}
                         value={text}
                         onChange={handleChange}
-                        className="w-full h-32 p-2 border border-gray-600 rounded mt-2 bg-white dark:bg-gray-700 resize-none focus:outline-none focus:ring-0 focus:border-teal-500"
+                        className="w-full h-32 p-2 border border-gray-600 rounded mt-2 bg-white dark:bg-gray-700 resize-none focus:outline-none focus:ring-0 focus:border-teal-500 custom-scrollbar"
                      />
                      <div className="flex justify-between items-center">
                         <p className="text-gray-500 text-xs">
