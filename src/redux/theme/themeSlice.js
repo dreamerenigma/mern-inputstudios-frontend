@@ -1,19 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const getSystemTheme = () => {
+   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+};
+
 const initialState = {
-   theme: "light",
+   theme: "system",
 };
 
 const themeSlice = createSlice({
    name: "theme",
    initialState,
    reducers: {
-      toggleTheme: (state) => {
-         state.theme = state.theme === "light" ? "dark" : "light";
+      setTheme: (state, action) => {
+         state.theme = action.payload;
       },
-   }
+      toggleTheme: (state) => {
+         if (state.theme !== "system") {
+            state.theme = state.theme === "light" ? "dark" : "light";
+         }
+      },
+      syncSystemTheme: (state) => {
+         if (state.theme === "system") {
+            state.theme = getSystemTheme();
+         }
+      },
+   },
 });
 
-export const { toggleTheme } = themeSlice.actions;
+export const { setTheme, toggleTheme, syncSystemTheme } = themeSlice.actions;
 
 export default themeSlice.reducer;

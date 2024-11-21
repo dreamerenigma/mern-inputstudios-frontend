@@ -1,5 +1,11 @@
 {
   "sure_want_delete_comment": "Вы уверены, что хотите удалить этот комментарий?",
   "yes_im_sure": "Да, я уверен.",
-  "no_cancel": "Нет, отменить"
+  "no_cancel": "Нет, отменить",
+  "choose_theme": "Выберите тему",
+  "system_theme": "Системная",
+  "light_theme": "Светлая",
+  "dark_theme": "Темная",
+  "apply": "Применить",
+  "cancel": "Отмена"
 }

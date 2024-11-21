@@ -13,6 +13,7 @@ import DashSecurity from '../components/DashSecurity';
 import DashAddressBook from '../components/DashAddressBook';
 import DashPrivacyAdSettings from '../components/DashPrivacyAdSettings';
 import DashManagingCommunicationPermissions from '../components/DashManagingCommunicationPermissions';
+import DashSettings from '../components/DashSettings';
 
 export default function Dashboard() {
    const location = useLocation();
@@ -33,7 +34,7 @@ export default function Dashboard() {
    }, [tab]);
 
    return (
-      <div className="min-h-screen flex flex-col md:flex-row">
+      <div className="min-h-screen flex flex-col md:flex-row mt-[50px]">
          <div className="md:w-64">
             {/* Sidebar */}
             <SidebarProfile />
@@ -60,6 +61,8 @@ export default function Dashboard() {
          {tab === "addresses" && <DashAddressBook />}
          {/* Dashboard Component */}
          {tab === "dash" && <DashboardComponent />}
+         {/* Settings App */}
+         {tab === "settings" && <DashSettings />}
       </div>
    );
 }

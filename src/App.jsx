@@ -60,7 +60,6 @@ function Layout() {
    const profileFooterPaths = languages.flatMap(lang => [
       `/${lang}/dashboard`,
       `/${lang}/profile`,
-      `/${lang}/settings`,
       `/${lang}/privacy/privacystatement`,
       `/${lang}/names/manage`
    ]);
@@ -122,6 +121,26 @@ export default function App() {
       { code: 'en', name: 'English' },
       { code: 'ru', name: 'Russian' },
    ];
+
+   const theme = useSelector((state) => state.theme.theme);
+
+   useEffect(() => {
+      const html = document.documentElement;
+
+      if (theme === "dark") {
+         html.classList.add("dark");
+         html.classList.remove("light");
+      } else if (theme === "light") {
+         html.classList.add("light");
+         html.classList.remove("dark");
+      } else {
+         const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+         html.classList.add(systemTheme);
+         html.classList.remove(systemTheme === "dark" ? "light" : "dark");
+      }
+   }, [theme]);
 
    return (
       <BrowserRouter>

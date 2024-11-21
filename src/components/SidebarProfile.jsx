@@ -20,7 +20,7 @@ import {
    HiOutlineChartPie,
    HiOutlineHome,
 } from 'react-icons/hi';
-import { IoExit, IoExitOutline, IoLocationOutline, IoLocationSharp } from "react-icons/io5";
+import { IoExit, IoExitOutline, IoLocationOutline, IoLocationSharp, IoSettingsSharp, IoSettingsOutline } from "react-icons/io5";
 import { AiOutlineClose } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -81,7 +81,7 @@ export default function SidebarProfile() {
    };
 
    return ( 
-      <div className="flex flex-col h-full md:w-64 pt-4">
+      <div className="flex flex-col h-full md:w-64">
          <div 
             className={`flex items-center justify-center xl:hidden max-w-max`}
          >
@@ -95,7 +95,7 @@ export default function SidebarProfile() {
             </button>
          </div>
          <div 
-            className={`h-full overflow-y-auto overflow-x-hidden pl-3 py-4 rounded bg-gray-100 dark:bg-[rgb(16,23,42)] flex flex-col justify-between transition-all duration-300
+            className={`h-full overflow-y-auto overflow-x-hidden pl-3 py-8 rounded bg-gray-100 dark:bg-[rgb(16,23,42)] flex flex-col justify-between transition-all duration-300
             ${isMenuOpen ? 'translate-x-0 w-56' : 'translate-x-[-100%] w-0'} 
             md:translate-x-0 md:w-64 
             ${!isMenuOpen ? 'absolute md:relative' : ''}`}
@@ -442,38 +442,75 @@ export default function SidebarProfile() {
                      </div>
                   </div>
                </Link>
+               <Link to={`${languagePrefix}/dashboard?tab=settings`}>
+                  <div className="py-1">
+                     <div
+                        className={`py-2 px-3 flex items-center rounded-xl relative ${
+                           tab === "settings" || !tab
+                              ? theme === "dark"
+                                 ? "bg-gray-800"
+                                 : "bg-gray-200"
+                              : ""
+                           } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                              isMenuOpen ? "w-14" : "w-full"
+                           } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                              tab === "settings" ? "shadow-md" : ""
+                           }`}
+                     >
+                        {tab === "settings" && (
+                           <div
+                              className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                           </div>
+                        )}
+                        {tab === "settings" ? (
+                           <IoSettingsSharp
+                              size={28}
+                              className={`text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                           />
+                        ) : (
+                           <IoSettingsOutline 
+                              size={28}
+                              className={`text-${tab === "settings" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                           />
+                        )}
+                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("settings")}</span>
+                     </div>
+                  </div>
+               </Link>
                <Link to={`${languagePrefix}/dashboard?tab=signout`}>
-                  <div 
-                     onClick={handleSignoutClick}
-                     className={`py-2 px-3 flex items-center rounded-xl relative ${
-                        tab === "signout" || !tab
-                           ? theme === "dark"
-                              ? "bg-gray-800"
-                              : "bg-gray-200"
-                           : ""
-                        } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
-                           isMenuOpen ? "w-14" : "w-full"
-                        } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
-                           tab === "signout" ? "shadow-md" : ""
-                        }`}
-                  >
-                     {tab === "signout" && (
-                        <div
-                           className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
-                        </div>
-                     )}
-                     {tab === "signout" ? (
-                        <IoExit
-                           size={28}
-                           className={`ml-1 text-${theme === 'dark' ? 'white' : 'gray-700'}`}
-                        />
-                     ) : (
-                        <IoExitOutline 
-                           size={28}
-                           className={`ml-1 text-${tab === "signout" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
-                        />
-                     )}
-                     <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("sign_out")}</span>
+                  <div className="py-1">
+                     <div 
+                        onClick={handleSignoutClick}
+                        className={`py-2 px-3 flex items-center rounded-xl relative ${
+                           tab === "signout" || !tab
+                              ? theme === "dark"
+                                 ? "bg-gray-800"
+                                 : "bg-gray-200"
+                              : ""
+                           } ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-200"} ${
+                              isMenuOpen ? "w-14" : "w-full"
+                           } xl:w-full ${!isMenuOpen && "xl:w-28"} ${
+                              tab === "signout" ? "shadow-md" : ""
+                           }`}
+                     >
+                        {tab === "signout" && (
+                           <div
+                              className={`absolute rounded-sm left-0 top-3 bottom-3 w-1 ${theme === "dark" ? "bg-teal-500" : "bg-teal-500"}`}>
+                           </div>
+                        )}
+                        {tab === "signout" ? (
+                           <IoExit
+                              size={28}
+                              className={`ml-1 text-${theme === 'dark' ? 'white' : 'gray-700'}`}
+                           />
+                        ) : (
+                           <IoExitOutline 
+                              size={28}
+                              className={`ml-1 text-${tab === "signout" || !tab ? (theme === 'dark' ? 'white' : 'gray-700') : (theme === 'dark' ? 'gray-400' : 'gray-500')}`}
+                           />
+                        )}
+                        <span className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} xl:inline`}>{t("sign_out")}</span>
+                     </div>
                   </div>
                </Link>
             </div>
@@ -508,7 +545,6 @@ export default function SidebarProfile() {
                </div>
             </div>
          )}
-         {/* <span className="px-6 py-2 text-xs">{t("version_app")}</span> */}
       </div>
    );
 }
