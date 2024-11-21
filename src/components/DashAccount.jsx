@@ -16,7 +16,7 @@ import { IoKeyOutline, IoSettingsOutline } from "react-icons/io5";
 import { BsWindowDesktop } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-export default function DashProfile() {
+export default function DashAccount() {
    const { t } = useTranslation();
    const { theme } = useSelector((state) => state.theme);
    const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -175,7 +175,7 @@ export default function DashProfile() {
             <>
                <p className="font-semibold text-xl mb-4">Удалить аккаунт и все данные</p>
                <p className="mb-4">
-               При удалении аккаунта будут удалены все ваши данные, включая личную информацию, созданные записи, загруженные файлы и настройки. Этот процесс необратим, и восстановить удалённые данные будет невозможно. Если вы хотите сохранить важную информацию, убедитесь, что сделали резервную копию перед удалением аккаунта.
+                  При удалении аккаунта будут удалены все ваши данные, включая личную информацию, созданные записи, загруженные файлы и настройки. Этот процесс необратим, и восстановить удалённые данные будет невозможно. Если вы хотите сохранить важную информацию, убедитесь, что сделали резервную копию перед удалением аккаунта.
                </p>
                <button
                   className="ml-0 text-white flex justify-between mb-6 bg-red-600 hover:bg-red-800 rounded-md p-2"

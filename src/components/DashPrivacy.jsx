@@ -214,7 +214,7 @@ export default function DashPrivacy() {
                         <span className="mt-2 text-gray-700 dark:text-gray-400">Quantum Engine</span>
                      </div>
                      <div className="flex flex-col items-center p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
-                        <img src="/images/apps/chatify/chatify_logo.png" className="text-4xl text-gray-600 dark:text-gray-300 w-16 h-16" alt="Chatify"/>
+                        <img src="/images/apps/chatify/chatify_logo_light.png" className="text-4xl text-gray-600 dark:text-gray-300 w-16 h-16" alt="Chatify"/>
                         <span className="mt-2 text-gray-700 dark:text-gray-400">Chatify</span>
                      </div>
                      <div className="flex flex-col items-center p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer">

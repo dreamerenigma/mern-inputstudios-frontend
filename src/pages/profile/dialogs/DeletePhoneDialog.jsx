@@ -25,7 +25,7 @@ const DeletePhoneDialog = ({ isOpen, onClose, onDelete }) => {
 
    return (
       <div 
-         className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+         className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
          onClick={handleOverlayClick}
       >
          <div className="border border-gray-700 bg-white dark:bg-gray-800 rounded-lg w-[550px] relative shadow-md">

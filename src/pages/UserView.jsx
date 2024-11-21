@@ -48,7 +48,7 @@ export default function UserView() {
          <p className="pb-4">15 ноября 2024</p>
          <p className="font-semibold pb-1">Контактная информация</p>
          <div className="flex py-2">
-            <img src="/images/apps/chatify/chatify_logo.png" alt="Chatify logo" className="w-6"/>
+            <img src="/images/apps/chatify/chatify_logo_light.png" alt="Chatify logo" className="w-6"/>
             <a href="https://chatify.ru/InputStudios" className="text-[15px] text-teal-500 px-3 hover:text-teal-600 hover:underline">Chatify: @InputStudios</a>
          </div>
          <div className="flex py-2">

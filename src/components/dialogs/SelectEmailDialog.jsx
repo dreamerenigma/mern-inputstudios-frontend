@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
 
-export default function SelectEmailDialog ({ isOpen, onClose, onSave }) {
+export default function SelectEmailDialog({ isOpen, onClose, onSave }) {
    const [email, setEmail] = useState('');
    const [isSave, setIsSave] = useState(false);
 
@@ -21,7 +21,7 @@ export default function SelectEmailDialog ({ isOpen, onClose, onSave }) {
    if (!isOpen) return null;
 
    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50" onClick={handleOverlayClick}>
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" onClick={handleOverlayClick}>
          <div className="relative border border-gray-700 bg-white dark:bg-gray-800 rounded-lg w-[500px] shadow-md">
             <div className="flex justify-between items-center ">
                <div className="flex-1">

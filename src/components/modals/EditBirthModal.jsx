@@ -26,7 +26,7 @@ export default function EditBirthModal ({
 
    return (
       <div
-         className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+         className="px-4 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
          onClick={(e) => {
          if (e.target === e.currentTarget) {
             handleBirthShowModal(false);
