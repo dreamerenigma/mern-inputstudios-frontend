@@ -413,17 +413,17 @@ export default function Header() {
                               </Link>
                               {isOpenAbout && (
                                  <ul className="absolute left-0 top-full mt-[18px] bg-white dark:bg-gray-600 shadow-md rounded-md z-10 whitespace-nowrap dropdown">
-                                    <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-t-md hover:underline">
+                                    <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500/60 rounded-t-md hover:underline">
                                        <Link to={`${languagePrefix}/about-company`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
                                           {t("headers:about_company")}
                                        </Link>
                                     </li>
-                                    <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 hover:underline">
+                                    <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500/60 hover:underline">
                                        <Link to={`${languagePrefix}/our-history`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
                                           {t("headers:our_history")}
                                        </Link>
                                     </li>
-                                    <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-b-md hover:underline">
+                                    <li className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500/60 rounded-b-md hover:underline">
                                        <Link to={`${languagePrefix}/contactus`} onClick={() => setMenuOpen(false)} className="w-full text-left block">
                                           {t("headers:header_contacts")}
                                        </Link>
@@ -580,7 +580,7 @@ export default function Header() {
                                        </Dropdown.Item>
                                     </Link>
                                     <Dropdown.Divider className="m-0 p-0" />
-                                    <Link to={`${languagePrefix}/settings`}>
+                                    <Link to={`${languagePrefix}/dashboard?tab=settings`}>
                                        <Dropdown.Item className={`flex items-center py-3 rounded-b-lg ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>
                                           <img src="/images/header/settings.svg" alt="Settings" className="w-6 h-6 mr-3" />
                                           {t("headers:header_settings")}

@@ -143,7 +143,7 @@ export default function DashComments() {
       >
          {currentUser.isAdmin && comments.length > 0 ? (
             <>
-               <div className="border border-gray-700 rounded-lg overflow-x-auto">
+               <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-x-auto">
                      <Table hoverable className="shadow-md">
                      <Table.Head>
                         {isSelectionMode && (
@@ -164,13 +164,13 @@ export default function DashComments() {
                         <Table.HeadCell>{t("delete")}</Table.HeadCell>
                      </Table.Head>
                      {comments.map((comment, index) => (
-                        <Table.Body className={`divide-y ${index !== 0 ? 'border-t border-gray-700' : ''}`} key={comment._id}>
+                        <Table.Body className={`divide-y ${index !== 0 ? 'border-t border-gray-300 dark:border-gray-700' : ''}`} key={comment._id}>
                            <Table.Row 
                               key={comment._id}
                               onPointerDown={() => handlePointerDown(comment._id)}
                               onPointerUp={handlePointerUp}
                               onPointerLeave={handlePointerUp}
-                              className={`bg-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80 ${selectedComments.includes(comment._id) ? 'bg-teal-100 dark:bg-teal-800/20' : ''}`}
+                              className={`bg-white border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80 ${selectedComments.includes(comment._id) ? 'bg-teal-100 dark:bg-teal-800/20' : ''}`}
                            >
                               {isSelectionMode && (
                                  <Table.Cell>

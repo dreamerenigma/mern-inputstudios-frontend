@@ -26,7 +26,7 @@ export default function CustomBottomSheetDialog({ isOpen, onClose, handleEdit, o
 
    return (
       <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-end" onClick={handleBackdropClick}>
-         <div className="bg-white dark:bg-gray-700 rounded-t-lg shadow-lg w-full relative pt-9 pb-2">
+         <div className="bg-white dark:bg-gray-800 rounded-t-lg shadow-lg w-full relative pt-9 pb-2">
             <button
                type="button"
                onClick={onClose}
@@ -38,7 +38,7 @@ export default function CustomBottomSheetDialog({ isOpen, onClose, handleEdit, o
                <button
                   type="button"
                   onClick={handleEdit}
-                  className="flex items-center text-gray-400 hover:text-teal-500 text-base hover:bg-gray-600 w-full text-left px-5 py-3"
+                  className="flex items-center text-gray-400 hover:text-teal-500 text-base hover:bg-gray-700/60 w-full text-left px-5 py-3"
                >
                   <RiEditLine size={20} className="mr-2" />
                   {t("comments:edit")}
@@ -46,7 +46,7 @@ export default function CustomBottomSheetDialog({ isOpen, onClose, handleEdit, o
                <button
                   type="button"
                   onClick={() => onDelete(comment._id)}
-                  className="flex items-center text-red-500 hover:text-red-500 text-base hover:bg-gray-600 w-full text-left px-5 py-3"
+                  className="flex items-center text-red-500 hover:text-red-500 text-base hover:bg-gray-700/60 w-full text-left px-5 py-3"
                >
                   <RiDeleteBinLine size={20} className="mr-3 text-red-500" />
                   {t("comments:delete")}

@@ -186,7 +186,7 @@ export default function ProfileHeader() {
                                  </div>
                               </div>
                            }
-                           className="border border-gray-600 rounded-lg shadow-xl custom-dropdown"
+                           className="border border-gray-300 dark:border-gray-700 rounded-lg shadow-xl custom-dropdown"
                         >
                            <div className="flex items-center justify-between">
                               <img
@@ -217,7 +217,7 @@ export default function ProfileHeader() {
                                  <span className="block text-sm font-medium truncate">{currentUser.email}</span>
                               </div>
                            </div>
-                           <Dropdown.Divider className="m-0 p-0"/>
+                           <Dropdown.Divider className="m-0 p-0 bg-gray-300 dark:bg-gray-700"/>
                            {isAdmin && (
                               <>
                                  <Link to={`${languagePrefix}/dashboard?tab=dash`}>
@@ -226,7 +226,7 @@ export default function ProfileHeader() {
                                        {t("headers:header_dashboard")}
                                     </Dropdown.Item>
                                  </Link>
-                                 <Dropdown.Divider className="m-0 p-0" />
+                                 <Dropdown.Divider className="m-0 p-0 bg-gray-300 dark:bg-gray-700" />
                               </>
                            )}
                            <Link to={`${languagePrefix}/dashboard?tab=profile`}>
@@ -235,14 +235,14 @@ export default function ProfileHeader() {
                                  {t("headers:header_profile")}
                               </Dropdown.Item>
                            </Link>
-                           <Dropdown.Divider className="m-0 p-0" />
+                           <Dropdown.Divider className="m-0 p-0 bg-gray-300 dark:bg-gray-700" />
                            <Link to={`${languagePrefix}/settings`}>
                               <Dropdown.Item className={`flex items-center py-3 ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>
                                  <img src="/images/header/settings.svg" alt="Settings" className="w-6 h-6 mr-3" />
                                  {t("headers:header_settings")}
                               </Dropdown.Item>
                            </Link>
-                           <Dropdown.Divider className="m-0 p-0" />
+                           <Dropdown.Divider className="m-0 p-0 bg-gray-300 dark:bg-gray-700" />
                            <Link to={`${languagePrefix}/`}>
                               <Dropdown.Item className={`flex items-center py-3 rounded-b-lg ${theme === 'dark' ? 'hover:bg-gray-700 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'}`}>
                                  <img src="/images/header/home.svg" alt="Settings" className="w-6 h-6 mr-3" />

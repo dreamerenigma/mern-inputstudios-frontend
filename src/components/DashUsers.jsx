@@ -134,7 +134,7 @@ export default function DashUsers() {
       >
          {currentUser.isAdmin && users.length > 0 ? (
             <>
-               <div className="border border-gray-700 rounded-lg overflow-x-auto">
+               <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-x-auto">
                   <Table hoverable className="shadow-md">
                      <Table.Head>
                         {isSelectionMode && (
@@ -156,13 +156,13 @@ export default function DashUsers() {
                         <Table.HeadCell>{t("delete")}</Table.HeadCell>
                      </Table.Head>
                      {users.map((user, index) => (
-                        <Table.Body className={`divide-y ${index !== 0 ? 'border-t border-gray-700' : ''}`} key={user._id}>
+                        <Table.Body className={`divide-y ${index !== 0 ? 'border-t border-gray-300 dark:border-gray-700' : ''}`} key={user._id}>
                            <Table.Row 
                               key={user._id}
                               onPointerDown={() => handlePointerDown(user._id)}
                               onPointerUp={handlePointerUp}
                               onPointerLeave={handlePointerUp}
-                              className={`bg-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80 ${selectedUsers.includes(user._id) ? 'bg-teal-100 dark:bg-teal-800/20' : ''}`}
+                              className={`bg-white border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80 ${selectedUsers.includes(user._id) ? 'bg-teal-100 dark:bg-teal-800/20' : ''}`}
                            >
                               {isSelectionMode && (
                                  <Table.Cell>
@@ -259,11 +259,11 @@ export default function DashUsers() {
                onClick={() => setShowModal(false)}
             >
                <div
-                  className="relative bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full"
+                  className="relative bg-white border-gray-300 dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full"
                   onClick={(e) => e.stopPropagation()}
                >
                   <button
-                     className="absolute top-3 right-3 text-3xl hover:bg-gray-500 rounded text-gray-500 dark:text-gray-300 transition-transform transform hover:translate-y-[-4px]"
+                     className="absolute top-3 right-3 text-3xl hover:bg-gray-300 dark:hover:bg-gray-500 rounded text-gray-500 dark:text-gray-300 transition-transform transform hover:translate-y-[-4px]"
                      onClick={() => setShowModal(false)}
                   >
                      <RiCloseLine className="h-6 w-6" />
@@ -281,7 +281,7 @@ export default function DashUsers() {
                            {t("yes_sure")}
                         </button>
                         <button
-                           className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg flex-grow"
+                           className="px-4 py-2 bg-gray-500 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-700 text-white rounded-lg flex-grow"
                            onClick={() => setShowModal(false)}
                         >
                            {t("no_cancel")}

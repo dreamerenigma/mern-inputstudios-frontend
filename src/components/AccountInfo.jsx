@@ -23,9 +23,9 @@ export default function AccountInfo() {
 
    return (
       <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center">
-         <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 border border-gray-700">
+         <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
             <div className="flex items-center">
-               <div className="flex flex-row items-center justify-between w-full pl-4 pt-3">
+               <div className="flex items-center justify-between w-full pl-4 pt-3">
                   <div>
                      <span className="text-md font-semibold">Сведения о счете</span>
                   </div>
@@ -35,11 +35,11 @@ export default function AccountInfo() {
                </div>
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
-            <div className="flex flex-col md:flex-row items-start justify-between w-full pl-4 pr-2 space-y-2 md:space-y-0 md:space-x-4">
+            <div className="flex flex-col md:flex-row items-start justify-between w-full pl-4 pr-2 space-y-2 md:space-y-0 gap-x-6 gap-2">
                <span>Адрес электронной почты</span>
                <span className="font-semibold">Hitmanki@yandex.ru</span>
-               <span className="w-full md:w-[300px]">Адрес электронной почты, используемый для входа в учетную запись Input Studios</span>
-               <span className="ml-auto pr-2 text-teal-500 hover:text-teal-700 hover:underline cursor-pointer">Настройки общения</span>
+               <span className="w-full custom-width">Адрес электронной почты, используемый для входа в учетную запись Input Studios</span>
+               <span className="pr-2 text-teal-500 hover:text-teal-700 hover:underline cursor-pointer">Настройки общения</span>
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
             <div className="grid grid-cols-[250px_auto_1fr] items-start w-full pl-4 py-2 responsive-grid">
@@ -52,10 +52,12 @@ export default function AccountInfo() {
                </div>
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
-            <div>
+            <div className="flex">
                <div className="grid grid-cols-[250px_auto_1fr] items-center w-full pl-4 py-2 responsive-grid">
                   <span className="inline-block text-left">Телефон подключен к компьютеру</span>
                   <span className="text-left font-semibold">+7 999 194-03-98</span>
+               </div>
+               <div className="flex justify-end">
                   <span className="mx-4 flex items-center justify-end text-left cursor-pointer" onClick={handleOpenDialog}>
                      <RiDeleteBin5Line size={24} className="mr-2 text-teal-500 " />
                      <span className="text-teal-500 hide-below-1030px">&quot;Удалить&quot;</span>
@@ -70,11 +72,11 @@ export default function AccountInfo() {
             <hr className="mt-4 border-t border-gray-300 dark:border-gray-600" />
             <div className="flex flex-row items-center justify-between w-full pl-4 pr-2 space-x-4 p-5">
                <div className="flex flex-col">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center custom-flex-500">
                      <Link to={`${languagePrefix}/names/manage`} className="text-teal-500 hover:underline hover:text-teal-700 text-left">
                         Предпочтения для входа
                      </Link>
-                     <Link to={`${languagePrefix}/account-billing/how-to-close-your-input-studios-account`} className="pl-5 text-teal-500 hover:underline hover:text-teal-700 text-left">
+                     <Link to={`${languagePrefix}/account-billing/how-to-close-your-input-studios-account`} className="custom-margin-500 text-teal-500 hover:underline hover:text-teal-700 text-left">
                         Закрыть учетную запись
                      </Link>
                   </div>

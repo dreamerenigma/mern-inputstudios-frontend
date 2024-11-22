@@ -43,16 +43,16 @@ export default function DashAddressBook() {
             </div>
             <div className="flex space-x-6">
                <div className="w-1/2">
-                  <p className="font-bold text-lg">
+                  <p className="font-semibold text-lg">
                      Основные сведения о выставлении счетов
                   </p>
                   <p className="text-sm">
                      Лучший вариант для связи с вами по вопросам выставления счетов
                   </p>
-                  <div className="mt-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md border border-gray-700">
+                  <div className="mt-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md border border-gray-300 dark:border-gray-700">
                      <div className="flex space-x-6">
                         <div className="flex flex-col space-y-1 w-1/2 px-6 py-4">
-                           <div className="text-base font-bold mb-2">Адрес</div>
+                           <div className="text-base font-semibold mb-2">Адрес</div>
                            <div className="text-sm">Андрей Трепалин</div>
                            <div className="text-sm">ул.Отрадная д.14 к.1 кв.13</div>
                            <div className="text-sm">Ульяновск</div>
@@ -62,7 +62,7 @@ export default function DashAddressBook() {
                            <div className="text-sm">8991940398</div>
                         </div>
                         <div className="flex flex-col space-y-1 w-1/2 px-6 py-4">
-                           <div className="text-base font-bold">Электронный адрес</div>
+                           <div className="text-base font-semibold">Электронный адрес</div>
                            <div className="text-sm">Hitmanki@yandex.ru</div>
                            <div className="text-sm text-teal-500 hover:underline cursor-pointer" onClick={handleOpenSelectEmailDialog}>
                               Смена электронной почты
@@ -74,7 +74,7 @@ export default function DashAddressBook() {
                            />
                         </div>
                      </div>
-                     <div className="mt-6 border-t border-gray-700"></div>
+                     <div className="mt-6 border-t border-gray-300 dark:border-gray-700"></div>
                      <div className="flex justify-between px-6 py-4">
                         <p 
                            className="text-sm text-teal-500 hover:underline cursor-pointer w-[200px]"
@@ -87,16 +87,16 @@ export default function DashAddressBook() {
                   </div>
                </div>
                <div className="w-1/2">
-                  <p className="font-bold text-lg">
+                  <p className="font-semibold text-lg">
                      Основной адрес доставки
                   </p>
                   <p className="text-sm">
                      Мы будем использовать этот адрес, если вы не выберете другой
                   </p>
-                  <div className="mt-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md border border-gray-700">
+                  <div className="mt-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md border border-gray-300 dark:border-gray-700">
                      <div className="flex space-x-6">
                         <div className="flex flex-col space-y-1 w-1/2 px-6 py-4">
-                           <div className="text-base font-bold mb-2">Адрес</div>
+                           <div className="text-base font-semibold mb-2">Адрес</div>
                            <div className="text-sm">Андрей Трепалин</div>
                            <div className="text-sm">ул.Отрадная д.14 к.1 кв.13</div>
                            <div className="text-sm">Ульяновск</div>
@@ -106,7 +106,7 @@ export default function DashAddressBook() {
                            <div className="text-sm">8991940398</div>
                         </div>
                      </div>
-                     <div className="mt-6 border-t border-gray-700"></div>
+                     <div className="mt-6 border-t border-gray-300 dark:border-gray-700"></div>
                      <div className="flex justify-between px-6 py-4">
                         <div className="text-sm text-teal-500 hover:underline cursor-pointer w-[150px]">Изменить адрес доставки</div>
                      </div>
@@ -129,11 +129,11 @@ export default function DashAddressBook() {
                   onSave={handleSaveAddress}
                />
             </div>
-            <div className="mt-6 border-t border-gray-800"></div>
-            <div className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md max-w-lg mb-20 border border-gray-700">
+            <div className="mt-6 border-t border-gray-300 dark:border-gray-700"></div>
+            <div className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md max-w-lg mb-20 border border-gray-300 dark:border-gray-700">
                <div className="flex space-x-6">
                   <div className="flex flex-col space-y-1 w-1/2 px-6 py-4">
-                     <div className="text-base font-bold mb-2">Адрес</div>
+                     <div className="text-base font-semibold mb-2">Адрес</div>
                      <div className="text-sm">Андрей Трепалин</div>
                      <div className="text-sm">ул.Отрадная д.14 к.1 кв.13</div>
                      <div className="text-sm">Ульяновск</div>
@@ -143,7 +143,7 @@ export default function DashAddressBook() {
                      <div className="text-sm">8991940398</div>
                   </div>
                </div>
-               <div className="mt-6 border-t border-gray-700"></div>
+               <div className="mt-6 border-t border-gray-300 dark:border-gray-700"></div>
                <div className="flex justify-between px-6 py-4">
                   <div className="text-sm text-teal-500 hover:underline cursor-pointer">Изменить адрес</div>
                   <div className="text-sm text-teal-500 hover:underline cursor-pointer">Удалить адрес</div>

@@ -136,7 +136,7 @@ export default function DashPosts() {
       >
          {currentUser.isAdmin && userPosts.length > 0 ? (
             <>
-               <div className="border border-gray-700 rounded-lg overflow-x-auto">
+               <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-x-auto">
                   <Table hoverable className="shadow-md">
                      <Table.Head>
                         {isSelectionMode && (
@@ -160,13 +160,13 @@ export default function DashPosts() {
                         </Table.HeadCell>
                      </Table.Head>
                      {userPosts.map((post, index) => (
-                        <Table.Body className={`divide-y ${index !== 0 ? 'border-t border-gray-700' : ''}`} key={post._id}>
+                        <Table.Body className={`divide-y ${index !== 0 ? 'border-t border-gray-300 dark:border-gray-700' : ''}`} key={post._id}>
                            <Table.Row 
                               key={post._id}
                               onPointerDown={() => handlePointerDown(post._id)}
                               onPointerUp={handlePointerUp}
                               onPointerLeave={handlePointerUp}
-                              className={`bg-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700/80 ${selectedPosts.includes(post._id) ? 'bg-teal-100 dark:bg-teal-800/20' : ''}`}
+                              className={`bg-white border-gray-300 dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-300/60 dark:hover:bg-gray-700/60 ${selectedPosts.includes(post._id) ? 'bg-teal-100 dark:bg-teal-800/20' : ''}`}
                            >
                               {isSelectionMode && (
                                  <Table.Cell>

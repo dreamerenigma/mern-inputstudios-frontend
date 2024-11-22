@@ -111,7 +111,7 @@ export default function DashboardComponent() {
             <div className="space-y-4">
                <div className="flex flex-wrap justify-between gap-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-4 w-full">
-                     <div className="flex flex-col shadow-md rounded-lg dark:bg-gray-800 border border-gray-700 col-span-2">
+                     <div className="flex flex-col shadow-md rounded-lg dark:bg-gray-800 border border-gray-300 dark:border-gray-700 col-span-2">
                         <div className="flex flex-col p-3 gap-4">
                            <div className="flex justify-between items-center">
                            <h3 className="text-gray-500 text-md uppercase">{t("profile:total_stats")}</h3>
@@ -144,7 +144,7 @@ export default function DashboardComponent() {
                      <div className="space-y-4">
                         <div className="mb-2">
                            <Link to={`${languagePrefix}/dashboard?tab=users`} className="flex-1 min-w-[200px]">
-                              <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 rounded-md shadow-md border border-gray-700 hover:bg-teal-100 dark:hover:bg-teal-700/30 transition-all">
+                              <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 rounded-md shadow-md border border-gray-300 dark:border-gray-700 hover:bg-teal-100 dark:hover:bg-teal-700/30 transition-all">
                               <div className="flex justify-between">
                                  <div className="text-left">
                                     <h3 className="text-gray-500 text-md uppercase">{t("profile:total_users")}</h3>
@@ -164,13 +164,13 @@ export default function DashboardComponent() {
                         </div>
                         <div className="mb-2">
                            <Link to={`${languagePrefix}/dashboard?tab=posts`} className="flex-1 min-w-[200px]">
-                              <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 rounded-md shadow-md border border-gray-700 hover:bg-teal-100 dark:hover:bg-green-700/30 transition-all">
+                              <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 rounded-md shadow-md border border-gray-300 dark:border-gray-700 hover:bg-green-200 dark:hover:bg-green-700/30 transition-all">
                               <div className="flex justify-between">
                                  <div className="text-left">
                                     <h3 className="text-gray-500 text-md uppercase">{t("profile:total_posts")}</h3>
                                     <p className="text-2xl">{totalPosts}</p>
                                  </div>
-                                 <HiDocumentText className="bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+                                 <HiDocumentText className="bg-green-600 text-white rounded-full text-5xl p-3 shadow-lg" />
                               </div>
                               <div className="flex gap-2 text-sm">
                                  <span className="text-green-500 flex items-center">
@@ -184,7 +184,7 @@ export default function DashboardComponent() {
                         </div>
                         <div className="mb-2">
                            <Link to={`${languagePrefix}/dashboard?tab=comments`} className="flex-1 min-w-[200px]">
-                              <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 rounded-md shadow-md border border-gray-700 hover:bg-teal-100 dark:hover:bg-purple-700/30 transition-all">
+                              <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 rounded-md shadow-md border border-gray-300 dark:border-gray-700 hover:bg-purple-200 dark:hover:bg-purple-700/30 transition-all">
                               <div className="flex justify-between">
                                  <div className="text-left">
                                     <h3 className="text-gray-500 text-md uppercase">{t("profile:total_comments")}</h3>
@@ -206,16 +206,16 @@ export default function DashboardComponent() {
                   </div>
                </div>
                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex flex-col w-full md:w-auto shadow-md rounded-lg dark:bg-gray-800 border border-gray-700">
+                  <div className="flex flex-col w-full md:w-auto shadow-md rounded-lg dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
                      <div className="overflow-x-auto w-full">
                         <Table hoverable>
                            <Table.Head>
                               <Table.HeadCell>{t("profile:user_image")}</Table.HeadCell>
                               <Table.HeadCell>{t("profile:username")}</Table.HeadCell>
                            </Table.Head>
-                           <Table.Body className="divide-y divide-gray-700">
+                           <Table.Body className="divide-y divide-gray-300 dark:divide-gray-700">
                               {users && users.map((user) => (
-                                 <Table.Row key={user._id} className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700/60">
+                                 <Table.Row key={user._id} className="bg-white border-gray-300 dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-300/60 dark:hover:bg-gray-700/60">
                                     <Table.Cell
                                        className="cursor-pointer"
                                        onClick={(e) => {
@@ -256,16 +256,16 @@ export default function DashboardComponent() {
                         </Button>
                      </div>
                   </div>
-                  <div className="flex flex-col w-full md:w-auto shadow-md rounded-lg dark:bg-gray-800 border border-gray-700">
+                  <div className="flex flex-col w-full md:w-auto shadow-md rounded-lg dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
                      <div className="overflow-x-auto w-full">
                         <Table hoverable>
                            <Table.Head>
                               <Table.HeadCell>{t("profile:comment_content")}</Table.HeadCell>
                               <Table.HeadCell>{t("profile:likes")}</Table.HeadCell>
                            </Table.Head>
-                           <Table.Body className="divide-y divide-gray-700">
+                           <Table.Body className="divide-y divide-gray-300 dark:divide-gray-700">
                               {comments && comments.map((comment) => (
-                                 <Table.Row key={comment._id} className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700/60">
+                                 <Table.Row key={comment._id} className="bg-white border-gray-300 dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-300/60 dark:hover:bg-gray-700/60">
                                     <Table.Cell className="w-9 py-[18px]">
                                        <p className="line-clamp-2">{comment.content}</p>
                                     </Table.Cell>
@@ -285,7 +285,7 @@ export default function DashboardComponent() {
                      </div>
                   </div>
                </div>
-               <div className="flex flex-col w-full md:w-auto shadow-md rounded-lg dark:bg-gray-800 border border-gray-700">
+               <div className="flex flex-col w-full md:w-auto shadow-md rounded-lg dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
                   <div className="overflow-x-auto w-full">
                      <Table hoverable>
                         <Table.Head>
@@ -293,11 +293,11 @@ export default function DashboardComponent() {
                            <Table.HeadCell>{t("profile:post_title")}</Table.HeadCell>
                            <Table.HeadCell>{t("profile:category")}</Table.HeadCell>
                         </Table.Head>
-                        <Table.Body className="divide-y divide-gray-700">
+                        <Table.Body className="divide-y divide-gray-300 dark:divide-gray-700">
                            {posts && posts.map((post) => (
                               <Table.Row 
                                  key={post._id}
-                                 className="bg-white dark:border-gray-700 dark:bg-gray-800 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700/60"
+                                 className="bg-white dark:border-gray-700 dark:bg-gray-800 cursor-pointer hover:bg-gray-300/60 dark:hover:bg-gray-700/60"
                                  onClick={() => window.location.href = `${languagePrefix}/post/${post.slug}`}
                               >
                                  <Table.Cell>

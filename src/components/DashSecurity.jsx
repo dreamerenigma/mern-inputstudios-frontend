@@ -131,7 +131,7 @@ export default function DashSecurity() {
                   className="whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white group mt-4 sm:mt-0"
                >
                   <div className="flex items-center gap-2">
-                     <div className="flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 w-10 h-10 group-hover:bg-[#0E7490] transition-colors duration-200">
+                     <div className="flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-800 w-10 h-10 group-hover:bg-[#0E7490] transition-colors duration-200">
                         <IoKeyOutline className="text-center font-semibold text-2xl group-hover:text-white dark:group-hover:text-gray-300"/>
                      </div>
                      <span className="text-sm font-semibold group-hover:text-[#0E7490] transition-colors duration-200">{t("profile:change_password")}</span>
@@ -144,7 +144,7 @@ export default function DashSecurity() {
             </div>
             <div className="w-full md:w-3/2 mx-auto max-w-5xl flex flex-col space-y-4 items-center">
                {securityData.map((container, index) => (
-                  <div key={container.id} className={`w-full rounded-lg shadow-md transition-colors duration-300 border border-gray-700 bg-white dark:bg-gray-800 ${visibleContainers[index] ? 'rounded-lg' : 'rounded-t-lg'}`}>
+                  <div key={container.id} className={`w-full rounded-lg shadow-md transition-colors duration-300 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 ${visibleContainers[index] ? 'rounded-lg' : 'rounded-t-lg'}`}>
                      <div
                         className={`flex items-center justify-between w-full px-4 py-2 space-x-4 cursor-pointer ${theme === 'dark' ? 'hover:bg-gray-700/60 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'} ${visibleContainers[index] ? 'rounded-t-lg' : 'rounded-lg'}`}
                         onClick={() => handleContainerClick(index)}

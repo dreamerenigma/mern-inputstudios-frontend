@@ -118,16 +118,16 @@ export default function ProfileInfo() {
 
    return (
       <div className="w-full md:w-3/2 mx-auto max-w-5xl flex items-center">
-         <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 border border-gray-700">
+         <div className="w-full rounded-lg shadow-md transition-colors duration-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
             <div className="flex items-center">
-               <div className="flex flex-row items-center justify-between w-full pl-4 pt-3">
+               <div className="flex items-center justify-between w-full pl-4 pt-3">
                   <div>
                      <span className="text-md font-semibold">{t("profile:profile_info")}</span>
                   </div>
                   <div className="ml-auto">
                      <div 
                         onClick={handleEditBirthClick}
-                        className="text-right mr-4 cursor-pointer text-teal-500 hover:text-teal-700 hover:underline"
+                        className="text-left mr-4 cursor-pointer text-teal-500 hover:text-teal-700 hover:underline"
                      >
                         {t("profile:edit_profile_info")}
                      </div>
@@ -135,17 +135,14 @@ export default function ProfileInfo() {
                </div>
             </div>
             <hr className="mt-4 border-t border-gray-300 dark:border-gray-600" />
-            <div 
-               className={`grid grid-cols-3 items-center w-full pl-4 cursor-pointer px-4 py-2 ${
-                  theme === 'dark' ? 'hover:bg-gray-700/60 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'
-               }`}
-               onClick={handleEditBirthClick}
-            >
-               <span className="whitespace-nowrap">{t("profile:date_birth")}</span>
-               <span className="whitespace-nowrap">31/03/1991</span>
-               <div className="flex items-center justify-end space-x-2">
-                  <span className="whitespace-normal">{t("profile:date_birth_account_safety")}</span>
-                  <span className="flex-shrink-0">
+            <div className="flex dark:hover:bg-gray-700/60 hover:bg-gray-300/60" onClick={handleEditBirthClick}>
+               <div className="grid grid-cols-3 responsive-grid items-center w-full pl-4 cursor-pointer px-4 py-2">
+                  <span className="whitespace-nowrap">{t("profile:date_birth")}</span>
+                  <span className="whitespace-nowrap">31/03/1991</span>
+                  <span className="whitespace-normal hide-below-1030px">{t("profile:date_birth_account_safety")}</span>
+               </div>
+               <div className="flex items-center justify-end">
+                  <span className="mx-4 flex items-center justify-end text-left cursor-pointer">
                      <IoIosArrowForward />
                   </span>
                </div>
@@ -174,50 +171,44 @@ export default function ProfileInfo() {
                />
             )}
             <hr className="border-t border-gray-300 dark:border-gray-600" />
-            <div 
-               className={`grid grid-cols-3 items-center w-full pl-4 cursor-pointer px-4 py-2 ${
-                  theme === 'dark' ? 'hover:bg-gray-700/60 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'
-               }`}
-               onClick={handleEditBirthClick}
-            >
-               <span className="whitespace-nowrap">{t("profile:country_or_region")}</span>
-               <span className="whitespace-nowrap">{t("profile:country")}</span>
-               <div className="flex items-center justify-end space-x-2">
-                  <span className="whitespace-normal">{t("profile:your_country_region_privacy_settings")}</span>
-                  <span className="flex-shrink-0">
+            <div className="flex dark:hover:bg-gray-700/60 hover:bg-gray-300/60"  onClick={handleEditBirthClick}>
+               <div className="grid grid-cols-3 responsive-grid items-center w-full pl-4 cursor-pointer px-4 py-2">
+                  <span className="whitespace-nowrap">{t("profile:country_or_region")}</span>
+                  <span className="whitespace-nowrap">{t("profile:country")}</span>
+                  <span className="whitespace-normal hide-below-1030px">{t("profile:your_country_region_privacy_settings")}</span>
+               </div>
+                  <div className="flex items-center justify-end">
+                     <span className="mx-4 flex items-center justify-end text-left cursor-pointer">
+                        <IoIosArrowForward />
+                     </span>
+                  </div>
+               
+            </div>
+            <hr className="border-t border-gray-300 dark:border-gray-600" />
+            <div className="flex dark:hover:bg-gray-700/60 hover:bg-gray-300/60" onClick={handleLanguageSettings}>
+               <div className="grid grid-cols-3 responsive-grid items-center w-full pl-4 cursor-pointer px-4 py-4">
+                  <span>Язык</span>
+                  <span>Выберите язык</span>
+                  <span>Запрос перед переводом</span>
+               </div>
+               <div className="flex justify-end">
+                  <span className="mx-4 flex items-center cursor-pointer">
                      <IoIosArrowForward />
                   </span>
                </div>
             </div>
-            <hr className="border-t border-gray-300 dark:border-gray-600" />
-            <div
-               className={`grid grid-cols-3 items-center w-full pl-4 cursor-pointer px-4 py-4 ${
-                  theme === 'dark'
-                     ? 'hover:bg-gray-700/60 focus:bg-gray-300'
-                     : 'hover:bg-gray-200 focus:bg-gray-300'
-               }`}
-               onClick={handleLanguageSettings}
-            >
-               <span>Язык</span>
-               <span>Выберите язык</span>
-               <div className="flex items-center justify-between w-full">
-                  <span>Запрос перед переводом</span>
-                  <IoIosArrowForward className="ml-auto" />
-               </div>
-            </div>
             <LanguageSettingsModal isOpen={isLanguageSettingsOpen} onClose={handleClose} />
             <hr className="border-t border-gray-300 dark:border-gray-600" />
-            <div 
-               className={`grid grid-cols-3 items-center w-full pl-4 cursor-pointer px-4 py-5 ${
-                  theme === 'dark' ? 'hover:bg-gray-700/60 focus:bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-300'
-               }`}
-               onClick={handleChangeRegionalFormat}
-            >
-               <span>{t("profile:regional_formats")}</span>
-               <span>{t("profile:language_and_date")}</span>
-               <div className="flex items-center justify-end">
-                  <IoIosArrowForward />
+            <div className="flex dark:hover:bg-gray-700/60 hover:bg-gray-200" onClick={handleChangeRegionalFormat}>
+               <div className="grid grid-cols-3 responsive-grid items-center w-full pl-4 cursor-pointer px-4 py-5">
+                  <span>{t("profile:regional_formats")}</span>
+                  <span>{t("profile:language_and_date")}</span>
                </div>
+                  <div className="flex items-center justify-end">
+                     <span className="mx-4 flex items-center cursor-pointer">
+                        <IoIosArrowForward />
+                     </span>
+                  </div>
             </div>
             <ChangeRegionalFormatModal
                isOpen={isChangeRegionalFormatOpen}
@@ -228,10 +219,10 @@ export default function ProfileInfo() {
             />
             <hr className="border-t border-gray-300 dark:border-gray-600" />
             <div className="flex flex-row items-center justify-between w-full pl-4 pr-2 space-x-4 p-5">
-               <div className="flex flex-col">
-                  <div className="flex items-center space-x-2">
+               <div className="flex flex-col w-full">
+                  <div className="flex custom-flex-500 items-start">
                      <span>{t("profile:related")}</span>
-                     <Link to={`${languagePrefix}/dashboard?tab=addresses`} className="pl-5  text-teal-500 hover:underline hover:text-teal-700">
+                     <Link to={`${languagePrefix}/dashboard?tab=addresses`} className="custom-margin-500 text-teal-500 hover:underline hover:text-teal-700">
                         {t("profile:billing_shipping_addresses")}
                      </Link>
                   </div>

@@ -123,7 +123,7 @@ export default function SelectThemeDialog({ show, onClose, onConfirm }) {
                </div>
                <div className="flex justify-end gap-4 p-4">
                   <button
-                     className="bg-teal-400 text-white rounded-md px-4 py-2 hover:bg-teal-500 dark:hover:bg-teal-600 shadow-md"
+                     className="bg-teal-400 dark:bg-teal-500 hover:bg-teal-500 dark:hover:bg-teal-600 text-white rounded-md px-4 py-2 shadow-md"
                      onClick={handleConfirmClick}
                   >
                      {t("dialogs:apply")}
