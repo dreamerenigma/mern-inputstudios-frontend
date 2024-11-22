@@ -153,19 +153,53 @@ export default function PostPage() {
          if (res.ok) {
             const data = await res.json();
    
-            setPost(
-               post.map((item) =>
-                  item._id === postId
-                     ? { ...item, likes: data.likes, numberOfLikes: data.numberOfLikes }
-                     : item
-               )
-            );
+            setPost((prevPost) => ({
+               ...prevPost,
+               likes: data.likes,
+               numberOfLikes: data.numberOfLikes,
+            }));
          } else {
             const errorData = await res.json();
             console.error("Error liking post:", errorData.message);
          }
       } catch (error) {
          console.error("Error liking post:", error.message);
+      }
+   };
+
+   const handleDislike = async (postId) => {
+      try {
+         if (!currentUser) {
+            navigate("/sign-in");
+            return;
+         }
+   
+         const token = localStorage.getItem('token');
+   
+         const res = await fetch(`${SERVER_URL}/api/post/dislikePost/${postId}`, {
+            method: "PUT",
+            headers: {
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`,
+            },
+         });
+   
+         if (res.ok) {
+            const data = await res.json();
+   
+            setPost((prevPost) => ({
+               ...prevPost,
+               likes: data.likes,
+               numberOfLikes: data.numberOfLikes,
+               dislikes: data.dislikes,
+               numberOfDislikes: data.numberOfDislikes,
+            }));
+         } else {
+            const errorData = await res.json();
+            console.error("Error disliking post:", errorData.message);
+         }
+      } catch (error) {
+         console.error("Error disliking post:", error.message);
       }
    };
    
@@ -284,8 +318,27 @@ export default function PostPage() {
                            </p>
                         </div>
                         <div className="flex items-center gap-2 text-teal-500">
-                           <FaThumbsDown size={16} />
-                           <span>0</span>
+                           <button
+                              type="button"
+                              onClick={() => handleDislike(post?._id)}
+                              className={`text-gray-400 hover:text-blue-500 ${
+                                 currentUser && post?.dislikes?.includes(currentUser._id) ? "!text-teal-500" : "text-gray-500"
+                              }`}
+                           >
+                              <FaThumbsDown
+                                 className={`text-sm ${
+                                    currentUser && post?.dislikes?.includes(currentUser._id) ? "text-teal-500" : "text-gray-500"
+                                 } hover:text-teal-500`}
+                              />
+                           </button>
+                           <p className="text-gray-400">
+                              {post.numberOfDislikes > 0 &&
+                                 post.numberOfDislikes +
+                                    " " +
+                                    (post.numberOfDislikes === 1 ? t("post:dislike") : t("post:dislikes")
+                                 )
+                              }
+                           </p>
                         </div>
                         <div className="flex items-center gap-2 text-teal-500">
                            <IoIosShareAlt size={24} />
