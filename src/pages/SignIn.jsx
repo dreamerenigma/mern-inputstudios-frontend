@@ -13,6 +13,7 @@ import { FaYandex } from "react-icons/fa";
 
 export default function SignIn() {
    const { t } = useTranslation();
+   const { theme } = useSelector((state) => state.theme);
    const [formData, setFormData] = useState({});
    const { loading, error: errorMessage } = useSelector(state => state.user);
    const dispatch = useDispatch();
@@ -21,6 +22,8 @@ export default function SignIn() {
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+
+   const iconColor = theme === "dark" ? (isHovered ? "#3b82f6" : "#4b5563") : (isHovered ? "#0074f5" : "#9ca3af");
 
    const handleChange = (e) => {
       setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -52,7 +55,7 @@ export default function SignIn() {
    };
    
    return (
-      <div className="min-h-screen flex flex-col justify-between">
+      <div className="min-h-screen flex flex-col relative">
          <Helmet>
             <title>{t("auth:sign_in_title")}</title>
          </Helmet>
@@ -64,9 +67,7 @@ export default function SignIn() {
                         Input Studios
                      </span>
                   </Link>
-                  <p className="text-sm mt-5">
-                     {t("auth:sign_in_account")}
-                  </p>
+                  <p className="text-sm mt-5">{t("auth:sign_in_account")}</p>
                </div>
                <div className="flex-1 w-full">
                   <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -108,25 +109,23 @@ export default function SignIn() {
                      <OAuth />
                      <div>
                         <p className="text-base">{t("auth:or_sign_in_other_services")}</p>
-                        <div className="flex gap-2 mt-2">
-                           <FaSquareGithub 
-                              className="text-5xl text-gray-600 hover:text-black transition-colors duration-300 ease-in-out" 
+                        <div className="flex gap-1 mt-2">
+                           <FaSquareGithub
+                              className="text-5xl text-gray-400 dark:text-gray-600 hover:text-black dark:hover:text-black transition-colors duration-300 ease-in-out"
                            />
                            <IMVk
                               style={{
-                                 borderRadius: '6px',
-                                 fill: isHovered ? '#3b82f6' : '#4b5563',
-                                 fontSize: '42px',
-                                 marginTop: '3px',
-                                 transition: 'fill 0.3s ease',
+                              borderRadius: "6px",
+                              fill: iconColor,
+                              fontSize: "42px",
+                              marginTop: "3px",
+                              transition: "fill 0.3s ease",
                               }}
                               onMouseEnter={() => setIsHovered(true)}
                               onMouseLeave={() => setIsHovered(false)}
                            />
-                           <div 
-                              className="bg-gray-600 hover:bg-red-600 w-[42px] h-[42px] mt-[3px] rounded-md inline-flex items-center justify-center  transition-colors duration-300 ease-in-out"
-                           >
-                              <FaYandex className="text-2xl text-gray-800" />
+                           <div className="bg-gray-400 dark:bg-gray-600 hover:bg-[#f8604a] dark:hover:bg-[#f8604a] w-[42px] h-[42px] mt-[3px] ml-[3px] rounded-md inline-flex items-center justify-center transition-colors duration-300 ease-in-out">
+                              <FaYandex className="text-2xl text-white dark:text-gray-800" />
                            </div>
                         </div>
                      </div>
@@ -147,9 +146,24 @@ export default function SignIn() {
          </div>
          <div className="mt-4 w-full flex justify-end px-4 pb-2 text-sm">
             <div className="flex flex-wrap gap-x-4 gap-y-2">
-               <Link to={`${languagePrefix}/terms-of-use`} className="underline text-teal-500 hover:text-teal-700">{t("auth:terms_of_use")}</Link>
-               <Link to={`${languagePrefix}/privacy`} className="underline text-teal-500 hover:text-teal-70">{t("auth:privacy_and_cookies")}</Link>
-               <Link to={`${languagePrefix}/help`} className="underline text-teal-500 hover:text-teal-700">{t("auth:help")}</Link>
+               <Link
+                  to={`${languagePrefix}/terms-of-use`}
+                  className="underline text-teal-500 hover:text-teal-700"
+               >
+                  {t("auth:terms_of_use")}
+               </Link>
+               <Link
+                  to={`${languagePrefix}/privacy`}
+                  className="underline text-teal-500 hover:text-teal-70"
+               >
+                  {t("auth:privacy_and_cookies")}
+               </Link>
+               <Link
+                  to={`${languagePrefix}/help`}
+                  className="underline text-teal-500 hover:text-teal-700"
+               >
+                  {t("auth:help")}
+               </Link>
             </div>
          </div>
       </div>

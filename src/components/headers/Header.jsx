@@ -592,7 +592,7 @@ export default function Header() {
                               <div className="mr-20-768-1080">
                                  <Link to={`${languagePrefix}/sign-in`} className="flex items-center margin-header margin-right mr-4-860">
                                     <span className="text-sm text-[#111827] dark:text-white mr-3 username-text">{t("headers:header_sign_in")}</span>
-                                    <div className="w-9 h-9 flex items-center justify-center border border-white rounded-full">
+                                    <div className="w-9 h-9 flex items-center justify-center border border-black dark:border-white rounded-full">
                                        <img
                                           src={isDarkMode ? "/images/header/sign_in_light.svg" : "/images/header/sign_in_dark.svg"}
                                           alt="user"

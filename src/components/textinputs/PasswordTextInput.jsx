@@ -27,7 +27,7 @@ export default function PasswordTextInput({
             value={value}
             onChange={onChange}
             autoComplete="off"
-            className={`w-full h-11 px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg text-base pr-10 ${placeholderColor} focus:border-teal-400 dark:focus:ring-2 focus:ring-teal-400`}
+            className={`w-full h-11 px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg text-base pr-10 ${placeholderColor} focus:border-teal-400 dark:focus:ring-2 focus:ring-teal-400`}
             {...props}
          />
          {iconPosition === "right" && value.length > 0 && (
