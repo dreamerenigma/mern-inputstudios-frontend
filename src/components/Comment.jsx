@@ -163,6 +163,20 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
                            </button>
                            <button
                               type="button"
+                              onClick={handleEdit}
+                              className="flex items-center text-gray-400 hover:text-teal-500 hidden-sm"
+                           >
+                              {t("comments:edit")}
+                           </button>
+                           <button
+                              type="button"
+                              onClick={() => onDelete(comment._id)}
+                              className="flex items-center text-gray-400 hover:text-red-500 w-full hidden-sm"
+                           >
+                              {t("comments:delete")}
+                           </button>
+                           <button
+                              type="button"
                               onClick={handleOpenBottomSheet}
                               className="text-gray-400 hover:text-teal-500 mr-2"
                            >
