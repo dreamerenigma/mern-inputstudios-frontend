@@ -7,6 +7,8 @@ const uiSlice = createSlice({
          show: false,
          text: "",
       },
+      font: "Arial",
+      fontSize: "16px",
    },
    reducers: {
       showTooltip(state, action) {
@@ -15,9 +17,15 @@ const uiSlice = createSlice({
       hideTooltip(state) {
          state.tooltip = { show: false, text: "" };
       },
+      setFont(state, action) {
+         state.font = action.payload;
+      },
+      setFontSize(state, action) {
+         state.fontSize = action.payload;
+      },
    },
 });
 
-export const { showTooltip, hideTooltip } = uiSlice.actions;
+export const { showTooltip, hideTooltip, setFont, setFontSize } = uiSlice.actions;
 
 export default uiSlice.reducer;

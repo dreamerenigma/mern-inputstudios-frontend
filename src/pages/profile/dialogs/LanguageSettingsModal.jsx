@@ -7,20 +7,25 @@ import { getLanguages } from '../../../redux/languages';
 import { HiPlus } from 'react-icons/hi2';
 import { RiMore2Line } from "react-icons/ri";
 
-export default function LanguageSettingsModal({ isOpen, onClose }) {
+export default function LanguageSettingsModal({ isOpen, onClose, setSelectedLanguage, selectedLanguage, handleLanguageChange }) {
    const menuDownRef = useRef(null);
    const menuUpRef = useRef(null);
    const dropdownRef = useRef(null);
    const [showLanguageInterface, setShowLanguageInterface] = useState(false);
    const [showPreferredLanguages, setShowPreferredLanguages] = useState(false);
    const [showTranslation, setShowTranslation] = useState(false);
-   const [selectedLanguage, setSelectedLanguage] = useState('ru');
    const [isMenuDownOpen, setIsMenuDownOpen] = useState(false);
    const [isMenuUpOpen, setIsMenuUpOpen] = useState(false);
    const [selectedOption, setSelectedOption] = useState('option2');
    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
    const [isOpenTranslation, setIsOpenTranslation] = useState(false);
    const [selectedTranslationLanguage, setSelectedTranslationLanguage] = useState('Выберите язык');
+   const [searchQuery, setSearchQuery] = useState("");
+   const languages = getLanguages(selectedLanguage);
+
+   const filteredLanguages = languages.filter((lang) =>
+      lang.label.toLowerCase().includes(searchQuery.toLowerCase())
+   );
 
    useEffect(() => {
       const handleClickOutside = (event) => {
@@ -51,24 +56,27 @@ export default function LanguageSettingsModal({ isOpen, onClose }) {
       };
    }, [isMenuDownOpen, isMenuUpOpen, isOpenTranslation]);
 
-   const handleLanguageChange = (e) => {
-      setSelectedLanguage(e.target.value);
-   };
-
    const handleOptionChange = (option) => {
       setSelectedOption(option);
       setIsButtonDisabled(false);
    };
 
-   const handleLanguageSelect = (language) => {
-      setSelectedTranslationLanguage(language);
-      setIsOpenTranslation(false);
+   const handleLanguageSelection = (language) => {
+      setSelectedLanguage(language);
    };
 
-   const languages = getLanguages(selectedLanguage);
    const toggleDropdown = () => setIsOpenTranslation(!isOpenTranslation);
 
    if (!isOpen) return null;
+
+   const handleSearchChange = (e) => {
+      setSearchQuery(e.target.value);
+   };
+
+   const handleLanguageChangeAndClose = () => {
+      handleLanguageChange(selectedLanguage);  // Update the selected language in parent
+      onClose();  // Close the modal
+   };
 
    return (
       <>
@@ -130,46 +138,42 @@ export default function LanguageSettingsModal({ isOpen, onClose }) {
             {showLanguageInterface ? (
                <div className="px-6 py-6 group">
                   <div className="flex items-center border border-gray-600 rounded-lg transition-all duration-200 ease-in-out px-4 group-focus-within:px-0">
-                     <IoIosSearch
-                        size={26}
-                        className="text-gray-500 transition-all duration-200 ease-in-out group-focus-within:hidden transform scale-x-[-1]"
-                     />
+                     <IoIosSearch size={26} className="text-gray-500 transition-all duration-200 ease-in-out group-focus-within:hidden transform scale-x-[-1]" />
                      <input
                         type="text"
                         placeholder="Найти язык"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
                         className="flex-1 text-base outline-none bg-transparent border-none focus:outline-none focus:ring-0 focus:border-none"
                      />
                   </div>
-                  <div className="mt-4 max-h-60 overflow-y-auto">
+                  <div className="mt-4 custom-scrollbar">
                      <ul className="space-y-2">
-                        {languages.map((lang) => (
-                           <li
-                              key={lang.value}
-                              className={`p-2 cursor-pointer rounded ${
-                                 selectedLanguage === lang.value
-                                    ? 'border border-teal-700 text-white'
-                                    : 'hover:bg-gray-700'
-                              }`}
-                              onClick={() => setSelectedLanguage(lang.value)}
-                           >
-                              {lang.label}
-                           </li>
-                        ))}
+                        {filteredLanguages.length > 0 ? (
+                           filteredLanguages.map((lang) => (
+                              <li
+                                 key={lang.label}
+                                 className={`p-2 cursor-pointer rounded ${selectedLanguage === lang.label ? "border border-teal-700 text-white" : "hover:bg-gray-700"}`}
+                                 onClick={() => handleLanguageSelection(lang.label)}
+                              >
+                                 {lang.label}
+                              </li>
+                           ))
+                        ) : (
+                           <li className="p-2 text-gray-500">Нет языков для отображения</li>
+                        )}
                      </ul>
                   </div>
                   <div className="mt-4 flex justify-end">
                      <button
-                        className={`py-2 px-6 rounded-lg transition duration-200 ${
-                           isButtonDisabled
-                              ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                              : 'bg-teal-500 text-white hover:bg-teal-700'
-                        }`} 
-                        disabled={isButtonDisabled}
+                        className={`py-2 px-6 rounded-lg transition duration-200 ${selectedLanguage ? "bg-teal-500 text-white hover:bg-teal-700" : "bg-gray-400 text-gray-600 cursor-not-allowed"}`}
+                        disabled={!selectedLanguage}
+                        onClick={handleLanguageChangeAndClose}
                      >
                         Изменение языка интерфейса
                      </button>
                   </div>
-               </div>            
+               </div>
             ) : showPreferredLanguages ? (
                <div className="m-6">
                   <div className="border-t border-gray-700 my-4"></div>
@@ -295,11 +299,14 @@ export default function LanguageSettingsModal({ isOpen, onClose }) {
                         <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-700 border border-gray-600 rounded-lg shadow-lg">
                            {languages.map((lang, index) => (
                               <div
-                              key={lang.value}
-                              onClick={() => handleLanguageSelect(lang.label)}
-                              className={`hover:bg-gray-500 px-4 py-2 cursor-pointer ${index === 0 ? 'rounded-t-md' : ''} ${index === languages.length - 1 ? 'rounded-b-md' : ''}`}
+                                 key={lang.value}
+                                 onClick={() => {
+                                    setSelectedTranslationLanguage(lang.label);
+                                    handleLanguageSelection(lang.label);
+                                 }}
+                                 className={`hover:bg-gray-500 px-4 py-2 cursor-pointer ${index === 0 ? 'rounded-t-md' : ''} ${index === languages.length - 1 ? 'rounded-b-md' : ''}`}
                               >
-                              {lang.label}
+                                 {lang.label}
                               </div>
                            ))}
                         </div>
@@ -370,4 +377,7 @@ export default function LanguageSettingsModal({ isOpen, onClose }) {
 LanguageSettingsModal.propTypes = {
    isOpen: PropTypes.bool.isRequired,
    onClose: PropTypes.func.isRequired,
+   setSelectedLanguage: PropTypes.func.isRequired,
+   selectedLanguage: PropTypes.string.isRequired,
+   handleLanguageChange: PropTypes.func.isRequired,
 };

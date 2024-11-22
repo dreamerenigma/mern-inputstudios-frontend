@@ -7,5 +7,6 @@
   "light_theme": "Светлая",
   "dark_theme": "Темная",
   "apply": "Применить",
-  "cancel": "Отмена"
+  "cancel": "Отмена",
+  "choose_font": "Выберите шрифт"
 }
