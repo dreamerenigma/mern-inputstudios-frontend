@@ -3,17 +3,12 @@ import { useSelector } from "react-redux";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import PropTypes from "prop-types";
 
-export default function ChangePasswordInput({ labelText, placeholderText }) {
+export default function ChangePasswordInput({ labelText, placeholderText, value, onChange }) {
    const { theme } = useSelector((state) => state.theme);
-   const [password, setPassword] = useState("");
    const [passwordVisible, setPasswordVisible] = useState(false);
 
    const togglePasswordVisibility = () => {
       setPasswordVisible((prevVisible) => !prevVisible);
-   };
-
-   const handlePasswordChange = (e) => {
-      setPassword(e.target.value);
    };
 
    return (
@@ -25,11 +20,11 @@ export default function ChangePasswordInput({ labelText, placeholderText }) {
             <input
                type={passwordVisible ? "text" : "password"}
                placeholder={placeholderText}
-               value={password}
-               onChange={handlePasswordChange}
+               value={value}
+               onChange={(e) => onChange(e.target.value)}
                className={`pl-3 ${theme === 'dark' ? 'bg-transparent' : 'bg-white'} border border-gray-600 rounded-md p-2 w-full focus:outline-none focus:ring-0 focus:border-teal-500`} 
             />
-            {password.length > 0 && (
+            {value.length > 0 && (
                <button
                   type="button"
                   onClick={togglePasswordVisibility}
@@ -50,4 +45,6 @@ export default function ChangePasswordInput({ labelText, placeholderText }) {
 ChangePasswordInput.propTypes = {
    labelText: PropTypes.string.isRequired,
    placeholderText: PropTypes.string.isRequired,
+   value: PropTypes.string.isRequired,
+   onChange: PropTypes.func.isRequired,
 };
