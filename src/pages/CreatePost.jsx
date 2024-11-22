@@ -24,39 +24,39 @@ export default function CreatePost() {
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    const handleUploadFile = async () => {
-   try {
-      if (!file) {
-         setFileUploadError('Please select a file');
-         return;
-      }
-      setFileUploadError(null);
-      const storage = getStorage(app);
-      const fileName = new Date().getTime() + "-" + file.name;
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-         'state_changed',
-         (snapshot) => {
-            const progress =
-               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setFileUploadProgress(progress.toFixed(0));
-         },
-         (error) => {
-            setFileUploadError(`File upload failed: ${error.message || error.code}`);
-            setFileUploadProgress(null);
-         },
-         () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-               setFileUploadProgress(null);
-               setFileUploadError(null);
-               if (file.type.includes('video')) {
-                  setFormData({ ...formData, video: downloadURL, previewImage: downloadURL });
-               } else {
-                  setFormData({ ...formData, image: downloadURL });
-               }
-            });
+      try {
+         if (!file) {
+            setFileUploadError('Please select a file');
+            return;
          }
-      );
+         setFileUploadError(null);
+         const storage = getStorage(app);
+         const fileName = `post-images/${new Date().getTime()}-${file.name}`;
+         const storageRef = ref(storage, fileName);
+         const uploadTask = uploadBytesResumable(storageRef, file);
+         uploadTask.on(
+            'state_changed',
+            (snapshot) => {
+               const progress =
+                  (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+               setFileUploadProgress(progress.toFixed(0));
+            },
+            (error) => {
+               setFileUploadError(`File upload failed: ${error.message || error.code}`);
+               setFileUploadProgress(null);
+            },
+            () => {
+               getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                  setFileUploadProgress(null);
+                  setFileUploadError(null);
+                  if (file.type.includes('video')) {
+                     setFormData({ ...formData, video: downloadURL, previewImage: downloadURL });
+                  } else {
+                     setFormData({ ...formData, image: downloadURL });
+                  }
+               });
+            }
+         );
 
       } catch (error) {
          setFileUploadError("File upload failed");
