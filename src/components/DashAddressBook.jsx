@@ -37,12 +37,12 @@ export default function DashAddressBook() {
 
    return (
       <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)]">
-         <div className="overview flex flex-col max-w-5xl w-full h-auto mt-8 mx-auto">
+         <div className="px-4 overview flex flex-col max-w-5xl w-full h-auto mt-8 mx-auto">
             <div className="flex justify-between items-center mb-7">
                <h1 className="font-semibold text-3xl">Адресная книга</h1>
             </div>
-            <div className="flex space-x-6">
-               <div className="w-1/2">
+            <div className="flex flex-col md:flex-row lg:space-x-6 mt-6">
+               <div className="flex-1 mt-0  max-w-lg min-h-[300px]">
                   <p className="font-semibold text-lg">
                      Основные сведения о выставлении счетов
                   </p>
@@ -64,7 +64,10 @@ export default function DashAddressBook() {
                         <div className="flex flex-col space-y-1 w-1/2 px-6 py-4">
                            <div className="text-base font-semibold">Электронный адрес</div>
                            <div className="text-sm">Hitmanki@yandex.ru</div>
-                           <div className="text-sm text-teal-500 hover:underline cursor-pointer" onClick={handleOpenSelectEmailDialog}>
+                           <div
+                              className="text-sm text-teal-500 hover:underline cursor-pointer"
+                              onClick={handleOpenSelectEmailDialog}
+                           >
                               Смена электронной почты
                            </div>
                            <SelectEmailDialog
@@ -75,45 +78,50 @@ export default function DashAddressBook() {
                         </div>
                      </div>
                      <div className="mt-6 border-t border-gray-300 dark:border-gray-700"></div>
-                     <div className="flex justify-between px-6 py-4">
-                        <p 
+                        <div className="flex justify-between px-6 py-4">
+                        <p
                            className="text-sm text-teal-500 hover:underline cursor-pointer w-[200px]"
-                           onClick={() => handleOpenAddAddressDialog('edit')}
+                           onClick={() => handleOpenAddAddressDialog("edit")}
                         >
                            Изменить адрес выставления счетов
                         </p>
-                        <Link to={`${languagePrefix}/dashboard?tab=profile`} className="text-sm text-teal-500 hover:underline cursor-pointer w-[200px]">Управление адресами электронной почты</Link>
+                        <Link
+                           to={`${languagePrefix}/dashboard?tab=profile`}
+                           className="text-sm text-teal-500 hover:underline cursor-pointer w-[200px]"
+                        >
+                           Управление адресами электронной почты
+                        </Link>
                      </div>
                   </div>
                </div>
-               <div className="w-1/2">
-                  <p className="font-semibold text-lg">
-                     Основной адрес доставки
-                  </p>
+               <div className="flex-1 mt-0 max-w-lg min-h-[300px] margin-left-1030">
+                  <p className="font-semibold text-lg">Основной адрес доставки</p>
                   <p className="text-sm">
                      Мы будем использовать этот адрес, если вы не выберете другой
                   </p>
                   <div className="mt-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md border border-gray-300 dark:border-gray-700">
                      <div className="flex space-x-6">
-                        <div className="flex flex-col space-y-1 w-1/2 px-6 py-4">
-                           <div className="text-base font-semibold mb-2">Адрес</div>
-                           <div className="text-sm">Андрей Трепалин</div>
-                           <div className="text-sm">ул.Отрадная д.14 к.1 кв.13</div>
-                           <div className="text-sm">Ульяновск</div>
-                           <div className="text-sm">Ульяновская Область</div>
-                           <div className="text-sm">Россия</div>
-                           <div className="text-sm">432073</div>
-                           <div className="text-sm">8991940398</div>
-                        </div>
+                     <div className="flex flex-col space-y-1 w-1/2 px-6 py-4">
+                        <div className="text-base font-semibold mb-2">Адрес</div>
+                        <div className="text-sm">Андрей Трепалин</div>
+                        <div className="text-sm">ул.Отрадная д.14 к.1 кв.13</div>
+                        <div className="text-sm">Ульяновск</div>
+                        <div className="text-sm">Ульяновская Область</div>
+                        <div className="text-sm">Россия</div>
+                        <div className="text-sm">432073</div>
+                        <div className="text-sm">8991940398</div>
+                     </div>
                      </div>
                      <div className="mt-6 border-t border-gray-300 dark:border-gray-700"></div>
                      <div className="flex justify-between px-6 py-4">
-                        <div className="text-sm text-teal-500 hover:underline cursor-pointer w-[150px]">Изменить адрес доставки</div>
+                     <div className="text-sm text-teal-500 hover:underline cursor-pointer w-[150px]">
+                        Изменить адрес доставки
+                     </div>
                      </div>
                   </div>
                </div>
             </div>
-            <div className="flex justify-between items-center mt-12">
+            <div className="flex justify-between items-center mt-12 margin-top-1030-address">
                <h1 className="font-semibold text-xl">Все адреса</h1>
                <div className="flex items-center text-teal-500">
                   <HiPlus size={22} />
