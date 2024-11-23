@@ -66,6 +66,15 @@
     width: 100px;
     height: 100px;
   }
+  .language-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .language-title {
+    margin-left: 0.5rem;
+    margin-top: 1rem;
+  }
 }
 
 @media (min-width: 500px) {
@@ -409,6 +418,12 @@
   .md\:mt-0 {
     margin-top: 16px;
   }
+  .margin-top-1030-address {
+    margin-top: 1.5rem;
+  }
+  .margin-top-1030 {
+    margin-top: 1rem;
+  }
 }
 
 @media (min-width: 1030px) {
@@ -417,6 +432,12 @@
   }
   .custom-width {
     width: 300px;
+  }
+}
+
+@media (min-width: 1031px) {
+  .margin-left-1030 {
+    margin-left: 1.5rem;
   }
 }
 
