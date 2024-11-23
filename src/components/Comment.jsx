@@ -6,6 +6,8 @@ import { Button, Textarea } from "flowbite-react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import CustomBottomSheetDialog from "./dialogs/CustomBottomSheetDialog";
+import CommentPopupMenu from "./popups/CommentPopupMenu";
+import { Link } from "react-router-dom";
 
 export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) {
    const { t } = useTranslation();
@@ -17,8 +19,9 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
    const { currentUser } = useSelector((state) => state.user);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-
-   const handleOpenBottomSheet = () => setIsBottomSheetOpen(true);
+   const [isMobileView, setIsMobileView] = useState(false);
+   const currentLanguage = useSelector((state) => state.language.currentLanguage);
+   const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
    
    useEffect(() => {
       const getUser = async () => {
@@ -34,6 +37,19 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
       }
       getUser();
    }, [SERVER_URL, comment]);
+
+   useEffect(() => {
+      const checkScreenSize = () => {
+         setIsMobileView(window.innerWidth <= 768);
+      };
+
+      checkScreenSize();
+      window.addEventListener("resize", checkScreenSize);
+
+      return () => {
+         window.removeEventListener("resize", checkScreenSize);
+      };
+   }, []);
 
    const handleEdit = () => {
       setIsEditing(true);
@@ -73,11 +89,13 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
       if (!replyContent.trim()) return;
       try {
          const token = localStorage.getItem('token');
-         const res = await fetch(`${SERVER_URL}/api/comment/reply/${comment._id}`, {
+         const commentId = comment._id;
+         console.log("Posting reply to comment:", commentId);
+         const res = await fetch(`${SERVER_URL}/api/comment/reply/${commentId}`, {
             method: "POST",
             headers: {
                "Content-Type": "application/json",
-               "Authorization": `Bearer ${token}`
+               "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify({
                content: replyContent,
@@ -97,24 +115,50 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
       }
    };
 
+   const handleOpenDialog = () => {
+      setIsBottomSheetOpen(true);
+   };
+
+   const handleCloseDialog = () => {
+      setIsBottomSheetOpen(false);
+   };
+
    return (
       <div className="flex py-4 text-sm">
-         <div className="flex-shrink-0 mr-3">
-            <img
-               className="w-10 h-10 rounded-full bg-gray-200"
-               src={user.profilePicture}
-               alt={user.username}
-            />
-         </div>
-         <div className="flex-1">
-            <div className="flex items-center mb-1">
-               <span className="font-bold mr-1 text-xs truncate">
-                  {user ? `@${user.username}` : "anonymous user"}
-               </span>
-               <span className="text-gray-400 text-xs">
-                  {moment(comment.createdAt).fromNow()}
-               </span>
+         <Link 
+            to={
+            currentUser && currentUser.username === user.username
+               ? `${languagePrefix}/dashboard?tab=profile`
+               : `${languagePrefix}/user/${user.username}`
+            }
+            className="text-base text-cyan-600 hover:underline"
+         >
+            <div className="flex-shrink-0 mr-3">
+               <img
+                  className="w-10 h-10 rounded-full bg-gray-200"
+                  src={user.profilePicture}
+                  alt={user.username}
+               />
             </div>
+         </Link>
+         <div className="flex-1">
+               <div className="flex items-center mb-1">
+                  <Link 
+                     to={
+                        currentUser && currentUser.username === user.username
+                           ? `${languagePrefix}/dashboard?tab=profile`
+                           : `${languagePrefix}/user/${user.username}`
+                     }
+                     className="text-base text-cyan-600 hover:underline"
+                  >
+                     <span className="font-bold mr-1 text-xs truncate">
+                        {user ? `@${user.username}` : "anonymous user"}
+                     </span>
+                  </Link>
+                  <span className="text-gray-400 text-xs">
+                     {moment(comment.createdAt).fromNow()}
+                  </span>
+               </div>
             {isEditing ? (
                <>
                   <Textarea
@@ -148,8 +192,12 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
                      </button>
                      <p className="text-gray-400">
                         {comment.numberOfLikes > 0 &&
-                           comment.numberOfLikes + " " +
-                           (comment.numberOfLikes === 1 ? t("comments:like") : t("comments:likes"))
+                           (comment.numberOfLikes > 10
+                              ? `${comment.numberOfLikes}\u00A0${t("comments:many_likes")}`
+                              : `${comment.numberOfLikes}\u00A0${
+                                 comment.numberOfLikes === 1 ? t("comments:like") : t("comments:likes")
+                              }`
+                           )
                         }
                      </p>
                      {currentUser && (currentUser._id === comment.userId || currentUser.isAdmin) && (
@@ -175,21 +223,32 @@ export default function Comment({ comment, onLike, onEdit, onDelete, onReply }) 
                            >
                               {t("comments:delete")}
                            </button>
-                           <button
-                              type="button"
-                              onClick={handleOpenBottomSheet}
-                              className="text-gray-400 hover:text-teal-500 mr-2"
-                           >
-                              <FaEllipsisH className="text-base" />
-                           </button>
-                           <CustomBottomSheetDialog
-                              isOpen={isBottomSheetOpen}
-                              onClose={() => setIsBottomSheetOpen(false)}
-                              handleEdit={handleEdit}
-                              onDelete={onDelete}
-                              t={t}
-                              comment={comment}
-                           />
+                           <div className="relative inline-block">
+                              <button
+                                 type="button"
+                                 onClick={handleOpenDialog}
+                                 className="text-gray-400 hover:text-teal-500 mr-2"
+                              >
+                                 <FaEllipsisH className="text-base mt-1" />
+                              </button>
+                              {isMobileView ? (
+                                 <CustomBottomSheetDialog
+                                    isOpen={isBottomSheetOpen}
+                                    onClose={handleCloseDialog}
+                                    handleEdit={handleEdit}
+                                    onDelete={onDelete}
+                                    t={t}
+                                    comment={comment}
+                                 />
+                              ) : (
+                                 <CommentPopupMenu
+                                    isOpen={isBottomSheetOpen}
+                                    onClose={handleCloseDialog}
+                                    t={t}
+                                    comment={comment}
+                                 />
+                              )}
+                           </div>
                         </>
                      )}
                   </div>

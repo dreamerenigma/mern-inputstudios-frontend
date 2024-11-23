@@ -6,10 +6,11 @@ import Comment from './Comment';
 import PropTypes from 'prop-types';
 import DeleteCommentDialog from './dialogs/DeleteCommentDialog';
 import { useTranslation } from "react-i18next";
-import { IoIosMail, IoIosSettings } from "react-icons/io";
+import { IoIosMail, IoIosSettings, IoMdNotificationsOutline } from "react-icons/io";
 import { FaRss } from "react-icons/fa";
 import ReactDOM from 'react-dom';
 import PostTooltip from "./tooltips/PostTooltip";
+import HiddenPublishPopupMenu from "./popups/HidePublishPopupMenu";
 
 export default function CommentSection({ postId }) {
    const { t } = useTranslation();
@@ -24,6 +25,7 @@ export default function CommentSection({ postId }) {
    const [commentToDelete, setCommentToDelete] = useState(null);
    const navigate = useNavigate();
    const [showTooltip, setShowTooltip] = useState(false);
+   const [showPopupMenu, setShowPopupMenu] = useState(false);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const FRONTEND_URL = import.meta.env.VITE_VERCEL_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
@@ -208,12 +210,16 @@ export default function CommentSection({ postId }) {
       }
    };
 
-   const handleSettings = async () => {
-
-   };
-
    const handleReply = (commentId) => {
       console.log('Replying to comment', commentId);
+   };
+
+   const handlePopupMenuOpen = async () => {
+      setShowPopupMenu(true);
+   };
+
+   const handlePopupMenuClose = () => {
+      setShowPopupMenu(false);
    };
 
    return (
@@ -264,10 +270,16 @@ export default function CommentSection({ postId }) {
                <div className="flex gap-2 md:absolute md:top-0 md:right-0 mt-4 md:mt-0">
                   <button
                      className="rounded-lg bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:bg-gradient-to-r hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 transition-colors duration-300 p-2"
-                     onClick={handleSettings}
+                     onClick={handlePopupMenuOpen}
                   >
                      <IoIosSettings size={24} className="text-white" />
                   </button>
+                  <HiddenPublishPopupMenu
+                     isOpen={showPopupMenu}
+                     onClose={handlePopupMenuClose}
+                     t={t}
+                     comment={comment}
+                  />
                   <button
                      className="rounded-lg bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-r hover:from-blue-700 hover:via-green-700 hover:to-teal-700 transition-colors duration-300 p-2"
                      onClick={handleClick}
@@ -304,9 +316,14 @@ export default function CommentSection({ postId }) {
                      <div className="ml-2 border border-gray-400 py-1 px-2 rounded-sm">
                         <p>{comments.length}</p>
                      </div>
-                     <button className="ml-auto" onClick={handleCopy}>
-                        <FaRss className="text-gray-500" />
-                     </button>
+                     <div className="flex space-x-5 ml-auto">
+                        <button className="ml-auto" onClick={handleCopy}>
+                           <FaRss size={20} className="text-gray-500" />
+                        </button>
+                        <button>
+                           <IoMdNotificationsOutline size={26} className="text-gray-500" />
+                        </button>
+                     </div>
                   </div>
                   {comments.map(comment => (
                      <Comment

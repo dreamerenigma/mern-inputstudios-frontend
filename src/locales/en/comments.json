@@ -9,9 +9,12 @@
   "comments": "Comments",
   "like": "like",
   "likes": "likes",
+  "many_likes": "likes",
   "edit": "Edit",
   "delete": "Delete",
+  "complain": "Complain",
   "save": "Save",
   "cancel": "Cancel",
-  "reply": "Reply"
+  "reply": "Reply",
+  "hide_publish_author": "Hide publications author"
 }
