@@ -31,6 +31,7 @@ export default function PostPage() {
    const [recentPosts, setRecentPosts] = useState(null);
    const [views, setViews] = useState(0);
    const [visiblePosts, setVisiblePosts] = useState(8);
+   const [shareCount, setShareCount] = useState(null);
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
@@ -71,6 +72,7 @@ export default function PostPage() {
             if (data.posts && data.posts.length > 0) {
                setPost(data.posts[0]);
                setViews(data.posts[0].views || 0);
+               setShareCount(data.posts[0].shareCount || 0);
             }
             setLoading(false);
             setError(false);
@@ -202,6 +204,41 @@ export default function PostPage() {
          console.error("Error disliking post:", error.message);
       }
    };
+
+   const handleShare = async (postId) => {
+      try {
+         console.log('postId:', postId);
+   
+         if (navigator.share) {
+            await navigator.share({
+               title: 'Заголовок страницы',
+               text: 'Описание для общего контента',
+               url: window.location.href,
+            });
+            console.log('Контент был успешно отправлен!');
+            
+            const token = localStorage.getItem('token');
+            const response = await fetch(`/api/post/${postId}/share`, {
+               method: 'PUT',
+               headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`,
+               },
+            });
+   
+            if (response.ok) {
+               const data = await response.json();
+               setShareCount(data.shareCount);
+            } else {
+               console.error('Ошибка при попытке обновить количество поделившихся');
+            }
+         } else {
+            alert('Ваш браузер не поддерживает функцию Share API.');
+         }
+      } catch (error) {
+         console.error('Ошибка при попытке поделиться:', error);
+      }
+   };
    
    if (loading) {
       return (
@@ -226,7 +263,7 @@ export default function PostPage() {
          </Helmet>
          <div className="flex gap-4 justify-center">
             {/* Левая колонка */}
-            <div className="w-[1200px] flex flex-col max-w-[750px] responsive-container">
+            <div className="w-[1200px] flex flex-col max-w-[780px] responsive-container">
                <div className="border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg mb-3 shadow-md">
                   <div className="p-4">
                      {currentUser ? (
@@ -303,7 +340,7 @@ export default function PostPage() {
                               }`}
                            >
                               <FaThumbsUp
-                                 className={`text-sm ${
+                                 className={`text-lg ${
                                     currentUser && post?.likes?.includes(currentUser._id) ? "text-teal-500" : "text-gray-500"
                                  } hover:text-teal-500`}
                               />
@@ -326,7 +363,7 @@ export default function PostPage() {
                               }`}
                            >
                               <FaThumbsDown
-                                 className={`text-sm ${
+                                 className={`text-lg ${
                                     currentUser && post?.dislikes?.includes(currentUser._id) ? "text-teal-500" : "text-gray-500"
                                  } hover:text-teal-500`}
                               />
@@ -340,9 +377,9 @@ export default function PostPage() {
                               }
                            </p>
                         </div>
-                        <div className="flex items-center gap-2 text-teal-500">
+                        <div className="flex items-center gap-2 text-teal-500" onClick={() => handleShare(post._id)}>
                            <IoIosShareAlt size={24} />
-                           <span>2</span>
+                           <span>{shareCount}</span>
                         </div>
                         <div className="flex items-center gap-2 text-teal-500">
                            <FaMessage size={16} />
