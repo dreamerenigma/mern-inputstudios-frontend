@@ -1,6 +1,7 @@
 import { RiCloseLine, RiDeleteBinLine, RiEditLine } from "react-icons/ri";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
+import { FiInfo } from "react-icons/fi";
 
 export default function CustomBottomSheetDialog({ isOpen, onClose, handleEdit, onDelete, t, comment }) {
 
@@ -42,6 +43,14 @@ export default function CustomBottomSheetDialog({ isOpen, onClose, handleEdit, o
                >
                   <RiEditLine size={20} className="mr-2" />
                   {t("comments:edit")}
+               </button>
+               <button
+                  type="button"
+                  onClick={() => onDelete(comment._id)}
+                  className="flex items-center text-base text-gray-400 hover:text-teal-500 hover:bg-gray-700/60 w-full text-left px-5 py-3"
+               >
+                  <FiInfo size={20} className="mr-3" />
+                  {t("comments:complain")}
                </button>
                <button
                   type="button"
