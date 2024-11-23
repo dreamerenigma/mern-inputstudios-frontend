@@ -32,5 +32,12 @@
   "write_reply": "Напишите ответ",
   "reply": "Ответ",
   "cancel": "Отмена",
-  "show_post_preview": "Показать превью поста"
+  "show_post_preview": "Показать превью поста",
+  "category_artificial_intelligence": "Искусственный интелект",
+  "category_cosmos": "Космос",
+  "category_database": "Базы данных",
+  "category_game_dev": "Разработка игр",
+  "category_science": "Наука",
+  "machine_learning": "Машинное обучение",
+  "gadgets": "Гаджеты"
 }

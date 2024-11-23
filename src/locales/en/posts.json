@@ -32,5 +32,10 @@
   "write_reply": "Write reply",
   "reply": "Reply",
   "cancel": "Cancel",
-  "show_post_preview": "Show post preview"
+  "show_post_preview": "Show post preview",
+  "category_artificial_intelligence": "Artificial intelligence",
+  "category_cosmos": "Cosmos",
+  "category_database": "Database",
+  "category_game_dev": "Game development",
+  "category_science": "Science"
 }
