@@ -310,8 +310,8 @@ export default function CustomInputWithToolbar ({ value = '', onChange }) {
    };
 
    return (
-      <div className="w-full border border-gray-600 rounded-md">
-         <div className="bg-gray-200 dark:bg-gray-700 rounded-t-md flex flex-wrap items-center border border-gray-600 p-2">
+      <div className="w-full border border-gray-300 dark:border-gray-700 rounded-md">
+         <div className="bg-gray-200 dark:bg-gray-800 rounded-t-md flex flex-wrap items-center border-b dark:border-gray-700 px-4 py-2">
             <div className="flex flex-wrap gap-3">
                <div className="flex items-stretch border-button rounded-lg border-gray-500">
                   <button className="flex items-center p-2 border-gray-500 last:border-0 hover:bg-gray-600 focus:outline-none">
@@ -509,12 +509,11 @@ export default function CustomInputWithToolbar ({ value = '', onChange }) {
                )}
             </div>
          </div>
-         <div className="border-t border-gray-400 dark:border-gray-600"></div>
          <div className="relative w-full">
             <div
                ref={editableRef}
                id="editableContainer"
-               className="editableField w-full p-4 bg-gray-200 dark:bg-gray-700 rounded-b-md outline-none border-none ring-0 focus:outline-none resize-none"
+               className="editableField w-full p-4  bg-gray-200 dark:bg-gray-800 rounded-b-md outline-none border-none ring-0 focus:outline-none resize-none"
                contentEditable
                suppressContentEditableWarning
                onInput={handleInput}

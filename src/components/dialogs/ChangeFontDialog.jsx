@@ -56,7 +56,7 @@ export default function ChangeFontDialog({ show, onClose, onConfirm }) {
 
    return (
       <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 shadow-sm">
-         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-96 border-dialog border-gray-300 dark:border-gray-700 relative" ref={dialogRef}>
+         <div className="mx-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg w-96 border-dialog border-gray-300 dark:border-gray-700 relative" ref={dialogRef}>
             <button onClick={onClose} className="absolute top-3 right-3 rounded-md">
                <RiCloseLine size={24} className="rounded-md hover:translate-y-[-3px] transition-transform duration-200 hover:bg-gray-300 dark:hover:bg-gray-600" onClick={handleCancelClick} />
             </button>
@@ -64,7 +64,7 @@ export default function ChangeFontDialog({ show, onClose, onConfirm }) {
                <h3 className="px-5 py-4 mb-2 text-lg">
                   {t("dialogs:choose_font")}
                </h3>
-               <div className="flex flex-col gap-2 mb-10">
+               <div className="flex flex-col gap-2 mb-5">
                   {fonts.map((fontOption) => (
                      <label key={fontOption} className="flex items-center cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700/60 px-5 py-3">
                         <div className="flex-grow" style={{ fontFamily: fontOption }}>
