@@ -6,6 +6,9 @@
   .ml-2-350 {
     margin-left: 0.5rem;
   }
+  .sticker-img {
+    max-width: 60px;
+  }
 }
 
 @media (max-width: 365px) {
@@ -184,6 +187,12 @@
   .mx-responsive {
     margin-left: 7vw;
     margin-right: 7vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1300px) {
+  .hide-on-medium-screen {
+    display: none;
   }
 }
 
@@ -400,7 +409,7 @@
   .custom-hide {
     display: none;
   }
-  .md\:flex-row {
+  .custom-flex-1030 .md\:flex-row {
     flex-direction: column;
   }
   .md\:items-center {
@@ -457,6 +466,13 @@
     padding-left: 1rem;
     padding-right: 1rem;
   }
+  .mx-12-1080 {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .my-12-1080 {
+    margin-top: 2.5rem;
+  }
 }
 
 @media (min-width: 1080px) {
@@ -474,6 +490,10 @@
     padding-left: 4rem;
     padding-right: 4rem;
   }
+  .px-4-1080 {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .mx-20-1080 {
     margin-left: 3.5rem;
     margin-right: 3.5rem;
@@ -484,6 +504,9 @@
   }
   .mr-20-768-1080 {
     margin-right: 5rem;
+  }
+  .column {
+    width: 25%;
   }
 }
 

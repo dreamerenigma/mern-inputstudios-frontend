@@ -125,7 +125,7 @@ export default function Home() {
                </div>
             )}
             <div
-               className={`flex flex-row gap-4 mt-10 mb-10 mx-4 ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+               className={`flex flex-row gap-4 mt-10 mb-10 ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
                style={{ display: isLoading ? 'none' : 'flex' }}
             >
                <p>{t("home_subscribe_news")}</p>

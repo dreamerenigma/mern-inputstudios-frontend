@@ -45,7 +45,7 @@ export default function DashComments() {
       if (currentUser.isAdmin) {
          fetchComments();
       }
-   }, [SERVER_URL, currentUser._id, currentUser.isAdmin]);   
+   }, [SERVER_URL, currentUser._id, currentUser.isAdmin]);
 
    const handleShowMore = async () => {
       const startIndex = comments.length;
@@ -143,8 +143,8 @@ export default function DashComments() {
       >
          {currentUser.isAdmin && comments.length > 0 ? (
             <>
-               <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-x-auto">
-                     <Table hoverable className="shadow-md">
+               <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-x-auto shadow-md">
+                  <Table hoverable className="shadow-md">
                      <Table.Head>
                         {isSelectionMode && (
                            <Table.HeadCell>

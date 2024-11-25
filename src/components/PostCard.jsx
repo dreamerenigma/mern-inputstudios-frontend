@@ -17,8 +17,8 @@ export default function PostCard({ post }) {
          </Link>
          <div className="p-3 flex flex-col gap-2">
             <div className="px-2">
-               <p className="text-lg font-semibold line-clamp-2 pb-2">{post.title}</p>
-               <span className="italic text-sm border border-teal-500 rounded-lg px-2 py-1 inline-block max-w-max">
+            <p className="text-lg font-semibold line-clamp-2 overflow-hidden text-ellipsis">{post.title}</p>
+               <span className="italic text-sm border border-teal-500 rounded-lg mt-2 px-2 py-1 inline-block max-w-max">
                   {post.category}
                </span>
             </div>

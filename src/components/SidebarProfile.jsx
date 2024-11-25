@@ -86,9 +86,7 @@ export default function SidebarProfile() {
             className={`flex items-center justify-center xl:hidden max-w-max`}
          >
             <button 
-               className={`flex items-center justify-center ml-2 p-1 rounded transition-all duration-200
-                           ${isClicked ? 'bg-gray-300 dark:bg-gray-800' : 'bg-transparent'}
-                           hover:bg-gray-200 dark:hover:bg-gray-700`}
+               className={`flex items-center justify-center ml-2 p-1 pt-2 rounded transition-all duration-200 ${isClicked ? 'bg-gray-300 dark:bg-gray-800' : 'bg-transparent'} hover:bg-gray-200 dark:hover:bg-gray-700`}
                onClick={toggleSidebar}
             >
                {isMenuOpen ? <HiX size={28} /> : <HiMenu size={28} />}

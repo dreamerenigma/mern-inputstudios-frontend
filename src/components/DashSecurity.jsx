@@ -122,7 +122,7 @@ export default function DashSecurity() {
    };
 
    return (
-      <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)]">
+      <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)] pb-20">
          <div className="gap-4 overview flex flex-col max-w-5xl w-full h-auto mt-8 mx-auto px-4">
             <div className="flex justify-between items-center mb-7 custom-flex-1030">
                <h1 className="font-semibold text-3xl">{t("profile:security")}</h1>

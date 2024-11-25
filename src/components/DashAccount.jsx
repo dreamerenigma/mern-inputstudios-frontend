@@ -196,7 +196,7 @@ export default function DashAccount() {
    const [visibleContainers, setVisibleContainers] = useState(Array(accountData.length).fill(false));
 
    return (
-      <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)] mb-20">
+      <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)] pb-20">
          <div className="gap-4 overview flex flex-col max-w-5xl w-full h-auto md:mt-8 mx-auto px-4">
             <div className="flex justify-between items-center mb-4 custom-flex-1030">
                <h1 className="font-semibold text-3xl">{t("profile:account")}</h1>

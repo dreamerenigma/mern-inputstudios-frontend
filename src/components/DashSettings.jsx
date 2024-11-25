@@ -100,7 +100,7 @@ export default function DashSettings() {
    };
    
    return (
-      <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)] mb-20">
+      <div className="min-h-screen w-full bg-gray-100 dark:bg-[rgb(16,23,42)] pb-20">
          <div className="gap-4 overview flex flex-col max-w-5xl w-full h-auto md:mt-8 mx-auto px-4">
             <div className="items-center mb-4 custom-flex-1030">
                <h1 className="font-semibold text-3xl">{t("settings")}</h1>
@@ -282,7 +282,7 @@ export default function DashSettings() {
                   {isOpen && (
                      <>
                         <hr className="border-t border-gray-300 dark:border-gray-600" />
-                        <div className="flex flex-col dark:bg-gray-700/30 bg-gray-100">
+                        <div className="flex flex-col dark:bg-gray-700/30 bg-gray-100 rounded-b-lg">
                            <div className="grid grid-cols-3 items-center w-full pl-4 py-2">
                               <span className="py-2">{t("version")}</span>
                               <span className="py-2">{t("version_app")}</span>
@@ -295,7 +295,7 @@ export default function DashSettings() {
                            <hr className="border-t border-gray-300 dark:border-gray-600" />
                            <div className="grid grid-cols-3 items-center w-full pl-4">
                               <span className="whitespace-nowrap">Описание</span>
-                              <span className="py-2">Информационны сайт компании Input Studios</span>
+                              <span className="py-2">Информационный сайт компании Input Studios</span>
                            </div>
                         </div>
                      </>

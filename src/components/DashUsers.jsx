@@ -134,7 +134,7 @@ export default function DashUsers() {
       >
          {currentUser.isAdmin && users.length > 0 ? (
             <>
-               <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-x-auto">
+               <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-x-auto shadow-md">
                   <Table hoverable className="shadow-md">
                      <Table.Head>
                         {isSelectionMode && (
