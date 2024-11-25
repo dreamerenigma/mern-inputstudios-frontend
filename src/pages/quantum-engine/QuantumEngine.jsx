@@ -17,6 +17,8 @@ import { BsDribbble } from "react-icons/bs";
 import { LuRotate3D } from "react-icons/lu";
 import { GiAtom } from "react-icons/gi";
 import { BsWindowSidebar } from "react-icons/bs";
+import { contentData } from "../../data/appsLinksData";
+import { Link } from "react-router-dom";
 
 export default function QuantumEngine() {
    const { t } = useTranslation();
@@ -44,9 +46,11 @@ export default function QuantumEngine() {
                   Самая мощная платформа для разработки игр, позволяющая вам и вашей команде создавать развлекательные проекты мирового уровня.
                </p>
                <div className="flex space-x-4 pt-4">
-                  <button className="flex items-center px-7 py-4 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
-                     <FaWindows size={22} />
-                     <p className="pl-3">Загрузить на PC</p>
+                  <button className="flex items-center px-7 py-4 bg-teal-600 text-white rounded-lg shadow hover:bg-teal-700">
+                     <Link to="https://github.com/InputStudios/QuantumEngine" className="flex">
+                        <FaWindows size={22} />
+                        <p className="pl-3">Загрузить на PC</p>
+                     </Link>
                   </button>
                   <button className="px-14 py-4 border hover:border-gray-600 border-gray-700 text-white rounded-lg hover:bg-transparent hover:text-white transition">
                      Узнать больше
@@ -161,6 +165,91 @@ export default function QuantumEngine() {
                      <p className="w-[500px]">
                         Используйте эксклюзивный слой аудиотрансляции Quantum Engine, который позволяет вам выбирать промежуточное программное обеспечение, которое вам нужно, когда вам нужно. Позволяет создавать рабочие процессы, которые работают для вас.
                      </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div className="container mx-auto mt-8">
+            <div className="grid grid-cols-4 gap-8">
+               {contentData.map((card, index) => (
+                  <div
+                     key={index}
+                     className={`rounded-lg shadow-lg ${card.id === 0 || card.id === 5 ? 'col-span-2' : ''}`}
+                  >
+                  <div className="relative rounded-lg overflow-hidden">
+                     <img
+                        src={card.image}
+                        alt={card.title}
+                        className={`w-full object-cover rounded-md ${card.id === 0 || card.id === 5 ? 'h-[450px]' : 'h-[450px]'}`}
+                     />
+                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent text-white p-8 rounded-lg">
+                        <h3 className="text-xl font-semibold mb-2 ">{card.title}</h3>
+                        <p className="text-gray-200">{card.description}</p>
+                     </div>
+                  </div>
+                  </div>
+               ))}
+            </div>
+         </div>
+         <div className="justify-start w-full px-52 py-12">
+            <div className="inline-block bg-teal-500 p-1 text-white rounded-md mb-6">
+               <h2 className="text-sm font-bold">Достигнуто с помощью Quantum Engine</h2>
+            </div>
+            <div className="w-[800px]">
+               <p className="text-5xl font-bold mb-14">Поддержка удивительных проектов</p>
+               <p className="text-xl">
+                  Получите доступ к последней версии движка, стоящего за визуальными бенчмарками, таким как Quantum Solaris. Используйте те же инструменты, что и наши внутренние команды.
+               </p>
+            </div>
+            <div className="flex mt-6">
+               <div className="flex items-center space-x-2 cursor-pointer group">
+                  <span className="text-lg text-teal-500">Посмотреть презентацию</span>
+                  <IoIosArrowForward className="text-teal-500 ml-2 transform transition-transform duration-300 ease-in-out group-hover:translate-x-[3px]" />
+               </div>
+               <div className="flex items-center space-x-2 cursor-pointer pl-12 group">
+                  <span className="text-lg text-teal-500">Узнать больше</span>
+                  <IoIosArrowForward className="text-teal-500 ml-2 transform transition-transform duration-300 ease-in-out group-hover:translate-x-[3px]" />
+               </div>
+               <Tooltip effect="solid" />
+            </div>
+         </div>
+         <div className="relative w-full h-[600px]">
+            <img 
+               src="/images/apps/quantum-engine/quantum_engine_forest.png" 
+               alt="Forest" 
+               className="w-full h-full object-cover" 
+            />
+            <div className="absolute inset-0 flex flex-col justify-center mx-52">
+               <div className="flex items-center w-full">
+                  <div className="text-left">
+                     <h1 className="text-5xl font-bold text-white mb-6">
+                        Готовы начать?
+                     </h1>
+                     <p className="text-2xl text-gray-200 w-[550px]">
+                        Используйте Quantum Engine бесплатно. 5% роялти применяется при отправке вашего проекта. Ваш первый годовой доход в размере 1 миллиона рублей  за проект не облагается роялти.
+                     </p>
+                     <div className="flex mt-6">
+                        <div className="flex items-center space-x-2 cursor-pointer group">
+                           <span className="text-lg text-teal-500">Посмотреть презентацию</span>
+                           <IoIosArrowForward className="text-teal-500 ml-2 transform transition-transform duration-300 ease-in-out group-hover:translate-x-[3px]" />
+                        </div>
+                        <div className="flex items-center space-x-2 cursor-pointer pl-6 group">
+                           <span className="text-lg text-teal-500">Узнать больше</span>
+                           <IoIosArrowForward className="text-teal-500 ml-2 transform transition-transform duration-300 ease-in-out group-hover:translate-x-[3px]" />
+                        </div>
+                        <Tooltip effect="solid" />
+                     </div>
+                  </div>
+                  <div className="flex space-x-4 pt-4 ml-20">
+                     <button className="flex items-center px-7 py-4 bg-teal-600 text-white rounded-lg shadow hover:bg-teal-700">
+                        <Link to="https://github.com/InputStudios/QuantumEngine" className="flex">
+                           <FaWindows size={22} />
+                           <p className="pl-3">Загрузить на PC</p>
+                        </Link>
+                     </button>
+                     <button className="px-14 py-4 border hover:border-gray-600 border-gray-700 text-white rounded-lg hover:bg-transparent hover:text-white transition">
+                        Узнать больше
+                     </button>
                   </div>
                </div>
             </div>
