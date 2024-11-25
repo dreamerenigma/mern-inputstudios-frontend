@@ -150,7 +150,7 @@ export default function ProfileHeader() {
                   </Link>
                </div>
                {(currentUser.isAdmin && isPostsTab) || !currentUser.isAdmin ? (
-                  <div className="flex justify-end w-full ml-4 mr-0 md:mr-4">
+                  <div className="flex justify-end w-full ml-4 mr-0">
                      <Link to={`${languagePrefix}/create-post`}>
                         <button
                            type="button"
@@ -168,8 +168,8 @@ export default function ProfileHeader() {
                ) : null}
                {currentUser ? (
                   <div className="flex items-center">
-                     <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-4 mr-2 rounded cursor-pointer" onClick={handleQuestionIconClick}>
-                        <AiOutlineQuestion className="text-lg sm:text-2xl cursor-pointer question-icon" />
+                     <div className="dark:hover:bg-gray-700 transition-colors duration-200 ml-2 py-4 px-2 sm:px-4 mr-0 rounded cursor-pointer" onClick={handleQuestionIconClick}>
+                        <AiOutlineQuestion className="text-2xl cursor-pointer question-icon" />
                      </div>
                      <div className="dark:hover:bg-gray-700 transition-colors duration-200 p-2 rounded">
                         <Dropdown

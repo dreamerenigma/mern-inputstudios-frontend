@@ -180,6 +180,11 @@ export default function Header() {
       setIsOpenAbout(prevState => !prevState);
    };
 
+   const handleToggleToolsMenu = (e) => {
+      e.stopPropagation();
+      setIsOpenTools(prevState => !prevState);
+   };
+
    const menuData = [
       {
          title: "ПО",
@@ -609,29 +614,65 @@ export default function Header() {
             </div>
             <div className={`flex flex-col md:hidden ${menuOpen ? 'flex' : 'hidden'}`}>
                <div className={`border-b-2 ${path === "/" ? "border-current" : "border-gray-800"}`}></div>
-               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === "/" ? "border-current" : "border-gray-800"}`}>
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-300/70 dark:hover:bg-gray-700/60 ${path === "/" ? "border-current" : "border-gray-800"}`}>
                   <Link to="/" onClick={() => setMenuOpen(false)}>{t("headers:header_home")}</Link>
                </div>
                <hr className="border-t border-gray-700" />
-               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/projects` ? "border-current" : "border-gray-800"}`}>
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-700/60 ${path === `${languagePrefix}/projects` ? "border-current" : "border-gray-800"}`}>
                   <Link to={`${languagePrefix}/projects`} onClick={() => setMenuOpen(false)}>
                      {t("headers:header_projects")}
                   </Link>
                </div>
                <hr className="border-t border-gray-700" />
-               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/tools` ? "border-current" : "border-gray-800"}`}>
-                  <Link to={`${languagePrefix}/tools`} onClick={() => setMenuOpen(false)}>
-                     {t("headers:header_tools")}
-                  </Link>
+               <div 
+                  ref={dropdownTools}
+                  className={`relative py-3 px-5 pb-0.2 text-xl ${path === `/${languagePrefix}/about` ? "border-current" : "border-gray-800"} ${!isOpenTools ? "hover:bg-gray-300/70 dark:hover:bg-gray-700/60" : ""}`}
+               >
+                  <div className="flex items-center justify-between" onClick={handleToggleToolsMenu}>
+                     <Link className="menu-link-products">
+                        {t("headers:header_tools")}
+                     </Link>
+                     <IoIosArrowDown className={`ml-auto transform transition-transform duration-500 ${isOpenTools ? "rotate-180" : "rotate-0"}`} />
+                  </div>
+                  {isOpenTools && (
+                     <ul className="mt-2 rounded-md z-10 whitespace-nowrap">
+                        <li className="ml-8 py-3 px-5 rounded-md hover:underline hover:bg-gray-300/70 dark:hover:bg-gray-700/60">
+                           <Link
+                              to={`${languagePrefix}/about-company`}
+                              className={`w-full text-left ${!isOpenTools ? "" : ""}`}
+                           >
+                              Конвертер
+                           </Link>
+                        </li>
+                        <hr className="border-t border-gray-700 ml-10 mr-4" />
+                        <li className="ml-8 py-3 px-5 rounded-md hover:underline hover:bg-gray-300/70 dark:hover:bg-gray-700/60">
+                           <Link
+                              to={`${languagePrefix}/our-history`}
+                              className={`w-full text-left ${!isOpenTools ? "" : ""}`}
+                           >
+                              Сжатие изображений
+                           </Link>
+                        </li>
+                        <hr className="border-t border-gray-700 ml-10 mr-4" />
+                        <li className="ml-8 py-3 px-5 rounded-md hover:underline hover:bg-gray-300/70 dark:hover:bg-gray-700/60">
+                           <Link
+                              to={`${languagePrefix}/contactus`}
+                              className={`w-full text-left ${!isOpenTools ? "" : ""}`}
+                           >
+                              Инструменты ИИ
+                           </Link>
+                        </li>
+                     </ul>
+                  )}
                </div>
                <hr className="border-t border-gray-700" />
-               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/feed` ? "border-current" : "border-gray-800"}`}>
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-700/60 ${path === `${languagePrefix}/feed` ? "border-current" : "border-gray-800"}`}>
                   <Link to={`${languagePrefix}/feed`} onClick={() => setMenuOpen(false)}>
                      {t("headers:header_blogs")}
                   </Link>
                </div>
                <hr className="border-t border-gray-700" />
-               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-400/40 ${path === `${languagePrefix}/forum` ? "border-current" : "border-gray-800"}`}>
+               <div className={`py-3 px-5 pb-0.2 text-xl hover:bg-gray-200/70 dark:hover:bg-gray-700/60 ${path === `${languagePrefix}/forum` ? "border-current" : "border-gray-800"}`}>
                   <Link to={`${languagePrefix}/forum`} onClick={() => setMenuOpen(false)}>
                      {t("headers:header_forum")}
                   </Link>
@@ -639,44 +680,38 @@ export default function Header() {
                <hr className="border-t border-gray-700" />
                <div
                   ref={dropdownRef}
-                  className={`relative py-3 px-5 pb-0.2 text-xl ${
-                     path === `/${languagePrefix}/about` ? "border-current" : "border-gray-800"
-                  } ${!isOpenAbout ? "hover:bg-gray-200/70 dark:hover:bg-gray-400/40" : ""}`}
+                  className={`relative py-3 px-5 pb-0.2 text-xl ${path === `/${languagePrefix}/about` ? "border-current" : "border-gray-800"} ${!isOpenAbout ? "hover:bg-gray-300/70 dark:hover:bg-gray-700/60" : ""}`}
                >
                   <div className="flex items-center justify-between" onClick={handleToggleMenu}>
                      <Link className="menu-link">
                         {t("headers:header_about")}
                      </Link>
-                     <IoIosArrowDown
-                        className={`ml-auto transform transition-transform duration-500 ${
-                           isOpenAbout ? "rotate-180" : "rotate-0"
-                        }`}
-                     />
+                     <IoIosArrowDown className={`ml-auto transform transition-transform duration-500 ${isOpenAbout ? "rotate-180" : "rotate-0"}`} />
                   </div>
                   {isOpenAbout && (
                      <ul className="mt-2 rounded-md z-10 whitespace-nowrap">
-                        <li className="pl-12 py-3 px-5 rounded-md hover:underline">
+                        <li className="ml-8 py-3 px-5 rounded-md hover:underline hover:bg-gray-300/70 dark:hover:bg-gray-700/60">
                            <Link
                               to={`${languagePrefix}/about-company`}
-                              className={`w-full text-left ${!isOpenAbout ? "hover:bg-gray-200/70 dark:hover:bg-gray-400/40" : ""}`}
+                              className={`w-full text-left ${!isOpenAbout ? "" : ""}`}
                            >
                               {t("headers:about_company")}
                            </Link>
                         </li>
                         <hr className="border-t border-gray-700 ml-10 mr-4" />
-                        <li className="pl-12 py-3 px-5 rounded-md hover:underline">
+                        <li className="ml-8 py-3 px-5 rounded-md hover:underline hover:bg-gray-300/70 dark:hover:bg-gray-700/60">
                            <Link
                               to={`${languagePrefix}/our-history`}
-                              className={`w-full text-left ${!isOpenAbout ? "hover:bg-gray-200/70 dark:hover:bg-gray-400/40" : ""}`}
+                              className={`w-full text-left ${!isOpenAbout ? "" : ""}`}
                            >
                               {t("headers:our_history")}
                            </Link>
                         </li>
                         <hr className="border-t border-gray-700 ml-10 mr-4" />
-                        <li className="pl-12 py-3 px-5 rounded-md hover:underline">
+                        <li className="ml-8 py-3 px-5 rounded-md hover:underline hover:bg-gray-300/70 dark:hover:bg-gray-700/60">
                            <Link
                               to={`${languagePrefix}/contactus`}
-                              className={`w-full text-left ${!isOpenAbout ? "hover:bg-gray-200/70 dark:hover:bg-gray-400/40" : ""}`}
+                              className={`w-full text-left ${!isOpenAbout ? "" : ""}`}
                            >
                               {t("headers:header_contacts")}
                            </Link>
