@@ -46,6 +46,7 @@ import CompanyNews from "../pages/news/CompanyNews";
 import Feeds from "../pages/Feeds";
 import Tools from "../pages/Tools";
 import UserView from "../pages/UserView";
+import CommentsPage from "../pages/CommentsPage";
 
 const languages = ['ru-ru', 'en-us'];
 
@@ -105,6 +106,8 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/names/manage`} element={<ManageSignInService />} />
                <Route path={`/${lang}/news`} element={<CompanyNews />} />
                <Route path={`/${lang}/user/:userId`} element={<UserView />} />
+               <Route path={`/${lang}/user/:userId`} element={<UserView />} />
+               <Route path={`/${lang}/post/:postSlug/comments`} element={<CommentsPage />} />
             </React.Fragment>
          ))}
       </Routes>
