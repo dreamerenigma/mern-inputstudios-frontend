@@ -1,4 +1,4 @@
-import { Button, Spinner, Footer } from "flowbite-react";
+import { Button, Spinner, Footer, Tooltip } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
@@ -18,6 +18,7 @@ import { IoIosShareAlt } from "react-icons/io";
 import NewsCard from "../components/NewsCard";
 import { formatDate } from "../utils/dateUtils";
 import RecentPostCard from "../components/RecentPostCard";
+import ReactDOM from 'react-dom';
 
 export default function PostPage() {
    const { t } = useTranslation();
@@ -32,27 +33,29 @@ export default function PostPage() {
    const [views, setViews] = useState(0);
    const [visiblePosts, setVisiblePosts] = useState(8);
    const [shareCount, setShareCount] = useState(null);
+   const [showTooltip, setShowTooltip] = useState(false);
+   const [tooltipText, setTooltipText] = useState('');
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
    useEffect(() => {
-   const getUser = async () => {
-      const userId = post?.userId;
-      if (userId) {
-         try {
-            const res = await fetch(`${SERVER_URL}/api/user/${userId}`);
-            const data = await res.json();
-            if (res.ok) {
-               setUser(data);
+      const getUser = async () => {
+         const userId = post?.userId;
+         if (userId) {
+            try {
+               const res = await fetch(`${SERVER_URL}/api/user/${userId}`);
+               const data = await res.json();
+               if (res.ok) {
+                  setUser(data);
+               }
+            } catch (error) {
+               console.log(error.message);
             }
-         } catch (error) {
-            console.log(error.message);
          }
-      }
-   };
-   getUser();
-}, [SERVER_URL, post]);
+      };
+      getUser();
+   }, [SERVER_URL, post]);
 
    useEffect(() => {
       const fetchPost = async () => {
@@ -207,18 +210,17 @@ export default function PostPage() {
 
    const handleShare = async (postId) => {
       try {
-         console.log('postId:', postId);
-   
          if (navigator.share) {
             await navigator.share({
                title: 'Заголовок страницы',
                text: 'Описание для общего контента',
                url: window.location.href,
             });
-            console.log('Контент был успешно отправлен!');
-            
+   
             const token = localStorage.getItem('token');
-            const response = await fetch(`/api/post/${postId}/share`, {
+            console.log('Token from localStorage:', token);
+   
+            const response = await fetch(`${SERVER_URL}/api/post/${postId}/share`, {
                method: 'PUT',
                headers: {
                   "Content-Type": "application/json",
@@ -229,8 +231,13 @@ export default function PostPage() {
             if (response.ok) {
                const data = await response.json();
                setShareCount(data.shareCount);
+               setShowTooltip(true);
+               setTooltipText("Вы уже поделились этим постом");
+               setTimeout(() => setShowTooltip(false), 5000);
             } else {
-               console.error('Ошибка при попытке обновить количество поделившихся');
+               const errorData = await response.json();
+               alert(errorData.message);
+               console.log('Публикация успешно опубликована:', errorData);
             }
          } else {
             alert('Ваш браузер не поддерживает функцию Share API.');
@@ -254,6 +261,10 @@ export default function PostPage() {
             <p className="text-red-500">{t("posts:error_occurred_post")}</p>
          </div>
       );
+   }
+
+   if (!post) {
+      return <div>Загрузка...</div>;
    }
 
    return (
@@ -289,22 +300,28 @@ export default function PostPage() {
                      <h1 className="text-xl mt-2 font-semibold lg:text-2xl">
                         {post && post.title}
                      </h1>
-                     <Link to={`${languagePrefix}/search?category=${post && post.category}`} className="self-center mt-5">
+                     <Link to={`${languagePrefix}/search?category=${post && post.category || "uncategorized"}`} className="self-center mt-5">
                         <Button color="gray" pill size="xs" className="mt-6">
-                           {post && post.category}
+                           {post && post.category ? post.category : t("posts:uncategorized")}
                         </Button>
                      </Link>
-                     <VideoPlayer
-                        url={post && post.video}
-                        previewImage={post && post.image}
-                        alt={post && post.title}
-                        className="mt-10 p-3 max-h-[300px] w-full object-cover"
-                     />
-                     <img
-                        src={post && post.image}
-                        alt={post && post.title}
-                        className="mt-4 py-3 w-full h-auto object-contain"
-                     />
+                     <>
+                        {post?.video && (
+                           <VideoPlayer
+                              url={post.video}
+                              previewImage={post.image}
+                              alt={post.title}
+                              className="mt-10 p-3 max-h-[300px] w-full object-cover"
+                           />
+                        )}
+                        {post?.image && (!post.video || post.video) && (
+                           <img
+                              src={post.image}
+                              alt={post.title}
+                              className="mt-4 py-3 w-full h-auto object-contain"
+                           />
+                        )}
+                     </>
                      <div className="flex justify-between py-2 border-b border-slate-500 text-md">
                         <span>{post && formatDate(post.createdAt)}</span>
                         <div className="flex gap-4 items-center">
@@ -377,13 +394,18 @@ export default function PostPage() {
                               }
                            </p>
                         </div>
-                        <div className="flex items-center gap-2 text-teal-500" onClick={() => handleShare(post._id)}>
-                           <IoIosShareAlt size={24} />
-                           <span>{shareCount}</span>
+                        <div className={`flex items-center gap-2 ${shareCount > 0 ? 'text-teal-500' : 'text-gray-500'}`} onClick={() => handleShare(post._id)}>
+                           <button>
+                              <IoIosShareAlt size={24} className="hover:text-teal-500"/>
+                           </button>
+                           {shareCount > 0 && <span>{shareCount}</span>}
+                           {showTooltip && ReactDOM.createPortal(<Tooltip showTooltip={showTooltip} text={tooltipText} />, document.body)}
                         </div>
                         <div className="flex items-center gap-2 text-teal-500">
-                           <FaMessage size={16} />
-                           <span>{post?.commentsCount || 2}</span>
+                           <Link to={`${languagePrefix}/post/${postSlug}/comments`} className="flex items-center gap-2 text-teal-500">
+                              <FaMessage size={16} />
+                              <span>{post?.commentsCount || 2}</span>
+                           </Link>
                         </div>
                      </div>
                   </div>
@@ -406,7 +428,7 @@ export default function PostPage() {
                            <div key={post._id} className="w-full mt-4">
                               <RecentPostCard post={post} />
                            </div>
-                           ))}
+                        ))}
                      </div>
                      {recentPosts && visiblePosts < recentPosts.length && (
                         <div className="flex justify-center mt-4">
