@@ -1,7 +1,7 @@
 import { Alert, Button } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Comment from './Comment';
 import PropTypes from 'prop-types';
 import DeleteCommentDialog from './dialogs/DeleteCommentDialog';
@@ -14,6 +14,7 @@ import HiddenPublishPopupMenu from "./popups/HidePublishPopupMenu";
 
 export default function CommentSection({ postId }) {
    const { t } = useTranslation();
+   const location = useLocation();
    const [post, setPost] = useState(null);
    const [user, setUser] = useState({});
    const { currentUser } = useSelector(state => state.user);
@@ -26,6 +27,7 @@ export default function CommentSection({ postId }) {
    const navigate = useNavigate();
    const [showTooltip, setShowTooltip] = useState(false);
    const [showPopupMenu, setShowPopupMenu] = useState(false);
+   const isCommentsRoute = location.pathname.includes("/comments");
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const FRONTEND_URL = import.meta.env.VITE_VERCEL_BASE_URL;
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
@@ -224,80 +226,82 @@ export default function CommentSection({ postId }) {
 
    return (
       <div className="mx-auto w-full pt-3">
-         <div className="border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-3">
-            <div className="relative flex flex-col md:flex-row md:items-center md:justify-between my-1 text-gray-500 text-sm">
-               <div className="flex flex-col gap-1 text-left">
-                  <Link
-                     to={
-                        currentUser
-                           ? currentUser.username === user.username
+         {!isCommentsRoute && (
+            <div className="border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-3">
+               <div className="relative flex flex-col md:flex-row md:items-center md:justify-between my-1 text-gray-500 text-sm">
+                  <div className="flex flex-col gap-1 text-left">
+                     <Link
+                        to={
+                           currentUser
+                              ? currentUser.username === user.username
+                                 ? `${languagePrefix}/dashboard?tab=profile`
+                                 : `${languagePrefix}/user/${user.username}`
+                              : `${languagePrefix}/user/Гость`
+                        }
+                        className="cursor-pointer flex items-center space-x-4"
+                     >
+                        <img
+                           className="h-12 w-12 object-cover rounded-full"
+                           src={currentUser ? user.profilePicture : "/path/to/default-avatar.png"}
+                           alt="Profile picture"
+                        />
+                        <div className="flex gap-4">
+                           <div className="flex flex-col items-center">
+                              <p className="text-lg text-green-500 font-semibold">{currentUser ? 233 : "0"}</p>
+                              <p className="text-sm text-gray-400">Карма</p>
+                           </div>
+                           <div className="flex flex-col items-center">
+                              <p className="text-lg text-purple-500 font-semibold">{currentUser ? 9999 : "0"}</p>
+                              <p className="text-sm text-gray-400">Рейтинг</p>
+                           </div>
+                        </div>
+                     </Link>
+                     <Link
+                        to={
+                           currentUser && currentUser.username === user.username
                               ? `${languagePrefix}/dashboard?tab=profile`
                               : `${languagePrefix}/user/${user.username}`
-                           : `${languagePrefix}/user/Гость`
-                     }
-                     className="cursor-pointer flex items-center space-x-4"
-                  >
-                     <img
-                        className="h-12 w-12 object-cover rounded-full"
-                        src={currentUser ? user.profilePicture : "/path/to/default-avatar.png"}
-                        alt="Profile picture"
+                        }
+                        className="text-base text-cyan-600 hover:underline"
+                     >
+                        @{user ? user.username : "Гость"}
+                     </Link>
+                     <p className="text-base text-gray-400">
+                        {currentUser ? (user.isAdmin ? "Админ" : "Пользователь") : "Гость"}
+                     </p>
+                  </div>
+                  <div className="flex gap-2 md:absolute md:top-0 md:right-0 mt-4 md:mt-0">
+                     <button
+                        className="rounded-lg bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:bg-gradient-to-r hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 transition-colors duration-300 p-2"
+                        onClick={handlePopupMenuOpen}
+                     >
+                        <IoIosSettings size={24} className="text-white" />
+                     </button>
+                     <HiddenPublishPopupMenu
+                        isOpen={showPopupMenu}
+                        onClose={handlePopupMenuClose}
+                        t={t}
+                        comment={comment}
                      />
-                     <div className="flex gap-4">
-                        <div className="flex flex-col items-center">
-                           <p className="text-lg text-green-500 font-semibold">{currentUser ? 233 : "0"}</p>
-                           <p className="text-sm text-gray-400">Карма</p>
-                        </div>
-                        <div className="flex flex-col items-center">
-                           <p className="text-lg text-purple-500 font-semibold">{currentUser ? 9999 : "0"}</p>
-                           <p className="text-sm text-gray-400">Рейтинг</p>
-                        </div>
-                     </div>
-                  </Link>
-                  <Link
-                     to={
-                        currentUser && currentUser.username === user.username
-                           ? `${languagePrefix}/dashboard?tab=profile`
-                           : `${languagePrefix}/user/${user.username}`
-                     }
-                     className="text-base text-cyan-600 hover:underline"
-                  >
-                     @{user ? user.username : "Гость"}
-                  </Link>
-                  <p className="text-base text-gray-400">
-                     {currentUser ? (user.isAdmin ? "Админ" : "Пользователь") : "Гость"}
-                  </p>
+                     <button
+                        className="rounded-lg bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-r hover:from-blue-700 hover:via-green-700 hover:to-teal-700 transition-colors duration-300 p-2"
+                        onClick={handleClick}
+                     >
+                        <IoIosMail size={24} className="text-white" />
+                     </button>
+                     <Button outline gradientDuoTone="purpleToBlue" type="submit">
+                        Подписаться
+                     </Button>
+                  </div>
                </div>
-               <div className="flex gap-2 md:absolute md:top-0 md:right-0 mt-4 md:mt-0">
-                  <button
-                     className="rounded-lg bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:bg-gradient-to-r hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 transition-colors duration-300 p-2"
-                     onClick={handlePopupMenuOpen}
-                  >
-                     <IoIosSettings size={24} className="text-white" />
-                  </button>
-                  <HiddenPublishPopupMenu
-                     isOpen={showPopupMenu}
-                     onClose={handlePopupMenuClose}
-                     t={t}
-                     comment={comment}
-                  />
-                  <button
-                     className="rounded-lg bg-gradient-to-r from-teal-500 via-green-500 to-blue-500 hover:bg-gradient-to-r hover:from-blue-700 hover:via-green-700 hover:to-teal-700 transition-colors duration-300 p-2"
-                     onClick={handleClick}
-                  >
-                     <IoIosMail size={24} className="text-white" />
-                  </button>
-                  <Button outline gradientDuoTone="purpleToBlue" type="submit">
-                     Подписаться
-                  </Button>
-               </div>
+               {showDialog && !currentUser && (
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 mt-12 p-6 bg-white rounded-lg shadow-lg max-w-xs text-center">
+                     <p className="text-lg font-semibold mb-4">Войдите в Input Studios,</p>
+                     <p className="text-gray-500">чтобы отправить сообщение</p>
+                  </div>
+               )}
             </div>
-            {showDialog && !currentUser && (
-               <div className="absolute top-0 left-1/2 transform -translate-x-1/2 mt-12 p-6 bg-white rounded-lg shadow-lg max-w-xs text-center">
-                  <p className="text-lg font-semibold mb-4">Войдите в Input Studios,</p>
-                  <p className="text-gray-500">чтобы отправить сообщение</p>
-               </div>
-            )}
-         </div>
+         )}
          <div className="border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg px-4 py-1">
             {comments.length === 0 && (
                <div className="flex justify-between items-center">
