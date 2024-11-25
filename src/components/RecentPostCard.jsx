@@ -61,7 +61,6 @@ export default function RecentPostCard({ post }) {
       }
    }, [SERVER_URL, post._id]);
    
-   
    return (
       <div className="group relative w-full border border-teal-500 overflow-hidden rounded-lg transition-all shadow-md">
          <div className="px-4 pt-4">
@@ -75,9 +74,9 @@ export default function RecentPostCard({ post }) {
                   className="flex items-center gap-2 text-gray-500 text-sm max-w-max"
                >
                   <img
-                  className="h-8 w-8 object-cover rounded-full"
-                  src={user.profilePicture}
-                  alt="Profile picture"
+                     className="h-8 w-8 object-cover rounded-full"
+                     src={user.profilePicture}
+                     alt="Profile picture"
                   />
                   <span className="text-sm text-teal-500 hover:underline">@{user.username}</span>
                </Link>
@@ -85,7 +84,7 @@ export default function RecentPostCard({ post }) {
                <div className="text-sm text-teal-500 my-5 flex gap-1 max-w-max">
                   {t("comments:signed_in_comment")}
                   <Link className="text-blue-500 hover:underline" to={`${languagePrefix}/sign-in`}>
-                  {t("comments:sign_in")}
+                     {t("comments:sign_in")}
                   </Link>
                </div>
             )}
@@ -93,7 +92,7 @@ export default function RecentPostCard({ post }) {
          <div className="p-4">
             <Link to={`${languagePrefix}/post/${post.slug}`} className="flex flex-col sm:flex-row">
                <img
-                  src={post.image}
+                  src={post.image || "https://i.ibb.co/09wbb3z/blog-post.png"} 
                   alt="post cover"
                   className="h-[150px] w-full object-cover rounded-lg duration-300 z-20 sm:w-[200px] sm:h-[150px] sm:mr-4 sm:mb-0 mb-4"
                />

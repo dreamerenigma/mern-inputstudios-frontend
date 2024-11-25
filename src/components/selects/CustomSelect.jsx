@@ -46,14 +46,14 @@ export default function CustomSelect({ t, setFormData, formData }) {
    return (
       <div className="relative inline-block" ref={dropdownRef}>
          <div
-            className={`border border-gray-300 dark:border-gray-700 bg-gray-300 dark:bg-gray-800 rounded-md px-3 py-2 flex items-center justify-between cursor-pointer 
+            className={`w-full sm:w-[270px] border border-gray-300 dark:border-gray-700 bg-gray-300 dark:bg-gray-800 rounded-md px-3 py-2 flex items-center justify-between cursor-pointer 
                ${isOpen || isActive ? 'border-teal-500 dark:border-teal-500 text-white' : ''}`}
             onClick={toggleDropdown}
             onBlur={handleBlur}
             onFocus={handleFocus}
             tabIndex={0}
          >
-            <span>{selectedCategory}</span>
+            <span>{selectedCategory || t("posts:uncategorized")}</span>
             <IoIosArrowDown
                className={`ml-6 transition-transform duration-300 transform ${isOpen ? "rotate-180" : ""}`}
                size={16}
@@ -63,7 +63,7 @@ export default function CustomSelect({ t, setFormData, formData }) {
             <ul className="absolute left-0 mt-2 w-full bg-gray-300 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-10">
                <li>
                   <button
-                     className="block px-4 py-2 text-gray-800 dark:text-gray-200 w-full text-left opacity-50"
+                     className="px-4 py-2 text-gray-800 dark:text-gray-200 w-full text-left opacity-50"
                      onClick={() => handleSelect(t("posts:select_category"))}
                      disabled
                   >
@@ -72,7 +72,15 @@ export default function CustomSelect({ t, setFormData, formData }) {
                </li>
                <li>
                   <button
-                     className="text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
+                     className="text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
+                     onClick={() => handleSelect("")}
+                  >
+                     {t("posts:uncategorized")}
+                  </button>
+               </li>
+               <li>
+                  <button
+                     className="text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
                      onClick={() => handleSelect(t("posts:category_artificial_intelligence"))}
                   >
                      {t("posts:category_artificial_intelligence")}
@@ -80,7 +88,7 @@ export default function CustomSelect({ t, setFormData, formData }) {
                </li>
                <li>
                   <button
-                     className="text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
+                     className="text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
                      onClick={() => handleSelect("Android")}
                   >
                      Android
@@ -88,7 +96,7 @@ export default function CustomSelect({ t, setFormData, formData }) {
                </li>
                <li>
                   <button
-                     className="text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
+                     className="text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
                      onClick={() => handleSelect(t("posts:category_cosmos"))}
                   >
                      {t("posts:category_cosmos")}
@@ -96,7 +104,7 @@ export default function CustomSelect({ t, setFormData, formData }) {
                </li>
                <li>
                   <button
-                     className="text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
+                     className="text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
                      onClick={() => handleSelect(t("posts:category_database"))}
                   >
                      {t("posts:category_database")}
@@ -104,7 +112,7 @@ export default function CustomSelect({ t, setFormData, formData }) {
                </li>
                <li>
                   <button
-                     className="text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
+                     className="text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
                      onClick={() => handleSelect(t("posts:category_game_dev"))}
                   >
                      {t("posts:category_game_dev")}
@@ -112,7 +120,7 @@ export default function CustomSelect({ t, setFormData, formData }) {
                </li>
                <li>
                   <button
-                     className="text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
+                     className="text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
                      onClick={() => handleSelect("JavaScript")}
                   >
                      JavaScript
@@ -120,7 +128,7 @@ export default function CustomSelect({ t, setFormData, formData }) {
                </li>
                <li>
                   <button
-                     className="text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
+                     className="text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
                      onClick={() => handleSelect("Next.js")}
                   >
                      Next.js
@@ -128,7 +136,7 @@ export default function CustomSelect({ t, setFormData, formData }) {
                </li>
                <li>
                   <button
-                     className="text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
+                     className="text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
                      onClick={() => handleSelect("React.js")}
                   >
                      React.js
@@ -136,7 +144,7 @@ export default function CustomSelect({ t, setFormData, formData }) {
                </li>
                <li>
                   <button
-                     className="text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
+                     className="text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full"
                      onClick={() => handleSelect(t("posts:category_science"))}
                   >
                      {t("posts:category_science")}
@@ -144,7 +152,7 @@ export default function CustomSelect({ t, setFormData, formData }) {
                </li>
                <li>
                   <button
-                     className="text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full rounded-b-md"
+                     className="text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-400 dark:hover:bg-gray-700/60 w-full rounded-b-md"
                      onClick={() => handleSelect("Unreal Engine")}
                   >
                      Unreal Engine

@@ -22,7 +22,7 @@ export default function CreatePost() {
    const [fileUploadError, setFileUploadError] = useState(null); 
    const [formData, setFormData] = useState({
       title: '',
-      category: '',
+      category: t("posts:uncategorized"),
       content: '',
       tags: '',
       image: null,
@@ -123,7 +123,8 @@ export default function CreatePost() {
    }, [formData]);
 
    const handleCategoryChange = (category) => {
-      setFormData((prevData) => ({ ...prevData, category }));
+      const selectedCategory = category || t("posts:uncategorized");
+      setFormData((prevData) => ({ ...prevData, category: selectedCategory }));
    };
 
    const handleContentChange = (value) => {
@@ -152,7 +153,7 @@ export default function CreatePost() {
                            setFormData({ ...formData, title: e.target.value })
                         }
                      />
-                     <CustomSelect setFormData={handleCategoryChange} formData={formData.title} t={t} />
+                     <CustomSelect setFormData={handleCategoryChange} formData={formData} t={t} />
                   </div>
                   <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
                      <FileInput
