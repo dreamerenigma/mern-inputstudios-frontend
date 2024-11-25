@@ -4,6 +4,13 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Footer } from "flowbite-react";
+import { SlSocialVkontakte } from "react-icons/sl";
+import { RxDiscordLogo } from "react-icons/rx";
+import { AiOutlineYoutube } from "react-icons/ai";
+import { FaFigma } from "react-icons/fa";
+import { FiGithub } from "react-icons/fi";
+import { BsDribbble } from "react-icons/bs";
 
 export default function Projects() {
    const { t } = useTranslation();
@@ -27,7 +34,7 @@ export default function Projects() {
             <div className="px-4 padding-card lg:px-16">
                <div className="mx-auto w-full lg:max-w-4xl text-center mb-8 text-left-860">
                   <h1 className="text-3xl font-semibold md:text-5xl lg:text-5xl">{t("projects:projects_company_title")}</h1>
-                  <p className="text-lg font-semibold mt-5">{t("auth:all_company_projects")}</p>
+                  <p className="text-lg font-semibold mt-5">{t("projects:all_company_projects")}</p>
                </div>
                <Link to={`${languagePrefix}/search`} className="block w-full mx-auto mb-8">
                   <img className="w-full h-auto" src="/images/projects/projects.avif" alt="privacy" />
@@ -59,7 +66,7 @@ export default function Projects() {
                transition={{ duration: 0.9 }}
             >
                <div className="w-full md:w-1/2 mb-6 md:mb-0">
-               <img src="/images/apps/quantum-engine/bg_quantum_engine.png" alt="Quantum Engine" className="w-full h-auto rounded-xl shadow-md" />
+                  <img src="/images/apps/quantum-engine/bg_quantum_engine.png" alt="Quantum Engine" className="w-full h-auto rounded-xl shadow-md" />
                </div>
                <div className="w-full md:w-1/2 flex flex-col justify-center md:ml-12">
                   <h2 className="text-3xl font-semibold mb-4">{t("projects:quantum_engine_game_engine")}</h2>
@@ -111,7 +118,7 @@ export default function Projects() {
                </div>
                <div className="relative w-full md:w-1/2 mb-6 md:mb-0 order-1 md:order-2">
                   <img src="/images/apps/chatify/chatify.png" alt="Chatify" className="w-full h-auto rounded-xl shadow-md" />
-                  <div className="absolute top-0 left-0 flex flex-col gap-4 p-4 mt-8">
+                  <div className="absolute top-0 left-0 flex flex-col gap-4 p-4">
                      <motion.div
                         ref={refMessage}
                         initial={{ opacity: 0, y: 60 }}
@@ -126,13 +133,14 @@ export default function Projects() {
                         animate={inViewSticker ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.5, delay: 2 }}
                      >
-                        <img src="/images/apps/chatify/sticker.png" alt="Sticker" className="w-24 h-auto rounded-md ml-56" />
+                        <img src="/images/apps/chatify/sticker.png" alt="Sticker" className="w-24 h-auto rounded-md ml-auto sticker-img" />
                      </motion.div>
                      <motion.div
                         ref={refAudioMessage}
                         initial={{ opacity: 0, y: 60 }}
                         animate={inViewAudioMessage ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.5, delay: 3 }}
+                        className="hidden sm:block hide-on-medium-screen"
                      >
                         <img src="/images/apps/chatify/audio_message.png" alt="Audio Message" className="w-80 h-auto rounded-md" />
                      </motion.div>
@@ -141,6 +149,7 @@ export default function Projects() {
                         initial={{ opacity: 0, y: 60 }}
                         animate={inViewRecipientMessage ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.5, delay: 4 }}
+                        className="hidden sm:block hide-on-medium-screen"
                      >
                         <img src="/images/apps/chatify/recipient_message.png" alt="Recipient Message" className="w-full h-auto rounded-md" />
                      </motion.div>
@@ -227,6 +236,17 @@ export default function Projects() {
                   </Link>
                </div>
             </motion.div>
+         </div>
+         <div className="flex flex-row gap-4 mt-10 px-4 lg:px-16 transition-opacity duration-300">
+            <p>{t("home_subscribe_news")}</p>
+            <div className="flex flex-wrap gap-4">
+               <Footer.Icon href="https://vk.com/inputstudios" target="_blank" icon={SlSocialVkontakte} />
+               <Footer.Icon href="https://discord.com/inputstudios" target="_blank" icon={RxDiscordLogo} />
+               <Footer.Icon href="https://www.youtube.com/@input.studios" target="_blank" icon={AiOutlineYoutube} />
+               <Footer.Icon href="https://www.figma.com/team_invite/redeem/IHhVbYADhWDiftybuzpjBl" target="_blank" icon={FaFigma} />
+               <Footer.Icon href="https://github.com/inputstudios" target="_blank" icon={FiGithub} />
+               <Footer.Icon href="https://dribbble.com/inputstudios" target="_blank" icon={BsDribbble} />
+            </div>
          </div>
       </div>
    );

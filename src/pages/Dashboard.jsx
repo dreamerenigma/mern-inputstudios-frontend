@@ -34,7 +34,7 @@ export default function Dashboard() {
    }, [tab]);
 
    return (
-      <div className="min-h-screen flex flex-col md:flex-row mt-[50px]">
+      <div className="min-h-screen flex flex-col md:flex-row mt-[50px] bg-gray-100 dark:bg-[rgb(16,23,42)] ">
          <div className="md:w-64">
             {/* Sidebar */}
             <SidebarProfile />
