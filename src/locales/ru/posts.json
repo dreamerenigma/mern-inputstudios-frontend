@@ -39,5 +39,9 @@
   "category_game_dev": "Разработка игр",
   "category_science": "Наука",
   "machine_learning": "Машинное обучение",
-  "gadgets": "Гаджеты"
+  "gadgets": "Гаджеты",
+  "news": "НОВОСТИ",
+  "other_news": "ДРУГИЕ НОВОСТИ",
+  "events": "СОБЫТИЯ",
+  "additional_block": "ДОПОЛНИТЕЛЬНЫЙ БЛОК"
 }

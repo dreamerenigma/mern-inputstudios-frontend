@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { RiCloseLine } from 'react-icons/ri';
 
-export default function EditNameModal({ showModal, handleShowModal, t, formData, handleFirstNameChange, handleLastNameChange, handleCaptchaChange, captchaValue, hasChanges }) {
+export default function EditNameModal({ showModal, handleShowModal, t, formData, handleFirstNameChange, handleLastNameChange, handleCaptchaChange, captchaValue, hasChanges, handleSave }) {
 
    if (!showModal) return null;
 
@@ -80,7 +80,7 @@ export default function EditNameModal({ showModal, handleShowModal, t, formData,
                         ? 'bg-transparent text-white hover:bg-gray-700 cursor-pointer border-gray-600'
                         : 'bg-transparent text-gray-600 border-gray-600'
                   }`}
-                  onClick={() => handleShowModal(false)}
+                  onClick={handleSave}
                   disabled={!hasChanges}
                >
                   {t('profile:save')}
@@ -111,4 +111,5 @@ EditNameModal.propTypes = {
    handleCaptchaChange: PropTypes.func.isRequired,
    captchaValue: PropTypes.string,
    hasChanges: PropTypes.bool.isRequired,
+   handleSave: PropTypes.func.isRequired,
 };

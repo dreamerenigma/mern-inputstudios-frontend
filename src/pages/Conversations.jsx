@@ -33,12 +33,12 @@ export default function Conversations() {
    };
 
    return (
-      <div className="pt-3 mb-20 min-h-screen mt-[60px] flex flex-col items-center justify-start">
+      <div className="custom-padding pt-3  mt-[60px] flex flex-col items-center justify-start">
          <Helmet>
             <title>{`Диалог с @${user.username || 'Пользователь'} - Input Studios`}</title>
          </Helmet>
          <div className="flex flex-col lg:flex-row gap-4 w-full max-w-5xl justify-center">
-            <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg lg:w-3/4 overflow-hidden">
+            <div className="custom-padding mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg lg:w-3/4 overflow-hidden">
                <div className="flex items-center px-4 py-2">
                   <IoArrowBackOutline className="text-gray-600 dark:text-gray-400 cursor-pointer" size={24} onClick={handleBackClick} />
                   <div className="flex items-center gap-2 ml-4">
@@ -62,7 +62,7 @@ export default function Conversations() {
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                      Здесь пока нет сообщений
                   </p>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 flex justify-center items-center gap-1">
+                  <div className="text-sm text-gray-600 dark:text-gray-400 flex justify-center items-center gap-1 flex-wrap">
                      <p>Защита от спама reCAPTCHA.</p>
                      <Link to={`${languagePrefix}/privacy`} className="text-teal-500 hover:underline">Политика конфиденциальности.</Link>
                      <Link to={`${languagePrefix}/terms-of-use`} className="text-teal-500 hover:underline">Условия использования.</Link>

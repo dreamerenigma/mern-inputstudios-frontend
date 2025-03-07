@@ -1,5 +1,4 @@
-import { Avatar } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { 
    HiUser, 
    HiDocumentText, 
@@ -8,7 +7,6 @@ import {
    HiChartPie, 
    HiShieldCheck, 
    HiMenu,
-   HiX,
    HiHome,
    HiOutlineLockClosed,
    HiOutlineShieldCheck,
@@ -32,6 +30,7 @@ export default function SidebarProfile() {
    const location = useLocation();
    const dispatch = useDispatch();
    const navigate = useNavigate();
+   const sidebarRef = useRef(null);
    const { currentUser } = useSelector(state => state.user);
    const [tab, setTab] = useState('');
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
@@ -57,6 +56,19 @@ export default function SidebarProfile() {
          setTab(tabFromUrl);
       }
    }, [location.search]);
+   
+   const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target) && !event.target.closest('.menu-toggle')) {
+         setIsMenuOpen(false);
+      }
+   };
+
+   useEffect(() => {
+      document.addEventListener("click", handleClickOutside);
+      return () => {
+         document.removeEventListener("click", handleClickOutside);
+      };
+   }, []);
 
    const handleSignout = async () => {
       try {
@@ -81,27 +93,30 @@ export default function SidebarProfile() {
    };
 
    return ( 
-      <div className="flex flex-col h-full md:w-64">
+      <div className={`min-h-screen absolute flex flex-col h-full menu-width ${isMenuOpen ? "menu-collapsed" : "menu-expanded"}`}>
          <div 
-            className={`flex items-center justify-center xl:hidden max-w-max`}
+            className={`flex items-center justify-center hide-below-1280 max-w-max`}
          >
             <button 
-               className={`flex items-center justify-center ml-2 p-1 pt-2 rounded transition-all duration-200 ${isClicked ? 'bg-gray-300 dark:bg-gray-800' : 'bg-transparent'} hover:bg-gray-200 dark:hover:bg-gray-700`}
+               className={`flex items-center justify-center ml-2 p-1 pt-4 rounded transition-all duration-200 ${isClicked ? 'bg-gray-300 dark:bg-gray-800' : 'bg-transparent'} hover:bg-gray-200 dark:hover:bg-gray-700`}
                onClick={toggleSidebar}
             >
-               {isMenuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
+               {<HiMenu size={28} />}
             </button>
          </div>
-         <div 
-            className={`h-full overflow-y-auto overflow-x-hidden pl-3 py-8 rounded bg-gray-100 dark:bg-[rgb(16,23,42)] flex flex-col justify-between transition-all duration-300
-            ${isMenuOpen ? 'translate-x-0 w-56' : 'translate-x-[-100%] w-0'} 
-            md:translate-x-0 md:w-64 
-            ${!isMenuOpen ? 'absolute md:relative' : ''}`}
+         <div  
+            className={`h-full overflow-y-auto overflow-x-hidden pl-3 py-8 px-2 padding-y rounded bg-gray-100 dark:bg-[rgb(16,23,42)] flex flex-col justify-between transition-all duration-300 md:translate-x-0`}
          >
-            <div className="flex items-center mb-5 ml-2">
-               <Avatar alt="user" img={currentUser.profilePicture} rounded />
-               <div className="ml-4 hidden xl:block">
-                  <span className="block text-sm">{currentUser.username}</span>
+            <div className="flex items-center mb-3 ml-3">
+               <div className="relative w-12 h-12 rounded-full overflow-hidden avatar-1280">
+                  <img
+                     src={currentUser.profilePicture}
+                     alt="User Avatar"
+                     className="w-full h-full object-cover"
+                  />
+               </div>
+               <div className={`ml-4 ${!isMenuOpen ? 'inline' : 'hidden'} lg:inline`}>
+                  <span className="text-sm">{currentUser.username}</span>
                   <span className="block text-sm font-medium truncate">{currentUser.email}</span>
                </div>
             </div>
@@ -528,7 +543,10 @@ export default function SidebarProfile() {
                   </p>
                   <div className="mt-6 flex flex-col md:flex-row justify-between w-full space-y-2 md:space-y-0">
                      <button
-                        onClick={() => setDialogOpen(false)}
+                        onClick={() => {
+                           setDialogOpen(false);
+                           navigate(`${languagePrefix}/dashboard?tab=profile`);
+                        }}
                         className="px-4 py-2 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 shadow-md rounded-lg flex-grow md:mr-2"
                      >
                         {t("profile:cancel")}

@@ -14,6 +14,7 @@ import DashAddressBook from '../components/DashAddressBook';
 import DashPrivacyAdSettings from '../components/DashPrivacyAdSettings';
 import DashManagingCommunicationPermissions from '../components/DashManagingCommunicationPermissions';
 import DashSettings from '../components/DashSettings';
+import DashSignOut from '../components/DashSignOut';
 
 export default function Dashboard() {
    const location = useLocation();
@@ -34,8 +35,8 @@ export default function Dashboard() {
    }, [tab]);
 
    return (
-      <div className="min-h-screen flex flex-col md:flex-row mt-[50px] bg-gray-100 dark:bg-[rgb(16,23,42)] ">
-         <div className="md:w-64">
+      <div className="min-h-screen flex flex-col md:flex-row mt-[50px] bg-gray-100 dark:bg-[rgb(16,23,42)]">
+         <div className="menu-width">
             {/* Sidebar */}
             <SidebarProfile />
             <SidebarBlog />
@@ -63,6 +64,8 @@ export default function Dashboard() {
          {tab === "dash" && <DashboardComponent />}
          {/* Settings App */}
          {tab === "settings" && <DashSettings />}
+         {/* Sign Out */}
+         {tab === "signout" && <DashSignOut />}
       </div>
    );
 }

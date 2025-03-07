@@ -1,4 +1,3 @@
-
 export default function Cloud() {
   return (
     <div className="mt-[60px]">

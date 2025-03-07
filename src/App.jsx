@@ -40,7 +40,9 @@ function Layout() {
    const isProfileHeader = languages.some(lang =>
       location.pathname.startsWith(`/${lang}/dashboard`) && queryParams.get('tab') !== null ||
       location.pathname === (`/${lang}/password/change`) ||
-      location.pathname === (`/${lang}/names/manage`)
+      location.pathname === (`/${lang}/names/manage`) ||
+      location.pathname === (`/${lang}/sign-in-preferences`) ||
+      location.pathname === (`/${lang}/add-assoc-id`)
    );
 
    const customHeaderPages = getLanguagePrefixedPages(['/forum']);
@@ -61,7 +63,9 @@ function Layout() {
       `/${lang}/dashboard`,
       `/${lang}/profile`,
       `/${lang}/privacy/privacystatement`,
-      `/${lang}/names/manage`
+      `/${lang}/names/manage`,
+      `/${lang}/sign-in-preferences`,
+      `/${lang}/add-assoc-id`,
    ]);
 
    const shouldShowProfileFooter = profileFooterPaths.some(path => {

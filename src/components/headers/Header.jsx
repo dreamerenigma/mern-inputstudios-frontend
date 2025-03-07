@@ -463,18 +463,18 @@ export default function Header() {
                                  <ul className="absolute w-[900px] right-0 top-full mt-[18px] bg-white dark:bg-gray-600 shadow-md rounded-md z-10 grid grid-cols-4 gap-6 p-4">
                                     {menuData.map((section) => (
                                        <div key={section.title} className="space-y-2">
-                                       <p className="py-2 px-2 mb-2 font-bold">{section.title}</p>
-                                       {section.items.map((item) => (
-                                          <li key={item.label} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                             <Link
-                                             to={`${languagePrefix}${item.link}`}
-                                             onClick={() => setMenuOpen(false)}
-                                             className="text-left block text-sm"
-                                             >
-                                             {item.label}
-                                             </Link>
-                                          </li>
-                                       ))}
+                                          <p className="py-2 px-2 mb-2 font-bold">{section.title}</p>
+                                          {section.items.map((item) => (
+                                             <li key={item.label} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                                <Link
+                                                   to={`${languagePrefix}${item.link}`}
+                                                   onClick={() => setMenuOpen(false)}
+                                                   className="text-left block text-sm"
+                                                >
+                                                   {item.label}
+                                                </Link>
+                                             </li>
+                                          ))}
                                        </div>
                                     ))}
                                  </ul>

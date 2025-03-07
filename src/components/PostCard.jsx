@@ -52,7 +52,7 @@ export default function PostCard({ post }) {
 PostCard.propTypes = {
    post: PropTypes.shape({
       slug: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
+      image: PropTypes.string,
       title: PropTypes.string.isRequired,
       category: PropTypes.string.isRequired,
       createdAt: PropTypes.string.isRequired,

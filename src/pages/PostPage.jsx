@@ -15,12 +15,13 @@ import { FiGithub } from "react-icons/fi";
 import { FaRegEye, FaMessage } from "react-icons/fa6";
 import { Helmet } from "react-helmet";
 import { IoIosShareAlt } from "react-icons/io";
+import { FaBookmark } from "react-icons/fa";
 import NewsCard from "../components/NewsCard";
 import { formatDate } from "../utils/dateUtils";
 import RecentPostCard from "../components/RecentPostCard";
 import ReactDOM from 'react-dom';
 
-export default function PostPage() {
+export default function PostPage({ postId }) {
    const { t } = useTranslation();
    const navigate = useNavigate();
    const [user, setUser] = useState({});
@@ -33,6 +34,7 @@ export default function PostPage() {
    const [views, setViews] = useState(0);
    const [visiblePosts, setVisiblePosts] = useState(8);
    const [shareCount, setShareCount] = useState(null);
+   const [comments, setComments] = useState([]);
    const [showTooltip, setShowTooltip] = useState(false);
    const [tooltipText, setTooltipText] = useState('');
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
@@ -84,7 +86,6 @@ export default function PostPage() {
             setLoading(false);
          }
       };
-
       fetchPost();
    }, [postSlug, SERVER_URL]);
 
@@ -208,6 +209,26 @@ export default function PostPage() {
       }
    };
 
+   const handleBookmarks = async (postId) => {
+      try {
+         if (!currentUser) {
+            return;
+         }
+
+         const token = localStorage.getItem('token');
+
+         const res = await fetch(`${SERVER_URL}/api/post/bookmark/${postId}`, {
+            method: "PUT",
+            headers: {
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${token}`,
+            },
+         });
+      } catch (error) {
+         console.error('Ошибка при попытке сделать закладку:', error);
+      }
+   };
+
    const handleShare = async (postId) => {
       try {
          if (navigator.share) {
@@ -246,6 +267,26 @@ export default function PostPage() {
          console.error('Ошибка при попытке поделиться:', error);
       }
    };
+
+   useEffect(() => {
+      const getComments = async () => {
+         try {
+            const res = await fetch(`${SERVER_URL}/api/comment/getPostComments/${postId}`);
+            
+            if (res.ok) {
+               const data = await res.json();
+               console.log("Received comments data:", data);
+               setComments(data || []); 
+            } else {
+               console.log("Failed to fetch comments:", res.status);
+            }
+         } catch (error) {
+            console.log("Error fetching comments:", error.message);
+         }
+      };
+   
+      getComments();
+   }, [SERVER_URL, postId]);
    
    if (loading) {
       return (
@@ -371,7 +412,7 @@ export default function PostPage() {
                               }
                            </p>
                         </div>
-                        <div className="flex items-center gap-2 text-teal-500">
+                        <div className="flex items-center gap-2 ml-1 text-teal-500">
                            <button
                               type="button"
                               onClick={() => handleDislike(post?._id)}
@@ -394,17 +435,31 @@ export default function PostPage() {
                               }
                            </p>
                         </div>
+                        <div className="flex items-center gap-2 ml-1 text-teal-500">
+                           <button
+                              type="button"
+                              onClick={() => handleBookmarks()}
+                              className=""
+                           >
+                              <FaBookmark />
+                           </button>
+                        </div>
                         <div className={`flex items-center gap-2 ${shareCount > 0 ? 'text-teal-500' : 'text-gray-500'}`} onClick={() => handleShare(post._id)}>
                            <button>
-                              <IoIosShareAlt size={24} className="hover:text-teal-500"/>
+                              <IoIosShareAlt size={26} className="hover:text-teal-500"/>
                            </button>
                            {shareCount > 0 && <span>{shareCount}</span>}
                            {showTooltip && ReactDOM.createPortal(<Tooltip showTooltip={showTooltip} text={tooltipText} />, document.body)}
                         </div>
-                        <div className="flex items-center gap-2 text-teal-500">
-                           <Link to={`${languagePrefix}/post/${postSlug}/comments`} className="flex items-center gap-2 text-teal-500">
-                              <FaMessage size={16} />
-                              <span>{post?.commentsCount || 2}</span>
+                        <div className="flex items-center gap-2 ml-2">
+                           <Link 
+                              to={`${languagePrefix}/post/${postSlug}/comments`} 
+                              className={`flex items-center gap-2 ${
+                                 comments && comments.length > 0 ? "text-teal-500" : "text-gray-500"
+                              }`}
+                           >
+                              <FaMessage size={16} className="hover:text-teal-500"/>
+                              {comments ? comments.length : 0}
                            </Link>
                         </div>
                      </div>
@@ -421,7 +476,7 @@ export default function PostPage() {
                </div>
                <div className="flex flex-col lg:flex-row gap-4 mx-auto mt-3 responsive-container">
                   <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden pb-5">
-                     <h1 className="text-xl mt-2 text-left px-6">Recent Articles</h1>
+                     <h1 className="text-xl mt-2 text-left px-6">{t("posts:recent_articles")}</h1>
                      <div className="flex flex-wrap justify-center px-6">
                         {recentPosts &&
                            recentPosts.slice(0, visiblePosts).map((post) => (
@@ -433,7 +488,7 @@ export default function PostPage() {
                      {recentPosts && visiblePosts < recentPosts.length && (
                         <div className="flex justify-center mt-4">
                            <Button outline gradientDuoTone="purpleToBlue" type="submit" onClick={handleShowMore}>
-                              Показать ещё
+                              {t("posts:show_more")}
                            </Button>
                         </div>
                      )}
@@ -443,7 +498,7 @@ export default function PostPage() {
             {/* Правая колонка */}
             <div className="custom-hide flex flex-col">
                <div className="border border-gray-700 p-4 mb-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                  <p>НОВОСТИ</p>
+                  <p>{t("posts:news")}</p>
                   <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
                      recentPosts.slice(0, 10).map((post, index, arr) => (
@@ -455,7 +510,7 @@ export default function PostPage() {
                </div>
                <div className="w-full mt-8 lg:mt-0">
                   <div className="border border-gray-700 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg h-full">
-                     <p className="font-semibold text-lg">ДРУГИЕ НОВОСТИ</p>
+                     <p className="font-semibold text-lg">{t("posts:other_news")}</p>
                      <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
                      {recentPosts && 
                         recentPosts.slice(0, 3).map((post, index, arr) => (
@@ -467,7 +522,7 @@ export default function PostPage() {
                   </div>
                </div>
                <div className="border border-gray-700 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg mt-3">
-                  <p>СОБЫТИЯ</p>
+                  <p>{t("posts:events")}</p>
                   <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
                      recentPosts.slice(0, 3).map((post, index, arr) => (
@@ -478,7 +533,7 @@ export default function PostPage() {
                   }
                </div>
                <div className="border border-gray-700 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg mt-3">
-                  <p>ДОПОЛНИТЕЛЬНЫЙ БЛОК</p>
+                  <p>{t("posts:additional_block")}</p>
                   <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
                      recentPosts.slice(0, 3).map((post, index, arr) => (

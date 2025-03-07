@@ -227,5 +227,19 @@
   "data_august_2024": "August 2024",
   "we_updated_use_personal_data": "We updated the <strong>How we use personal data</strong> section to clarify that we may use data to develop and train our artificial intelligence models. intelligence.",
   "we_have_further_clarified_purposes": "We have further clarified the purposes and legal basis for processing personal data in the <strong>How We Use Personal Data</strong> section.",
-  "we_have_enhanced": "We have enhanced the <strong>Russian Region Data Privacy</strong> section to further clarify your rights under relevant Russian Region data privacy laws, as well as how you can exercise rights related to your data with us."
+  "we_have_enhanced": "We have enhanced the <strong>Russian Region Data Privacy</strong> section to further clarify your rights under relevant Russian Region data privacy laws, as well as how you can exercise rights related to your data with us.",
+  "data_subject_requests": "Data Subject Requests (DSR)",
+  "dsr_recommendations": "— terminology and recommendations for DSR.",
+  "data_protection_addendum": "Data Protection Addendum for Input Studios products and services (DPA)",
+  "data_processing_terms": "— data processing and security terms.",
+  "product_terms": "Product Terms",
+  "product_conditions": "— product conditions for software and web services under Input Studios' commercial licensing programs.",
+  "compliance_requirements": "Input Studios Compliance",
+  "compliance_resources": "— documentation and resources to get started with compliance.",
+  "security_trust_center": "Input Studios Security Trust Center",
+  "security_resources": "— resources for security, privacy, compliance, and transparency.",
+  "service_trust_portal": "Input Studios Service Trust Portal",
+  "cloud_security_info": "— information about security, regulations, compliance, & privacy related to Input Studios Cloud.",
+  "threat_response_center": "Input Studios Threat Response Center",
+  "report_vulnerability": "— report a vulnerability in an Input Studios product or service."
 }

@@ -47,6 +47,12 @@ import Feeds from "../pages/Feeds";
 import Tools from "../pages/Tools";
 import UserView from "../pages/UserView";
 import CommentsPage from "../pages/CommentsPage";
+import Sustainability from "../pages/Sustainability";
+import Investor from "../pages/Investor";
+import EasyShoppin from "../pages/EasyShoppin";
+import Advertising from "../pages/Advertising";
+import SignInPreferences from "../pages/profile/SignInPreferences";
+import AddAssocId from "../pages/profile/AddAssocId";
 
 const languages = ['ru-ru', 'en-us'];
 
@@ -89,9 +95,13 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/forum`} element={<Forum />} />
                <Route path={`/${lang}/cloud`} element={<Cloud />} />
                <Route path={`/${lang}/weather-api`} element={<WeatherAPI />} />
+               <Route path={`/${lang}/easy-shoppin`} element={<EasyShoppin />} />
                <Route path={`/${lang}/e-commerce-apps`} element={<ECommerceApps />} />
+               <Route path={`/${lang}/ads`} element={<Advertising />} />
                <Route path={`/${lang}/business`} element={<Business />} />
                <Route path={`/${lang}/small-business`} element={<SmallBusiness />} />
+               <Route path={`/${lang}/investor/default`} element={<Investor />} />
+               <Route path={`/${lang}/sustainability`} element={<Sustainability />} />
                <Route path={`/${lang}/feed`} element={<Feeds />} />
                <Route path={`/${lang}/post/:postSlug`} element={<PostPage />} />
                <Route path={`/${lang}/contactus`} element={<Contacts />} />
@@ -104,6 +114,8 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/legal/intellectualproperty`} element={<IntellectualProperty />} />
                <Route path={`/${lang}/profile`} element={<IntellectualProperty />} />
                <Route path={`/${lang}/names/manage`} element={<ManageSignInService />} />
+               <Route path={`/${lang}/sign-in-preferences`} element={<SignInPreferences />} />
+               <Route path={`/${lang}/add-assoc-id`} element={<AddAssocId />} />
                <Route path={`/${lang}/news`} element={<CompanyNews />} />
                <Route path={`/${lang}/user/:userId`} element={<UserView />} />
                <Route path={`/${lang}/user/:userId`} element={<UserView />} />

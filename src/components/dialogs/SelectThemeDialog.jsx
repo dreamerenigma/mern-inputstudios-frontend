@@ -11,7 +11,10 @@ export default function SelectThemeDialog({ show, onClose, onConfirm }) {
    const { t } = useTranslation();
    const dialogRef = useRef(null);
    const dispatch = useDispatch();
-   const [selectedTheme, setSelectedTheme] = useState('system');
+   const [selectedTheme, setSelectedTheme] = useState(() => {
+      const savedTheme = localStorage.getItem("theme");
+      return savedTheme || 'system';
+   });
 
    useEffect(() => {
       const handleSystemThemeChange = () => {

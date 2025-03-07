@@ -1,8 +1,8 @@
 
 export default function SmallBusiness() {
-  return (
-    <div>
-      <p>Business</p>
-    </div>
-  );
+   return (
+      <div className="mt-[60px]">
+         <p>Small Business</p>
+      </div>
+   );
 }

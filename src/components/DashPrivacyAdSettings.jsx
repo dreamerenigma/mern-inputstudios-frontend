@@ -69,7 +69,7 @@ export default function DashPrivacyAdSettings() {
    }, [currentUser]);
 
    return (
-      <div className="min-h-screen mb-20">
+      <div className="min-h-screen w-full mb-20">
          <Helmet>
             <title>{t("privacy:title")}</title>
             <link rel="icon" type="image/png" href="/icons/favicon.ico" />

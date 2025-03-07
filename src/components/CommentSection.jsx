@@ -6,11 +6,12 @@ import Comment from './Comment';
 import PropTypes from 'prop-types';
 import DeleteCommentDialog from './dialogs/DeleteCommentDialog';
 import { useTranslation } from "react-i18next";
-import { IoIosMail, IoIosSettings, IoMdNotificationsOutline } from "react-icons/io";
+import { IoIosMail, IoIosSettings, IoMdNotifications, IoMdNotificationsOutline } from "react-icons/io";
 import { FaRss } from "react-icons/fa";
 import ReactDOM from 'react-dom';
 import PostTooltip from "./tooltips/PostTooltip";
 import HiddenPublishPopupMenu from "./popups/HidePublishPopupMenu";
+import NotificationDialog from "./dialogs/NotificationDialog";
 
 export default function CommentSection({ postId }) {
    const { t } = useTranslation();
@@ -23,10 +24,15 @@ export default function CommentSection({ postId }) {
    const [comments, setComments] = useState([]);
    const [showModal, setShowModal] = useState(false);
    const [showDialog, setShowDialog] = useState(false);
+   const [isNotificationDialog, setIsNotificationDialog] = useState(false);
    const [commentToDelete, setCommentToDelete] = useState(null);
    const navigate = useNavigate();
    const [showTooltip, setShowTooltip] = useState(false);
    const [showPopupMenu, setShowPopupMenu] = useState(false);
+   const [hasSelectedCheckbox, setHasSelectedCheckbox] = useState(false);
+   const [iconState, setIconState] = useState(
+      <IoMdNotificationsOutline size={26} className="text-gray-500" />
+   );
    const isCommentsRoute = location.pathname.includes("/comments");
    const SERVER_URL = import.meta.env.VITE_PROD_BASE_URL;
    const FRONTEND_URL = import.meta.env.VITE_VERCEL_BASE_URL;
@@ -224,6 +230,24 @@ export default function CommentSection({ postId }) {
       setShowPopupMenu(false);
    };
 
+   const handleNotificationDialog = () => {
+      setIsNotificationDialog(!isNotificationDialog);
+   };
+
+   const handleConfirmDialog = () => {
+      if (hasSelectedCheckbox) {
+         setIconState(<IoMdNotifications size={26} className="text-teal-500" />);
+      } else {
+         setIconState(<IoMdNotificationsOutline size={26} className="text-gray-500" />);
+      }
+
+      setIsNotificationDialog(false);
+   };
+
+   const handleCheckboxChange = (hasSelection) => {
+      setHasSelectedCheckbox(hasSelection);
+   };
+
    return (
       <div className="mx-auto w-full pt-3">
          {!isCommentsRoute && (
@@ -320,13 +344,21 @@ export default function CommentSection({ postId }) {
                      <div className="ml-2 border border-gray-400 py-1 px-2 rounded-sm">
                         <p>{comments.length}</p>
                      </div>
-                     <div className="flex space-x-5 ml-auto">
+                     <div className="flex gap-6 ml-auto">
                         <button className="ml-auto" onClick={handleCopy}>
                            <FaRss size={20} className="text-gray-500" />
                         </button>
-                        <button>
-                           <IoMdNotificationsOutline size={26} className="text-gray-500" />
-                        </button>
+                        <button onClick={handleNotificationDialog}>
+            {iconState}
+         </button>
+         {isNotificationDialog && (
+            <NotificationDialog
+               show={isNotificationDialog}
+               onClose={() => setIsNotificationDialog(false)}
+               onConfirm={handleConfirmDialog}
+               onCheckboxChange={handleCheckboxChange} // Pass function to update state
+            />
+         )}
                      </div>
                   </div>
                   {comments.map(comment => (

@@ -112,6 +112,19 @@
   }
 }
 
+@media (max-width: 580px) {
+  .buttons-container-580 {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .flex-col-580 {
+    flex-direction: column;
+  }
+  .padding-580 {
+    padding-left: 0rem;
+  }
+}
+
 @media (max-width: 639px) {
   .block {
     display: flex;
@@ -365,12 +378,40 @@
   }
 }
 
+@media screen and (max-width: 980px) {
+  .buttons-wrapper {
+    margin-left: 0;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 2rem;
+  }
+  .flex-col-980 {
+    flex-direction: column;
+  }
+  .text-full-980 {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .flex-col-980 {
+    align-items: center;
+  }
+}
+
 @media screen and (min-width: 811px) and (max-width: 1550px) {
   .theme-container,
   .import {
     max-width: none;
     margin-left: 3rem;
     margin-right: 3rem;
+  }
+}
+
+@media (max-width: 1030px) {
+  .custom-padding {
+    padding-top: 0;
+    margin-bottom: 0;
   }
 }
 
@@ -507,6 +548,70 @@
   }
   .column {
     width: 25%;
+  }
+}
+
+@media (max-width: 1280px) {
+  .width-1280 {
+    width: 16rem;
+  }
+  .show-from-1280 {
+    display: none;
+  }
+  .inline-1280 {
+    display: inline !important;
+  }
+  .avatar-1280 {
+    width: 2rem;
+    height: 2rem;
+  }
+  .padding-y {
+    padding-left: 0rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .menu-collapsed {
+    width: 3.5rem;
+  }
+  .menu-expanded {
+    width: 16rem;
+  }
+  .custom-grid-1280 {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+  }
+  .custom-card-grid-1280 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .buttons-container {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .responsive-image {
+    height: 300px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .width-1280 {
+    width: 16rem;
+  }
+  .hide-below-1280 {
+    display: none;
+  }
+  .show-from-1280 {
+    display: block;
+  }
+  .avatar {
+    width: 3rem;
+    height: 3rem;
+  }
+  .menu-collapsed,
+  .menu-expanded {
+    width: 16rem;
   }
 }
 

@@ -39,44 +39,44 @@ export default function EditBirthModal ({
             <p className="text-18 font-semibold text-gray-700 dark:text-gray-200">{t("profile:date_birth")}</p>
             <div className="text-left mb-5">
                <div className="flex space-x-4">
-               <select
-                  value={selectedMonth}
-                  onChange={handleMonthChange}
-                  className={`border ${theme === 'dark' ? 'border-gray-600 bg-gray-700' : 'border-gray-300'} rounded-md p-2 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-teal-500`}
-               >
-                  {months.map((month) => (
-                     <option key={month.value} value={month.value}>
-                     {month.label}
-                     </option>
-                  ))}
-               </select>
-               <select
-                  value={selectedDay}
-                  onChange={handleDayChange}
-                  className={`border ${theme === 'dark' ? 'border-gray-600 bg-gray-700' : 'border-gray-300'} rounded-md p-2 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-teal-500`}
-               >
-                  {[...Array(days).keys()].map(day => (
-                     <option key={day + 1} value={day + 1}>
-                     {day + 1}
-                     </option>
-                  ))}
-               </select>
-               <select
-                  value={selectedYear}
-                  onChange={handleYearChange}
-                  className={`border ${theme === 'dark' ? 'border-gray-600 bg-gray-700' : 'border-gray-300'} rounded-md p-2 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-teal-500`}
-               >
-                  {years.map(year => (
-                     <option key={year} value={year}>
-                     {year}
-                     </option>
-                  ))}
-               </select>
+                  <select
+                     value={selectedMonth}
+                     onChange={handleMonthChange}
+                     className={`border ${theme === 'dark' ? 'border-gray-600 bg-gray-700' : 'border-gray-300'} rounded-md p-2 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  >
+                     {months.map((month) => (
+                        <option key={month.value} value={month.value}>
+                        {month.label}
+                        </option>
+                     ))}
+                  </select>
+                  <select
+                     value={selectedDay}
+                     onChange={handleDayChange}
+                     className={`border ${theme === 'dark' ? 'border-gray-600 bg-gray-700' : 'border-gray-300'} rounded-md p-2 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  >
+                     {[...Array(days).keys()].map(day => (
+                        <option key={day + 1} value={day + 1}>
+                        {day + 1}
+                        </option>
+                     ))}
+                  </select>
+                  <select
+                     value={selectedYear}
+                     onChange={handleYearChange}
+                     className={`border ${theme === 'dark' ? 'border-gray-600 bg-gray-700' : 'border-gray-300'} rounded-md p-2 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-teal-500`}
+                  >
+                     {years.map(year => (
+                        <option key={year} value={year}>
+                        {year}
+                        </option>
+                     ))}
+                  </select>
                </div>
                <p className="text-18 mt-8 font-semibold text-gray-700 dark:text-gray-200">{t("profile:country_or_region")}</p>
                <select
                   className={`border ${theme === 'dark' ? 'border-gray-600 bg-gray-700' : 'border-gray-300'} rounded-md p-2 w-full mt-1 focus:outline-none focus:ring-2 focus:ring-teal-500`}
-                  value={selectedCountry}
+                  value={countries.find(country => country.label === selectedCountry)?.value || ""}
                   onChange={handleCountryChange}
                >
                   {countries.map(country => (

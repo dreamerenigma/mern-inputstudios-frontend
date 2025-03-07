@@ -3,7 +3,7 @@ import { RiCloseLine } from 'react-icons/ri';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-const DeletePhoneDialog = ({ isOpen, onClose, onDelete }) => {
+export default function DeletePhoneDialog({ isOpen, onClose, onDelete }) {
    const [isChecked, setIsChecked] = useState(false);
    const { theme } = useSelector((state) => state.theme);
 
@@ -73,12 +73,10 @@ const DeletePhoneDialog = ({ isOpen, onClose, onDelete }) => {
          </div>
       </div>
    );
-};
+}
 
 DeletePhoneDialog.propTypes = {
    isOpen: PropTypes.bool.isRequired,
    onClose: PropTypes.func.isRequired,
    onDelete: PropTypes.func.isRequired,
 };
-
-export default DeletePhoneDialog;

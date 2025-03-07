@@ -399,7 +399,7 @@ export default function CommentsPage() {
                </div>
                <div className="flex flex-col lg:flex-row gap-4 mx-auto mt-3 responsive-container">
                   <div className="mb-3 border border-gray-700 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden pb-5">
-                     <h1 className="text-xl mt-2 text-left px-6">Recent Articles</h1>
+                     <h1 className="text-xl mt-2 text-left px-6">{t("posts:recent_articles")}</h1>
                      <div className="flex flex-wrap justify-center px-6">
                         {recentPosts &&
                            recentPosts.slice(0, visiblePosts).map((post) => (
@@ -411,7 +411,7 @@ export default function CommentsPage() {
                      {recentPosts && visiblePosts < recentPosts.length && (
                         <div className="flex justify-center mt-4">
                            <Button outline gradientDuoTone="purpleToBlue" type="submit" onClick={handleShowMore}>
-                              Показать ещё
+                              {t("posts:show_more")}
                            </Button>
                         </div>
                      )}
@@ -421,7 +421,7 @@ export default function CommentsPage() {
             {/* Правая колонка */}
             <div className="custom-hide flex flex-col">
                <div className="border border-gray-700 p-4 mb-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                  <p>ЧИТАЮТ СЕЙЧАС</p>
+                  <p>{t("comments:reading_now")}</p>
                   <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
                      recentPosts.slice(0, 10).map((post, index, arr) => (
@@ -433,7 +433,7 @@ export default function CommentsPage() {
                </div>
                <div className="w-full mt-8 lg:mt-0">
                   <div className="border border-gray-700 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg h-full">
-                     <p className="font-semibold text-lg">ДРУГИЕ НОВОСТИ</p>
+                     <p className="font-semibold text-lg">{t("posts:other_news")}</p>
                      <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
                      {recentPosts && 
                         recentPosts.slice(0, 3).map((post, index, arr) => (
@@ -445,7 +445,7 @@ export default function CommentsPage() {
                   </div>
                </div>
                <div className="border border-gray-700 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg mt-3">
-                  <p>СОБЫТИЯ</p>
+                  <p>{t("posts:events")}</p>
                   <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
                      recentPosts.slice(0, 3).map((post, index, arr) => (
@@ -456,7 +456,7 @@ export default function CommentsPage() {
                   }
                </div>
                <div className="border border-gray-700 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg mt-3">
-                  <p>ДОПОЛНИТЕЛЬНЫЙ БЛОК</p>
+                  <p>{t("posts:additional_block")}</p>
                   <hr className="my-3 border-t border-gray-300 dark:border-gray-600" />
                   {recentPosts && 
                      recentPosts.slice(0, 3).map((post, index, arr) => (

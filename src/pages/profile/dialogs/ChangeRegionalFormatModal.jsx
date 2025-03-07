@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
+import { getLanguages } from '../../../redux/languages';
 
 export default function ChangeRegionalFormatModal({
    isOpen,
@@ -8,6 +9,9 @@ export default function ChangeRegionalFormatModal({
    initialLanguage,
    initialDateFormat,
    initialTimeFormat,
+   onLanguageChange,
+   onDateFormatChange,
+   onTimeFormatChange,
 }) {
    const [selectedLanguage, setSelectedLanguage] = useState(initialLanguage);
    const [selectedDateFormat, setSelectedDateFormat] = useState(initialDateFormat);
@@ -46,13 +50,23 @@ export default function ChangeRegionalFormatModal({
    };
 
    const handleSave = () => {
+      onLanguageChange(selectedLanguage);
+      onDateFormatChange(selectedDateFormat);
+      onTimeFormatChange(selectedTimeFormat);
+
+      setSelectedLanguage(selectedLanguage);
+      setSelectedDateFormat(selectedDateFormat);
+      setSelectedTimeFormat(selectedTimeFormat);
+
       localStorage.setItem('selectedLanguage', selectedLanguage);
       localStorage.setItem('selectedDateFormat', selectedDateFormat);
       localStorage.setItem('selectedTimeFormat', selectedTimeFormat);
+
       onClose();
    };
 
    if (!isOpen) return null;
+   const languages = getLanguages(selectedLanguage);
 
    return (
       <>
@@ -75,9 +89,11 @@ export default function ChangeRegionalFormatModal({
                      onChange={handleLanguageChange}
                      className="w-full p-2 border border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                   >
-                     <option>русский (Россия)</option>
-                     <option>английский (РФ)</option>
-                     <option>испанский (Испания)</option>
+                     {languages.map((country) => (
+                        <option key={country.value} value={country.label}>
+                           {country.label}
+                        </option>
+                     ))}
                   </select>
                </div>
                <div className="mb-4">
@@ -129,4 +145,7 @@ ChangeRegionalFormatModal.propTypes = {
    initialLanguage: PropTypes.string.isRequired,
    initialDateFormat: PropTypes.string.isRequired,
    initialTimeFormat: PropTypes.string.isRequired,
+   onLanguageChange: PropTypes.func.isRequired,
+   onDateFormatChange: PropTypes.func.isRequired,
+   onTimeFormatChange: PropTypes.func.isRequired,
 };

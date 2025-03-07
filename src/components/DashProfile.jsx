@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import ProfileServices from "./ProfileServices";
 import ReactDOM from 'react-dom';
 import Tooltip from "./tooltips/Tooltip";
-import EditNameModal from "./modals/ChangeNameModal";
+import EditNameModal from "./modals/EditNameModal";
 
 export default function DashProfile() {
    const { t } = useTranslation();
@@ -27,7 +27,10 @@ export default function DashProfile() {
    const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
    const [updateUserError, setUpdateUserError] = useState(null);
    const [showModalEditName, setShowModalEditName] = useState(false);
-   const [formData, setFormData] = useState({});
+   const [formData, setFormData] = useState({
+      firstName: currentUser?.firstName || '',
+      lastName: currentUser?.lastName || ''
+   });
    const filePickerRef = useRef();
    const dispatch = useDispatch();
    const [showTooltip, setShowTooltip] = useState(false);
@@ -179,20 +182,61 @@ export default function DashProfile() {
 
    const handleFirstNameChange = (e) => {
       const newFirstName = e.target.value;
-      setFormData({
-         ...formData,
-         firstName: newFirstName
+      setFormData((prevFormData) => {
+         const newData = { ...prevFormData, firstName: newFirstName };
+         setHasChanges(newFirstName !== currentUser.firstName || formData.lastName !== currentUser.lastName);
+         return newData;
       });
-      setHasChanges(newFirstName !== "" || formData.lastName !== "");
    };
-   
+
    const handleLastNameChange = (e) => {
       const newLastName = e.target.value;
-      setFormData({
-         ...formData,
-         lastName: newLastName
+      setFormData((prevFormData) => {
+         const newData = { ...prevFormData, lastName: newLastName };
+         setHasChanges(newLastName !== currentUser.lastName || formData.firstName !== currentUser.firstName);
+         return newData;
       });
-      setHasChanges(formData.firstName !== "" || newLastName !== "");
+   };
+
+   const handleSave = async () => {
+      setUpdateUserError(null);
+      setUpdateUserSuccess(null);
+   
+      if (Object.keys(formData).length === 0) {
+         setUpdateUserError("No changes made");
+         return;
+      }
+   
+      if (imageFileUploading) {
+         setUpdateUserError("Please wait for image to upload");
+         return;
+      }
+   
+      try {
+         dispatch(updateStart());
+   
+         const res = await fetch(`${SERVER_URL}/api/user/update/${currentUser._id}`, {
+            method: "PUT",
+            headers: {
+               "Content-Type": "application/json",
+               "Authorization": `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(formData),
+         });
+   
+         const data = await res.json();
+   
+         if (!res.ok) {
+            dispatch(updateFailure(data.message));
+            setUpdateUserError(data.message);
+         } else {
+            dispatch(updateSuccess(data));
+            setUpdateUserSuccess("User's profile updated successfully");
+         }
+      } catch (error) {
+         dispatch(updateFailure(error.message));
+         setUpdateUserError(error.message);
+      }
    };
 
    return (
@@ -286,6 +330,7 @@ export default function DashProfile() {
                                  handleCaptchaChange={handleCaptchaChange}
                                  captchaValue={captchaValue}
                                  hasChanges={hasChanges}
+                                 handleSave={handleSave}
                               />
                            )}
                         </>

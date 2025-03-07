@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { Link } from "react-router-dom";
-import links from "../../data/privacyLinksData";
+import links from "../../data/privacyLinksData.jsx";
 
 export default function PrivacySupportRequests() {
    const { t } = useTranslation();
@@ -22,6 +22,7 @@ export default function PrivacySupportRequests() {
    const toggleAccountHelp = () => setIsAccountHelpOpen(prevState => !prevState);
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
+   const linksList = links(languagePrefix);
 
    return (
       <div className="mx-28 mt-[60px] mb-20">
@@ -58,12 +59,12 @@ export default function PrivacySupportRequests() {
                   {" "}{t("privacy:admin_portal_for_further_assistance")}
                </li>
                <ul className="list-disc pl-12 mt-4 mb-6">
-                  {links.map((link, index) => (
+                  {linksList.map((link, index) => (
                      <li key={index}>
                         <Link to={link.url} className="text-teal-500 underline">
-                           {link.textUrl}
+                           {t(link.textUrl)}
                         </Link>
-                           {link.text}
+                           {t(link.text)}
                      </li>
                   ))}
                   <li>

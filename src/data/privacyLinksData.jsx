@@ -1,40 +1,38 @@
-const languagePrefix = "/your-language-prefix";
-
-const links = [
+const links = (languagePrefix) => [
    {
-      textUrl: 'Запросы субъектов данных (DSR)',
-      text: " — терминология и рекомендации по DSR.",
-      url: `${languagePrefix}/privacy/privacystatement`
+      textUrl: 'privacy:data_subject_requests',
+      text: 'privacy:dsr_recommendations',
+      url: `${languagePrefix}/privacy/privacystatement`,
    },
    {
-      textUrl: 'Приложение о защите данных для продуктов и служб Input Studios (DPA)',
-      text: " — условия обработки и безопасности данных.",
-      url: `${languagePrefix}/privacy/privacystatement`
+      textUrl: 'privacy:data_protection_addendum',
+      text: 'privacy:data_processing_terms',
+      url: `${languagePrefix}/privacy/privacystatement`,
    },
    {
-      textUrl: 'Условия продукта',
-      text: " — условия продукта для программного обеспечения и веб-служб в рамках программ коммерческого лицензирования Input Studios.",
-      url: `${languagePrefix}/privacy/privacystatement`
+      textUrl: 'privacy:product_terms',
+      text: 'privacy:product_conditions',
+      url: `${languagePrefix}/privacy/privacystatement`,
    },
    {
-      textUrl: 'Соответствие требованиям Input Studios',
-      text: " — документация и ресурсы для начала работы с соответствием требованиям.",
-      url: `${languagePrefix}/privacy/privacystatement`
+      textUrl: 'privacy:compliance_requirements',
+      text: 'privacy:compliance_resources',
+      url: `${languagePrefix}/privacy/privacystatement`,
    },
    {
-      textUrl: 'Центр управления безопасностью Input Studios',
-      text: " — ресурсы по безопасности, конфиденциальности, соответствию требованиям и прозрачности.",
-      url: `${languagePrefix}/privacy/privacystatement`
+      textUrl: 'privacy:security_trust_center',
+      text: 'privacy:security_resources',
+      url: `${languagePrefix}/privacy/privacystatement`,
    },
    {
-      textUrl: 'Input Studios Service Trust Portal',
-      text: " — сведения о безопасности, нормативах, соответствии требованиям & конфиденциальности, связанные с Input Studios Cloud.",
-      url: `${languagePrefix}/privacy/privacystatement`
+      textUrl: 'privacy:service_trust_portal',
+      text: 'privacy:cloud_security_info',
+      url: `${languagePrefix}/privacy/privacystatement`,
    },
    {
-      textUrl: 'Центр Input Studios по реагированию на угрозы',
-      text: " — сообщение об уязвимости в продукте или службе Input Studios.",
-      url: `${languagePrefix}/privacy/privacystatement`
+      textUrl: 'privacy:threat_response_center',
+      text: 'privacy:report_vulnerability',
+      url: `${languagePrefix}/privacy/privacystatement`,
    },
 ];
 

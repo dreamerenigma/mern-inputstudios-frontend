@@ -81,7 +81,10 @@ export default function LanguageSettingsModal({ isOpen, onClose, setSelectedLang
    return (
       <>
          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" onClick={onClose}>
-            <div className="relative w-full max-w-[95%] sm:max-w-[600px] lg:max-w-[600px] border border-gray-700 bg-white dark:bg-gray-800 py-2 shadow-lg z-50 rounded-lg">
+            <div 
+               className="relative w-full max-w-[95%] sm:max-w-[600px] lg:max-w-[600px] border border-gray-700 bg-white dark:bg-gray-800 py-2 shadow-lg z-50 rounded-lg" 
+               onClick={(e) => e.stopPropagation()}
+            >
                {/* Кнопка закрытия */}
                <button
                   onClick={onClose}

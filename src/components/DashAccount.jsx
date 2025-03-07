@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import 'react-circular-progressbar/dist/styles.css';
 import { IoIosArrowDown } from "react-icons/io";
@@ -15,9 +15,11 @@ import { IoIosArrowForward } from "react-icons/io";
 import { IoKeyOutline, IoSettingsOutline } from "react-icons/io5";
 import { BsWindowDesktop } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import Lottie from "lottie-react";
 
 export default function DashAccount() {
    const { t } = useTranslation();
+   const [loadedAnimations, setLoadedAnimations] = useState({});
    const { theme } = useSelector((state) => state.theme);
    const [showDeleteModal, setShowDeleteModal] = useState(false);
    const { currentUser, error } = useSelector((state) => state.user);
@@ -193,6 +195,62 @@ export default function DashAccount() {
       },
    ];
 
+   const cards = useMemo(() => [
+      {
+         title: 'Discover',
+         subtitle: "Изучите службы Input Studios",
+         description: 'Изучите службы Input Studios. Получите доступ ко всем бесплатным продуктам и службам Input Studios с помощью вашей учетной записи Input Studios.',
+         animation: `${languagePrefix}/animations/profile/family.json`,
+         link: 'Подробнее'
+      },
+      {
+         title: 'Семья',
+         subtitle: "Одна счастливая соединненная семья",
+         description: 'Делитесь элементами, держите все в порядке и защищайте ваших детей в Интернете.',
+         animation: `${languagePrefix}/animations/profile/family.json`,
+         link: 'Добавить участника'
+      },
+      {
+         title: 'Rewards',
+         subtitle: "Вы получаете вознаграждение",
+         description: 'Изучите службы Input Studios. Получите доступ ко всем бесплатным продуктам и службам Input Studios с помощью вашей учетной записи Input Studios.',
+         animation: `${languagePrefix}/animations/profile/family.json`,
+         link: 'Подробнее'
+      },
+      {
+         title: 'Почта',
+         subtitle: "Ваш личный организатор",
+         description: 'Изучите службы Input Studios. Получите доступ ко всем бесплатным продуктам и службам Input Studios с помощью вашей учетной записи Input Studios.',
+         animation: `${languagePrefix}/animations/profile/family.json`,
+         link: 'Открыть Почту.ru'
+      },
+   ], [languagePrefix]);
+
+   useEffect(() => {
+      const loadAnimations = async () => {
+         const animations = await Promise.all(
+            cards.map(async (card) => {
+               if (card.animation) {
+                  try {
+                     const response = await fetch(card.animation);
+                     const animationData = await response.json();
+                     return { [card.title]: animationData };
+                  } catch (error) {
+                     console.error(`Error loading animation for ${card.title}:`, error);
+                     return null;
+                  }
+               }
+               return null;
+            })
+         );
+         const animationMap = Object.assign({}, ...animations);
+         setLoadedAnimations(animationMap);
+      };
+
+      loadAnimations();
+
+   }, [cards]);
+   
    const [visibleContainers, setVisibleContainers] = useState(Array(accountData.length).fill(false));
 
    return (
@@ -314,6 +372,44 @@ export default function DashAccount() {
                   setShowModal={setShowDeleteModal}
                   showModal={showDeleteModal}
                />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+               {cards.map((card, index) => (
+                  <div
+                     key={index}
+                     className="bg-white dark:bg-gray-800 rounded-lg shadow-lg flex flex-col"
+                  >
+                     <div className="px-4 py-4">
+                        <h3 className="text-base font-semibold text-teal-500">
+                           {card.title}
+                        </h3>
+                     </div>
+                     <hr className="border border-gray-200 dark:border-gray-600" />
+                     <div className="w-full h-48 p-12 flex justify-center items-center">
+                        {Object.keys(loadedAnimations).map((key) => (
+                           <Lottie key={key} options={{ animationData: loadedAnimations[key] }}/>
+                        ))}
+                     </div>
+                     <div className="px-4 py-2">
+                        <p className="text-lg font-semibold text-gray-600 dark:text-gray-300 truncate">
+                           {card.subtitle}
+                        </p>
+                     </div>
+                     <div className="px-4">
+                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                           {card.description}
+                        </p>
+                     </div>
+                     <div className="mt-auto px-4 py-4">
+                        <a
+                           href={card.link}
+                           className="text-teal-500 hover:text-teal-600 font-medium"
+                        >
+                           <p className="text-base text-teal-500">{card.link}</p>
+                        </a>
+                     </div>
+                  </div>
+               ))}
             </div>
          </div>
       </div>

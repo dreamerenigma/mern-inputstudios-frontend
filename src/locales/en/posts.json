@@ -1,7 +1,7 @@
 {
   "title_create_post": "Create post",
   "title_post": "Update post",
-  "mins_reed": "mins",
+  "mins_read": "mins reed",
   "error_occurred_post": "An error occurred while fetching the post.",
   "recent_articles": "Recent articles",
   "read_articles": "Read article",
@@ -37,5 +37,11 @@
   "category_cosmos": "Cosmos",
   "category_database": "Database",
   "category_game_dev": "Game development",
-  "category_science": "Science"
+  "category_science": "Science",
+  "machine_learning": "Machine learning",
+  "gadgets": "Gadgets",
+  "news": "NEWS",
+  "other_news": "OTHER NEWS",
+  "events": "EVENTS",
+  "additional_block": "ADDITIONAL BLOCK"
 }

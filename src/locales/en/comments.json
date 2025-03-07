@@ -16,5 +16,9 @@
   "save": "Save",
   "cancel": "Cancel",
   "reply": "Reply",
-  "hide_publish_author": "Hide publications author"
+  "hide_publish_author": "Hide publications author",
+  "reading_now": "READING NOW",
+  "other_news": "OTHER NEWS",
+  "events": "EVENTS",
+  "additional_block": "ADDITIONAL BLOCK"
 }

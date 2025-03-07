@@ -39,7 +39,8 @@ export default function AccountInfo() {
                <span>Адрес электронной почты</span>
                <span className="font-semibold">Hitmanki@yandex.ru</span>
                <span className="w-full custom-width">Адрес электронной почты, используемый для входа в учетную запись Input Studios</span>
-               <span className="pr-2 text-teal-500 hover:text-teal-700 hover:underline cursor-pointer">Настройки общения</span>
+               <Link to={`${languagePrefix}/dashboard?tab=profile/communications`} className="pr-2 text-teal-500 hover:text-teal-700 hover:underline cursor-pointer">Настройки общения</Link>
+
             </div>
             <hr className="my-4 border-t border-gray-300 dark:border-gray-600" />
             <div className="grid grid-cols-[250px_auto_1fr] items-start w-full pl-4 py-2 responsive-grid">

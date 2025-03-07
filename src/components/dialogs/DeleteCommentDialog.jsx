@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from "react-i18next";
 import { RiCloseLine } from 'react-icons/ri';
 
-const DeleteCommentDialog = ({ show, onClose, onConfirm }) => {
+export default function DeleteCommentDialog ({ show, onClose, onConfirm }) {
    const { t } = useTranslation();
    if (!show) return null;
 
@@ -32,7 +32,7 @@ const DeleteCommentDialog = ({ show, onClose, onConfirm }) => {
                </h3>
                <div className="flex justify-center gap-4">
                   <button
-                     className="bg-red-500 text-white rounded-md px-4 py-2 hover:bg-red-600 shadow-md"
+                     className="bg-red-600 dark:hover:bg-red-800 hover:bg-red-700  text-white rounded-md px-4 py-2 shadow-md"
                      onClick={onConfirm}
                   >
                      {t("dialogs:yes_im_sure")}
@@ -48,12 +48,10 @@ const DeleteCommentDialog = ({ show, onClose, onConfirm }) => {
          </div>
       </div>
    );
-};
+}
 
 DeleteCommentDialog.propTypes = {
    show: PropTypes.bool.isRequired,
    onClose: PropTypes.func.isRequired,
    onConfirm: PropTypes.func.isRequired,
 };
-
-export default DeleteCommentDialog;

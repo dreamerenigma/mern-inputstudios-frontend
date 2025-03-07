@@ -130,7 +130,7 @@ RecentPostCard.propTypes = {
       _id: PropTypes.string.isRequired,
       userId: PropTypes.string.isRequired,
       slug: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
+      image: PropTypes.string,
       title: PropTypes.string.isRequired,
       category: PropTypes.string.isRequired,
       createdAt: PropTypes.string.isRequired,

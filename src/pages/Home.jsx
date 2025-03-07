@@ -78,7 +78,7 @@ export default function Home() {
             ) : (
                <Link 
                   to={`${languagePrefix}/search`} 
-                  className="w-full h-[260px] bg-white dark:bg-[rgb(16,23,42)] shadow-md dark:shadow-lg flex flex-col justify-center items-center text-center text-black dark:text-white no-underline welcome welcome-height overflow-hidden"
+                  className="w-full h-[260px] bg-white dark:bg-[#10172a] shadow-md dark:shadow-lg flex flex-col justify-center items-center text-center text-black dark:text-white no-underline welcome welcome-height overflow-hidden"
                >
                   <div className="w-full px-4">
                      <h1 className="text-3xl font-bold xs:text-4xl sm:text-5xl md:text-5xl welcome-padding text-center">

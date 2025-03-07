@@ -16,5 +16,9 @@
   "save": "Сохранить",
   "cancel": "Отмена",
   "reply": "Ответить",
-  "hide_publish_author": "Скрыть публикации автора"
+  "hide_publish_author": "Скрыть публикации автора",
+  "reading_now": "ЧИТАЮТ СЕЙЧАС",
+  "other_news": "ДРУГИЕ НОВОСТИ",
+  "events": "СОБЫТИЯ",
+  "additional_block": "ДОПОЛНИТЕЛЬНЫЙ БЛОК"
 }

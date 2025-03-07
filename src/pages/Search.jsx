@@ -153,7 +153,12 @@ export default function Search() {
                {loading && <p className="text-xl text-gray-500">{t("posts:loading")}</p>}
                {!loading &&
                   posts &&
-                  posts.map((post) => <PostCard key={post._id} post={post} />)}
+                  posts.map((post) => (
+                     <div key={post._id} className="w-full sm:w-full xl:w-2/4">
+                        <PostCard post={post} />
+                     </div>
+                  )
+               )}
                {showMore && (
                   <button
                      onClick={handleShowMore}

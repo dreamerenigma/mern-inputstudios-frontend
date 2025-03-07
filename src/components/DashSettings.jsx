@@ -189,7 +189,7 @@ export default function DashSettings() {
                         <div className="flex custom-flex-500 items-start">
                            <span>{t("profile:related")}</span>
                            <Link to={`${languagePrefix}/dashboard?tab=addresses`} className="custom-margin-500 text-teal-500 hover:underline hover:text-teal-700">
-                              Узнать больше о настройках приложения
+                              Узнать больше о оформлении приложения
                            </Link>
                         </div>
                      </div>

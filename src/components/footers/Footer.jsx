@@ -73,7 +73,7 @@ export default function FooterCom() {
                      <Footer.Title title="Input Studios Store" />
                      <Footer.LinkGroup col>
                         <Footer.Link
-                           href={`${languagePrefix}/business`}
+                           href={`${languagePrefix}/dashboard?tab=account`}
                            rel="noopener noreferrer"
                         >
                            {t("footer:account_profile")}
@@ -85,7 +85,7 @@ export default function FooterCom() {
                            {t("footer:download_center")}
                         </Footer.Link>
                         <Footer.Link 
-                           href={`${languagePrefix}/small-business`}
+                           href={`${languagePrefix}/input-studios-store-and-billing`}
                            rel="noopener noreferrer"
                         >
                            {t("footer:support")}
@@ -143,19 +143,19 @@ export default function FooterCom() {
                      <Footer.Title title={t("footer:footer_business")} />
                      <Footer.LinkGroup col>
                         <Footer.Link 
-                           href={`${languagePrefix}/small-business`}
+                           href={`${languagePrefix}/cloud`}
                            rel="noopener noreferrer"
                         >
                            Input Studios Cloud
                         </Footer.Link>
                         <Footer.Link
-                           href={`${languagePrefix}/business`}
+                           href={`${languagePrefix}/workspace`}
                            rel="noopener noreferrer"
                         >
                            Input Studios Workspace
                         </Footer.Link>
                         <Footer.Link
-                           href={`${languagePrefix}/business`}
+                           href={`${languagePrefix}/ads`}
                            rel="noopener noreferrer"
                         >
                            Input Studios Advertising
@@ -192,7 +192,7 @@ export default function FooterCom() {
                         <Footer.Link as={Link} to={`${languagePrefix}/investor/default`}>
                            {t("footer:footer_investors")}
                         </Footer.Link>
-                        <Footer.Link as={Link} to={`${languagePrefix}/terms-of-use`}>
+                        <Footer.Link as={Link} to={`${languagePrefix}/sustainability`}>
                            {t("footer:footer_environmental_sustainability")}
                         </Footer.Link>
                      </Footer.LinkGroup>
