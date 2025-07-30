@@ -53,6 +53,7 @@ import EasyShoppin from "../pages/EasyShoppin";
 import Advertising from "../pages/Advertising";
 import SignInPreferences from "../pages/profile/SignInPreferences";
 import AddAssocId from "../pages/profile/AddAssocId";
+import SitemapPage from "../pages/Sitemap";
 
 const languages = ['ru-ru', 'en-us'];
 
@@ -120,6 +121,7 @@ export default function PublicRoutes() {
                <Route path={`/${lang}/user/:userId`} element={<UserView />} />
                <Route path={`/${lang}/user/:userId`} element={<UserView />} />
                <Route path={`/${lang}/post/:postSlug/comments`} element={<CommentsPage />} />
+               <Route path={`/${lang}/sitemap`} element={<SitemapPage />} />
             </React.Fragment>
          ))}
       </Routes>

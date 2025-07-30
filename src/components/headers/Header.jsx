@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { IoCameraOutline, IoArrowBack } from 'react-icons/io5';
 import CustomTextInput from "../textinputs/CustomTextInput";
 import { useTranslation } from "react-i18next";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { useCallback } from 'react';
 
 export default function Header() {
@@ -460,24 +460,34 @@ export default function Header() {
                                  />
                               </Link>
                               {isOpenProducts && (
-                                 <ul className="absolute w-[900px] right-0 top-full mt-[18px] bg-white dark:bg-gray-600 shadow-md rounded-md z-10 grid grid-cols-4 gap-6 p-4">
+                              <div className="absolute w-[900px] right-0 top-full mt-[18px] bg-white dark:bg-gray-600 shadow-md rounded-md z-10">
+                                 <ul className="grid grid-cols-4 gap-6 p-4">
                                     {menuData.map((section) => (
-                                       <div key={section.title} className="space-y-2">
-                                          <p className="py-2 px-2 mb-2 font-bold">{section.title}</p>
-                                          {section.items.map((item) => (
-                                             <li key={item.label} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
-                                                <Link
-                                                   to={`${languagePrefix}${item.link}`}
-                                                   onClick={() => setMenuOpen(false)}
-                                                   className="text-left block text-sm"
-                                                >
-                                                   {item.label}
-                                                </Link>
-                                             </li>
-                                          ))}
-                                       </div>
+                                    <div key={section.title} className="space-y-2">
+                                       <p className="py-2 px-2 mb-2 font-bold">{section.title}</p>
+                                       {section.items.map((item) => (
+                                          <li key={item.label} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-500 rounded-md hover:underline">
+                                          <Link
+                                             to={`${languagePrefix}${item.link}`}
+                                             onClick={() => setMenuOpen(false)}
+                                             className="text-left block text-sm"
+                                          >
+                                             {item.label}
+                                          </Link>
+                                          </li>
+                                       ))}
+                                    </div>
                                     ))}
                                  </ul>
+                                 <Link to={`${languagePrefix}/sitemap`}>
+                                    <div className="flex items-center justify-center w-full bg-gray-100 dark:bg-gray-700 py-2 rounded-b-md">
+                                       <p className="text-gray-700 dark:text-gray-300 flex items-center space-x-2">
+                                          <span className="cursor-pointer hover:underline">Посмотреть карту сайта</span>
+                                          <IoIosArrowForward className="w-5 h-5 text-gray-500 dark:text-gray-300" />
+                                       </p>
+                                    </div>
+                                 </Link>
+                              </div>
                               )}
                            </div>
                            <button
@@ -524,7 +534,7 @@ export default function Header() {
                                     label={
                                        <div className="flex items-center group margin-header margin-right mr-4-860">
                                           <span
-                                             className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF]">
+                                             className="font-semibold mr-3 text-sm username-text text-[#111827] dark:text-white group-hover:text-[#0E7490] dark:group-hover:text-[#9CA3AF] border-b-2 border-transparent group-hover:border-current">
                                              {currentUser.username}
                                           </span>
                                           <div className="relative w-9 h-9 rounded-full overflow-hidden avatar-small">
@@ -532,11 +542,14 @@ export default function Header() {
                                                 src={currentUser.profilePicture}
                                                 alt="User Avatar"
                                                 className="w-full h-full object-cover"
+                                                width={36}
+                                                height={36}
+                                                loading="lazy"
                                              />
                                           </div>
                                        </div>
                                     }
-                                    className="border border-gray-600 rounded-lg shadow-xl custom-dropdown"
+                                    className="w-[260px] shadow-xl border border-gray-600 rounded-lg custom-dropdown overflow-hidden"
                                  >
                                     <div className="flex items-center justify-between">
                                        <img
@@ -599,7 +612,7 @@ export default function Header() {
                                     <span className="text-sm text-[#111827] dark:text-white mr-3 username-text">{t("headers:header_sign_in")}</span>
                                     <div className="w-9 h-9 flex items-center justify-center border border-black dark:border-white rounded-full">
                                        <img
-                                          src={isDarkMode ? "/images/header/sign_in_light.svg" : "/images/header/sign_in_dark.svg"}
+                                          src={isDarkMode ? "/images/header/sign_in_dark.svg" : "/images/header/sign_in_light.svg"}
                                           alt="user"
                                           className="w-5 h-5"
                                        />

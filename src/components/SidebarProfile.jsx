@@ -532,7 +532,10 @@ export default function SidebarProfile() {
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                <div className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 p-6 rounded-lg w-full max-w-sm md:max-w-md lg:max-w-md h-auto relative flex flex-col mx-4">
                   <button
-                     onClick={() => setDialogOpen(false)}
+                     onClick={() => {
+                        setDialogOpen(false);
+                        navigate(`${languagePrefix}/dashboard?tab=profile`);
+                     }}
                      className="absolute top-4 right-4 p-[2px] text-gray-600 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 rounded hover:translate-y-[-3px] transition-transform duration-200"
                   >
                      <AiOutlineClose size={20} />

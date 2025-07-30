@@ -42,7 +42,9 @@ export default function OAuth() {
    return (
       <Button type="button" className="bg-gradient-to-r from-teal-500  to-blue-500" outline onClick={handleGoogleClick}>
          <AiFillGoogleCircle className="w-6 h-6 mr-2"/>
-         {t("auth:continue_with_google")}
+         <span className="pt-0.5">
+            {t("auth:continue_with_google")}
+         </span>
       </Button>
    );
 }

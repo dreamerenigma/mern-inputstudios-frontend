@@ -54,7 +54,7 @@ export default function ChangePassword() {
    };
 
    return (
-      <div className="ml-6 mt-[60px]">
+      <div className="ml-6 pt-20">
          <div className="ml-6 pt-6">
             <p className="text-3xl mb-6">{t("profile:change_your_password")}</p>
             <p className="text-md">{t("profile:strong_password_helps")}</p>
@@ -103,11 +103,7 @@ export default function ChangePassword() {
          </div>
          <div className="flex justify-left gap-2 ml-6 mt-16 mb-20">
             <button
-               className={`${
-                  isChanged
-                     ? "bg-teal-500 hover:bg-teal-700"
-                     : "bg-gray-300 text-gray-500 cursor-not-allowed"
-               } text-white py-2 px-4 rounded-md`}
+               className={`${isChanged ? "bg-teal-500 hover:bg-teal-700" : "bg-gray-300 text-gray-500 cursor-not-allowed"} text-white py-2 px-4 rounded-md`}
                disabled={!isChanged}
                onClick={handlePasswordChange}
             >

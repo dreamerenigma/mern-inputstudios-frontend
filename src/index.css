@@ -141,6 +141,15 @@ ul.py-1 {
    padding: 13px;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+   box-shadow: 0 0 0px 1000px #374151 inset;
+   -webkit-text-fill-color: #d1d5db;
+   border-radius: 6px;
+   transition: background-color 9999s ease-in-out 0s;
+}
+
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
    display: none;

@@ -6,10 +6,7 @@ const Divider = ({ className = '', style = {}, lightColor = 'black', darkColor =
   const color = theme === 'dark' ? darkColor : lightColor;
 
   return (
-    <div
-      className={`h-0.5 w-full ${className}`}
-      style={{ backgroundColor: color, ...style }}
-    ></div>
+    <div className={`h-[1px] w-full ${className}`} style={{ backgroundColor: color, ...style }}></div>
   );
 };
 

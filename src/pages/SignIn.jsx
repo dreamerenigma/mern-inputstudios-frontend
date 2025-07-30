@@ -23,7 +23,7 @@ export default function SignIn() {
    const currentLanguage = useSelector((state) => state.language.currentLanguage);
    const languagePrefix = currentLanguage === 'en' ? '/en-us' : '/ru-ru';
 
-   const iconColor = theme === "dark" ? (isHovered ? "#3b82f6" : "#4b5563") : (isHovered ? "#0074f5" : "#9ca3af");
+   const iconColor = theme === "dark" ? (isHovered ? "#3b82f6" : "#4b5563") : (isHovered ? "#0074f5" : "#4b5563");
 
    const handleChange = (e) => {
       setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -115,11 +115,11 @@ export default function SignIn() {
                            />
                            <IMVk
                               style={{
-                              borderRadius: "6px",
-                              fill: iconColor,
-                              fontSize: "42px",
-                              marginTop: "3px",
-                              transition: "fill 0.3s ease",
+                                 borderRadius: "6px",
+                                 fill: iconColor,
+                                 fontSize: "42px",
+                                 marginTop: "3px",
+                                 transition: "fill 0.3s ease",
                               }}
                               onMouseEnter={() => setIsHovered(true)}
                               onMouseLeave={() => setIsHovered(false)}

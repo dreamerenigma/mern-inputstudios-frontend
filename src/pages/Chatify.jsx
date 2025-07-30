@@ -58,7 +58,7 @@ export default function Chatify() {
    const handleDownload = () => {
       setDownloadComplete(true);
       const link = document.createElement('a');
-      link.href = 'https://disk.yandex.ru/d/RS63DAnQ1rgUlQ';
+      link.href = 'https://disk.yandex.ru/d/l120jaCIocseKw';
       link.target = '_blank';
       document.body.appendChild(link);
       link.click();
@@ -72,7 +72,7 @@ export default function Chatify() {
    const handleOverlayClick = () => {
       closeModal();
    };
-
+   
    const handleModalClick = (event) => {
       event.stopPropagation();
    };
@@ -129,16 +129,16 @@ export default function Chatify() {
                         <h3 className="text-lg text-black">{t("on_computer")}</h3>
                         <p className="text-2xl text-black font-semibold">Windows</p>
                         <p className="text-base mt-4 text-gray-600">
-                              {t("use_chatify_web")}
+                           {t("use_chatify_web")}
                         </p>
                         <div>
-                              <button 
-                                 className="bg-teal-500 text-white font-bold mt-4 py-2 px-4 rounded-lg flex items-center hover:bg-teal-600"
-                                 onClick={handleDownload}
-                              >
-                                 <span className="mr-2">Загрузить</span>
-                                 <FaDownload />
-                              </button>
+                           <button 
+                              className="bg-teal-500 text-white font-bold mt-4 py-2 px-4 rounded-lg flex items-center hover:bg-teal-600"
+                              onClick={handleDownload}
+                           >
+                              <span className="mr-2">Загрузить</span>
+                              <FaDownload />
+                           </button>
                         </div>
                      </div>
                   </div>

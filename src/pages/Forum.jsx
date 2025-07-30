@@ -107,29 +107,25 @@ export default function Forum() {
                   {t("community_center")}
                   </li>
                   <li 
-                     className={`px-4 py-2 cursor-pointer hover:underline 
-                        ${selectedOption === 'Option 2' ? 'bg-gray-400' : 'hover:bg-gray-200 dark:hover:bg-gray-400'}`} 
+                     className={`px-4 py-2 cursor-pointer hover:underline ${selectedOption === 'Option 2' ? 'bg-gray-400' : 'hover:bg-gray-200 dark:hover:bg-gray-400'}`} 
                      onClick={() => handleSelectOption('Option 2')}
                   >
                      {t("apps")}
                   </li>
                   <li 
-                     className={`px-4 py-2 cursor-pointer hover:underline 
-                        ${selectedOption === 'Option 3' ? 'bg-gray-400' : 'hover:bg-gray-200 dark:hover:bg-gray-400'}`} 
+                     className={`px-4 py-2 cursor-pointer hover:underline ${selectedOption === 'Option 3' ? 'bg-gray-400' : 'hover:bg-gray-200 dark:hover:bg-gray-400'}`} 
                      onClick={() => handleSelectOption('Option 3')}
                   >
                      Input Studios Chatify
                   </li>
                   <li 
-                     className={`px-4 py-2 cursor-pointer hover:underline 
-                        ${selectedOption === 'Option 4' ? 'bg-gray-400' : 'hover:bg-gray-200 dark:hover:bg-gray-400'}`} 
+                     className={`px-4 py-2 cursor-pointer hover:underline ${selectedOption === 'Option 4' ? 'bg-gray-400' : 'hover:bg-gray-200 dark:hover:bg-gray-400'}`} 
                      onClick={() => handleSelectOption('Option 4')}
                   >
                      Input Studios Workspace
                   </li>
                   <li 
-                     className={`px-4 py-2 cursor-pointer hover:underline 
-                        ${selectedOption === 'Option 5' ? 'bg-gray-400' : 'hover:bg-gray-200 dark:hover:bg-gray-400'}`} 
+                     className={`px-4 py-2 cursor-pointer hover:underline ${selectedOption === 'Option 5' ? 'bg-gray-400' : 'hover:bg-gray-200 dark:hover:bg-gray-400'}`} 
                      onClick={() => handleSelectOption('Option 5')}
                   >
                      Input Studios Wave

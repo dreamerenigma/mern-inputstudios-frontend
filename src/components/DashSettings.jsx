@@ -211,9 +211,9 @@ export default function DashSettings() {
                      <div 
                         className="grid grid-cols-3 responsive-grid items-center w-full pl-4 cursor-pointer px-4 py-2"
                      >
-                        <span className="whitespace-nowrap">Темы</span>
-                        <span className="whitespace-nowrap">Системная</span>
-                        <span className="whitespace-normal hide-below-1030px">Выбор темы применяется во всем приложении</span>
+                        <span className="whitespace-nowrap">Новые сообщения</span>
+                        <span className="whitespace-nowrap">Включено</span>
+                        <span className="whitespace-normal hide-below-1030px">Получать уведомления при новых сообщениях</span>
                      </div>
                      <div className="flex items-center justify-end">
                         <span className="mx-4 flex items-center justify-end text-left cursor-pointer">
@@ -226,9 +226,9 @@ export default function DashSettings() {
                      <div 
                         className="grid grid-cols-3 responsive-grid items-center w-full pl-4 cursor-pointer px-4 py-2"
                      >
-                        <span className="whitespace-nowrap">Шрифт</span>
-                        <span className="whitespace-nowrap">{t("profile:country")}</span>
-                        <span className="whitespace-normal hide-below-1030px">Выбор шрифта применяется ко всем текстам в приложении</span>
+                        <span className="whitespace-nowrap">События</span>
+                        <span className="whitespace-nowrap">Включено</span>
+                        <span className="whitespace-normal hide-below-1030px">Уведомления о новых событиях</span>
                      </div>
                         <div className="flex items-center justify-end">
                            <span className="mx-4 flex items-center justify-end text-left cursor-pointer">
@@ -240,9 +240,22 @@ export default function DashSettings() {
                   <hr className="border-t border-gray-300 dark:border-gray-600" />
                   <div className="flex dark:hover:bg-gray-700/60 hover:bg-gray-200">
                      <div className="grid grid-cols-3 responsive-grid items-center w-full pl-4 cursor-pointer px-4 py-4">
-                        <span>Язык</span>
-                        <span>Выберите язык</span>
-                        <span>Запрос перед переводом</span>
+                        <span>Системные обновления</span>
+                        <span>Включено</span>
+                        <span>Получать уведомления о системных обновлениях</span>
+                     </div>
+                     <div className="flex justify-end">
+                        <span className="mx-4 flex items-center cursor-pointer">
+                           <IoIosArrowForward />
+                        </span>
+                     </div>
+                  </div>
+                  <hr className="border-t border-gray-300 dark:border-gray-600" />
+                  <div className="flex dark:hover:bg-gray-700/60 hover:bg-gray-200">
+                     <div className="grid grid-cols-3 responsive-grid items-center w-full pl-4 cursor-pointer px-4 py-4">
+                        <span>Звук уведомлений</span>
+                        <span>Системный</span>
+                        <span>Включить звук при получении уведомлений</span>
                      </div>
                      <div className="flex justify-end">
                         <span className="mx-4 flex items-center cursor-pointer">
@@ -256,7 +269,7 @@ export default function DashSettings() {
                         <div className="flex custom-flex-500 items-start">
                            <span>{t("profile:related")}</span>
                            <Link to={`${languagePrefix}/dashboard?tab=addresses`} className="custom-margin-500 text-teal-500 hover:underline hover:text-teal-700">
-                              Узнать больше об оповещениях
+                              Узнать больше об уведолмениях
                            </Link>
                         </div>
                      </div>
@@ -283,19 +296,19 @@ export default function DashSettings() {
                      <>
                         <hr className="border-t border-gray-300 dark:border-gray-600" />
                         <div className="flex flex-col dark:bg-gray-700/30 bg-gray-100 rounded-b-lg">
-                           <div className="grid grid-cols-3 items-center w-full pl-4 py-2">
-                              <span className="py-2">{t("version")}</span>
+                           <div className="grid grid-cols-3 items-center w-full py-2">
+                              <span className="py-2 pl-4">{t("version")}</span>
                               <span className="py-2">{t("version_app")}</span>
                            </div>
                            <hr className="border-t border-gray-300 dark:border-gray-600" />
-                           <div className="grid grid-cols-3 items-center w-full pl-4 py-2">
-                              <span className="whitespace-nowrap">Разработчик</span>
+                           <div className="grid grid-cols-3 items-center w-full py-2">
+                              <span className="whitespace-nowrap pl-4">Разработчик</span>
                               <span className="py-2">Input Studios</span>
                            </div>
                            <hr className="border-t border-gray-300 dark:border-gray-600" />
-                           <div className="grid grid-cols-3 items-center w-full pl-4">
-                              <span className="whitespace-nowrap">Описание</span>
-                              <span className="py-2">Информационный сайт компании Input Studios</span>
+                           <div className="grid grid-cols-3 items-center w-full">
+                              <span className="whitespace-nowrap pl-4">Описание</span>
+                              <span className="py-2 col-span-2">Информационный сайт компании Input Studios</span>
                            </div>
                         </div>
                      </>

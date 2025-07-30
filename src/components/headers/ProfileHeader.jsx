@@ -368,24 +368,24 @@ export default function ProfileHeader() {
             <div className="dropdown-menu bg-white dark:bg-gray-800 shadow-lg fixed top-14 left-0 z-20 p-4 rounded-lg max-w-md w-full">
                <input
                   type="text"
-                  placeholder={t("header_search")}
+                  placeholder={t("headers:header_search")}
                   className="w-full p-2 mb-4 bg-gray-100 dark:bg-gray-700 rounded"
                />
                <div className="grid grid-cols-4 gap-6">
                   <Link to={`${languagePrefix}/chatify`} className="text-center hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-lg transition-colors duration-200">
-                     <img src="../logos/logo_chatify.png" alt="Chatify" className="w-[50px] mb-2 rounded-md mx-auto" />
+                     <img src="/logos/logo_chatify.png" alt="Chatify" className="w-[50px] mb-2 rounded-md mx-auto" />
                      <span className="block">Chatify</span>
                   </Link>
                   <Link to={`${languagePrefix}/easy-shoppin`} className="text-center hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-lg transition-colors duration-200">
-                     <img src="../logos/logo_easyshoppin_black.png" alt="Easy Shoppin" className="w-[50px] mb-2 rounded-md mx-auto" />
+                     <img src="/logos/logo_easyshoppin_black.png" alt="Easy Shoppin" className="w-[50px] mb-2 rounded-md mx-auto" />
                      <span className="block">Easy Shoppin</span>
                   </Link>
                   <Link to={`${languagePrefix}/quantum-engine`} className="text-center hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-lg transition-colors duration-200">
-                     <img src="../logos/logo_quantum_engine.png" alt="Quantum Engine" className="w-[50px] mb-2 rounded-md mx-auto" />
+                     <img src="/logos/logo_quantum_engine.png" alt="Quantum Engine" className="w-[50px] mb-2 rounded-md mx-auto" />
                      <span className="block">Quantum Engine</span>
                   </Link>
                   <Link to={`${languagePrefix}/wave`} className="text-center hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-lg transition-colors duration-200">
-                     <img src="../logos/logo_wave.png" alt="Input Studios Wave" className="w-[50px] mb-2 rounded-md mx-auto" />
+                     <img src="/logos/logo_wave.png" alt="Input Studios Wave" className="w-[50px] mb-2 rounded-md mx-auto" />
                      <span className="block">Wave</span>
                   </Link>
                </div>
